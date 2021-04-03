@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-04-03T14:32:52.737Z</updated>
+    <updated>2021-04-03T15:16:58.555Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,16 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[markdown基本语法]]></title>
+        <id>https://fanfankill.github.io/post/markdown-ji-ben-yu-fa/</id>
+        <link href="https://fanfankill.github.io/post/markdown-ji-ben-yu-fa/">
+        </link>
+        <updated>2021-04-03T15:16:06.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="对必要语法的摘记">对必要语法的摘记</h1>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1617462999416.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://fanfankill.github.io/post/hello-gridea/</id>
@@ -24,7 +34,8 @@
 <!-- more -->
 <p><a href="https://4399.com">Github</a><br>
 <a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
+<a href="http://fehey.com/">示例网站</a><br>
+<img src="https://fanfankill.github.io/post-images/1617460798662.jpg" alt="" loading="lazy"></p>
 <h2 id="特性">特性👇</h2>
 <p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
 <p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
