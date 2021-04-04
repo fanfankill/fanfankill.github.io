@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-04-04T13:26:17.968Z</updated>
+    <updated>2021-04-04T14:04:07.441Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -16,22 +16,83 @@
         <link href="https://fanfankill.github.io/post/js/">
         </link>
         <updated>2021-04-04T08:14:07.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="animation-属性">animation 属性</h2>
-<pre><code>//使用简写属性，将动画与 div 元素绑定：
+        <content type="html"><![CDATA[<h2 id="animation-属性"><strong>animation 属性</strong></h2>
+<br>
+<br>
+<p><strong>animation-delay</strong></p>
+<p>​       属性规定动画开始的延迟时间(2秒延时)</p>
+<p>​            <code>animation-delay: 2s;</code></p>
+<p>​        负值也是允许的。如果使用负值，则动画将开始播放，如同已播放 N 秒</p>
+<p>​            <code>animation-delay: -2s;</code></p>
+<br>
+<br>
+<p><strong>animation-iteration-count</strong></p>
+<p>​		 属性指定动画应运行的次数</p>
+<pre><code>		` animation-iteration-count: 3;`
+</code></pre>
+<p>​		使用值 &quot;infinite&quot; 使动画永远持续下去</p>
+<br>
+<br>
+<p><strong>animation-direction</strong></p>
+<p>​		属性指定是向前播放、向后播放还是交替播放动画</p>
+<ul>
+<li>normal - 动画正常播放（向前）。默认值</li>
+<li>reverse - 动画以反方向播放（向后）</li>
+<li>alternate - 动画先向前播放，然后向后</li>
+<li>alternate-reverse - 动画先向后播放，然后向前</li>
+</ul>
+<br>
+<br>
+<p><strong>animation-timing-function</strong></p>
+<p>​		属性规定动画的速度曲线</p>
+<ul>
+<li>ease - 指定从慢速开始，然后加快，然后缓慢结束的动画（默认）</li>
+<li>linear - 规定从开始到结束的速度相同的动画</li>
+<li>ease-in - 规定慢速开始的动画</li>
+<li>ease-out - 规定慢速结束的动画</li>
+<li>ease-in-out - 指定开始和结束较慢的动画</li>
+<li>cubic-bezier(n,n,n,n) - 运行您在三次贝塞尔函数中定义自己的值</li>
+</ul>
+<br>
+<br>
+<p><strong>animation-fill-mode</strong></p>
+<p>​		CSS 动画不会在第一个关键帧播放之前或在最后一个关键帧播放之后影响元素</p>
+<ul>
+<li>none - 默认值。动画在执行之前或之后不会对元素应用任何样式。</li>
+<li>forwards - 元素将保留由最后一个关键帧设置的样式值（依赖 animation-direction 和 animation-iteration-count）。</li>
+<li>backwards - 元素将获取由第一个关键帧设置的样式值（取决于 animation-direction），并在动画延迟期间保留该值。</li>
+<li>both - 动画会同时遵循向前和向后的规则，从而在两个方向上扩展动画属性。</li>
+</ul>
+<br>
+<br>
+<pre><code>
+//使用简写属性，将动画与 div 元素绑定：
+
 div
+
 {
+
 animation:mymove 5s infinite;
+
 -webkit-animation:mymove 5s infinite; /* Safari 和 Chrome */
+
 }
 
+
+
 //动画帧
+
  @keyframes mymove {
-          50% {transform-origin: 0 0 0;transform: rotate(360deg);background-color: rgb(83, 83, 90);}
-        
-        }
+
+​          50% {transform-origin: 0 0 0;transform: rotate(360deg);background-color: rgb(83, 83, 90);}
+
+​        
+
+​        }
+
 </code></pre>
 <figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1617525832441.png" alt="" loading="lazy"></figure>
-<h2 id="动画可用属性">动画可用属性</h2>
+<p>## <strong>动画可用属性</strong></p>
 <figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1617524085576.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
