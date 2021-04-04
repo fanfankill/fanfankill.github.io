@@ -2,19 +2,22 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>markdown基本语法 | fanfan</title>
+<title>CSS3动画属性 | fanfan</title>
 <link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1617526041944">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="markdown基本语法 | fanfan - Atom Feed" href="https://fanfankill.github.io/atom.xml">
+<link rel="alternate" type="application/atom+xml" title="CSS3动画属性 | fanfan - Atom Feed" href="https://fanfankill.github.io/atom.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
-    <meta name="description" content="对必要语法的摘记
-
-..." />
-    <meta name="keywords" content="前端" />
+    <meta name="description" content="animation 属性
+//使用简写属性，将动画与 div 元素绑定：
+div
+{
+animation:mymove 5s infinite;
+-webkit-animation:mymove 5s infinite; /* Safari..." />
+    <meta name="keywords" content="css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
@@ -82,33 +85,53 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              markdown基本语法
+              CSS3动画属性
             </h2>
             <div class="post-info">
               <span>
-                2021-04-03
+                2021-04-04
               </span>
               <span>
                 1 min read
               </span>
               
-                <a href="https://fanfankill.github.io/tag/AbmvFb4Dt/" class="post-tag">
-                  # 前端
+                <a href="https://fanfankill.github.io/tag/SPTV9Qrgr/" class="post-tag">
+                  # css
                 </a>
               
             </div>
             
-              <img class="post-feature-image" src="https://fanfankill.github.io/post-images/markdown-ji-ben-yu-fa.jpg" alt="">
+              <img class="post-feature-image" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3228549874,2173006364&amp;fm=26&amp;gp=0.jpg" alt="">
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h1 id="对必要语法的摘记">对必要语法的摘记</h1>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1617462999416.png" alt="" loading="lazy"></figure>
+                <h2 id="animation-属性">animation 属性</h2>
+<pre><code>//使用简写属性，将动画与 div 元素绑定：
+div
+{
+animation:mymove 5s infinite;
+-webkit-animation:mymove 5s infinite; /* Safari 和 Chrome */
+}
+
+//动画帧
+ @keyframes mymove {
+          50% {transform-origin: 0 0 0;transform: rotate(360deg);background-color: rgb(83, 83, 90);}
+        
+        }
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1617525832441.png" alt="" loading="lazy"></figure>
+<h2 id="动画可用属性">动画可用属性</h2>
+<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1617524085576.png" alt="" loading="lazy"></figure>
 
               </div>
               <div class="toc-container">
                 <ul class="markdownIt-TOC">
-<li><a href="#%E5%AF%B9%E5%BF%85%E8%A6%81%E8%AF%AD%E6%B3%95%E7%9A%84%E6%91%98%E8%AE%B0">对必要语法的摘记</a></li>
+<li>
+<ul>
+<li><a href="#animation-%E5%B1%9E%E6%80%A7">animation 属性</a></li>
+<li><a href="#%E5%8A%A8%E7%94%BB%E5%8F%AF%E7%94%A8%E5%B1%9E%E6%80%A7">动画可用属性</a></li>
+</ul>
+</li>
 </ul>
 
               </div>
@@ -119,9 +142,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://fanfankill.github.io/post/hello-gridea/">
+            <a href="https://fanfankill.github.io/post/xiang-mu-cooike-dai-ma/">
               <h3 class="post-title">
-                Hello Gridea
+                项目cooike实现保存账号密码功能
               </h3>
             </a>
           </div>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-04-04T07:04:31.240Z</updated>
+    <updated>2021-04-04T08:47:26.979Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,31 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[CSS3动画属性]]></title>
+        <id>https://fanfankill.github.io/post/css3-dong-hua-shu-xing/</id>
+        <link href="https://fanfankill.github.io/post/css3-dong-hua-shu-xing/">
+        </link>
+        <updated>2021-04-04T08:14:07.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="animation-属性">animation 属性</h2>
+<pre><code>//使用简写属性，将动画与 div 元素绑定：
+div
+{
+animation:mymove 5s infinite;
+-webkit-animation:mymove 5s infinite; /* Safari 和 Chrome */
+}
+
+//动画帧
+ @keyframes mymove {
+          50% {transform-origin: 0 0 0;transform: rotate(360deg);background-color: rgb(83, 83, 90);}
+        
+        }
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1617525832441.png" alt="" loading="lazy"></figure>
+<h2 id="动画可用属性">动画可用属性</h2>
+<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1617524085576.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[项目cooike实现保存账号密码功能]]></title>
         <id>https://fanfankill.github.io/post/xiang-mu-cooike-dai-ma/</id>
