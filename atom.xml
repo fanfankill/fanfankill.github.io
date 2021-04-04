@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-04-04T08:51:51.514Z</updated>
+    <updated>2021-04-04T13:25:47.301Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -12,8 +12,8 @@
     <rights>All rights reserved 2021, fanfan</rights>
     <entry>
         <title type="html"><![CDATA[CSS3动画属性]]></title>
-        <id>https://fanfankill.github.io/post/css3-dong-hua-shu-xing/</id>
-        <link href="https://fanfankill.github.io/post/css3-dong-hua-shu-xing/">
+        <id>https://fanfankill.github.io/post/js/</id>
+        <link href="https://fanfankill.github.io/post/js/">
         </link>
         <updated>2021-04-04T08:14:07.000Z</updated>
         <content type="html"><![CDATA[<h2 id="animation-属性">animation 属性</h2>
