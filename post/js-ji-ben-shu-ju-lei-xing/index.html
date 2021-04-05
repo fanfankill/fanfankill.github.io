@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>JS基本数据类型 | fanfan</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1617633476170">
+<link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="基本数据类型
+ECMAScript中有5中简单数据类型（也称为基本数据类型）: Undefined、Null、Boolean、Number和String。还有1中复杂的数据类型————Object，Object本质上是由一组无序的名值对组成..." />
+    <meta name="keywords" content="Javascript" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fanfankill.github.io">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1617633476170" class="site-logo">
+        <h1 class="site-title">fanfan</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/js" class="site-nav">
+            JS
+          </a>
+        
+      
+        
+          <a href="/css" class="site-nav">
+            CSS
+          </a>
+        
+      
+        
+          <a href="/html" class="site-nav">
+            HTML
+          </a>
+        
+      
+        
+          <a href="/http" class="site-nav">
+            Http
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      前端小白
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanfankill.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">JS基本数据类型</h2>
+            <div class="post-date">2021-04-05</div>
+            
+              <div class="feature-container" style="background-image: url('http://pic1.hebei.com.cn/003/020/154/00302015440_070e5b83.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="基本数据类型">基本数据类型</h1>
+<p>ECMAScript中有5中简单数据类型（也称为基本数据类型）: Undefined、Null、Boolean、Number和String。还有1中复杂的数据类型————Object，Object本质上是由一组无序的名值对组成的。</p>
+<br>
+<h1 id="typeof-操作符">typeof 操作符</h1>
+<p>由于js中的变量是松散类型的，所以它提供了一种检测当前变量的数据类型的方法，也就是typeof关键字.<br>
+通过typeof关键字，对这5种数据类型会返回下面的值（以字符串形式显示)<br>
+undefined ---------- 如果值未定义 Undefined</p>
+<p>boolean ---------- 如果这个值是布尔值 Boolean</p>
+<p>string ---------- 如果这个值是字符串 String</p>
+<p>number ---------- 如果这个值是数值类型 Number</p>
+<p>object ---------- 如果这个值是对象或null Object</p>
+<p>需要注意的是typeof null返回为object,因为特殊值null被认为是一个空的对象引用。</p>
+<br>
+<h1 id="undefined">Undefined</h1>
+<p>Undefined类型只有一个值，即特殊的undefined。在使用var声明变量但未对其加以初始化时，这个变量的值就是undefined。不过，一般建议尽量给变量初始化，但是在早期的js版本中是没有规定undefined这个值的，所以在有些框架中为了兼容旧版浏览器，会给window对象添加undefined值。</p>
+<pre><code>window['undefined'] = window['undefined'];  
+//或者
+window.undefined = window.undefined;  
+</code></pre>
+<br>
+<h1 id="null">Null</h1>
+<p>Null类型是第二个只有一个值的数据类型，这个特殊的值是null。从逻辑角度来看，null值表示一个空对象指针，而这也正是使用typeof操作符检测null时会返回object的原因。</p>
+<pre><code> var car = null;
+  console.log(typeof car); // &quot;object&quot;
+</code></pre>
+<p>如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为null而不是其他值。这样一来，只要直接检测null值就可以知道相应的变量是否已经保存了一个对象的引用了。<br>
+例如：</p>
+<pre><code>  if(car != null){
+    //对car对象执行某些操作
+  }
+</code></pre>
+<p>实际上，undefined值是派生自null值的，因此ECMA-262规定对它们的相等性测试要返回true。<br>
+<code>console.log(undefined == null); //true</code><br>
+尽管null和undefined有这样的关系，但它们的用途完全不同。无论在什么情况下都没有必要把一个变量的值显式地设置为undefined，可是同样的规则对null却不适用。换句话说，只要意在保存对象的变量还没有真正保存对象，就应该明确地让该变量保存null值。这样做不仅可以体现null作为空对象指针的惯例，而且也有助于进一步区分null和undefined。</p>
+  <br>
+<h1 id="boolean">Boolean</h1>
+<p>该类型只有两个字面值：true和false。这两个值与数字值不是一回事，因此true不一定等于1，而false也不一定等于0。</p>
+<p>虽然Boolean类型的字面值只有两个，但JavaScript中所有类型的值都有与这两个Boolean值等价的值。要将一个值转换为其对应的Boolean值，可以调用类型转换函数Boolean()，例如：</p>
+<pre><code>var message = 'Hello World';
+    var messageAsBoolean = Boolean(message);
+</code></pre>
+<p>在这个例子中，字符串message被转换成了一个Boolean值，该值被保存在messageAsBoolean变量中。可以对任何数据类型的值调用Boolean()函数，而且总会返回一个Boolean值。至于返回的这个值是true还是false，取决于要转换值的数据类型及其实际值。下表给出了各种数据类型及其对象的转换规则。</p>
+<p>数据类型 转换为true的值	 转换为false的值<br>
+Boolean	true	false<br>
+String	任何非空的字符串	&quot;&quot;(空字符串)<br>
+Number	任何非0数值（包括无穷大）	0和NAN<br>
+Object	任何对象	null<br>
+Undefined	不适用	undefined</p>
+<br>
+<h1 id="number">Number</h1>
+<p>这种类型用来表示整数和浮点数值，还有一种特殊的数值，即NaN（非数值 Not a Number）。这个数值用于表示一个本来要返回数值的操作数未返回数值的情况（这样就不会抛出错误了）。例如，在其他编程语言中，任何数值除以0都会导致错误，从而停止代码执行。但在JavaScript中，任何数值除以0会返回NaN，因此不会影响其他代码的执行。</p>
+<p>NaN本身有两个非同寻常的特点。首先，任何涉及NaN的操作（例如NaN/10）都会返回NaN，这个特点在多步计算中有可能导致问题。其次，NaN与任何值都不相等，包括NaN本身。例如，下面的代码会返回false。<br>
+<code>alert(NaN == NaN); //false</code></p>
+<p>#String<br>
+String类型用于表示由零或多个16位Unicode字符组成的字符序列，即字符串。字符串可以由单引号(')或双引号(&quot;)表示。</p>
+<h1 id="string类型的特殊性">String类型的特殊性</h1>
+<p>string类型有些特殊，因为字符串具有可变的大小，所以显然它不能被直接存储在具有固定大小的变量中。由于效率的原因，我们希望JS只复制对字符串的引用，而不是字符串的内容。但是另一方面，字符串在许多方面都和基本类型的表现相似，而字符串是不可变的这一事实（即没法改变一个字符串值的内容），因此可以将字符串看成行为与基本</p>
+<h1 id="类型相似的不可变引用类型">类型相似的不可变引用类型</h1>
+<p>Boolean、Number、String 这三个是Javascript中的基本包装类型，也就是这三个其实是一个构造函数，他们是Function的实例，是引用类型，至于这里的String与以上说的String是同名，是因为其实上文说的String是指字符串，这里的String指的是String这个构造函数，上面那么写，是为了更好的理解，因为Javascript是松散类型的。我们可以看下String实例化的例子：</p>
+<pre><code>var name = String(&quot;jwy&quot;);
+alert(typeof name);//&quot;string&quot;
+var x=new String('12345')
+typeof x //object
+x='12345'
+typeof x //string
+var author = &quot;Tom&quot;;
+alert(typeof name);//&quot;string&quot;
+</code></pre>
+<p>至于author这个会有length，substring等等这些方法，其实string只是String的一个实例，类似于C#中的String，和string.</p>
+<p>注意，typeof 变量 如果值是&quot;string&quot; 的话，也就是这个变量是字符串，在Javascript中，字符串是基本类型，而在C#或Java中，字符串是引用类型，但是Javascript中的String是引用类型，因为它是Javascript中定义好的基本包装类型，在C#中，String跟string其实是一样的。</p>
+<h1 id="es6新增">ES6新增</h1>
+<p>es6中新增了let命令来声明变量、const命令声明一个只读的常量。</p>
+<p>let的用法类似于var，但是所声明的变量，只在let命令所在的代码块内有效。</p>
+<p>const一旦声明，常量的值就不能改变。</p>
+<br>
+<p><img src="https://fanfankill.github.io/post-images/1617632333308.JPG" alt="" loading="lazy"><br>
+<img src="https://fanfankill.github.io/post-images/1617632362296.JPG" alt="" loading="lazy"></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://fanfankill.github.io/tag/hjqM1TBv9/" class="tag">
+                    Javascript
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanfankill.github.io/post/js/">
+                  <h3 class="post-title">
+                    CSS3动画属性
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
