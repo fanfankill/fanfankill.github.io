@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>Gridea | fanfan</title>
+<title>VUE 前置导航守卫 | fanfan</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -18,7 +18,13 @@
 
 
 
-    <meta name="description" content="前端小白">
+    <meta name="description" content="路由守卫
+当token不存在时 跳转到登陆界面
+只有登录界面时 (不考虑注册等其他界面)
+  let token=localStorage.getItem(&quot;token&quot;);
+  if(token){//判断是否登录
+ ..." />
+    <meta name="keywords" content="vue" />
   </head>
   <body>
     <div id="app" class="main">
@@ -94,35 +100,55 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="current-tag">标签: Gridea</h2>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://fanfankill.github.io/post/hello-gridea/">
-                  <h2 class="post-title">Hello Gridea</h2>
-                </a>
-                <div class="post-date">
-                  2018-12-12
-                </div>
-                <div class="post-abstract">
-                  <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+          <div class="post-detail">
+            <h2 class="post-title">VUE 前置导航守卫</h2>
+            <div class="post-date">2021-04-07</div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="路由守卫">路由守卫</h1>
+<h2 id="当token不存在时-跳转到登陆界面">当token不存在时 跳转到登陆界面</h2>
+<p><strong>只有登录界面时 (不考虑注册等其他界面)</strong></p>
+<pre><code class="language-router.beforeEach((to,from,next)=&gt;{">  let token=localStorage.getItem(&quot;token&quot;);
+  if(token){//判断是否登录
+    next()
+  }
 
-                </div>
+  else{
+    if(to.path!=='/login'){
+      alert(&quot;请先登录&quot;)
+      next({path:'/login'})
+    }
+    else{
+      next()
+    }
+  }
+});
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://fanfankill.github.io/tag/YjLqWgkox/" class="tag">
+                    vue
+                  </a>
+                
               </div>
-              
-                <a class="right" href="https://fanfankill.github.io/post/hello-gridea/">
-                  <div class="feature-container" style="background-image: url('https://fanfankill.github.io/post-images/hello-gridea.png')">
-                  </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanfankill.github.io/post/niu-ke-cuo-ti/">
+                  <h3 class="post-title">
+                    牛客
+                  </h3>
                 </a>
-              
-            </article>
-          
+              </div>
+            
 
-          <div class="pagination-container">
-  
-  
-</div>
+            
+
+          </div>
 
         </div>
       </div>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-04-07T11:22:37.859Z</updated>
+    <updated>2021-04-08T07:34:24.925Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,33 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[VUE 前置导航守卫]]></title>
+        <id>https://fanfankill.github.io/post/vue-qian-zhi-dao-hang-shou-wei/</id>
+        <link href="https://fanfankill.github.io/post/vue-qian-zhi-dao-hang-shou-wei/">
+        </link>
+        <updated>2021-04-07T11:48:49.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="路由守卫">路由守卫</h1>
+<h2 id="当token不存在时-跳转到登陆界面">当token不存在时 跳转到登陆界面</h2>
+<p><strong>只有登录界面时 (不考虑注册等其他界面)</strong></p>
+<pre><code class="language-router.beforeEach((to,from,next)=&gt;{">  let token=localStorage.getItem(&quot;token&quot;);
+  if(token){//判断是否登录
+    next()
+  }
+
+  else{
+    if(to.path!=='/login'){
+      alert(&quot;请先登录&quot;)
+      next({path:'/login'})
+    }
+    else{
+      next()
+    }
+  }
+});
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[牛客]]></title>
         <id>https://fanfankill.github.io/post/niu-ke-cuo-ti/</id>
