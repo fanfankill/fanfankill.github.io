@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>图解HTTP第三章 | fanfan</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1619333119633">
+<link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="HTTP报文内的HTTP信息
+HTTP报文
+用于HTTP协议交互的信息被称为HTTP报文。请求端的HTTP报文叫做请求报文，响应端的叫做响应报文
+
+
+请求行
+请求行包括请求的方法，URI和HTTP的版本
+
+状态行
+包含响应结果的状态码，原因..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fanfankill.github.io">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1619333119633" class="site-logo">
+        <h1 class="site-title">fanfan</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/js" class="site-nav">
+            JS
+          </a>
+        
+      
+        
+          <a href="/css" class="site-nav">
+            CSS
+          </a>
+        
+      
+        
+          <a href="/html" class="site-nav">
+            HTML
+          </a>
+        
+      
+        
+          <a href="/http" class="site-nav">
+            Http
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      前端小白
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanfankill.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">图解HTTP第三章</h2>
+            <div class="post-date">2021-04-25</div>
+            
+              <div class="feature-container" style="background-image: url('https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fyouimg1.c-ctrip.com%2Ftarget%2Ftg%2F629%2F126%2F512%2F7dea3e6bb198403d9c427ea60aa570a3.jpg&amp;refer=http%3A%2F%2Fyouimg1.c-ctrip.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=jpeg?sec=1621925083&amp;t=fd80d7fa869c6150175774c56f6a00df')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="http报文内的http信息"><strong>HTTP报文内的HTTP信息</strong></h1>
+<h2 id="http报文"><strong>HTTP报文</strong></h2>
+<p>用于HTTP协议交互的信息被称为HTTP报文。请求端的HTTP报文叫做请求报文，响应端的叫做响应报文</p>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1619330989639.png" alt="" loading="lazy"></figure>
+<hr>
+<h3 id="请求行"><strong>请求行</strong></h3>
+<p>请求行包括请求的方法，URI和HTTP的版本</p>
+<hr>
+<h3 id="状态行"><strong>状态行</strong></h3>
+<p>包含响应结果的状态码，原因短语和HTTP版本</p>
+<hr>
+<h3 id="首部字段"><strong>首部字段</strong></h3>
+<p>包含表示请求和响应的各种条件和属性的各类首部</p>
+<hr>
+<h1 id="编码提升传输速率"><strong>编码提升传输速率</strong></h1>
+<h2 id="报文主体和实体主体的差异"><strong>报文主体和实体主体的差异</strong></h2>
+<ul>
+<li>
+<p>报文</p>
+<p><strong>是HTTP通信中的基本单位</strong>，有8个字节流组成，通过HTTP通信传输</p>
+</li>
+<li>
+<p>实体</p>
+<p>作为请求或响应的有效载荷数据被传输，其内容由实体首部和实体主体组成</p>
+</li>
+</ul>
+<p>HTTP报文的主体用于传输请求或响应的实体主体</p>
+<hr>
+<h2 id="压缩传输的内容编码"><strong>压缩传输的内容编码</strong></h2>
+<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1619331895496.png" alt="" loading="lazy"></figure>
+<hr>
+<h2 id="分割发送的分块传输编码">分割发送的分块传输编码</h2>
+<p>在传输大容量数据时，通过把数据分割成多块，能够让浏览器逐步显示页面</p>
+<p><strong>分块传输编码</strong>会将实体主体分成多个部分。每一块都会用十六进制来标记块的大小，而实体主体的最后一块会使用&quot;0(CR+LF)&quot;来标记</p>
+<p>客户端复制解码，恢复到编码前的实体主体</p>
+<hr>
+<h1 id="发送多种数据的多部分对象集合">发送多种数据的多部分对象集合</h1>
+<p>例如图片，文件的上传</p>
+<p>在HTTP报文使用多部分对象集合时，需要在首部字段里加上Content-Type。</p>
+<p>boundary字符串来划分多部分对象集合指明的各类实体</p>
+<hr>
+<h1 id="获取部分内容的范围请求">获取部分内容的范围请求</h1>
+<p>指定范围发送的请求叫<strong>范围请求</strong><br>
+<img src="https://fanfankill.github.io/post-images/1619332602950.png" alt="" loading="lazy"></p>
+<hr>
+<h1 id="内容协商返回最合适的内容">内容协商返回最合适的内容</h1>
+<p>例网站的中英文版本，以下内容作为为判断标准</p>
+<ul>
+<li>Accept</li>
+<li>Accept-Charset</li>
+<li>Accept-Encoding</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+</ul>
+<p>内容协商三种类型</p>
+<h3 id="服务器驱动协商">服务器驱动协商</h3>
+<h3 id="客户端驱动协商">客户端驱动协商</h3>
+<h3 id="透明协商">透明协商</h3>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanfankill.github.io/post/tu-jie-http-di-er-zhang/">
+                  <h3 class="post-title">
+                    图解HTTP 第二章
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

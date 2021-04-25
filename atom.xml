@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-04-24T06:26:15.934Z</updated>
+    <updated>2021-04-25T06:45:21.898Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,72 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[图解HTTP第三章]]></title>
+        <id>https://fanfankill.github.io/post/tu-jie-http-di-san-zhang/</id>
+        <link href="https://fanfankill.github.io/post/tu-jie-http-di-san-zhang/">
+        </link>
+        <updated>2021-04-25T06:01:15.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="http报文内的http信息"><strong>HTTP报文内的HTTP信息</strong></h1>
+<h2 id="http报文"><strong>HTTP报文</strong></h2>
+<p>用于HTTP协议交互的信息被称为HTTP报文。请求端的HTTP报文叫做请求报文，响应端的叫做响应报文</p>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1619330989639.png" alt="" loading="lazy"></figure>
+<hr>
+<h3 id="请求行"><strong>请求行</strong></h3>
+<p>请求行包括请求的方法，URI和HTTP的版本</p>
+<hr>
+<h3 id="状态行"><strong>状态行</strong></h3>
+<p>包含响应结果的状态码，原因短语和HTTP版本</p>
+<hr>
+<h3 id="首部字段"><strong>首部字段</strong></h3>
+<p>包含表示请求和响应的各种条件和属性的各类首部</p>
+<hr>
+<h1 id="编码提升传输速率"><strong>编码提升传输速率</strong></h1>
+<h2 id="报文主体和实体主体的差异"><strong>报文主体和实体主体的差异</strong></h2>
+<ul>
+<li>
+<p>报文</p>
+<p><strong>是HTTP通信中的基本单位</strong>，有8个字节流组成，通过HTTP通信传输</p>
+</li>
+<li>
+<p>实体</p>
+<p>作为请求或响应的有效载荷数据被传输，其内容由实体首部和实体主体组成</p>
+</li>
+</ul>
+<p>HTTP报文的主体用于传输请求或响应的实体主体</p>
+<hr>
+<h2 id="压缩传输的内容编码"><strong>压缩传输的内容编码</strong></h2>
+<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1619331895496.png" alt="" loading="lazy"></figure>
+<hr>
+<h2 id="分割发送的分块传输编码">分割发送的分块传输编码</h2>
+<p>在传输大容量数据时，通过把数据分割成多块，能够让浏览器逐步显示页面</p>
+<p><strong>分块传输编码</strong>会将实体主体分成多个部分。每一块都会用十六进制来标记块的大小，而实体主体的最后一块会使用&quot;0(CR+LF)&quot;来标记</p>
+<p>客户端复制解码，恢复到编码前的实体主体</p>
+<hr>
+<h1 id="发送多种数据的多部分对象集合">发送多种数据的多部分对象集合</h1>
+<p>例如图片，文件的上传</p>
+<p>在HTTP报文使用多部分对象集合时，需要在首部字段里加上Content-Type。</p>
+<p>boundary字符串来划分多部分对象集合指明的各类实体</p>
+<hr>
+<h1 id="获取部分内容的范围请求">获取部分内容的范围请求</h1>
+<p>指定范围发送的请求叫<strong>范围请求</strong><br>
+<img src="https://fanfankill.github.io/post-images/1619332602950.png" alt="" loading="lazy"></p>
+<hr>
+<h1 id="内容协商返回最合适的内容">内容协商返回最合适的内容</h1>
+<p>例网站的中英文版本，以下内容作为为判断标准</p>
+<ul>
+<li>Accept</li>
+<li>Accept-Charset</li>
+<li>Accept-Encoding</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+</ul>
+<p>内容协商三种类型</p>
+<h3 id="服务器驱动协商">服务器驱动协商</h3>
+<h3 id="客户端驱动协商">客户端驱动协商</h3>
+<h3 id="透明协商">透明协商</h3>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[图解HTTP 第二章]]></title>
         <id>https://fanfankill.github.io/post/tu-jie-http-di-er-zhang/</id>
@@ -437,40 +503,6 @@ delCookie(name) {
         <updated>2021-04-03T15:16:06.000Z</updated>
         <content type="html"><![CDATA[<h1 id="对必要语法的摘记">对必要语法的摘记</h1>
 <figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1617462999416.png" alt="" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://fanfankill.github.io/post/hello-gridea/</id>
-        <link href="https://fanfankill.github.io/post/hello-gridea/">
-        </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://4399.com">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a><br>
-<img src="https://fanfankill.github.io/post-images/1617460798662.jpg" alt="" loading="lazy"></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力<br>
-sdsd<br>
-🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
 ]]></content>
     </entry>
 </feed>
