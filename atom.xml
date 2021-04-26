@@ -2,14 +2,106 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-04-25T06:45:21.898Z</updated>
+    <updated>2021-04-26T06:54:06.923Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
-    <subtitle>前端小白</subtitle>
+    <subtitle>&lt;strong&gt;前端小白&lt;/strong&gt;</subtitle>
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[图解HTTP第四章]]></title>
+        <id>https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/</id>
+        <link href="https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/">
+        </link>
+        <updated>2021-04-26T06:02:49.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="返回结果的http状态">返回结果的HTTP状态</h1>
+<h2 id="状态码告知从服务器端返回的请求结果">状态码告知从服务器端返回的请求结果</h2>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1619419502006.png" alt="" loading="lazy"></figure>
+<hr>
+<h2 id="2-xx成功"><strong>2 XX成功</strong></h2>
+<p>响应结果表明请求被正常处理</p>
+<ul>
+<li>
+<h3 id="200-ok">200 OK</h3>
+<p>正常处理</p>
+</li>
+<li>
+<h3 id="204-no-content">204 NO Content</h3>
+<p>表示请求被成功处理，但在返回的响应报文中不含实体的主体部分。</p>
+<p>应用于只需要客户端往服务器发送信息，而对客户端不需要发送新信息的情况下使用</p>
+</li>
+<li>
+<h3 id="206-partial-content">206 Partial Content</h3>
+<p>表示客户端进行了范围请求，而服务器成功执行这部分的GET请求。响应报文中包含由Content-Range指定范围的实体内容</p>
+<hr>
+</li>
+</ul>
+<h2 id="3-xx重定向"><strong>3 XX重定向</strong></h2>
+<p>表明浏览器需要执行某些特殊的处理以正确处理请求</p>
+<ul>
+<li>
+<h3 id="301-moved-permanently">301 Moved Permanently</h3>
+<p>永久性重定向。表示请求的资源已经被分配了新的URI，以后应使用资源现在所指的URI</p>
+<p>例如当指定路径末尾未加&quot;/&quot;时，会产生301状态码</p>
+</li>
+<li>
+<h3 id="302-found">302 Found</h3>
+<p>临时性重定向。表示请求的资源已经被分配了新的URI，希望用户能使用新的URI访问</p>
+</li>
+<li>
+<h3 id="303-see-other">303 See Other</h3>
+<p>表示请求的资源存在着另一个URI，应使用GET方法定向获取请求的资源</p>
+</li>
+<li>
+<h3 id="304-not-modified">304 Not Modified</h3>
+<p>表示客户端发送附带条件的请求时，服务器允许请求访问资源，但未找到满足条件的情况。</p>
+</li>
+<li>
+<h3 id="307-temporary-redirect">307 Temporary Redirect</h3>
+<p>临时冲顶先。与302相似。</p>
+</li>
+</ul>
+<hr>
+<h2 id="4-xx客户端错误"><strong>4 XX客户端错误</strong></h2>
+<p>表明客户端发生错误的原因所在</p>
+<ul>
+<li>
+<h3 id="400-bad-request">400 Bad Request</h3>
+<p>该状态码表示请求报文中存在语法错误。需修改请求的内容后再次发送请求。</p>
+</li>
+<li>
+<h3 id="401-unauthorized">401 Unauthorized</h3>
+<p>表示发送的请求需要有通过HTTP认证的认证信息</p>
+<p>当浏览器初次接收到401响应，会弹出认证用的对话窗口</p>
+</li>
+<li>
+<h3 id="403-forbidden">403 Forbidden</h3>
+<p>表明请求的资源的访问被服务器拒绝了</p>
+<p>未获得文件系统的访问授权，访问权限出现某些问题等列举的情况都可能发生403的原因</p>
+</li>
+<li>
+<h3 id="404-not-found">404 Not Found</h3>
+<p>表明服务器上无法找到请求的资源。</p>
+<hr>
+</li>
+</ul>
+<h2 id="5-xx服务器错误"><strong>5 XX服务器错误</strong></h2>
+<p>服务器本身的错误</p>
+<ul>
+<li>
+<h3 id="500-internal-server-error">500 Internal Server Error</h3>
+<p>表明服务器在执行请求时发生了错误。也有可能是WEB应用存在的bug或某些临时故障</p>
+</li>
+<li>
+<h3 id="503-service-unavailable">503 Service Unavailable</h3>
+<p>表明服务器暂时处于超负荷或正在进行停机维护，现在无法处理请求。</p>
+</li>
+</ul>
+<p>​</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[图解HTTP第三章]]></title>
         <id>https://fanfankill.github.io/post/tu-jie-http-di-san-zhang/</id>
@@ -82,14 +174,14 @@
         <link href="https://fanfankill.github.io/post/tu-jie-http-di-er-zhang/">
         </link>
         <updated>2021-04-23T02:19:27.000Z</updated>
-        <content type="html"><![CDATA[<p>## <em><strong>*HTTP协议用于客户端和服务端之间的通信*</strong></em></p>
+        <content type="html"><![CDATA[<h2 id="http协议用于客户端和服务端之间的通信"><strong>HTTP协议用于客户端和服务端之间的通信</strong></h2>
 <figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1619145642116.png" alt="" loading="lazy"></figure>
 <hr>
 <br>
 <figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1619145670666.png" alt="" loading="lazy"></figure>
 <hr>
 <br>
-<p>## <em><strong>*HTTP是不保存状态协议*</strong></em></p>
+<h2 id="http是不保存状态协议"><strong>HTTP是不保存状态协议</strong></h2>
 <p>HTTP是不保存状态的协议，即无状态协议。HTTP协议自身不对请求和响应之间的通信状态进行保存。这样是为了更快的处理大量事务，确保协议的 可伸缩性</p>
 <p>为了保证页面跳转时的状态保存，Cooike就被引入</p>
 <br>
@@ -493,16 +585,6 @@ delCookie(name) {
 
   },
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[markdown基本语法]]></title>
-        <id>https://fanfankill.github.io/post/markdown-ji-ben-yu-fa/</id>
-        <link href="https://fanfankill.github.io/post/markdown-ji-ben-yu-fa/">
-        </link>
-        <updated>2021-04-03T15:16:06.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="对必要语法的摘记">对必要语法的摘记</h1>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1617462999416.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>

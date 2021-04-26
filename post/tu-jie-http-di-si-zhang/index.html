@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>图解HTTP第四章 | fanfan</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1619419988335">
+<link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="返回结果的HTTP状态
+状态码告知从服务器端返回的请求结果
+
+
+2 XX成功
+响应结果表明请求被正常处理
+
+
+200 OK
+正常处理
+
+
+204 NO Content
+表示请求被成功处理，但在返回的响应报文中不含实体的主体部分。
+应用于只需..." />
+    <meta name="keywords" content="网络" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fanfankill.github.io">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1619419988335" class="site-logo">
+        <h1 class="site-title">fanfan</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/hjqM1TBv9/" class="site-nav">
+            JS
+          </a>
+        
+      
+        
+          <a href="/css" class="site-nav">
+            CSS
+          </a>
+        
+      
+        
+          <a href="/html" class="site-nav">
+            HTML
+          </a>
+        
+      
+        
+          <a href="/tag/KATkWfQKE/" class="site-nav">
+            Http
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      <strong>前端小白</strong>
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanfankill.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">图解HTTP第四章</h2>
+            <div class="post-date">2021-04-26</div>
+            
+              <div class="feature-container" style="background-image: url('https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=290874115,3899975641&amp;fm=26&amp;gp=0.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="返回结果的http状态">返回结果的HTTP状态</h1>
+<h2 id="状态码告知从服务器端返回的请求结果">状态码告知从服务器端返回的请求结果</h2>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1619419502006.png" alt="" loading="lazy"></figure>
+<hr>
+<h2 id="2-xx成功"><strong>2 XX成功</strong></h2>
+<p>响应结果表明请求被正常处理</p>
+<ul>
+<li>
+<h3 id="200-ok">200 OK</h3>
+<p>正常处理</p>
+</li>
+<li>
+<h3 id="204-no-content">204 NO Content</h3>
+<p>表示请求被成功处理，但在返回的响应报文中不含实体的主体部分。</p>
+<p>应用于只需要客户端往服务器发送信息，而对客户端不需要发送新信息的情况下使用</p>
+</li>
+<li>
+<h3 id="206-partial-content">206 Partial Content</h3>
+<p>表示客户端进行了范围请求，而服务器成功执行这部分的GET请求。响应报文中包含由Content-Range指定范围的实体内容</p>
+<hr>
+</li>
+</ul>
+<h2 id="3-xx重定向"><strong>3 XX重定向</strong></h2>
+<p>表明浏览器需要执行某些特殊的处理以正确处理请求</p>
+<ul>
+<li>
+<h3 id="301-moved-permanently">301 Moved Permanently</h3>
+<p>永久性重定向。表示请求的资源已经被分配了新的URI，以后应使用资源现在所指的URI</p>
+<p>例如当指定路径末尾未加&quot;/&quot;时，会产生301状态码</p>
+</li>
+<li>
+<h3 id="302-found">302 Found</h3>
+<p>临时性重定向。表示请求的资源已经被分配了新的URI，希望用户能使用新的URI访问</p>
+</li>
+<li>
+<h3 id="303-see-other">303 See Other</h3>
+<p>表示请求的资源存在着另一个URI，应使用GET方法定向获取请求的资源</p>
+</li>
+<li>
+<h3 id="304-not-modified">304 Not Modified</h3>
+<p>表示客户端发送附带条件的请求时，服务器允许请求访问资源，但未找到满足条件的情况。</p>
+</li>
+<li>
+<h3 id="307-temporary-redirect">307 Temporary Redirect</h3>
+<p>临时冲顶先。与302相似。</p>
+</li>
+</ul>
+<hr>
+<h2 id="4-xx客户端错误"><strong>4 XX客户端错误</strong></h2>
+<p>表明客户端发生错误的原因所在</p>
+<ul>
+<li>
+<h3 id="400-bad-request">400 Bad Request</h3>
+<p>该状态码表示请求报文中存在语法错误。需修改请求的内容后再次发送请求。</p>
+</li>
+<li>
+<h3 id="401-unauthorized">401 Unauthorized</h3>
+<p>表示发送的请求需要有通过HTTP认证的认证信息</p>
+<p>当浏览器初次接收到401响应，会弹出认证用的对话窗口</p>
+</li>
+<li>
+<h3 id="403-forbidden">403 Forbidden</h3>
+<p>表明请求的资源的访问被服务器拒绝了</p>
+<p>未获得文件系统的访问授权，访问权限出现某些问题等列举的情况都可能发生403的原因</p>
+</li>
+<li>
+<h3 id="404-not-found">404 Not Found</h3>
+<p>表明服务器上无法找到请求的资源。</p>
+<hr>
+</li>
+</ul>
+<h2 id="5-xx服务器错误"><strong>5 XX服务器错误</strong></h2>
+<p>服务器本身的错误</p>
+<ul>
+<li>
+<h3 id="500-internal-server-error">500 Internal Server Error</h3>
+<p>表明服务器在执行请求时发生了错误。也有可能是WEB应用存在的bug或某些临时故障</p>
+</li>
+<li>
+<h3 id="503-service-unavailable">503 Service Unavailable</h3>
+<p>表明服务器暂时处于超负荷或正在进行停机维护，现在无法处理请求。</p>
+</li>
+</ul>
+<p>​</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://fanfankill.github.io/tag/KATkWfQKE/" class="tag">
+                    网络
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanfankill.github.io/post/tu-jie-http-di-san-zhang/">
+                  <h3 class="post-title">
+                    图解HTTP第三章
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
