@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1619419988335">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1619484577459">
 <link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
 
 
@@ -26,7 +26,14 @@
 
 2.toString()
 
-..." />
+
+
+3 数组查重(返回有重复的值)
+function(arr)
+{
+    let res=[];
+    arr.forEach(function(val){
+        //保证..." />
     <meta name="keywords" content="题目,Javascript" />
   </head>
   <body>
@@ -36,7 +43,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://fanfankill.github.io">
-        <img src="https://fanfankill.github.io/images/avatar.png?v=1619419988335" class="site-logo">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1619484577459" class="site-logo">
         <h1 class="site-title">fanfan</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -118,7 +125,23 @@
 <br>
 <br>
 <h1 id="2tostring">2.toString()</h1>
-<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1617673913588.PNG" alt="" loading="lazy"></figure>
+<p><img src="https://fanfankill.github.io/post-images/1617673913588.PNG" alt="" loading="lazy"><br>
+<br><br>
+<br></p>
+<h1 id="3-数组查重返回有重复的值">3 数组查重(返回有重复的值)</h1>
+<pre><code>function(arr)
+{
+    let res=[];
+    arr.forEach(function(val){
+        //保证是重复项且新数组中没有存这项
+        if(arr.indexOf(val)!=arr.lastIndexOf(val)&amp;&amp;res.indexOf(val)==-1)
+        {
+            res.push(val)
+        }
+    } )
+    return res
+}
+</code></pre>
 
             </div>
             

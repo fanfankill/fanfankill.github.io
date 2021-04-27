@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-04-26T07:00:56.286Z</updated>
+    <updated>2021-04-27T00:49:43.238Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,59 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[图解HTTP第六章]]></title>
+        <id>https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/</id>
+        <link href="https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/">
+        </link>
+        <updated>2021-04-27T00:11:29.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="与http协助的web服务器">与HTTP协助的Web服务器</h1>
+<h2 id="用单台虚拟主机实现多个域名">用单台虚拟主机实现多个域名</h2>
+<p>允许一台HTTP服务器搭建多个Web站点。</p>
+<p>即使物理层面只有一台服务器，但只要使用虚拟主机的功能，则可以假想已具有多台服务器</p>
+<p>在互联网上，域名通过 DNS 服务映射到 IP 地址（域名解析）之后访问目标网站，所以，当请求发送到服务器时，已经是IP地址形式访问了</p>
+<h2 id="通信数据转发程序代理-网关-隧道">通信数据转发程序：代理、网关、隧道</h2>
+<ul>
+<li>
+<p>代理</p>
+<p>扮演中间人，接收由客户端发送的请求并转发给服务器，同是，也接收服务器返回的响应并转发给客户端</p>
+</li>
+<li>
+<p>网关</p>
+<p>网关是转发其他服务器通信数据的服务器，接收从客户端发送来的请求时，它就像自己拥有资源的服务器</p>
+</li>
+<li>
+<p>隧道</p>
+<p>隧道是在相隔甚远的客户端和服务器两者之间进行中转，并保持双方通信连接的应用程序</p>
+</li>
+</ul>
+<h3 id="代理"><strong>代理</strong></h3>
+<p>利用代理服务器的理由：利用缓存技术减少网络带宽的流量，组织内部针对特定网站的访问控制，以获取访问日志为主要目的</p>
+<p>代理按两种基准分类：一种是是否使用缓存，另一种是是否会修改报文</p>
+<h4 id="缓存代理">缓存代理</h4>
+<p>代理转发响应时，缓存代理会预先将资源的副本（缓存）保存在代理服务器上</p>
+<p>当代理再次接收对相同资源的请求时，就可以不从源服务器那里获取资源，而是将之前缓存的资源作为响应返回</p>
+<h4 id="透明代理">透明代理</h4>
+<p>转发请求或响应时，不对报文做任何加工的代理类型被称为<strong>透明代理</strong>，反之，称为非透明代理</p>
+<hr>
+<h2 id="网关">网关</h2>
+<p>可以利用网关将HTTP请求转化为其他协议通信</p>
+<p>利用网关能提高通信的安全性，因为可以在客户端与网关之间的通信线路上加密以确保连接的安全。<br>
+<img src="https://fanfankill.github.io/post-images/1619484447634.png" alt="" loading="lazy"></p>
+<h2 id="隧道">隧道</h2>
+<p>隧道可以按要求建立起一条与其他服务器的通信线路，可以使用SSL等加密手段进行通信。隧道的目的就是保住客户端与服务器能安全进行通信<br>
+<img src="https://fanfankill.github.io/post-images/1619484421757.png" alt="" loading="lazy"></p>
+<p>隧道本身不会去解析HTTP请求。请求保持原样中转给服务器。隧道会在双方通信断开连接的时候结束</p>
+<hr>
+<h2 id="保存资源的缓存">保存资源的缓存</h2>
+<p>代理服务器会在服务器返回的响应时，保存一份资源副本<br>
+<img src="https://fanfankill.github.io/post-images/1619484470802.png" alt="" loading="lazy"></p>
+<h3 id="缓存有效期">缓存有效期</h3>
+<p>存在资源更新等影响，需要去向源服务器确认</p>
+<h3 id="客户端的缓存">客户端的缓存</h3>
+<p>缓存也可以存在于客户端浏览器中，这种叫做<strong>临时网络文件</strong></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[图解HTTP第四章]]></title>
         <id>https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/</id>
@@ -369,7 +422,23 @@ TRACE方法是让WEB服务器端将之前的请求通信返回给客户端的方
 <br>
 <br>
 <h1 id="2tostring">2.toString()</h1>
-<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1617673913588.PNG" alt="" loading="lazy"></figure>
+<p><img src="https://fanfankill.github.io/post-images/1617673913588.PNG" alt="" loading="lazy"><br>
+<br><br>
+<br></p>
+<h1 id="3-数组查重返回有重复的值">3 数组查重(返回有重复的值)</h1>
+<pre><code>function(arr)
+{
+    let res=[];
+    arr.forEach(function(val){
+        //保证是重复项且新数组中没有存这项
+        if(arr.indexOf(val)!=arr.lastIndexOf(val)&amp;&amp;res.indexOf(val)==-1)
+        {
+            res.push(val)
+        }
+    } )
+    return res
+}
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -541,50 +610,6 @@ animation:mymove 5s infinite;
 <figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1617525832441.png" alt="" loading="lazy"></figure>
 <p>## <strong>动画可用属性</strong></p>
 <figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1617524085576.png" alt="" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[项目cooike实现保存账号密码功能]]></title>
-        <id>https://fanfankill.github.io/post/xiang-mu-cooike-dai-ma/</id>
-        <link href="https://fanfankill.github.io/post/xiang-mu-cooike-dai-ma/">
-        </link>
-        <updated>2021-04-04T06:15:45.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="cooike详细介绍">cooike详细介绍</h1>
-<p><a href="https://blog.csdn.net/qq_37002901/article/details/86601904"><strong>原文博客</strong></a></p>
-<h1 id="cooike储存机制">cooike储存机制</h1>
-<p><code>Set-Cookie: name=value[; expires=GMTDate][; domain=domain][; path=path][; secure]</code></p>
-<h1 id="项目实现代码">项目实现代码</h1>
-<pre><code>    //获取储存的cooike
-getCookie(name) {
-     var reg=RegExp(name+'=([^;]+)');
-     var arr=document.cookie.match(reg);
-     if(arr)
-     {
-       return arr[1];
-     }else{
-       return '';
-     }
-}
-</code></pre>
-<pre><code>/**存放cookie */
-
-  setCookie(name, value, day) {
-
-   let data = new Date();
-
-   data.setDate(data.getDate() + day);
-
-   document.cookie = name + &quot;=&quot; + value + &quot;;expires=&quot; + data;
-
-  },
-</code></pre>
-<pre><code>/**删除cooike*/
-delCookie(name) {
-
-   this.setCookie(name, '', -1);
-
-  },
-</code></pre>
 ]]></content>
     </entry>
 </feed>

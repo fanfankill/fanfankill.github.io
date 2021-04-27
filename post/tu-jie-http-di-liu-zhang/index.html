@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>图解HTTP第六章 | fanfan</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1619484577459">
+<link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="与HTTP协助的Web服务器
+用单台虚拟主机实现多个域名
+允许一台HTTP服务器搭建多个Web站点。
+即使物理层面只有一台服务器，但只要使用虚拟主机的功能，则可以假想已具有多台服务器
+在互联网上，域名通过 DNS 服务映射到 IP 地址（域..." />
+    <meta name="keywords" content="网络" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fanfankill.github.io">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1619484577459" class="site-logo">
+        <h1 class="site-title">fanfan</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/hjqM1TBv9/" class="site-nav">
+            JS
+          </a>
+        
+      
+        
+          <a href="/css" class="site-nav">
+            CSS
+          </a>
+        
+      
+        
+          <a href="/html" class="site-nav">
+            HTML
+          </a>
+        
+      
+        
+          <a href="/tag/KATkWfQKE/" class="site-nav">
+            Http
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      <strong>前端小白</strong>
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanfankill.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">图解HTTP第六章</h2>
+            <div class="post-date">2021-04-27</div>
+            
+              <div class="feature-container" style="background-image: url('https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2446973552,1830588776&amp;fm=26&amp;gp=0.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="与http协助的web服务器">与HTTP协助的Web服务器</h1>
+<h2 id="用单台虚拟主机实现多个域名">用单台虚拟主机实现多个域名</h2>
+<p>允许一台HTTP服务器搭建多个Web站点。</p>
+<p>即使物理层面只有一台服务器，但只要使用虚拟主机的功能，则可以假想已具有多台服务器</p>
+<p>在互联网上，域名通过 DNS 服务映射到 IP 地址（域名解析）之后访问目标网站，所以，当请求发送到服务器时，已经是IP地址形式访问了</p>
+<h2 id="通信数据转发程序代理-网关-隧道">通信数据转发程序：代理、网关、隧道</h2>
+<ul>
+<li>
+<p>代理</p>
+<p>扮演中间人，接收由客户端发送的请求并转发给服务器，同是，也接收服务器返回的响应并转发给客户端</p>
+</li>
+<li>
+<p>网关</p>
+<p>网关是转发其他服务器通信数据的服务器，接收从客户端发送来的请求时，它就像自己拥有资源的服务器</p>
+</li>
+<li>
+<p>隧道</p>
+<p>隧道是在相隔甚远的客户端和服务器两者之间进行中转，并保持双方通信连接的应用程序</p>
+</li>
+</ul>
+<h3 id="代理"><strong>代理</strong></h3>
+<p>利用代理服务器的理由：利用缓存技术减少网络带宽的流量，组织内部针对特定网站的访问控制，以获取访问日志为主要目的</p>
+<p>代理按两种基准分类：一种是是否使用缓存，另一种是是否会修改报文</p>
+<h4 id="缓存代理">缓存代理</h4>
+<p>代理转发响应时，缓存代理会预先将资源的副本（缓存）保存在代理服务器上</p>
+<p>当代理再次接收对相同资源的请求时，就可以不从源服务器那里获取资源，而是将之前缓存的资源作为响应返回</p>
+<h4 id="透明代理">透明代理</h4>
+<p>转发请求或响应时，不对报文做任何加工的代理类型被称为<strong>透明代理</strong>，反之，称为非透明代理</p>
+<hr>
+<h2 id="网关">网关</h2>
+<p>可以利用网关将HTTP请求转化为其他协议通信</p>
+<p>利用网关能提高通信的安全性，因为可以在客户端与网关之间的通信线路上加密以确保连接的安全。<br>
+<img src="https://fanfankill.github.io/post-images/1619484447634.png" alt="" loading="lazy"></p>
+<h2 id="隧道">隧道</h2>
+<p>隧道可以按要求建立起一条与其他服务器的通信线路，可以使用SSL等加密手段进行通信。隧道的目的就是保住客户端与服务器能安全进行通信<br>
+<img src="https://fanfankill.github.io/post-images/1619484421757.png" alt="" loading="lazy"></p>
+<p>隧道本身不会去解析HTTP请求。请求保持原样中转给服务器。隧道会在双方通信断开连接的时候结束</p>
+<hr>
+<h2 id="保存资源的缓存">保存资源的缓存</h2>
+<p>代理服务器会在服务器返回的响应时，保存一份资源副本<br>
+<img src="https://fanfankill.github.io/post-images/1619484470802.png" alt="" loading="lazy"></p>
+<h3 id="缓存有效期">缓存有效期</h3>
+<p>存在资源更新等影响，需要去向源服务器确认</p>
+<h3 id="客户端的缓存">客户端的缓存</h3>
+<p>缓存也可以存在于客户端浏览器中，这种叫做<strong>临时网络文件</strong></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://fanfankill.github.io/tag/KATkWfQKE/" class="tag">
+                    网络
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/">
+                  <h3 class="post-title">
+                    图解HTTP第四章
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
