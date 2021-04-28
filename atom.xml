@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-04-27T00:49:43.238Z</updated>
+    <updated>2021-04-28T07:37:19.410Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -11,7 +11,116 @@
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
     <entry>
-        <title type="html"><![CDATA[图解HTTP第六章]]></title>
+        <title type="html"><![CDATA[JS事件]]></title>
+        <id>https://fanfankill.github.io/post/js-shi-jian/</id>
+        <link href="https://fanfankill.github.io/post/js-shi-jian/">
+        </link>
+        <updated>2021-04-28T07:09:15.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="事件">事件</h1>
+<p>通过<strong>侦听器</strong>来预定事件</p>
+<h2 id="事件流">事件流</h2>
+<p><strong>事件流</strong>描述的是从页面中接收事件的顺序<br>
+事件例图：<br>
+<img src="https://fanfankill.github.io/post-images/1619594865905.png" alt="" loading="lazy"></p>
+<p>IE 的事件流是事件冒泡流<br>
+<img src="https://fanfankill.github.io/post-images/1619594715319.png" alt="" loading="lazy"></p>
+<p>Netscape Communicator 的事件流是事件捕获流<br>
+<img src="https://fanfankill.github.io/post-images/1619594736001.png" alt="" loading="lazy"><br>
+<br></p>
+<h2 id="事件冒泡">事件冒泡</h2>
+<p>IE 的事件流叫做<strong>事件冒泡</strong>，即事件开始时由最具体的元素（文档中嵌套层次最深 的那个节点）接收，然后逐级向上传播到较为不具体的节点（文档）。<br>
+<br></p>
+<h2 id="事件捕捉">事件捕捉</h2>
+<p><strong>事件捕获</strong>的思想 是不太具体的节点应该更早接收到事件，而最具体的节点应该最后接收到事件。<br>
+<br></p>
+<h2 id="dom事件流">DOM事件流</h2>
+<p>DOM2级事件”规定的事件流包括三个阶段：事件捕获阶段、处于目标阶段和事件冒泡阶段。<br>
+<img src="https://fanfankill.github.io/post-images/1619594960277.png" alt="" loading="lazy"><br>
+在 DOM 事件流中，实际的目标（元素）在捕获阶段不会接收到事件。这意味着在捕获阶段， 事件从 document 到再到后就停止了。下一个阶段是“处于目标”阶段，于是事件在上发生，并在事件处理（后面将会讨论这个概念）中被看成冒泡阶段的一部分。然后，冒泡阶段发生， 事件又传播回文档。</p>
+<br>
+## 事件处理程序
+<p>事件就是用户或浏览器自身执行的某种动作。诸如 click、load 和 mouseover，都是事件的名字。 而响应某个事件的函数就叫做事件处理程序（或事件侦听器）</p>
+<p>事件处理程序的名字以&quot;on&quot;开头（onclick，onload）<br>
+<br></p>
+<h2 id="html事件处理程序">HTML事件处理程序</h2>
+<p>这个操作是通过指定 onclick 特性并将一些 JavaScript 代码作为它的值来定义的</p>
+<pre><code class="language-html">&lt;input type=&quot;button&quot; value=&quot;Click Me&quot; onclick=&quot;alert('Clicked')&quot; /&gt; 
+</code></pre>
+<p>为了避免使用 HTML 实体，这里使用了单 引号。如果想要使用双引号，那么就要将代码改写成如下所示：</p>
+<pre><code class="language-html">&lt;input type=&quot;button&quot; value=&quot;Click Me&quot; onclick=&quot;alert(&amp;quot;Clicked&amp;quot;)&quot; /&gt; 
+</code></pre>
+<p>事件处理程序中的代码在执行时，有权访问全局作用 域中的任何代码</p>
+<pre><code class="language-html">&lt;!-- 输出 &quot;click&quot; --&gt; 
+&lt;input type=&quot;button&quot; value=&quot;Click Me&quot; onclick=&quot;alert(event.type)&quot;&gt; 
+</code></pre>
+<p>这样指定事件处理程序具有一些独到之处。首先，这样会创建一个封装着元素属性值的函数。这个 函数中有一个局部变量 event</p>
+<br>
+<p>通过 event 变量，可以直接访问事件对象，你不用自己定义它，也不用从函数的参数列表中读取。 在这个函数内部，this 值等于事件的目标元素</p>
+<pre><code class="language-html">&lt;!-- 输出 &quot;Click Me&quot; --&gt; 
+&lt;input type=&quot;button&quot; value=&quot;Click Me&quot; onclick=&quot;alert(this.value)&quot;&gt; 
+</code></pre>
+<br>
+ ##  HTML 中指定事件处理程序的缺点
+<p>1.存在一个时差问题。因为用户可能会在 HTML 元素一出现在页面上就触发相应的事件，但当时的事件处理程序有可能尚不具备执行条件。以前面的例子来说明，假设 showMessage()函数是在按钮下方、页面的最底部定义的。如果用户在页面解 析 showMessage()函数之前就单击了按钮就会引发错误。为此，很多 HTML 事件处理程序都会被封 装在一个 try-catch 块中，以便错误不会浮出水面，如下面的例子所示：</p>
+<pre><code class="language-html">&lt;input type=&quot;button&quot; value=&quot;Click Me&quot; onclick=&quot;try{showMessage();}catch(ex){}&quot;&gt;
+</code></pre>
+<p>2.这样扩展事件处理程序的作用域链在不同浏览器中会导致不同结果。不同 JavaScript 引擎遵循的标识符解析规则略有差异，很可能会在访问非限定对象成员时出错。</p>
+<p>3.是 HTML 与 JavaScript 代码紧密耦合。如果要更换事 件处理程序，就要改动两个地方：HTML 代码和 JavaScript 代码<br>
+<br></p>
+<h2 id="dom0-级事件处理程序">DOM0 级事件处理程序</h2>
+<p>通过 JavaScript 指定事件处理程序的传统方式</p>
+<p>原因一是简单，二是具有跨浏览器的优势</p>
+<p>要使用 JavaScript 指定事件处理程序，首先必须取得一 个要操作的对象的引用</p>
+<br>
+<p>使用 DOM0 级方法指定的事件处理程序被认为是元素的方法。因此，这时候的事件处理程序是在 元素的作用域中运行；换句话说，程序中的 this 引用当前元素</p>
+<pre><code class="language-js">var btn = document.getElementById(&quot;myBtn&quot;); 
+btn.onclick = function(){ 
+alert(this.id); //&quot;myBtn&quot; 
+};
+
+btn.onclick = null; //删除事件处理程序
+</code></pre>
+<p>以这种方式添加的事件处理程序会在事件流的冒泡阶段被处理</p>
+<p>将事件处理程序设置为 null 之后，再单击按钮将不会有任何动作发生。</p>
+<br>
+<br>
+## DOM2 级事件处理程序
+<p>“DOM2级事件”定义了两个方法，用于处理指定和删除事件处理程序的操作：**addEventListener() **和 <strong>removeEventListener()</strong>。</p>
+<p>它们都接受 3 个参数：要处 理的事件名、作为事件处理程序的函数和一个布尔值。最后这个布尔值参数如果是 true，表示在捕获 阶段调用事件处理程序；如果是 false，表示在冒泡阶段调用事件处理程序</p>
+<p>在按钮上为 click 事件添加事件处理程序</p>
+<pre><code class="language-js">var btn = document.getElementById(&quot;myBtn&quot;); 
+btn.addEventListener(&quot;click&quot;, function(){ 
+ alert(this.id); 
+}, false); 
+</code></pre>
+<p>上面的代码为一个按钮添加了 onclick 事件处理程序，而且该事件会在冒泡阶段被触发</p>
+<pre><code class="language-js">var btn = document.getElementById(&quot;myBtn&quot;); 
+btn.addEventListener(&quot;click&quot;, function(){ 
+ alert(this.id); 
+}, false); 
+btn.addEventListener(&quot;click&quot;, function(){ 
+ alert(&quot;Hello world!&quot;); 
+}, false); 
+
+</code></pre>
+<p><strong>这里为按钮添加了两个事件处理程序。这两个事件处理程序会按照添加它们的顺序触发，因此首先 会显示元素的 ID，其次会显示&quot;Hello world!&quot;消息</strong></p>
+<p>通过 addEventListener()添加的事件处理程序只能使用 removeEventListener()来移除，这也意味着通过 addEventListener()添加的匿 名函数将无法移除。</p>
+<pre><code class="language-js">var btn = document.getElementById(&quot;myBtn&quot;); 
+btn.addEventListener(&quot;click&quot;, function(){ 
+ alert(this.id)}, false); 
+//这里省略了其他代码
+btn.removeEventListener(&quot;click&quot;, function(){ //没有用！
+ alert(this.id); 
+}, false); 
+
+</code></pre>
+<p>传入 removeEventListener()中的事件处理程序函数必须与传入 addEventListener()中的<strong>相同</strong> ，因为一一对应，addEvenListener()可以给click或其他添加很多函数，所以removeEvenListener()也要一一去和它对应</p>
+<p>大多数情况下，都是将事件处理程序添加到事件流的冒泡阶段（f第三个参数为false），这样可以最大限度地兼容各种浏览器。<br>
+<br></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[图解HTTP第五章]]></title>
         <id>https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/</id>
         <link href="https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/">
         </link>
@@ -524,92 +633,6 @@ alert(typeof name);//&quot;string&quot;
 <br>
 <p><img src="https://fanfankill.github.io/post-images/1617632333308.JPG" alt="" loading="lazy"><br>
 <img src="https://fanfankill.github.io/post-images/1617632362296.JPG" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[CSS3动画属性]]></title>
-        <id>https://fanfankill.github.io/post/js/</id>
-        <link href="https://fanfankill.github.io/post/js/">
-        </link>
-        <updated>2021-04-04T08:14:07.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="animation-属性"><strong>animation 属性</strong></h2>
-<br>
-<br>
-<p><strong>animation-delay</strong></p>
-<p>​       属性规定动画开始的延迟时间(2秒延时)</p>
-<p>​            <code>animation-delay: 2s;</code></p>
-<p>​        负值也是允许的。如果使用负值，则动画将开始播放，如同已播放 N 秒</p>
-<p>​            <code>animation-delay: -2s;</code></p>
-<br>
-<br>
-<p><strong>animation-iteration-count</strong></p>
-<p>​		 属性指定动画应运行的次数</p>
-<pre><code>		` animation-iteration-count: 3;`
-</code></pre>
-<p>​		使用值 &quot;infinite&quot; 使动画永远持续下去</p>
-<br>
-<br>
-<p><strong>animation-direction</strong></p>
-<p>​		属性指定是向前播放、向后播放还是交替播放动画</p>
-<ul>
-<li>normal - 动画正常播放（向前）。默认值</li>
-<li>reverse - 动画以反方向播放（向后）</li>
-<li>alternate - 动画先向前播放，然后向后</li>
-<li>alternate-reverse - 动画先向后播放，然后向前</li>
-</ul>
-<br>
-<br>
-<p><strong>animation-timing-function</strong></p>
-<p>​		属性规定动画的速度曲线</p>
-<ul>
-<li>ease - 指定从慢速开始，然后加快，然后缓慢结束的动画（默认）</li>
-<li>linear - 规定从开始到结束的速度相同的动画</li>
-<li>ease-in - 规定慢速开始的动画</li>
-<li>ease-out - 规定慢速结束的动画</li>
-<li>ease-in-out - 指定开始和结束较慢的动画</li>
-<li>cubic-bezier(n,n,n,n) - 运行您在三次贝塞尔函数中定义自己的值</li>
-</ul>
-<br>
-<br>
-<p><strong>animation-fill-mode</strong></p>
-<p>​		CSS 动画不会在第一个关键帧播放之前或在最后一个关键帧播放之后影响元素</p>
-<ul>
-<li>none - 默认值。动画在执行之前或之后不会对元素应用任何样式。</li>
-<li>forwards - 元素将保留由最后一个关键帧设置的样式值（依赖 animation-direction 和 animation-iteration-count）。</li>
-<li>backwards - 元素将获取由第一个关键帧设置的样式值（取决于 animation-direction），并在动画延迟期间保留该值。</li>
-<li>both - 动画会同时遵循向前和向后的规则，从而在两个方向上扩展动画属性。</li>
-</ul>
-<br>
-<br>
-<pre><code>
-//使用简写属性，将动画与 div 元素绑定：
-
-div
-
-{
-
-animation:mymove 5s infinite;
-
--webkit-animation:mymove 5s infinite; /* Safari 和 Chrome */
-
-}
-
-
-
-//动画帧
-
- @keyframes mymove {
-
-​          50% {transform-origin: 0 0 0;transform: rotate(360deg);background-color: rgb(83, 83, 90);}
-
-​        
-
-​        }
-
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1617525832441.png" alt="" loading="lazy"></figure>
-<p>## <strong>动画可用属性</strong></p>
-<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1617524085576.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>
