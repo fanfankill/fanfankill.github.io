@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-04-28T07:37:19.410Z</updated>
+    <updated>2021-05-29T06:42:22.262Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,50 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[vue+node.js+mysql开发停车场管理系统]]></title>
+        <id>https://fanfankill.github.io/post/vuenodejsmysql-kai-fa-ting-che-chang-guan-li-xi-tong/</id>
+        <link href="https://fanfankill.github.io/post/vuenodejsmysql-kai-fa-ting-che-chang-guan-li-xi-tong/">
+        </link>
+        <updated>2021-05-29T06:25:43.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="522-529"><strong>5.22-5.29</strong></h2>
+<p>对于车位管理页面完成了以下功能</p>
+<ul>
+<li>
+<p>对所有车位信息的获取，总条数的获取以及分页操作<br>
+<img src="https://fanfankill.github.io/post-images/1622270278948.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>新增车位信息（暂时以车位编号为主键 且按自动递增处理，所有其他信息都是在,未要求自己填入）<br>
+<img src="https://fanfankill.github.io/post-images/1622270324356.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>删除车位信息</p>
+</li>
+<li>
+<p>搜索车位信息<br>
+<img src="https://fanfankill.github.io/post-images/1622270252631.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>修改车位信息（两个1 0 的修改和对车位所属区域的修改，车位价格和车位区域绑定一起，修改区域自动修改价格）<br>
+<img src="https://fanfankill.github.io/post-images/1622270469346.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p>添加车位区域（车位名称（主键）车位区域价格 对车位区域的描述）<br>
+<img src="https://fanfankill.github.io/post-images/1622270291881.png" alt="" loading="lazy"></p>
+</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[图解HTTP第六章]]></title>
+        <id>https://fanfankill.github.io/post/tu-jie-http-di-qi-zhang/</id>
+        <link href="https://fanfankill.github.io/post/tu-jie-http-di-qi-zhang/">
+        </link>
+        <updated>2021-05-06T13:40:23.000Z</updated>
+        <content type="html"><![CDATA[<p>s</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[JS事件]]></title>
         <id>https://fanfankill.github.io/post/js-shi-jian/</id>
@@ -117,6 +161,126 @@ btn.removeEventListener(&quot;click&quot;, function(){ //没有用！
 <p>传入 removeEventListener()中的事件处理程序函数必须与传入 addEventListener()中的<strong>相同</strong> ，因为一一对应，addEvenListener()可以给click或其他添加很多函数，所以removeEvenListener()也要一一去和它对应</p>
 <p>大多数情况下，都是将事件处理程序添加到事件流的冒泡阶段（f第三个参数为false），这样可以最大限度地兼容各种浏览器。<br>
 <br></p>
+<h2 id="事件对象">事件对象</h2>
+<p>在触发 DOM 上的某个事件时，会产生一个事件对象 event，这个对象中包含着所有与事件有关的 信息。</p>
+<h2 id="dom中的事件对象">DOM中的事件对象</h2>
+<p>兼容 DOM 的浏览器会将一个 event 对象传入到事件处理程序中</p>
+<pre><code class="language-js">var btn = document.getElementById(&quot;myBtn&quot;); 
+btn.onclick = function(event){ 
+ alert(event.type); //&quot;click&quot; 
+}; 
+btn.addEventListener(&quot;click&quot;, function(event){ 
+ alert(event.type); //&quot;click&quot; 
+}, false);
+</code></pre>
+<p>要阻止特定事件的默认行为，可以使用 preventDefault()方法</p>
+<p>链接的默认行为就是在 被单击时会导航到其 href 特性指定的 URL。如果你想阻止链接导航这一默认行为，那么通过链接的 onclick 事件处理程序可以取消它</p>
+<pre><code class="language-js">var link = document.getElementById(&quot;myLink&quot;); 
+link.onclick = function(event){ 
+ event.preventDefault(); 
+};
+</code></pre>
+<p>stopPropagation()方法用于立即停止事件在 DOM 层次中的传播</p>
+<p>从而避免触 发注册在 document.body 上面的事件处理程序</p>
+<pre><code class="language-js">var btn = document.getElementById(&quot;myBtn&quot;); 
+btn.onclick = function(event){ 
+ alert(&quot;Clicked&quot;); 
+ event.stopPropagation(); 
+}; 
+document.body.onclick = function(event){ 
+ alert(&quot;Body clicked&quot;); 
+}; 
+</code></pre>
+<h2 id="事件类型">事件类型</h2>
+<br>
+<h3 id="load事件"><strong>load事件</strong></h3>
+<p>当页面完全加载后（包括所有图像、JavaScript 文件、 CSS 文件等外部资源），就会触发 window 上面的 load 事件。</p>
+<pre><code class="language-js">&lt;body onload=&quot;alert('Loaded!')&quot;&gt; 
+&lt;/body&gt;
+
+//对图像的load事件
+&lt;img src=&quot;smile.gif&quot; onload=&quot;alert('Image loaded.')&quot;&gt; 
+</code></pre>
+<br>
+<h3 id="unload-事件"><strong>unload 事件</strong></h3>
+<p>利用这个事件最多的情况是清除引用，以避免内存泄漏<br>
+<br></p>
+<h3 id="resize-事件"><strong>resize 事件</strong></h3>
+<p>当浏览器窗口被调整到一个新的高度或宽度时，就会触发 resize 事件</p>
+<p>IE、Safari、Chrome 和 Opera 会在浏览 器窗口变化了 1 像素时就触发 resize 事件，然后随着变化不断重复触发。Firefox 则只会在用户停止调 整窗口大小时才会触发 resize 事件</p>
+<p>浏览器窗口最小化或最大化时也会触发 resize 事件<br>
+<br></p>
+<h3 id="scroll-事件"><strong>scroll 事件</strong></h3>
+<p>scroll 事件也会在文档被滚动期间重复被触发，所以有必要尽量保持事件 处理程序的代码简单<br>
+<br></p>
+<h3 id="焦点事件"><strong>焦点事件</strong></h3>
+<p>焦点事件会在页面元素获得或失去焦点时触发。利用这些事件并与 document.hasFocus()方法及 document.activeElement 属性配合，可以知晓用户在页面上的行踪</p>
+<ul>
+<li>
+<p><strong>blur</strong></p>
+<p>在元素失去焦点时触发。这个事件不会冒泡；所有浏览器都支持它</p>
+</li>
+<li>
+<p>DOMFocusIn</p>
+<p>在元素获得焦点时触发。这个事件与 HTML 事件 focus 等价，但它冒泡</p>
+</li>
+<li>
+<p>DOMFoucusOut</p>
+<p>在元素失去焦点时触发，兼容性不强</p>
+</li>
+<li>
+<p><strong>focus</strong></p>
+<p>在元素获得焦点时触发。这个事件不会冒泡；所有浏览器都支持它。</p>
+</li>
+<li>
+<p>focusin</p>
+<p>这个事件与 HTML 事件 focus 等价，但它冒泡</p>
+</li>
+<li>
+<p>focusout</p>
+<p>这个事件是 HTML 事件 blur 的通用版本<br>
+<br></p>
+</li>
+</ul>
+<h3 id="鼠标与滚轮事件"><strong>鼠标与滚轮事件</strong></h3>
+<ul>
+<li>
+<p>click</p>
+<p>在用户单击主鼠标按钮（一般是左边的按钮）或者按下回车键时触发。</p>
+</li>
+<li>
+<p>dblclick</p>
+<p>在用户双击主鼠标按钮（一般是左边的按钮）时触发。</p>
+</li>
+<li>
+<p>mousedown</p>
+<p>在用户按下了任意鼠标按钮时触发。不能通过键盘触发这个事件。</p>
+</li>
+<li>
+<p>mouseenter</p>
+<p>在鼠标光标从元素外部首次移动到元素范围之内时触发。这个事件不冒泡，而且 在光标移动到后代元素上不会触发。</p>
+</li>
+<li>
+<p>mouseleave</p>
+<p>在位于元素上方的鼠标光标移动到元素范围之外时触发。这个事件不冒泡，而且 在光标移动到后代元素上不会触发。</p>
+</li>
+<li>
+<p>mousemove</p>
+<p>当鼠标指针在元素内部移动时重复地触发。</p>
+</li>
+<li>
+<p>mouseout</p>
+<p>在鼠标指针位于一个元素上方，然后用户将其移入另一个元素时触发。</p>
+</li>
+<li>
+<p>mouseover<br>
+在鼠标指针位于一个元素外部，然后用户将其首次移入另一个元素边界之内时触 发。</p>
+</li>
+<li>
+<p>mouseup</p>
+<p>在用户释放鼠标按钮时触发。</p>
+</li>
+</ul>
 ]]></content>
     </entry>
     <entry>
@@ -516,123 +680,6 @@ TRACE方法是让WEB服务器端将之前的请求通信返回给客户端的方
   }
 });
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[牛客]]></title>
-        <id>https://fanfankill.github.io/post/niu-ke-cuo-ti/</id>
-        <link href="https://fanfankill.github.io/post/niu-ke-cuo-ti/">
-        </link>
-        <updated>2021-04-06T01:50:43.000Z</updated>
-        <content type="html"><![CDATA[<br>
-<h1 id="3true">3==true</h1>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1617673888601.PNG" alt="" loading="lazy"></figure>
-<br>
-<br>
-<br>
-<h1 id="2tostring">2.toString()</h1>
-<p><img src="https://fanfankill.github.io/post-images/1617673913588.PNG" alt="" loading="lazy"><br>
-<br><br>
-<br></p>
-<h1 id="3-数组查重返回有重复的值">3 数组查重(返回有重复的值)</h1>
-<pre><code>function(arr)
-{
-    let res=[];
-    arr.forEach(function(val){
-        //保证是重复项且新数组中没有存这项
-        if(arr.indexOf(val)!=arr.lastIndexOf(val)&amp;&amp;res.indexOf(val)==-1)
-        {
-            res.push(val)
-        }
-    } )
-    return res
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[JS基本数据类型]]></title>
-        <id>https://fanfankill.github.io/post/js-ji-ben-shu-ju-lei-xing/</id>
-        <link href="https://fanfankill.github.io/post/js-ji-ben-shu-ju-lei-xing/">
-        </link>
-        <updated>2021-04-05T14:10:10.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="基本数据类型">基本数据类型</h1>
-<p>ECMAScript中有5中简单数据类型（也称为基本数据类型）: Undefined、Null、Boolean、Number和String。还有1中复杂的数据类型————Object，Object本质上是由一组无序的名值对组成的。</p>
-<br>
-<h1 id="typeof-操作符">typeof 操作符</h1>
-<p>由于js中的变量是松散类型的，所以它提供了一种检测当前变量的数据类型的方法，也就是typeof关键字.<br>
-通过typeof关键字，对这5种数据类型会返回下面的值（以字符串形式显示)<br>
-undefined ---------- 如果值未定义 Undefined</p>
-<p>boolean ---------- 如果这个值是布尔值 Boolean</p>
-<p>string ---------- 如果这个值是字符串 String</p>
-<p>number ---------- 如果这个值是数值类型 Number</p>
-<p>object ---------- 如果这个值是对象或null Object</p>
-<p>需要注意的是typeof null返回为object,因为特殊值null被认为是一个空的对象引用。</p>
-<br>
-<h1 id="undefined">Undefined</h1>
-<p>Undefined类型只有一个值，即特殊的undefined。在使用var声明变量但未对其加以初始化时，这个变量的值就是undefined。不过，一般建议尽量给变量初始化，但是在早期的js版本中是没有规定undefined这个值的，所以在有些框架中为了兼容旧版浏览器，会给window对象添加undefined值。</p>
-<pre><code>window['undefined'] = window['undefined'];  
-//或者
-window.undefined = window.undefined;  
-</code></pre>
-<br>
-<h1 id="null">Null</h1>
-<p>Null类型是第二个只有一个值的数据类型，这个特殊的值是null。从逻辑角度来看，null值表示一个空对象指针，而这也正是使用typeof操作符检测null时会返回object的原因。</p>
-<pre><code> var car = null;
-  console.log(typeof car); // &quot;object&quot;
-</code></pre>
-<p>如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为null而不是其他值。这样一来，只要直接检测null值就可以知道相应的变量是否已经保存了一个对象的引用了。<br>
-例如：</p>
-<pre><code>  if(car != null){
-    //对car对象执行某些操作
-  }
-</code></pre>
-<p>实际上，undefined值是派生自null值的，因此ECMA-262规定对它们的相等性测试要返回true。<br>
-<code>console.log(undefined == null); //true</code><br>
-尽管null和undefined有这样的关系，但它们的用途完全不同。无论在什么情况下都没有必要把一个变量的值显式地设置为undefined，可是同样的规则对null却不适用。换句话说，只要意在保存对象的变量还没有真正保存对象，就应该明确地让该变量保存null值。这样做不仅可以体现null作为空对象指针的惯例，而且也有助于进一步区分null和undefined。</p>
-  <br>
-<h1 id="boolean">Boolean</h1>
-<p>该类型只有两个字面值：true和false。这两个值与数字值不是一回事，因此true不一定等于1，而false也不一定等于0。</p>
-<p>虽然Boolean类型的字面值只有两个，但JavaScript中所有类型的值都有与这两个Boolean值等价的值。要将一个值转换为其对应的Boolean值，可以调用类型转换函数Boolean()，例如：</p>
-<pre><code>var message = 'Hello World';
-    var messageAsBoolean = Boolean(message);
-</code></pre>
-<p>在这个例子中，字符串message被转换成了一个Boolean值，该值被保存在messageAsBoolean变量中。可以对任何数据类型的值调用Boolean()函数，而且总会返回一个Boolean值。至于返回的这个值是true还是false，取决于要转换值的数据类型及其实际值。下表给出了各种数据类型及其对象的转换规则。</p>
-<p>数据类型 转换为true的值	 转换为false的值<br>
-Boolean	true	false<br>
-String	任何非空的字符串	&quot;&quot;(空字符串)<br>
-Number	任何非0数值（包括无穷大）	0和NAN<br>
-Object	任何对象	null<br>
-Undefined	不适用	undefined</p>
-<br>
-<h1 id="number">Number</h1>
-<p>这种类型用来表示整数和浮点数值，还有一种特殊的数值，即NaN（非数值 Not a Number）。这个数值用于表示一个本来要返回数值的操作数未返回数值的情况（这样就不会抛出错误了）。例如，在其他编程语言中，任何数值除以0都会导致错误，从而停止代码执行。但在JavaScript中，任何数值除以0会返回NaN，因此不会影响其他代码的执行。</p>
-<p>NaN本身有两个非同寻常的特点。首先，任何涉及NaN的操作（例如NaN/10）都会返回NaN，这个特点在多步计算中有可能导致问题。其次，NaN与任何值都不相等，包括NaN本身。例如，下面的代码会返回false。<br>
-<code>alert(NaN == NaN); //false</code></p>
-<p>#String<br>
-String类型用于表示由零或多个16位Unicode字符组成的字符序列，即字符串。字符串可以由单引号(')或双引号(&quot;)表示。</p>
-<h1 id="string类型的特殊性">String类型的特殊性</h1>
-<p>string类型有些特殊，因为字符串具有可变的大小，所以显然它不能被直接存储在具有固定大小的变量中。由于效率的原因，我们希望JS只复制对字符串的引用，而不是字符串的内容。但是另一方面，字符串在许多方面都和基本类型的表现相似，而字符串是不可变的这一事实（即没法改变一个字符串值的内容），因此可以将字符串看成行为与基本</p>
-<h1 id="类型相似的不可变引用类型">类型相似的不可变引用类型</h1>
-<p>Boolean、Number、String 这三个是Javascript中的基本包装类型，也就是这三个其实是一个构造函数，他们是Function的实例，是引用类型，至于这里的String与以上说的String是同名，是因为其实上文说的String是指字符串，这里的String指的是String这个构造函数，上面那么写，是为了更好的理解，因为Javascript是松散类型的。我们可以看下String实例化的例子：</p>
-<pre><code>var name = String(&quot;jwy&quot;);
-alert(typeof name);//&quot;string&quot;
-var x=new String('12345')
-typeof x //object
-x='12345'
-typeof x //string
-var author = &quot;Tom&quot;;
-alert(typeof name);//&quot;string&quot;
-</code></pre>
-<p>至于author这个会有length，substring等等这些方法，其实string只是String的一个实例，类似于C#中的String，和string.</p>
-<p>注意，typeof 变量 如果值是&quot;string&quot; 的话，也就是这个变量是字符串，在Javascript中，字符串是基本类型，而在C#或Java中，字符串是引用类型，但是Javascript中的String是引用类型，因为它是Javascript中定义好的基本包装类型，在C#中，String跟string其实是一样的。</p>
-<h1 id="es6新增">ES6新增</h1>
-<p>es6中新增了let命令来声明变量、const命令声明一个只读的常量。</p>
-<p>let的用法类似于var，但是所声明的变量，只在let命令所在的代码块内有效。</p>
-<p>const一旦声明，常量的值就不能改变。</p>
-<br>
-<p><img src="https://fanfankill.github.io/post-images/1617632333308.JPG" alt="" loading="lazy"><br>
-<img src="https://fanfankill.github.io/post-images/1617632362296.JPG" alt="" loading="lazy"></p>
 ]]></content>
     </entry>
 </feed>
