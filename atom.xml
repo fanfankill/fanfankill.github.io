@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-05-29T06:45:18.814Z</updated>
+    <updated>2021-05-30T16:21:24.015Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -41,8 +41,23 @@
 <li>
 <p>添加车位区域（车位名称（主键）车位区域价格 对车位区域的描述）<br>
 <img src="https://fanfankill.github.io/post-images/1622270291881.png" alt="" loading="lazy"></p>
+<h2 id="530">5.30</h2>
+<p>进出车辆登记</p>
 </li>
 </ul>
+<ol>
+<li>暂时登记车牌号码 选择停车区域 node获取当前进入时间<br>
+<img src="https://fanfankill.github.io/post-images/1622391426393.png" alt="" loading="lazy"><br>
+<img src="https://fanfankill.github.io/post-images/1622391499326.png" alt="" loading="lazy"></li>
+<li>当获取停车区域时候，使用watch属性，确保每次切换不同区域能够获取相应区域空闲车位<br>
+<img src="https://fanfankill.github.io/post-images/1622391514068.png" alt="" loading="lazy"><br>
+<img src="https://fanfankill.github.io/post-images/1622391521639.png" alt="" loading="lazy"></li>
+<li>保证每个车辆只能进入时候被登记一次<br>
+<img src="https://fanfankill.github.io/post-images/1622391560153.png" alt="" loading="lazy"></li>
+<li>进出管理表与车位管理表相连接，每次登记一个，车位管理也会更新车位状态和车牌信息<br>
+<img src="https://fanfankill.github.io/post-images/1622391622553.png" alt="" loading="lazy"></li>
+<li>每次完成添加后立马更新车位空闲状态，防止多次更新同一个车位</li>
+</ol>
 ]]></content>
     </entry>
     <entry>
