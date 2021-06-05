@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-05-30T16:21:24.015Z</updated>
+    <updated>2021-06-05T12:44:54.867Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,130 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[JS知识点]]></title>
+        <id>https://fanfankill.github.io/post/js-zhi-shi-dian/</id>
+        <link href="https://fanfankill.github.io/post/js-zhi-shi-dian/">
+        </link>
+        <updated>2021-06-05T12:44:33.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="节流和防抖">节流和防抖</h2>
+<p><strong>防抖</strong></p>
+<pre><code class="language-js"> //防抖 在第一次触发事件时，不立即执行函数，而是给出一个期限值比如200ms  用于停止动作后才开始触发的
+    function debounce(fn,delay){
+        let timer=null;
+        return function(){
+            if(timer){
+                clearTimeout(timer)//存在即重新计时
+                
+            }
+              timer=setTimeout(fn,delay)
+            
+        }
+    }
+</code></pre>
+<p><strong>节流</strong></p>
+<pre><code class="language-js">//节流 适合一直不给机会触发防抖的
+    function throttle(fn,delay){
+       
+    let valid = true
+    return function() {
+        
+        //闭包函数内的vaild为同一个
+       if(!valid){
+           
+           return false 
+       }
+       
+        valid = false//防止多次触发
+        
+        setTimeout(() =&gt; {
+            fn()
+            valid = true;
+        }, delay)
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[DOM]]></title>
+        <id>https://fanfankill.github.io/post/dom/</id>
+        <link href="https://fanfankill.github.io/post/dom/">
+        </link>
+        <updated>2021-06-01T13:01:17.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="节点层次">节点层次</h2>
+<h2 id="nodename-和-nodevalue-属性">nodeName 和 nodeValue 属性</h2>
+<p>if(someNode.nodeType == 1)</p>
+<p>{</p>
+<p>//先确定是个元素</p>
+<p>value = someNode.nodeName;   //nodeName 的值是元素的标签名</p>
+<p>}</p>
+<p>对于元素节点，nodeName 中保存的始终都是元素的标签名，而 nodeValue 的值则始终为 null。</p>
+<hr>
+<h2 id="节点关系">节点关系</h2>
+<p>每个节点都有一个 **childNodes **属性，其中保存着一个 **NodeList **对象。**NodeList **是一种类数组 对象，用于保存一组有序的节点</p>
+<p>val.childNodes[0]   //如果是标签之间有空隙 默认为文字  打印出  #text</p>
+<p><strong>子节点</strong></p>
+<p>nextSibling</p>
+<p>previousSibling</p>
+<p><strong>父节点</strong></p>
+<p>firstChild</p>
+<p>lastChild</p>
+<p><strong>查看是否有子节点</strong></p>
+<p>val.hasChildNodes()  //boolean</p>
+<h2 id="操作节点">操作节点</h2>
+<p>**appendChild()**和 **insertBefore()**方法都只插入节点</p>
+<p>**replaceChild()**方法接受的两个参数是：要插入的节点和要替换的节点。尽管从技术上讲，被替换的节点仍然还在文档中，但它在文档中已经没有了自己的位置</p>
+<p><strong>removeChild()</strong> 即要移除 的节点。被移除的节点将成为方法的返回值</p>
+<p><strong>cloneNode()</strong> 用于创建调用这个方法的节点 的一个完全相同的副本，接受一个布尔值参数，表示是否执行深复制</p>
+<h2 id="document类型">Document类型</h2>
+<p> nodeType 的值为 9；</p>
+<p> nodeName 的值为&quot;#document&quot;；、</p>
+<p> nodeValue 的值为 null；</p>
+<p> parentNode 的值为 null；</p>
+<p> ownerDocument 的值为 null；</p>
+<p> 其子节点可能是一个 DocumentType（最多一个）、Element（最多一个）、ProcessingInstruction 或 Comment。</p>
+<p>//设置文档标题</p>
+<p>document.title = &quot;New page title&quot;;</p>
+<p>//取得完整的 URL</p>
+<p>var url = document.URL;</p>
+<p>//取得域名</p>
+<p>var domain = document.domain;</p>
+<p>//取得来源页面的 URL</p>
+<p>var referrer = document.referrer;</p>
+<br>
+<p>星号（*）通常表示“全部”。</p>
+<pre><code class="language-js">var allElements = document.getElementsByTagName(&quot;*&quot;); 
+</code></pre>
+<p>在 IE 中调用getElementsByTagName(&quot;*&quot;)将会返回所有注释节点</p>
+<h2 id="element类型">Element类型</h2>
+<p> nodeType 的值为 1；</p>
+<p> nodeName 的值为元素的标签名；</p>
+<p> nodeValue 的值为 null；</p>
+<p> parentNode 可能是 Document 或 Element；</p>
+<p> 其子节点可能是 Element、Text、Comment、ProcessingInstruction、CDATASection 或 EntityReference。</p>
+<p>访问元素的标签名<strong>nodeName</strong> 和<strong>tagName</strong> 这两个属性会返回 相同的值</p>
+<p>在 HTML 中，标签名始终都以全部大写表示</p>
+<pre><code class="language-js">if (element.tagName.toLowerCase() == &quot;div&quot;) //这样最好（适用于任何文档） //在此执行某些操作 
+</code></pre>
+<h2 id="取得特性">取得特性</h2>
+<p><em><strong>getAttribute()</strong></em></p>
+<p>div.getAttribute(&quot;id&quot;) //取得这个元素的特征值</p>
+<p>特性的名称是不区分大小写的</p>
+<p>自定义特性应该加上 data-前缀以便验证(用轮播图的时候自定义特性)</p>
+<h2 id="设置特性">设置特性</h2>
+<p><em><strong>setAttribute()</strong></em></p>
+<p>这个方法接受两个参数：要设置的特性名和 值。如果特性已经存在，setAttribute()会以指定的值替换现有的值</p>
+<p>通过这个方法设置的 特性名会被统一转换为小写形式，即&quot;ID&quot;最终会变成&quot;id&quot;</p>
+<pre><code class="language-js">div.mycolor = &quot;red&quot;; 
+
+ alert(div.getAttribute(&quot;mycolor&quot;)); //null（IE 除外） 因此想通过 getAttribute()取得同名特性的值，结果会返回 null
+</code></pre>
+<p>***removeAttribute()***用于彻底删除元素的特性</p>
+<p>div.removeAttribute(&quot;class&quot;);</p>
+<h2 id="attributes-属性">attributes 属性</h2>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[vue+node.js+mysql开发停车场管理系统]]></title>
         <id>https://fanfankill.github.io/post/vuenodejsmysql-kai-fa-ting-che-chang-guan-li-xi-tong/</id>
@@ -659,65 +783,6 @@ TRACE方法是让WEB服务器端将之前的请求通信返回给客户端的方
 <p>runoo+b，可以匹配 runoob、runooob、runoooooob 等，+ 号代表前面的字符必须至少出现一次（1次或多次）。</p>
 <p>runoo<em>b，可以匹配 runob、runoob、runoooooob 等，</em> 号代表前面的字符可以不出现，也可以出现一次或者多次（0次、或1次、或多次）。</p>
 <p>colou?r 可以匹配 color 或者 colour，? 问号代表前面的字符最多只可以出现一次（0次、或1次）。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[VUE 前置导航守卫]]></title>
-        <id>https://fanfankill.github.io/post/vue-qian-zhi-dao-hang-shou-wei/</id>
-        <link href="https://fanfankill.github.io/post/vue-qian-zhi-dao-hang-shou-wei/">
-        </link>
-        <updated>2021-04-07T11:48:49.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="路由守卫">路由守卫</h1>
-<h2 id="当token不存在时-跳转到登陆界面">当token不存在时 跳转到登陆界面</h2>
-<p><strong>只有登录界面时 (不考虑注册等其他界面)</strong></p>
-<pre><code class="language-router.beforeEach((to,from,next)=&gt;{">  let token=localStorage.getItem(&quot;token&quot;);
-  if(token){//判断是否登录
-    next()
-  }
-
-  else{
-    if(to.path!=='/login'){
-      alert(&quot;请先登录&quot;)
-      next({path:'/login'})
-    }
-    else{
-      next()
-    }
-  }
-});
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[牛客]]></title>
-        <id>https://fanfankill.github.io/post/niu-ke-cuo-ti/</id>
-        <link href="https://fanfankill.github.io/post/niu-ke-cuo-ti/">
-        </link>
-        <updated>2021-04-06T01:50:43.000Z</updated>
-        <content type="html"><![CDATA[<br>
-<h1 id="3true">3==true</h1>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1617673888601.PNG" alt="" loading="lazy"></figure>
-<br>
-<br>
-<br>
-<h1 id="2tostring">2.toString()</h1>
-<p><img src="https://fanfankill.github.io/post-images/1617673913588.PNG" alt="" loading="lazy"><br>
-<br><br>
-<br></p>
-<h1 id="3-数组查重返回有重复的值">3 数组查重(返回有重复的值)</h1>
-<pre><code>function(arr)
-{
-    let res=[];
-    arr.forEach(function(val){
-        //保证是重复项且新数组中没有存这项
-        if(arr.indexOf(val)!=arr.lastIndexOf(val)&amp;&amp;res.indexOf(val)==-1)
-        {
-            res.push(val)
-        }
-    } )
-    return res
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>

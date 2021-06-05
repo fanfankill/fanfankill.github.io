@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>DOM | fanfan</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1622897092570">
+<link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="节点层次
+nodeName 和 nodeValue 属性
+if(someNode.nodeType == 1)
+{
+//先确定是个元素
+value = someNode.nodeName;   //nodeName 的值是元素的标签名
+}
+..." />
+    <meta name="keywords" content="Javascript" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fanfankill.github.io">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1622897092570" class="site-logo">
+        <h1 class="site-title">fanfan</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/hjqM1TBv9/" class="site-nav">
+            JS
+          </a>
+        
+      
+        
+          <a href="/css" class="site-nav">
+            CSS
+          </a>
+        
+      
+        
+          <a href="/html" class="site-nav">
+            HTML
+          </a>
+        
+      
+        
+          <a href="/tag/KATkWfQKE/" class="site-nav">
+            Http
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      <strong>前端小白</strong>
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanfankill.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">DOM</h2>
+            <div class="post-date">2021-06-01</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="节点层次">节点层次</h2>
+<h2 id="nodename-和-nodevalue-属性">nodeName 和 nodeValue 属性</h2>
+<p>if(someNode.nodeType == 1)</p>
+<p>{</p>
+<p>//先确定是个元素</p>
+<p>value = someNode.nodeName;   //nodeName 的值是元素的标签名</p>
+<p>}</p>
+<p>对于元素节点，nodeName 中保存的始终都是元素的标签名，而 nodeValue 的值则始终为 null。</p>
+<hr>
+<h2 id="节点关系">节点关系</h2>
+<p>每个节点都有一个 **childNodes **属性，其中保存着一个 **NodeList **对象。**NodeList **是一种类数组 对象，用于保存一组有序的节点</p>
+<p>val.childNodes[0]   //如果是标签之间有空隙 默认为文字  打印出  #text</p>
+<p><strong>子节点</strong></p>
+<p>nextSibling</p>
+<p>previousSibling</p>
+<p><strong>父节点</strong></p>
+<p>firstChild</p>
+<p>lastChild</p>
+<p><strong>查看是否有子节点</strong></p>
+<p>val.hasChildNodes()  //boolean</p>
+<h2 id="操作节点">操作节点</h2>
+<p>**appendChild()**和 **insertBefore()**方法都只插入节点</p>
+<p>**replaceChild()**方法接受的两个参数是：要插入的节点和要替换的节点。尽管从技术上讲，被替换的节点仍然还在文档中，但它在文档中已经没有了自己的位置</p>
+<p><strong>removeChild()</strong> 即要移除 的节点。被移除的节点将成为方法的返回值</p>
+<p><strong>cloneNode()</strong> 用于创建调用这个方法的节点 的一个完全相同的副本，接受一个布尔值参数，表示是否执行深复制</p>
+<h2 id="document类型">Document类型</h2>
+<p> nodeType 的值为 9；</p>
+<p> nodeName 的值为&quot;#document&quot;；、</p>
+<p> nodeValue 的值为 null；</p>
+<p> parentNode 的值为 null；</p>
+<p> ownerDocument 的值为 null；</p>
+<p> 其子节点可能是一个 DocumentType（最多一个）、Element（最多一个）、ProcessingInstruction 或 Comment。</p>
+<p>//设置文档标题</p>
+<p>document.title = &quot;New page title&quot;;</p>
+<p>//取得完整的 URL</p>
+<p>var url = document.URL;</p>
+<p>//取得域名</p>
+<p>var domain = document.domain;</p>
+<p>//取得来源页面的 URL</p>
+<p>var referrer = document.referrer;</p>
+<br>
+<p>星号（*）通常表示“全部”。</p>
+<pre><code class="language-js">var allElements = document.getElementsByTagName(&quot;*&quot;); 
+</code></pre>
+<p>在 IE 中调用getElementsByTagName(&quot;*&quot;)将会返回所有注释节点</p>
+<h2 id="element类型">Element类型</h2>
+<p> nodeType 的值为 1；</p>
+<p> nodeName 的值为元素的标签名；</p>
+<p> nodeValue 的值为 null；</p>
+<p> parentNode 可能是 Document 或 Element；</p>
+<p> 其子节点可能是 Element、Text、Comment、ProcessingInstruction、CDATASection 或 EntityReference。</p>
+<p>访问元素的标签名<strong>nodeName</strong> 和<strong>tagName</strong> 这两个属性会返回 相同的值</p>
+<p>在 HTML 中，标签名始终都以全部大写表示</p>
+<pre><code class="language-js">if (element.tagName.toLowerCase() == &quot;div&quot;) //这样最好（适用于任何文档） //在此执行某些操作 
+</code></pre>
+<h2 id="取得特性">取得特性</h2>
+<p><em><strong>getAttribute()</strong></em></p>
+<p>div.getAttribute(&quot;id&quot;) //取得这个元素的特征值</p>
+<p>特性的名称是不区分大小写的</p>
+<p>自定义特性应该加上 data-前缀以便验证(用轮播图的时候自定义特性)</p>
+<h2 id="设置特性">设置特性</h2>
+<p><em><strong>setAttribute()</strong></em></p>
+<p>这个方法接受两个参数：要设置的特性名和 值。如果特性已经存在，setAttribute()会以指定的值替换现有的值</p>
+<p>通过这个方法设置的 特性名会被统一转换为小写形式，即&quot;ID&quot;最终会变成&quot;id&quot;</p>
+<pre><code class="language-js">div.mycolor = &quot;red&quot;; 
+
+ alert(div.getAttribute(&quot;mycolor&quot;)); //null（IE 除外） 因此想通过 getAttribute()取得同名特性的值，结果会返回 null
+</code></pre>
+<p>***removeAttribute()***用于彻底删除元素的特性</p>
+<p>div.removeAttribute(&quot;class&quot;);</p>
+<h2 id="attributes-属性">attributes 属性</h2>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://fanfankill.github.io/tag/hjqM1TBv9/" class="tag">
+                    Javascript
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanfankill.github.io/post/vuenodejsmysql-kai-fa-ting-che-chang-guan-li-xi-tong/">
+                  <h3 class="post-title">
+                    vue+node.js+mysql开发停车场管理系统
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
