@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-06-05T12:45:29.104Z</updated>
+    <updated>2021-06-05T16:54:37.372Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -52,6 +52,38 @@
         }, delay)
     }
 }
+</code></pre>
+<br>
+<br>
+<br>
+<h2 id="判断是不是数组">判断是不是数组</h2>
+<pre><code class="language-js">var a=new Array()
+var b=new Object()
+
+console.log(Array instanceof Object); //true   js数组可以看作对象
+
+console.log(Array.isArray(a)); //true   数组方法
+
+//误区
+typeof(a) //object  typeof运算符用于判断对象的类型，但是对于一些创建的对象，它们都会返回'object'  返回的类型 undefined' 'boolean' 'string' 'number' 'object'  'function'
+
+Object.prototype.toString.call(a) //Object Array 用来判断类型
+
+Object.prototype.toString.call(b) //object Object
+
+//Array 和 Function都是Object的实例 都重写了toString()方法 所以直接调用的话是重写后的方法 调用原型上的方法返回类型
+
+//对toString()方法重写的证明
+console.log(Array.prototype.hasOwnProperty(&quot;toString&quot;));//true
+
+delete Array.prototype.toString;//delete操作符可以删除实例属性
+
+console.log(arr.toString());//&quot;[object Array]&quot;
+
+
+//  prototype 和__proto__    一般来说 __proto__==constructor.prototype
+
+
 </code></pre>
 ]]></content>
     </entry>

@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1622897092570">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1622912072633">
 <link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
 
 
@@ -32,7 +32,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://fanfankill.github.io">
-        <img src="https://fanfankill.github.io/images/avatar.png?v=1622897092570" class="site-logo">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1622912072633" class="site-logo">
         <h1 class="site-title">fanfan</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -140,6 +140,38 @@
         }, delay)
     }
 }
+</code></pre>
+<br>
+<br>
+<br>
+<h2 id="判断是不是数组">判断是不是数组</h2>
+<pre><code class="language-js">var a=new Array()
+var b=new Object()
+
+console.log(Array instanceof Object); //true   js数组可以看作对象
+
+console.log(Array.isArray(a)); //true   数组方法
+
+//误区
+typeof(a) //object  typeof运算符用于判断对象的类型，但是对于一些创建的对象，它们都会返回'object'  返回的类型 undefined' 'boolean' 'string' 'number' 'object'  'function'
+
+Object.prototype.toString.call(a) //Object Array 用来判断类型
+
+Object.prototype.toString.call(b) //object Object
+
+//Array 和 Function都是Object的实例 都重写了toString()方法 所以直接调用的话是重写后的方法 调用原型上的方法返回类型
+
+//对toString()方法重写的证明
+console.log(Array.prototype.hasOwnProperty(&quot;toString&quot;));//true
+
+delete Array.prototype.toString;//delete操作符可以删除实例属性
+
+console.log(arr.toString());//&quot;[object Array]&quot;
+
+
+//  prototype 和__proto__    一般来说 __proto__==constructor.prototype
+
+
 </code></pre>
 
             </div>
