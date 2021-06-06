@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1622912169829">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1622973930632">
 <link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
 
 
@@ -44,7 +44,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://fanfankill.github.io">
-        <img src="https://fanfankill.github.io/images/avatar.png?v=1622912169829" class="site-logo">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1622973930632" class="site-logo">
         <h1 class="site-title">fanfan</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -144,7 +144,7 @@
 <li>
 <p>添加车位区域（车位名称（主键）车位区域价格 对车位区域的描述）<br>
 <img src="https://fanfankill.github.io/post-images/1622270291881.png" alt="" loading="lazy"></p>
-<h2 id="530">5.30</h2>
+<h2 id="530"><strong>5.30</strong></h2>
 <p>进出车辆登记</p>
 </li>
 </ul>
@@ -159,8 +159,21 @@
 <img src="https://fanfankill.github.io/post-images/1622391560153.png" alt="" loading="lazy"></li>
 <li>进出管理表与车位管理表相连接，每次登记一个，车位管理也会更新车位状态和车牌信息<br>
 <img src="https://fanfankill.github.io/post-images/1622391622553.png" alt="" loading="lazy"></li>
-<li>每次完成添加后立马更新车位空闲状态，防止多次更新同一个车位</li>
+<li>每次完成添加后立马更新车位空闲状态，防止多次更新同一个车位<br>
+<br><br>
+<br><br>
+<br></li>
 </ol>
+<h2 id="531-66"><strong>5.31-6.6</strong></h2>
+<p>车辆入库出库记录<br>
+(与车位管理相关 每次记录一个后会修改选中的车位状态)<br>
+1.按已出库和未出库来获取数据 点击直接获取（wacth属性）<br>
+<img src="https://fanfankill.github.io/post-images/1622973621842.png" alt="" loading="lazy"><br>
+<img src="https://fanfankill.github.io/post-images/1622973626404.png" alt="" loading="lazy"><br>
+2.对于不同情况下的按钮和驶出时间进行区别设计，当为已驶出状态的按钮点击为已经记录过的详细信息<br>
+<img src="https://fanfankill.github.io/post-images/1622973728852.png" alt="" loading="lazy"><br>
+当为未出库状态下点击为预计算的信息()，若再次点击驶出按钮后则会修改该车位状态和进出状态并记录数据库<br>
+<img src="https://fanfankill.github.io/post-images/1622973813093.png" alt="" loading="lazy"></p>
 
             </div>
             
