@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-06-06T10:08:59.568Z</updated>
+    <updated>2021-06-09T16:30:49.622Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,77 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[事件循环]]></title>
+        <id>https://fanfankill.github.io/post/shi-jian-xun-huan/</id>
+        <link href="https://fanfankill.github.io/post/shi-jian-xun-huan/">
+        </link>
+        <updated>2021-06-09T16:10:14.000Z</updated>
+        <content type="html"><![CDATA[<p>JS为单线程<br>
+宏任务主要包含：script( 整体代码)、setTimeout、setInterval、I/O、UI 交互事件、setImmediate(Node.js 环境)</p>
+<p>微任务主要包含：Promise、MutaionObserver、process.nextTick(Node.js 环境)<br>
+<img src="https://fanfankill.github.io/post-images/1623256115003.webp" alt="" loading="lazy"></p>
+<p>例子1</p>
+<pre><code class="language-js">console.log('script start');
+
+setTimeout(function() {
+  console.log('timeout1');
+}, 10);
+
+new Promise(resolve =&gt; {
+    console.log('promise1');
+    resolve();
+    setTimeout(() =&gt; console.log('timeout2'), 10);
+}).then(function() {
+    console.log('then1')
+})
+
+console.log('script end');
+</code></pre>
+<p><img src="https://fanfankill.github.io/post-images/1623255042505.png" alt="" loading="lazy"><br>
+先执行第一个log</p>
+<p>setTimeout推入宏队列hong1</p>
+<p>遇到promise马上执行打印然后将它所有的then推入微队列后把setTimeout推入宏队列hong2</p>
+<p>先执行微队列，所以先打印then里面的。然后宏队列再打印<br>
+<br><br>
+<br><br>
+<br><br>
+例子2</p>
+<pre><code class="language-js">  console.log('1');
+
+setTimeout(function() {
+    console.log('2');
+  
+    new Promise(function(resolve) {
+        console.log('4');
+        resolve();
+    }).then(function() {
+        console.log('5')
+    })
+})
+
+new Promise(function(resolve) {
+    console.log('7');
+    resolve();
+}).then(function() {
+    console.log('8')
+})
+
+setTimeout(function() {
+    console.log('9');
+   
+    new Promise(function(resolve) {
+        console.log('11');
+        resolve();
+    }).then(function() {
+        console.log('12')
+    })
+})
+</code></pre>
+<p><img src="https://fanfankill.github.io/post-images/1623255137440.png" alt="" loading="lazy"><br>
+当在只剩两个宏任务的setTimeout时候执行第一个时，Promise压入了then的微任务，让第二个宏任务又排到微任务后等待</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[JS知识点]]></title>
         <id>https://fanfankill.github.io/post/js-zhi-shi-dian/</id>
@@ -818,18 +889,6 @@ TRACE方法是让WEB服务器端将之前的请求通信返回给客户端的方
 <br>
 <h2 id="各种协议与http协议的关系">各种协议与HTTP协议的关系</h2>
 <figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1619064689862.png" alt="" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[正则表达式]]></title>
-        <id>https://fanfankill.github.io/post/zheng-ze-biao-da-shi/</id>
-        <link href="https://fanfankill.github.io/post/zheng-ze-biao-da-shi/">
-        </link>
-        <updated>2021-04-09T00:29:22.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="语法">语法</h1>
-<p>runoo+b，可以匹配 runoob、runooob、runoooooob 等，+ 号代表前面的字符必须至少出现一次（1次或多次）。</p>
-<p>runoo<em>b，可以匹配 runob、runoob、runoooooob 等，</em> 号代表前面的字符可以不出现，也可以出现一次或者多次（0次、或1次、或多次）。</p>
-<p>colou?r 可以匹配 color 或者 colour，? 问号代表前面的字符最多只可以出现一次（0次、或1次）。</p>
 ]]></content>
     </entry>
 </feed>
