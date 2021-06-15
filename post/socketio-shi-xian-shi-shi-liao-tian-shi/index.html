@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>socket.io实现实时聊天室 | fanfan</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1623780402472">
+<link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="Node.js部分（服务端）
+  var express=require('express')
+var app=express()
+var server=require('http').createServer(app)
+var io=re..." />
+    <meta name="keywords" content="Javascript" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fanfankill.github.io">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1623780402472" class="site-logo">
+        <h1 class="site-title">fanfan</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/hjqM1TBv9/" class="site-nav">
+            JS
+          </a>
+        
+      
+        
+          <a href="/css" class="site-nav">
+            CSS
+          </a>
+        
+      
+        
+          <a href="/html" class="site-nav">
+            HTML
+          </a>
+        
+      
+        
+          <a href="/tag/KATkWfQKE/" class="site-nav">
+            Http
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      <strong>前端小白</strong>
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanfankill.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">socket.io实现实时聊天室</h2>
+            <div class="post-date">2021-06-16</div>
+            
+              <div class="feature-container" style="background-image: url('https://img-blog.csdnimg.cn/20190718154451958.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Bhc2hhbmh1NjQwMg==,size_16,color_FFFFFF,t_70')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <p><strong>Node.js</strong>部分（服务端）</p>
+<pre><code class="language-js">  var express=require('express')
+var app=express()
+var server=require('http').createServer(app)
+var io=require('socket.io')(server)
+
+app.use(express.static(__dirname+'/public'))
+
+//设置允许跨域
+app.all('*', function (req, res, next) {
+      res.header(&quot;Access-Control-Allow-Credentials&quot;, true)
+      res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;)
+      res.header(&quot;Access-Control-Allow-Headers&quot;, &quot;X-Requested-With&quot;)
+      res.header(&quot;Access-Control-Allow-Methods&quot;, &quot;PUT,POST,GET,DELETE,OPTIONS&quot;)
+      res.header(&quot;X-Powered-By&quot;, ' 3.2.1')
+      res.header(&quot;Content-Type&quot;, &quot;application/json;charset=utf-8&quot;)
+      next()
+})
+
+//放用户
+const users=[]
+
+io.on('connection',function(socket){
+    console.log(&quot;新用户加入房间&quot;);
+
+    //监听Login事件
+    socket.on('login',(data)=&gt;{
+            console.log(data);
+        //放数据,顺便增加唯一id
+        users.push({...data,id:socket.id})
+
+        console.log('id是'+socket.id);
+        //所有人广播
+        io.emit('loginback',{...data,id:socket.id})
+    })
+
+    socket.on('client',data2=&gt;{
+        console.log(data2.value);
+        data2.users=users.find(u=&gt;u.id==socket.id)
+        console.log(data2.users);
+        socket.broadcast.emit('sendmes',data2)
+    })
+    
+})
+
+server.listen(3000,()=&gt;{
+    console.log('http://127.0.0.1:3000');
+})
+
+</code></pre>
+<h2 id="前端部分">前端部分</h2>
+<pre><code class="language-js">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Socket聊天室&lt;/title&gt;
+  &lt;style type=&quot;text/css&quot;&gt;
+    /**输入框样式*/
+    .text * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #main {
+      text-align: center;
+    }
+
+    #showmes {
+      position: relative;
+      background: url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fcdn.duitang.com%2Fuploads%2Fitem%2F201209%2F08%2F20120908134318_YVAwx.jpeg&amp;refer=http%3A%2F%2Fcdn.duitang.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=jpeg?sec=1626261869&amp;t=964bbb79e059f74901698cdd5f6de691) no-repeat;
+      background-size: 100% 110%;
+      margin: auto;
+      width: 600px;
+      height: 600px;
+      overflow: hidden;
+      overflow-y: scroll;
+    }
+
+    /**别人气泡*/
+    .leftspan2 {
+      float: left;
+      color: grey;
+      font-weight: 1000;
+      position: absolute;
+      top: -18px;
+      font-size: 3px;
+      left: 25px;
+    }
+
+    .leftspan {
+      color: white;
+      background-color: #635f5fec;
+      padding: 5px 8px;
+      font-size: 14px;
+      float: left;
+      position: relative;
+      border-radius: 4px;
+      margin-left: 25px;
+      margin-right: 5px;
+
+    }
+
+    .leftspan::after {
+      content: '';
+      border: 8px solid #ffffff00;
+      border-right: 8px solid #635f5fec;
+      ;
+      position: absolute;
+      top: 6px;
+      left: -16px;
+    }
+
+    /*自己气泡**/
+    .pp {
+      width: 100%;
+      position: relative;
+      min-height: 20px;
+      float: right;
+      margin-bottom: 15px;
+    }
+
+    .rightspan2 {
+      float: right;
+      color: grey;
+      font-weight: 1000;
+      position: absolute;
+      top: -18px;
+      font-size: 3px;
+      right: 15px;
+    }
+
+    .rightspan {
+      float: right;
+      position: relative;
+      color: rgb(2, 2, 2);
+      font-weight: 500;
+      background-color: #88e99d;
+      padding: 5px 8px;
+      font-size: 14px;
+      border-radius: 4px;
+      margin-left: 5px;
+      margin-right: 15px;
+
+    }
+
+    .rightspan::after {
+      content: '';
+      border: 8px solid #ffffff00;
+      border-left: 8px solid #88e99d;
+      ;
+      position: absolute;
+      top: 6px;
+      right: -13px;
+
+    }
+
+    /**输入框*/
+    #text {
+      width: 500px;
+      height: 25px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;div id=&quot;joinname&quot;&gt;
+    &lt;span&gt;请输入加入的姓名&lt;/span&gt; &lt;input type=&quot;text&quot; id=&quot;name&quot;&gt;&lt;button onclick=&quot;joinchat()&quot;&gt;提交&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;main&quot; style=&quot;display: none;&quot;&gt;
+    
+    &lt;h1&gt;fanfan的聊天室&lt;/h1&gt;
+    &lt;div id=&quot;showmes&quot;&gt;
+
+    &lt;/div&gt;
+    &lt;div class=&quot;inputtxt&quot;&gt;
+      &lt;input type=&quot;text&quot; id=&quot;text&quot;&gt;&lt;/input&gt;
+      &lt;button id=&quot;btn&quot; onclick=&quot;sendmes()&quot;&gt;发送&lt;/button&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+
+  &lt;script src=&quot;/socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    //全局变量
+    name = ''
+    var socket = io(); //连接聊天室的io服务器 io服务器的根地址
+    //连接进聊天室
+    function firstjoin() {
+
+      socket.on('hello', data =&gt; {
+        console.log('服务端发送的东西为：' + data);
+      })
+    }
+
+    function notnull() {
+      if (document.getElementById('text').value != '') {
+        return 1;
+      }
+      else {
+        return 0;
+      }
+    }
+    //自己发信息
+    function sendmes() {
+      if (notnull()) {
+        var mes = document.getElementById('text').value
+        var p = document.createElement('p');
+        var span = document.createElement('span')
+        var span2 = document.createElement('span')
+        span.innerHTML = mes;
+        span2.innerHTML = name;
+        span2.className = 'rightspan2'
+        span.className = 'rightspan'
+        p.className = 'pp'
+        p.appendChild(span2)
+        p.appendChild(span)
+        document.getElementById('showmes').appendChild(p)
+        socket.emit('client', {'value':document.getElementById('text').value,'name':name})
+        document.getElementById('text').value = ''
+
+        document.getElementById(&quot;showmes&quot;).scrollTop += document.getElementById(&quot;showmes&quot;).offsetHeight;
+      }
+
+    }
+    //收到别人发的信息
+    socket.on('sendmes', data =&gt; {
+      console.log(data);
+      var p = document.createElement('p');
+      var span = document.createElement('span');
+      var span2 = document.createElement('span');
+      span.className = 'leftspan'
+      console.log('姓名是'+data.users.name);
+      span2.innerHTML = data.users.name
+      span2.className = 'leftspan2'
+      span.innerHTML = data.value;
+      p.appendChild(span2)
+      p.appendChild(span)
+      p.className = 'pp'
+
+      document.getElementById('showmes').appendChild(p)
+
+      document.getElementById(&quot;showmes&quot;).scrollTop += document.getElementById(&quot;showmes&quot;).offsetHeight;
+    })
+
+    //加入聊天室提醒
+    function joinchat() {
+      if (document.getElementById('name').value.length &gt;= 1 &amp;&amp; document.getElementById('name').value.length &lt;= 6) {
+        //加入盒子隐藏 聊天盒子显示
+        document.getElementById('main').style.display='block'
+        document.getElementById('joinname').style.display='none'
+        name=document.getElementById('name').value
+        socket.emit('login', { 'name': document.getElementById('name').value })
+      }
+
+    }
+    socket.on('loginback', data =&gt; {
+      var p = document.createElement('p');
+      p.innerHTML = data.name + '加入了房间';
+      p.style.color = 'grey'
+      p.style.fontWeight = '1000'
+      p.style.textAlign = 'center'
+      p.style.fontSize = '6px'
+      document.getElementById('showmes').appendChild(p)
+    })
+    //回车发送消息
+    document.onkeydown = function (e) {
+      console.log('1');
+      var ev = document.all ? window.event : e;
+      if (ev.keyCode == 13) {
+        sendmes();
+      }
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+
+</code></pre>
+<br>
+<br>
+<br>
+每次进入页面先输入自己的姓名才能进入聊天室
+每个客户端对应自己独特的socket id来获取发送消息的名称
+给回车绑定事件，每次回车发送 可以实现多人在线实时聊天，且有自己对应的名称 自己发送的消息和收到的消息进行区分
+<figure data-type="image" tabindex="1"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015910759.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015915621.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015921537.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015925385.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015929804.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015931812.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/mage-20210616015934765.png" alt="" loading="lazy"></figure>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://fanfankill.github.io/tag/hjqM1TBv9/" class="tag">
+                    Javascript
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanfankill.github.io/post/shi-jian-xun-huan/">
+                  <h3 class="post-title">
+                    事件循环
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

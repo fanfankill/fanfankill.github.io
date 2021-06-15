@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-06-09T16:30:49.622Z</updated>
+    <updated>2021-06-15T18:06:45.415Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,307 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[socket.io实现实时聊天室]]></title>
+        <id>https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/</id>
+        <link href="https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/">
+        </link>
+        <updated>2021-06-15T17:55:30.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>Node.js</strong>部分（服务端）</p>
+<pre><code class="language-js">  var express=require('express')
+var app=express()
+var server=require('http').createServer(app)
+var io=require('socket.io')(server)
+
+app.use(express.static(__dirname+'/public'))
+
+//设置允许跨域
+app.all('*', function (req, res, next) {
+      res.header(&quot;Access-Control-Allow-Credentials&quot;, true)
+      res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;)
+      res.header(&quot;Access-Control-Allow-Headers&quot;, &quot;X-Requested-With&quot;)
+      res.header(&quot;Access-Control-Allow-Methods&quot;, &quot;PUT,POST,GET,DELETE,OPTIONS&quot;)
+      res.header(&quot;X-Powered-By&quot;, ' 3.2.1')
+      res.header(&quot;Content-Type&quot;, &quot;application/json;charset=utf-8&quot;)
+      next()
+})
+
+//放用户
+const users=[]
+
+io.on('connection',function(socket){
+    console.log(&quot;新用户加入房间&quot;);
+
+    //监听Login事件
+    socket.on('login',(data)=&gt;{
+            console.log(data);
+        //放数据,顺便增加唯一id
+        users.push({...data,id:socket.id})
+
+        console.log('id是'+socket.id);
+        //所有人广播
+        io.emit('loginback',{...data,id:socket.id})
+    })
+
+    socket.on('client',data2=&gt;{
+        console.log(data2.value);
+        data2.users=users.find(u=&gt;u.id==socket.id)
+        console.log(data2.users);
+        socket.broadcast.emit('sendmes',data2)
+    })
+    
+})
+
+server.listen(3000,()=&gt;{
+    console.log('http://127.0.0.1:3000');
+})
+
+</code></pre>
+<h2 id="前端部分">前端部分</h2>
+<pre><code class="language-js">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Socket聊天室&lt;/title&gt;
+  &lt;style type=&quot;text/css&quot;&gt;
+    /**输入框样式*/
+    .text * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #main {
+      text-align: center;
+    }
+
+    #showmes {
+      position: relative;
+      background: url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fcdn.duitang.com%2Fuploads%2Fitem%2F201209%2F08%2F20120908134318_YVAwx.jpeg&amp;refer=http%3A%2F%2Fcdn.duitang.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=jpeg?sec=1626261869&amp;t=964bbb79e059f74901698cdd5f6de691) no-repeat;
+      background-size: 100% 110%;
+      margin: auto;
+      width: 600px;
+      height: 600px;
+      overflow: hidden;
+      overflow-y: scroll;
+    }
+
+    /**别人气泡*/
+    .leftspan2 {
+      float: left;
+      color: grey;
+      font-weight: 1000;
+      position: absolute;
+      top: -18px;
+      font-size: 3px;
+      left: 25px;
+    }
+
+    .leftspan {
+      color: white;
+      background-color: #635f5fec;
+      padding: 5px 8px;
+      font-size: 14px;
+      float: left;
+      position: relative;
+      border-radius: 4px;
+      margin-left: 25px;
+      margin-right: 5px;
+
+    }
+
+    .leftspan::after {
+      content: '';
+      border: 8px solid #ffffff00;
+      border-right: 8px solid #635f5fec;
+      ;
+      position: absolute;
+      top: 6px;
+      left: -16px;
+    }
+
+    /*自己气泡**/
+    .pp {
+      width: 100%;
+      position: relative;
+      min-height: 20px;
+      float: right;
+      margin-bottom: 15px;
+    }
+
+    .rightspan2 {
+      float: right;
+      color: grey;
+      font-weight: 1000;
+      position: absolute;
+      top: -18px;
+      font-size: 3px;
+      right: 15px;
+    }
+
+    .rightspan {
+      float: right;
+      position: relative;
+      color: rgb(2, 2, 2);
+      font-weight: 500;
+      background-color: #88e99d;
+      padding: 5px 8px;
+      font-size: 14px;
+      border-radius: 4px;
+      margin-left: 5px;
+      margin-right: 15px;
+
+    }
+
+    .rightspan::after {
+      content: '';
+      border: 8px solid #ffffff00;
+      border-left: 8px solid #88e99d;
+      ;
+      position: absolute;
+      top: 6px;
+      right: -13px;
+
+    }
+
+    /**输入框*/
+    #text {
+      width: 500px;
+      height: 25px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+  &lt;div id=&quot;joinname&quot;&gt;
+    &lt;span&gt;请输入加入的姓名&lt;/span&gt; &lt;input type=&quot;text&quot; id=&quot;name&quot;&gt;&lt;button onclick=&quot;joinchat()&quot;&gt;提交&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;main&quot; style=&quot;display: none;&quot;&gt;
+    
+    &lt;h1&gt;fanfan的聊天室&lt;/h1&gt;
+    &lt;div id=&quot;showmes&quot;&gt;
+
+    &lt;/div&gt;
+    &lt;div class=&quot;inputtxt&quot;&gt;
+      &lt;input type=&quot;text&quot; id=&quot;text&quot;&gt;&lt;/input&gt;
+      &lt;button id=&quot;btn&quot; onclick=&quot;sendmes()&quot;&gt;发送&lt;/button&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+
+  &lt;script src=&quot;/socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    //全局变量
+    name = ''
+    var socket = io(); //连接聊天室的io服务器 io服务器的根地址
+    //连接进聊天室
+    function firstjoin() {
+
+      socket.on('hello', data =&gt; {
+        console.log('服务端发送的东西为：' + data);
+      })
+    }
+
+    function notnull() {
+      if (document.getElementById('text').value != '') {
+        return 1;
+      }
+      else {
+        return 0;
+      }
+    }
+    //自己发信息
+    function sendmes() {
+      if (notnull()) {
+        var mes = document.getElementById('text').value
+        var p = document.createElement('p');
+        var span = document.createElement('span')
+        var span2 = document.createElement('span')
+        span.innerHTML = mes;
+        span2.innerHTML = name;
+        span2.className = 'rightspan2'
+        span.className = 'rightspan'
+        p.className = 'pp'
+        p.appendChild(span2)
+        p.appendChild(span)
+        document.getElementById('showmes').appendChild(p)
+        socket.emit('client', {'value':document.getElementById('text').value,'name':name})
+        document.getElementById('text').value = ''
+
+        document.getElementById(&quot;showmes&quot;).scrollTop += document.getElementById(&quot;showmes&quot;).offsetHeight;
+      }
+
+    }
+    //收到别人发的信息
+    socket.on('sendmes', data =&gt; {
+      console.log(data);
+      var p = document.createElement('p');
+      var span = document.createElement('span');
+      var span2 = document.createElement('span');
+      span.className = 'leftspan'
+      console.log('姓名是'+data.users.name);
+      span2.innerHTML = data.users.name
+      span2.className = 'leftspan2'
+      span.innerHTML = data.value;
+      p.appendChild(span2)
+      p.appendChild(span)
+      p.className = 'pp'
+
+      document.getElementById('showmes').appendChild(p)
+
+      document.getElementById(&quot;showmes&quot;).scrollTop += document.getElementById(&quot;showmes&quot;).offsetHeight;
+    })
+
+    //加入聊天室提醒
+    function joinchat() {
+      if (document.getElementById('name').value.length &gt;= 1 &amp;&amp; document.getElementById('name').value.length &lt;= 6) {
+        //加入盒子隐藏 聊天盒子显示
+        document.getElementById('main').style.display='block'
+        document.getElementById('joinname').style.display='none'
+        name=document.getElementById('name').value
+        socket.emit('login', { 'name': document.getElementById('name').value })
+      }
+
+    }
+    socket.on('loginback', data =&gt; {
+      var p = document.createElement('p');
+      p.innerHTML = data.name + '加入了房间';
+      p.style.color = 'grey'
+      p.style.fontWeight = '1000'
+      p.style.textAlign = 'center'
+      p.style.fontSize = '6px'
+      document.getElementById('showmes').appendChild(p)
+    })
+    //回车发送消息
+    document.onkeydown = function (e) {
+      console.log('1');
+      var ev = document.all ? window.event : e;
+      if (ev.keyCode == 13) {
+        sendmes();
+      }
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+
+</code></pre>
+<br>
+<br>
+<br>
+每次进入页面先输入自己的姓名才能进入聊天室
+每个客户端对应自己独特的socket id来获取发送消息的名称
+给回车绑定事件，每次回车发送 可以实现多人在线实时聊天，且有自己对应的名称 自己发送的消息和收到的消息进行区分
+<figure data-type="image" tabindex="1"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015910759.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015915621.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015921537.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015925385.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015929804.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015931812.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/mage-20210616015934765.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[事件循环]]></title>
         <id>https://fanfankill.github.io/post/shi-jian-xun-huan/</id>
@@ -798,97 +1099,6 @@ TRACE方法是让WEB服务器端将之前的请求通信返回给客户端的方
 <h2 id="使用cookie的状态管理"><strong>使用Cookie的状态管理</strong></h2>
 <p>Cookie技术通过在请求和响应报文中写入Cookie信息来控制客户端的状态</p>
 <p>Cookie会根据从服务端发送的响应报文内的一个叫做Set-Cookie的首部字段信息，通知客户端保存Cookie。当下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入Cookie值发送出去</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[图解HTTP 第一章]]></title>
-        <id>https://fanfankill.github.io/post/tu-jie-http/</id>
-        <link href="https://fanfankill.github.io/post/tu-jie-http/">
-        </link>
-        <updated>2021-04-22T03:03:20.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="http超文本传输协议">HTTP（超文本传输协议）</h2>
-<br>
-<h2 id="tcpip-分层">TCP/IP 分层</h2>
-<ol>
-<li>
-<p><strong>应用层</strong></p>
-<pre><code>  	     1. 决定向用户提供应用服务时通信的活动 (HTTP，FTP，DNS)  
-</code></pre>
-</li>
-<li>
-<p><strong>传输层</strong></p>
-<pre><code>  	     1. 提供处于网络连接中两台计算机之间的数据传输
-</code></pre>
-</li>
-<li>
-<p><strong>网络层</strong></p>
-<pre><code>  	     1. 处理网络上流动的数据包，为数据传输选择一条路线
-</code></pre>
-</li>
-<li>
-<p><strong>数据链路层</strong></p>
-<pre><code>  	     1. 一些肉眼可见的硬件设施 网卡 光纤 等
-</code></pre>
-<br>
-</li>
-</ol>
-<h2 id="tcpip通信传输流">TCP/IP通信传输流</h2>
-<table>
-<thead>
-<tr>
-<th>客户端</th>
-<th style="text-align:center">过程</th>
-<th style="text-align:right">服务器</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>应用层</td>
-<td style="text-align:center">HTTP数据</td>
-<td style="text-align:right">应用层</td>
-</tr>
-<tr>
-<td>传输层</td>
-<td style="text-align:center">加/消去 TCP首部</td>
-<td style="text-align:right">传输层</td>
-</tr>
-<tr>
-<td>网络层</td>
-<td style="text-align:center">加/消去 IP首部</td>
-<td style="text-align:right">网络层</td>
-</tr>
-<tr>
-<td>链路层</td>
-<td style="text-align:center">加/消去 以太网首部</td>
-<td style="text-align:right">链路层</td>
-</tr>
-</tbody>
-</table>
-<h1 id="与http关系紧密的协议"><strong>与HTTP关系紧密的协议</strong></h1>
-<br>
-<h3 id="负责传输的ip协议"><strong>负责传输的IP协议</strong></h3>
-<p>IP(网际协议)处于网络层，IP协议的作用是把各种数据包传送给对方，而确保传送到对方那里，要满足各种条件。其中两个重要的条件就是<strong>IP地址</strong>和<strong>MAC地址</strong></p>
-<p><strong>IP地址</strong>指明了节点被分配到的地址，<strong>Mac地址</strong>是指网卡所属的固定地址，IP地址可以和MAC地址进行匹配。IP地址可以变换，MAC地址基本不会更改</p>
-<br>
-<h3 id="arp协议"><strong>ARP协议</strong></h3>
-<p>IP间的通信依赖MAC地址。在网络上，通信的双方在同一局域网（LAN）内的情况还是很少的，通常需要多台计算机和网络设备中转。而在进行中转时，<strong>会利用下一站中转设备的MAC地址来搜索下一个中转目标</strong>。ARP是一种用以解析地址的协议，根据通信方的IP地址就可以反查出对应的MAC地址<br>
-<br></p>
-<h3 id="tcp协议"><strong>TCP协议</strong></h3>
-<p>TCP协议位于传输层，提供可靠的字节流服务。</p>
-<p><strong>字节流服务</strong>指为了方便传输将大块数据分割成以报文段为单位的数据包进行管理</p>
-<p><strong>可靠的服务</strong>指TCP协议能够确认数据最终是否送到对方</p>
-<br>
-<h4 id="确保数据能达到目标"><strong>确保数据能达到目标</strong></h4>
-<p>TCP协议采用<strong>三次握手</strong>策略。用TCP协议把数据包送出去后，TCP一定会向对方确认是否成功送达。握手过程中使用了TCP的标志——SYN和——ACK。</p>
-<p>发送端首先发送一个带SYN标志的数据包给对方。接收端收到后，回传一个带有SYN/ACK标志的数据包以示传达确认信息。最后发送端再回传一个带ACK标志的数据包，代表“握手”结束</p>
-<p>若在握手的过程中某个阶段莫名中断，TCP协议会再次以相同的顺序发送相同的数据包<br>
-<br></p>
-<h2 id="负责域名解析的dns服务"><strong>负责域名解析的DNS服务</strong></h2>
-<p>DNS服务位于应用层的协议。它提供域名到IP地址之间的解析服务</p>
-<p>DNS协议提供通过<strong>域名</strong>(例如 www.baidu.com)查找<strong>IP</strong>(14.215.177.39)，或逆向从IP反查域名的服务(cmd的nslookup 指令)</p>
-<br>
-<h2 id="各种协议与http协议的关系">各种协议与HTTP协议的关系</h2>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1619064689862.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>
