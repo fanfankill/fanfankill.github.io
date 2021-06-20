@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title> 微信小程序开发记录 | fanfan</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1624175624950">
+<link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="ES6 map()函数 (选择作用)
+var users = [
+{name: &quot;张含韵&quot;, &quot;email&quot;: &quot;zhang@email.com&quot;},
+{name: &quot;江..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fanfankill.github.io">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1624175624950" class="site-logo">
+        <h1 class="site-title">fanfan</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/hjqM1TBv9/" class="site-nav">
+            JS
+          </a>
+        
+      
+        
+          <a href="/css" class="site-nav">
+            CSS
+          </a>
+        
+      
+        
+          <a href="/html" class="site-nav">
+            HTML
+          </a>
+        
+      
+        
+          <a href="/tag/KATkWfQKE/" class="site-nav">
+            Http
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      <strong>前端小白</strong>
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanfankill.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title"> 微信小程序开发记录</h2>
+            <div class="post-date">2021-06-20</div>
+            
+              <div class="feature-container" style="background-image: url('https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2961974070,137066290&amp;fm=26&amp;gp=0.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="es6-map函数-选择作用">ES6 map()函数 (选择作用)</h2>
+<pre><code>var users = [
+{name: &quot;张含韵&quot;, &quot;email&quot;: &quot;zhang@email.com&quot;},
+{name: &quot;江一燕&quot;, &quot;email&quot;: &quot;jiang@email.com&quot;},
+{name: &quot;李小璐&quot;, &quot;email&quot;: &quot;li@email.com&quot;}
+];
+
+var emails = users.map(function (user) { return user.email; });
+
+console.log(emails.join(&quot;, &quot;)); 
+
+// zhang@email.com, jiang@email.com, li@email.com
+</code></pre>
+<p>此方法用于我对于获取总数据中选择data里面的数组去选择我需要的部分<br>
+<br></p>
+<h2 id="小程序本地储存">小程序本地储存</h2>
+<p>wx.setStorageSync('key','value);</p>
+<p>wx.getStorageSync( 'key');</p>
+<p>web中存数据会先调用toString() 把数据变为字符串 再进行储存</p>
+<p>小程序存的数据什么类型 获取的就是什么类型</p>
+<br>
+<h2 id="onloadoption">onload(option)</h2>
+<p>{</p>
+<p>​	//option里面包含我从其他页面跳转url带参的参数</p>
+<p>}<br>
+<br></p>
+<h2 id="组件的子传父-父传子">组件的子传父 父传子</h2>
+<pre><code class="language-html">&lt;!-- 监听自定义事件 bindtabsitemchange是子组件向父组件传值加bind --&gt;
+&lt;tab tabs=&quot;{{tabs}}&quot; bindtabsitemchange=&quot;handitemchange&quot;&gt;&lt;/tab&gt;
+</code></pre>
+<p>子组件接受参数</p>
+<pre><code class="language-js"> properties: {
+    tabs:{
+      type:Array,
+      value:[]
+    }
+  },
+</code></pre>
+<p>子组件向父组件传值</p>
+<pre><code class="language-js">  methods: {
+      //点击事件
+      handleitemtap(e)
+      {
+        const {index}=e.currentTarget.dataset
+        this.triggerEvent(&quot;tabsitemchange&quot;,{index} )
+      }
+  }
+</code></pre>
+<p>父组件对传值的处理</p>
+<pre><code class="language-js">//tab子组件点击事件
+handitemchange(e)
+{
+  console.log(e);
+  //获取被点击的标题索引
+  const {index}=e.detail;
+  let {tabs}=this.data
+  tabs.forEach((value,i)=&gt;i==index?value.isactive=true:value.isactive=false)
+  this.setData({
+      //更新父组件的内容
+    tabs
+  })
+  
+},
+</code></pre>
+<br>
+## 用到的周期函数
+<pre><code class="language-js">  onLoad: function (options) {
+      console.log(options);
+      this.qureyparams.cid=options.cid
+      console.log(this.qureyparams);
+      this.getgoodslist()
+  },
+      
+//页面滚动条触底事件 要判断是否有下一页数据 总页数 页码   页码*获取条数&gt;=总数据 没有下一页
+  onReachBottom()
+  {
+      //判断是否还有下一页
+      if(this.qureyparams.pagenum&gt;=this.totalpagesize)
+      {
+        //给个提示
+        wx.showToast({
+          title:'',
+          icon:'none',
+          duration:1500,
+         
+        })
+      }
+      else{
+     
+         this.qureyparams.pagenum++
+        console.log(this.qureyparams.pagenum);
+        this.getgoodslist()
+      }
+  },
+	
+//下拉刷新触发函数 
+  onPullDownRefresh(){
+      //1 重置数组
+      this.setData({
+        goodslist:[]
+      })
+      //重置页数
+      this.qureyparams.pagenum=1
+      //重新发请求
+      this.getgoodslist()
+      //在方法里面手动关闭下拉刷新等待效果
+      //（ wx.stopPullDownRefresh()）
+  },
+      
+      
+</code></pre>
+<p>对于下拉刷新可以在需要的文件下加<code>&quot;enablePullDownRefresh&quot;: true</code></p>
+<p>也可以在app.json全局加刷新效果 包括下拉刷新的样式也是可以添加的</p>
+<pre><code class="language-js">  &quot;window&quot;:{
+    &quot;backgroundTextStyle&quot;:&quot;light&quot;,
+    &quot;navigationBarBackgroundColor&quot;: &quot;#eb4450&quot;,
+    &quot;navigationBarTitleText&quot;: &quot;fanfan&quot;,
+    &quot;navigationBarTextStyle&quot;:&quot;white&quot;,
+
+    &quot;backgroundColor&quot;: &quot;#0094ff&quot;
+
+  },
+</code></pre>
+<br>
+<h2 id="对于下拉加载新数据的方法">对于下拉加载新数据的方法</h2>
+<p>先对原先数据进行解构后，把新数据加进去，而不是刷新数组</p>
+<pre><code class="language-js"> this.setData({
+      goodslist:[...this.data.goodslist,...res.data.message.goods]
+    })
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/">
+                  <h3 class="post-title">
+                    socket.io实现实时聊天室
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-06-15T18:06:45.415Z</updated>
+    <updated>2021-06-20T07:53:53.417Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,144 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[ 微信小程序开发记录]]></title>
+        <id>https://fanfankill.github.io/post/xiao-cheng-xu-kai-fa-ji-lu/</id>
+        <link href="https://fanfankill.github.io/post/xiao-cheng-xu-kai-fa-ji-lu/">
+        </link>
+        <updated>2021-06-20T07:51:34.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="es6-map函数-选择作用">ES6 map()函数 (选择作用)</h2>
+<pre><code>var users = [
+{name: &quot;张含韵&quot;, &quot;email&quot;: &quot;zhang@email.com&quot;},
+{name: &quot;江一燕&quot;, &quot;email&quot;: &quot;jiang@email.com&quot;},
+{name: &quot;李小璐&quot;, &quot;email&quot;: &quot;li@email.com&quot;}
+];
+
+var emails = users.map(function (user) { return user.email; });
+
+console.log(emails.join(&quot;, &quot;)); 
+
+// zhang@email.com, jiang@email.com, li@email.com
+</code></pre>
+<p>此方法用于我对于获取总数据中选择data里面的数组去选择我需要的部分<br>
+<br></p>
+<h2 id="小程序本地储存">小程序本地储存</h2>
+<p>wx.setStorageSync('key','value);</p>
+<p>wx.getStorageSync( 'key');</p>
+<p>web中存数据会先调用toString() 把数据变为字符串 再进行储存</p>
+<p>小程序存的数据什么类型 获取的就是什么类型</p>
+<br>
+<h2 id="onloadoption">onload(option)</h2>
+<p>{</p>
+<p>​	//option里面包含我从其他页面跳转url带参的参数</p>
+<p>}<br>
+<br></p>
+<h2 id="组件的子传父-父传子">组件的子传父 父传子</h2>
+<pre><code class="language-html">&lt;!-- 监听自定义事件 bindtabsitemchange是子组件向父组件传值加bind --&gt;
+&lt;tab tabs=&quot;{{tabs}}&quot; bindtabsitemchange=&quot;handitemchange&quot;&gt;&lt;/tab&gt;
+</code></pre>
+<p>子组件接受参数</p>
+<pre><code class="language-js"> properties: {
+    tabs:{
+      type:Array,
+      value:[]
+    }
+  },
+</code></pre>
+<p>子组件向父组件传值</p>
+<pre><code class="language-js">  methods: {
+      //点击事件
+      handleitemtap(e)
+      {
+        const {index}=e.currentTarget.dataset
+        this.triggerEvent(&quot;tabsitemchange&quot;,{index} )
+      }
+  }
+</code></pre>
+<p>父组件对传值的处理</p>
+<pre><code class="language-js">//tab子组件点击事件
+handitemchange(e)
+{
+  console.log(e);
+  //获取被点击的标题索引
+  const {index}=e.detail;
+  let {tabs}=this.data
+  tabs.forEach((value,i)=&gt;i==index?value.isactive=true:value.isactive=false)
+  this.setData({
+      //更新父组件的内容
+    tabs
+  })
+  
+},
+</code></pre>
+<br>
+## 用到的周期函数
+<pre><code class="language-js">  onLoad: function (options) {
+      console.log(options);
+      this.qureyparams.cid=options.cid
+      console.log(this.qureyparams);
+      this.getgoodslist()
+  },
+      
+//页面滚动条触底事件 要判断是否有下一页数据 总页数 页码   页码*获取条数&gt;=总数据 没有下一页
+  onReachBottom()
+  {
+      //判断是否还有下一页
+      if(this.qureyparams.pagenum&gt;=this.totalpagesize)
+      {
+        //给个提示
+        wx.showToast({
+          title:'',
+          icon:'none',
+          duration:1500,
+         
+        })
+      }
+      else{
+     
+         this.qureyparams.pagenum++
+        console.log(this.qureyparams.pagenum);
+        this.getgoodslist()
+      }
+  },
+	
+//下拉刷新触发函数 
+  onPullDownRefresh(){
+      //1 重置数组
+      this.setData({
+        goodslist:[]
+      })
+      //重置页数
+      this.qureyparams.pagenum=1
+      //重新发请求
+      this.getgoodslist()
+      //在方法里面手动关闭下拉刷新等待效果
+      //（ wx.stopPullDownRefresh()）
+  },
+      
+      
+</code></pre>
+<p>对于下拉刷新可以在需要的文件下加<code>&quot;enablePullDownRefresh&quot;: true</code></p>
+<p>也可以在app.json全局加刷新效果 包括下拉刷新的样式也是可以添加的</p>
+<pre><code class="language-js">  &quot;window&quot;:{
+    &quot;backgroundTextStyle&quot;:&quot;light&quot;,
+    &quot;navigationBarBackgroundColor&quot;: &quot;#eb4450&quot;,
+    &quot;navigationBarTitleText&quot;: &quot;fanfan&quot;,
+    &quot;navigationBarTextStyle&quot;:&quot;white&quot;,
+
+    &quot;backgroundColor&quot;: &quot;#0094ff&quot;
+
+  },
+</code></pre>
+<br>
+<h2 id="对于下拉加载新数据的方法">对于下拉加载新数据的方法</h2>
+<p>先对原先数据进行解构后，把新数据加进去，而不是刷新数组</p>
+<pre><code class="language-js"> this.setData({
+      goodslist:[...this.data.goodslist,...res.data.message.goods]
+    })
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[socket.io实现实时聊天室]]></title>
         <id>https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/</id>
@@ -1041,64 +1179,6 @@ document.body.onclick = function(event){
 <h3 id="服务器驱动协商">服务器驱动协商</h3>
 <h3 id="客户端驱动协商">客户端驱动协商</h3>
 <h3 id="透明协商">透明协商</h3>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[图解HTTP 第二章]]></title>
-        <id>https://fanfankill.github.io/post/tu-jie-http-di-er-zhang/</id>
-        <link href="https://fanfankill.github.io/post/tu-jie-http-di-er-zhang/">
-        </link>
-        <updated>2021-04-23T02:19:27.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="http协议用于客户端和服务端之间的通信"><strong>HTTP协议用于客户端和服务端之间的通信</strong></h2>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1619145642116.png" alt="" loading="lazy"></figure>
-<hr>
-<br>
-<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1619145670666.png" alt="" loading="lazy"></figure>
-<hr>
-<br>
-<h2 id="http是不保存状态协议"><strong>HTTP是不保存状态协议</strong></h2>
-<p>HTTP是不保存状态的协议，即无状态协议。HTTP协议自身不对请求和响应之间的通信状态进行保存。这样是为了更快的处理大量事务，确保协议的 可伸缩性</p>
-<p>为了保证页面跳转时的状态保存，Cooike就被引入</p>
-<br>
-<p>## <em><strong>*请求URI定位资源*</strong></em></p>
-<figure data-type="image" tabindex="3"><img src="https://fanfankill.github.io/post-images/1619145690268.png" alt="" loading="lazy"></figure>
-<hr>
-<br>
-<h2 id="告知服务器意图的http方法"><strong>告知服务器意图的HTTP方法</strong></h2>
-<p><strong>GET</strong>：获取资源</p>
-<p>GET方法用来请求访问已被URI 识别的资源</p>
-<figure data-type="image" tabindex="4"><img src="https://fanfankill.github.io/post-images/1619147700579.png" alt="" loading="lazy"></figure>
-<hr>
-<p><strong>POST</strong>：传输实体主体</p>
-<p>POST传输更常用<br>
-<img src="https://fanfankill.github.io/post-images/1619147796053.png" alt="" loading="lazy"></p>
-<hr>
-<p><strong>PUT</strong>：传输文件</p>
-<p>PUT方法自身不带验证机制，在一般情况下不用<br>
-<img src="https://fanfankill.github.io/post-images/1619147670212.png" alt="" loading="lazy"></p>
-<hr>
-<p><strong>HEAD</strong>：获得报文头部</p>
-<p>HEAD方法和GET方法一样，只是不返回报文主体部分，用于确认URI的有效性及资源更新的日期时间等<br>
-<img src="https://fanfankill.github.io/post-images/1619147639933.png" alt="" loading="lazy"></p>
-<hr>
-<p><strong>DELETE</strong>：删除文件</p>
-<p>与PUT方法相反的方法，也是不带验证机制的方法<br>
-<img src="https://fanfankill.github.io/post-images/1619147846458.png" alt="" loading="lazy"></p>
-<hr>
-<p><strong>OPTIONS</strong>：询问支持的方法</p>
-<p>OPTIONS方法用来查询针对URI指定的资源支持的方法</p>
-<hr>
-<p><strong>TRACE</strong>：追踪路径<br>
-TRACE方法是让WEB服务器端将之前的请求通信返回给客户端的方法<br>
-客户端用于查询发送出去的请求怎样被加工的，但不常用</p>
-<hr>
-<h2 id="持久连接"><strong>持久连接</strong></h2>
-<p>因为每进行一次HTTP通信就要断开一次TCP连接，对于网页的请求就要很多次的连接和断开操作，浪费通信量。</p>
-<p>所以HTTP keep-alive的方法出现，只要任意一端没有明确提出断开连接，则保持TCP连接状态</p>
-<hr>
-<h2 id="使用cookie的状态管理"><strong>使用Cookie的状态管理</strong></h2>
-<p>Cookie技术通过在请求和响应报文中写入Cookie信息来控制客户端的状态</p>
-<p>Cookie会根据从服务端发送的响应报文内的一个叫做Set-Cookie的首部字段信息，通知客户端保存Cookie。当下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入Cookie值发送出去</p>
 ]]></content>
     </entry>
 </feed>
