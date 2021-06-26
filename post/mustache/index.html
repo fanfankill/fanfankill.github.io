@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>事件循环 | fanfan</title>
+<title>mustache | fanfan</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -18,10 +18,29 @@
 
 
 
-    <meta name="description" content="JS为单线程
-宏任务主要包含：script( 整体代码)、setTimeout、setInterval、I/O、UI 交互事件、setImmediate(Node.js 环境)
-微任务主要包含：Promise、MutaionObserver..." />
-    <meta name="keywords" content="Javascript" />
+    <meta name="description" content="vue源码学习
+什么是模板引擎
+将数据要变为试图最优雅的解决方案
+历史上出现过数据变为视图的方法
+
+
+纯DOM
+
+
+数组join法
+
+
+ES6的反引号法
+新增的 ${a}的语法糖
+
+
+模板引擎
+
+
+数组join法
+//换行一样
+var me..." />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -98,93 +117,100 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">事件循环</h2>
-            <div class="post-date">2021-06-10</div>
-            
-              <div class="feature-container" style="background-image: url('https://fanfankill.github.io/post-images/shi-jian-xun-huan.webp')">
-              </div>
+            <h2 class="post-title">mustache</h2>
+            <div class="post-date">2021-06-26</div>
             
             <div class="post-content" v-pre>
-              <p>JS为单线程<br>
-宏任务主要包含：script( 整体代码)、setTimeout、setInterval、I/O、UI 交互事件、setImmediate(Node.js 环境)</p>
-<p>微任务主要包含：Promise、MutaionObserver、process.nextTick(Node.js 环境)<br>
-<img src="https://fanfankill.github.io/post-images/1623256115003.webp" alt="" loading="lazy"></p>
-<p>例子1</p>
-<pre><code class="language-js">console.log('script start');
-
-setTimeout(function() {
-  console.log('timeout1');
-}, 10);
-
-new Promise(resolve =&gt; {
-    console.log('promise1');
-    resolve();
-    setTimeout(() =&gt; console.log('timeout2'), 10);
-}).then(function() {
-    console.log('then1')
-})
-
-console.log('script end');
+              <h1 id="vue源码学习">vue源码学习</h1>
+<h2 id="什么是模板引擎">什么是模板引擎</h2>
+<p><strong>将数据要变为试图最优雅的解决方案</strong></p>
+<p>历史上出现过数据变为视图的方法</p>
+<ul>
+<li>
+<p>纯DOM</p>
+</li>
+<li>
+<p>数组join法</p>
+</li>
+<li>
+<p>ES6的反引号法</p>
+<p>新增的 <code>${a}</code>的语法糖</p>
+</li>
+<li>
+<p>模板引擎</p>
+</li>
+</ul>
+<p><strong>数组join法</strong></p>
+<pre><code class="language-js">//换行一样
+var message='fanfan'
+var str=[
+    '&lt;li&gt;',
+    '&lt;div&gt;'+message+'&lt;/div&gt;',
+    '&lt;/li&gt;'
+].join()
 </code></pre>
-<p><img src="https://fanfankill.github.io/post-images/1623255042505.png" alt="" loading="lazy"><br>
-先执行第一个log</p>
-<p>setTimeout推入宏队列hong1</p>
-<p>遇到promise马上执行打印然后将它所有的then推入微队列后把setTimeout推入宏队列hong2</p>
-<p>先执行微队列，所以先打印then里面的。然后宏队列再打印<br>
-<br><br>
-<br><br>
-<br><br>
-例子2</p>
-<pre><code class="language-js">  console.log('1');
-
-setTimeout(function() {
-    console.log('2');
-  
-    new Promise(function(resolve) {
-        console.log('4');
-        resolve();
-    }).then(function() {
-        console.log('5')
-    })
-})
-
-new Promise(function(resolve) {
-    console.log('7');
-    resolve();
-}).then(function() {
-    console.log('8')
-})
-
-setTimeout(function() {
-    console.log('9');
-   
-    new Promise(function(resolve) {
-        console.log('11');
-        resolve();
-    }).then(function() {
-        console.log('12')
-    })
-})
+<p>ES6的语法糖</p>
+<pre><code class="language-js">let a='fanfan'
+list.innerHTTML+=`
+	&lt;li&gt;
+		&lt;div class=&quot;fanfan&quot;&gt;
+				${a}的信息
+		&lt;/div&gt;
+	&lt;/li&gt;
+`
 </code></pre>
-<p><img src="https://fanfankill.github.io/post-images/1623255137440.png" alt="" loading="lazy"><br>
-当在只剩两个宏任务的setTimeout时候执行第一个时，Promise压入了then的微任务，让第二个宏任务又排到微任务后等待</p>
+<h2 id="mustache库">mustache库</h2>
+<p>{{ }} 像胡子  所以取名叫胡子</p>
+<pre><code class="language-js">  var user = { name: &quot;Olive&quot;, age: 23, sex: &quot;girl&quot; };
+        var template = &quot;My name is  {{name}} ,I'm  {{age}} ,Sex is {{sex}}&quot;;
+        var view = Mustache.render(template, user)
+
+   console.log(view);
+</code></pre>
+<p><strong>简单模式下正则表达式可以实现</strong></p>
+<pre><code class="language-js"> var template = &quot;My name is  {{name}} ,I'm  {{age}} ,Sex is {{sex}}&quot;;
+    
+            console.log(template.replace(/\{\{(\w+)\}\}/g,function(a,b,c){
+                console.log(a,b,c);
+                return '❤'
+            }));
+
+/**
+	b 找出了里面的内容 可以用来替换
+	{{name}} name 12
+	{{age}} age 27
+	{{sex}} sex 43
+ 	My name is  ❤ ,I'm  ❤ ,Sex is ❤*/
+</code></pre>
+<pre><code class="language-js"> 
+//进行函数封装
+function likerender(template,data)
+            {
+                return template.replace(/\{\{(\w+)\}\}/g,function(findstr,$1){
+                //匹配data对象里面的属性
+                return data[$1]
+                     });
+            }
+
+            var data={
+                name:'fanfan',
+                age:18,
+                sex:'man'
+            }
+
+            console.log(likerender(template,data));
+		
+//My name is  fanfan ,I'm  18 ,Sex is man
+</code></pre>
 
             </div>
-            
-              <div class="tag-container">
-                
-                  <a href="https://fanfankill.github.io/tag/hjqM1TBv9/" class="tag">
-                    Javascript
-                  </a>
-                
-              </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://fanfankill.github.io/post/js-zhi-shi-dian/">
+                <a href="https://fanfankill.github.io/post/xiao-cheng-xu-kai-fa-ji-lu/">
                   <h3 class="post-title">
-                    JS知识点
+                     微信小程序开发记录
                   </h3>
                 </a>
               </div>

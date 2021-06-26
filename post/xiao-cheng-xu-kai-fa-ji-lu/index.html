@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1624377699996">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1624712595298">
 <link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
 
 
@@ -31,7 +31,7 @@ var users = [
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://fanfankill.github.io">
-        <img src="https://fanfankill.github.io/images/avatar.png?v=1624377699996" class="site-logo">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1624712595298" class="site-logo">
         <h1 class="site-title">fanfan</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -172,12 +172,18 @@ handitemchange(e)
 </code></pre>
 <br>
 ## 用到的周期函数
-<pre><code class="language-js">  onLoad: function (options) {
+<pre><code class="language-js">//只用加载该页面才调用  
+  onLoad: function (options) {
       console.log(options);
       this.qureyparams.cid=options.cid
       console.log(this.qureyparams);
       this.getgoodslist()
   },
+
+       //每次回到该页面就会调用
+     onShow(){
+         ...
+     },
       
 //页面滚动条触底事件 要判断是否有下一页数据 总页数 页码   页码*获取条数&gt;=总数据 没有下一页
   onReachBottom()

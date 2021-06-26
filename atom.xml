@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-06-22T16:01:41.557Z</updated>
+    <updated>2021-06-26T13:03:18.076Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,264 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[手写axios]]></title>
+        <id>https://fanfankill.github.io/post/shou-xie-axios/</id>
+        <link href="https://fanfankill.github.io/post/shou-xie-axios/">
+        </link>
+        <updated>2021-06-26T13:00:27.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="axios">axios</h2>
+<p>客户端  请求  服务端</p>
+<ul>
+<li>
+<p>请求行</p>
+<p>url</p>
+<p>请求方式</p>
+</li>
+<li>
+<p>多个请求头</p>
+<p>域名，cooike，content-Type等</p>
+</li>
+<li>
+<p>请求体</p>
+</li>
+</ul>
+<p>post方法传的参数</p>
+<p>服务端  响应  客户端</p>
+<ul>
+<li>
+<p>响应行</p>
+<p>status statusText</p>
+</li>
+<li>
+<p>多个响应头</p>
+<p>Content-Type:text/html</p>
+</li>
+<li>
+<p>响应体</p>
+<p>数据返回</p>
+</li>
+</ul>
+<h2 id="xhr">XHR</h2>
+<p>XMLHttpRequest对象可以和服务器交互 不会刷新网页</p>
+<p>只有XHR和fetch发出的才是ajax请求</p>
+<p>一般的请求就类似跳转和刷新页面</p>
+<p>ajax只是调用监视回调函数并传入响应相关的数据</p>
+<h2 id="api">API</h2>
+<p>XMLHttpRequest() //创建XHR对象的构造函数</p>
+<p>status：响应状态码</p>
+<p>statusText：响应状态文本</p>
+<p>onreadystatechange：绑定readyState改变的监听</p>
+<p>open(method,url)：初始化请求</p>
+<p>send(data)：发送请求</p>
+<p>abort()：中断请求</p>
+<br>
+<br>
+<h2 id="手写实现axios">手写实现axios</h2>
+<pre><code class="language-js">&lt;script&gt;
+    
+    //接口在本地node.js实现
+      function getdata()
+    {
+        console.log('发送get请求');
+        axios({
+            url:'http://localhost:3000/getposition',
+            parmas:{
+               
+            name:'fanfan',
+            age:19,
+            number:13142278876
+            }
+        }).then(res=&gt;{
+            console.log(res);
+        })
+    }
+
+    
+    //axios手写实现
+     
+    function axios({
+        //解构赋值  写好默认值
+        url,
+        method='GET',
+        data={},
+        parmas={},
+    }){
+        //返回promise对象
+         return new Promise( (resolve,reject)=&gt;{
+       
+         //对url的处理  有些get请求参数需要拼接另外函数实现拼接
+            url+='?'+pinjie(parmas)
+    
+             //创建xhr对象
+             const request=new XMLHttpRequest()
+            //打开连接
+             request.open(method,url,true) 
+            //转换为JSON对象 
+            if(method=='GET')
+            {
+                request.send()
+            }
+           else if(method=='post')
+           {
+          
+           //发送JSON格式的对象肯定要加请求头 告诉服务器请求体是JSON格式
+            request.setRequestHeader('Content-Type','application/json;charset=uft-8')
+            //转换为JSON发送
+            request.send(JSON.stringify(data))
+           }
+    
+           //绑定状态改变的监听 从发送变为成功或者失败调用的函数
+           request.onreadystatechange=function(){
+                //进入判断 如果请求没有完成 直接结束
+                if(request.readyState!==4)
+                {
+                    return 
+                }
+                //如果响应状态码在 200~299为成功
+                const {status,statusText} =request
+                //自己加的属性
+                let author='fanfan'
+                
+                if(status&gt;=200&amp;&amp;status&lt;=299)
+                {
+                    //准备结果对象response 的其中几条
+                    const response={
+                        //对应返回的数据可以知道这些东西是什么
+                        data:JSON.parse(request.response),
+                        status,
+                        statusText,
+                        //自己添加的属性
+                        author
+                      
+                    }
+                    resolve(response)
+                }else{
+                    //请求失败返回message信息和状态码
+                    reject(new Error('requset error status is '+status))
+                }
+           }
+              
+         })
+    }
+
+    //拼接参数 for-in解决
+    function pinjie(obj)
+    {
+        let  queryString=''
+        for(let k in obj)
+        {
+            queryString+= k+'='+obj[k]+'&amp;'
+        }
+        //判断有没有值
+        if(queryString)
+        {
+            queryString=queryString.slice(0,queryString.length-1)
+        }
+        //拼接到url上面
+       return  queryString
+    }
+    
+    
+&lt;/script&gt;
+
+
+</code></pre>
+<br>
+<br>
+<h2 id="实现结果">实现结果</h2>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1624712565528.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[mustache]]></title>
+        <id>https://fanfankill.github.io/post/mustache/</id>
+        <link href="https://fanfankill.github.io/post/mustache/">
+        </link>
+        <updated>2021-06-26T05:50:01.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="vue源码学习">vue源码学习</h1>
+<h2 id="什么是模板引擎">什么是模板引擎</h2>
+<p><strong>将数据要变为试图最优雅的解决方案</strong></p>
+<p>历史上出现过数据变为视图的方法</p>
+<ul>
+<li>
+<p>纯DOM</p>
+</li>
+<li>
+<p>数组join法</p>
+</li>
+<li>
+<p>ES6的反引号法</p>
+<p>新增的 <code>${a}</code>的语法糖</p>
+</li>
+<li>
+<p>模板引擎</p>
+</li>
+</ul>
+<p><strong>数组join法</strong></p>
+<pre><code class="language-js">//换行一样
+var message='fanfan'
+var str=[
+    '&lt;li&gt;',
+    '&lt;div&gt;'+message+'&lt;/div&gt;',
+    '&lt;/li&gt;'
+].join()
+</code></pre>
+<p>ES6的语法糖</p>
+<pre><code class="language-js">let a='fanfan'
+list.innerHTTML+=`
+	&lt;li&gt;
+		&lt;div class=&quot;fanfan&quot;&gt;
+				${a}的信息
+		&lt;/div&gt;
+	&lt;/li&gt;
+`
+</code></pre>
+<h2 id="mustache库">mustache库</h2>
+<p>{{ }} 像胡子  所以取名叫胡子</p>
+<pre><code class="language-js">  var user = { name: &quot;Olive&quot;, age: 23, sex: &quot;girl&quot; };
+        var template = &quot;My name is  {{name}} ,I'm  {{age}} ,Sex is {{sex}}&quot;;
+        var view = Mustache.render(template, user)
+
+   console.log(view);
+</code></pre>
+<p><strong>简单模式下正则表达式可以实现</strong></p>
+<pre><code class="language-js"> var template = &quot;My name is  {{name}} ,I'm  {{age}} ,Sex is {{sex}}&quot;;
+    
+            console.log(template.replace(/\{\{(\w+)\}\}/g,function(a,b,c){
+                console.log(a,b,c);
+                return '❤'
+            }));
+
+/**
+	b 找出了里面的内容 可以用来替换
+	{{name}} name 12
+	{{age}} age 27
+	{{sex}} sex 43
+ 	My name is  ❤ ,I'm  ❤ ,Sex is ❤*/
+</code></pre>
+<pre><code class="language-js"> 
+//进行函数封装
+function likerender(template,data)
+            {
+                return template.replace(/\{\{(\w+)\}\}/g,function(findstr,$1){
+                //匹配data对象里面的属性
+                return data[$1]
+                     });
+            }
+
+            var data={
+                name:'fanfan',
+                age:18,
+                sex:'man'
+            }
+
+            console.log(likerender(template,data));
+		
+//My name is  fanfan ,I'm  18 ,Sex is man
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[ 微信小程序开发记录]]></title>
         <id>https://fanfankill.github.io/post/xiao-cheng-xu-kai-fa-ji-lu/</id>
@@ -82,12 +340,18 @@ handitemchange(e)
 </code></pre>
 <br>
 ## 用到的周期函数
-<pre><code class="language-js">  onLoad: function (options) {
+<pre><code class="language-js">//只用加载该页面才调用  
+  onLoad: function (options) {
       console.log(options);
       this.qureyparams.cid=options.cid
       console.log(this.qureyparams);
       this.getgoodslist()
   },
+
+       //每次回到该页面就会调用
+     onShow(){
+         ...
+     },
       
 //页面滚动条触底事件 要判断是否有下一页数据 总页数 页码   页码*获取条数&gt;=总数据 没有下一页
   onReachBottom()
@@ -1068,164 +1332,6 @@ document.body.onclick = function(event){
 <p>存在资源更新等影响，需要去向源服务器确认</p>
 <h3 id="客户端的缓存">客户端的缓存</h3>
 <p>缓存也可以存在于客户端浏览器中，这种叫做<strong>临时网络文件</strong></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[图解HTTP第四章]]></title>
-        <id>https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/</id>
-        <link href="https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/">
-        </link>
-        <updated>2021-04-26T06:02:49.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="返回结果的http状态">返回结果的HTTP状态</h1>
-<h2 id="状态码告知从服务器端返回的请求结果">状态码告知从服务器端返回的请求结果</h2>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1619419502006.png" alt="" loading="lazy"></figure>
-<hr>
-<h2 id="2-xx成功"><strong>2 XX成功</strong></h2>
-<p>响应结果表明请求被正常处理</p>
-<ul>
-<li>
-<h3 id="200-ok">200 OK</h3>
-<p>正常处理</p>
-</li>
-<li>
-<h3 id="204-no-content">204 NO Content</h3>
-<p>表示请求被成功处理，但在返回的响应报文中不含实体的主体部分。</p>
-<p>应用于只需要客户端往服务器发送信息，而对客户端不需要发送新信息的情况下使用</p>
-</li>
-<li>
-<h3 id="206-partial-content">206 Partial Content</h3>
-<p>表示客户端进行了范围请求，而服务器成功执行这部分的GET请求。响应报文中包含由Content-Range指定范围的实体内容</p>
-<hr>
-</li>
-</ul>
-<h2 id="3-xx重定向"><strong>3 XX重定向</strong></h2>
-<p>表明浏览器需要执行某些特殊的处理以正确处理请求</p>
-<ul>
-<li>
-<h3 id="301-moved-permanently">301 Moved Permanently</h3>
-<p>永久性重定向。表示请求的资源已经被分配了新的URI，以后应使用资源现在所指的URI</p>
-<p>例如当指定路径末尾未加&quot;/&quot;时，会产生301状态码</p>
-</li>
-<li>
-<h3 id="302-found">302 Found</h3>
-<p>临时性重定向。表示请求的资源已经被分配了新的URI，希望用户能使用新的URI访问</p>
-</li>
-<li>
-<h3 id="303-see-other">303 See Other</h3>
-<p>表示请求的资源存在着另一个URI，应使用GET方法定向获取请求的资源</p>
-</li>
-<li>
-<h3 id="304-not-modified">304 Not Modified</h3>
-<p>表示客户端发送附带条件的请求时，服务器允许请求访问资源，但未找到满足条件的情况。</p>
-</li>
-<li>
-<h3 id="307-temporary-redirect">307 Temporary Redirect</h3>
-<p>临时冲顶先。与302相似。</p>
-</li>
-</ul>
-<hr>
-<h2 id="4-xx客户端错误"><strong>4 XX客户端错误</strong></h2>
-<p>表明客户端发生错误的原因所在</p>
-<ul>
-<li>
-<h3 id="400-bad-request">400 Bad Request</h3>
-<p>该状态码表示请求报文中存在语法错误。需修改请求的内容后再次发送请求。</p>
-</li>
-<li>
-<h3 id="401-unauthorized">401 Unauthorized</h3>
-<p>表示发送的请求需要有通过HTTP认证的认证信息</p>
-<p>当浏览器初次接收到401响应，会弹出认证用的对话窗口</p>
-</li>
-<li>
-<h3 id="403-forbidden">403 Forbidden</h3>
-<p>表明请求的资源的访问被服务器拒绝了</p>
-<p>未获得文件系统的访问授权，访问权限出现某些问题等列举的情况都可能发生403的原因</p>
-</li>
-<li>
-<h3 id="404-not-found">404 Not Found</h3>
-<p>表明服务器上无法找到请求的资源。</p>
-<hr>
-</li>
-</ul>
-<h2 id="5-xx服务器错误"><strong>5 XX服务器错误</strong></h2>
-<p>服务器本身的错误</p>
-<ul>
-<li>
-<h3 id="500-internal-server-error">500 Internal Server Error</h3>
-<p>表明服务器在执行请求时发生了错误。也有可能是WEB应用存在的bug或某些临时故障</p>
-</li>
-<li>
-<h3 id="503-service-unavailable">503 Service Unavailable</h3>
-<p>表明服务器暂时处于超负荷或正在进行停机维护，现在无法处理请求。</p>
-</li>
-</ul>
-<p>​</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[图解HTTP第三章]]></title>
-        <id>https://fanfankill.github.io/post/tu-jie-http-di-san-zhang/</id>
-        <link href="https://fanfankill.github.io/post/tu-jie-http-di-san-zhang/">
-        </link>
-        <updated>2021-04-25T06:01:15.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="http报文内的http信息"><strong>HTTP报文内的HTTP信息</strong></h1>
-<h2 id="http报文"><strong>HTTP报文</strong></h2>
-<p>用于HTTP协议交互的信息被称为HTTP报文。请求端的HTTP报文叫做请求报文，响应端的叫做响应报文</p>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1619330989639.png" alt="" loading="lazy"></figure>
-<hr>
-<h3 id="请求行"><strong>请求行</strong></h3>
-<p>请求行包括请求的方法，URI和HTTP的版本</p>
-<hr>
-<h3 id="状态行"><strong>状态行</strong></h3>
-<p>包含响应结果的状态码，原因短语和HTTP版本</p>
-<hr>
-<h3 id="首部字段"><strong>首部字段</strong></h3>
-<p>包含表示请求和响应的各种条件和属性的各类首部</p>
-<hr>
-<h1 id="编码提升传输速率"><strong>编码提升传输速率</strong></h1>
-<h2 id="报文主体和实体主体的差异"><strong>报文主体和实体主体的差异</strong></h2>
-<ul>
-<li>
-<p>报文</p>
-<p><strong>是HTTP通信中的基本单位</strong>，有8个字节流组成，通过HTTP通信传输</p>
-</li>
-<li>
-<p>实体</p>
-<p>作为请求或响应的有效载荷数据被传输，其内容由实体首部和实体主体组成</p>
-</li>
-</ul>
-<p>HTTP报文的主体用于传输请求或响应的实体主体</p>
-<hr>
-<h2 id="压缩传输的内容编码"><strong>压缩传输的内容编码</strong></h2>
-<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1619331895496.png" alt="" loading="lazy"></figure>
-<hr>
-<h2 id="分割发送的分块传输编码">分割发送的分块传输编码</h2>
-<p>在传输大容量数据时，通过把数据分割成多块，能够让浏览器逐步显示页面</p>
-<p><strong>分块传输编码</strong>会将实体主体分成多个部分。每一块都会用十六进制来标记块的大小，而实体主体的最后一块会使用&quot;0(CR+LF)&quot;来标记</p>
-<p>客户端复制解码，恢复到编码前的实体主体</p>
-<hr>
-<h1 id="发送多种数据的多部分对象集合">发送多种数据的多部分对象集合</h1>
-<p>例如图片，文件的上传</p>
-<p>在HTTP报文使用多部分对象集合时，需要在首部字段里加上Content-Type。</p>
-<p>boundary字符串来划分多部分对象集合指明的各类实体</p>
-<hr>
-<h1 id="获取部分内容的范围请求">获取部分内容的范围请求</h1>
-<p>指定范围发送的请求叫<strong>范围请求</strong><br>
-<img src="https://fanfankill.github.io/post-images/1619332602950.png" alt="" loading="lazy"></p>
-<hr>
-<h1 id="内容协商返回最合适的内容">内容协商返回最合适的内容</h1>
-<p>例网站的中英文版本，以下内容作为为判断标准</p>
-<ul>
-<li>Accept</li>
-<li>Accept-Charset</li>
-<li>Accept-Encoding</li>
-<li>Accept-Language</li>
-<li>Content-Language</li>
-</ul>
-<p>内容协商三种类型</p>
-<h3 id="服务器驱动协商">服务器驱动协商</h3>
-<h3 id="客户端驱动协商">客户端驱动协商</h3>
-<h3 id="透明协商">透明协商</h3>
 ]]></content>
     </entry>
 </feed>
