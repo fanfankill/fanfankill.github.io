@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-06-26T13:20:58.066Z</updated>
+    <updated>2021-06-29T16:55:00.108Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -11,7 +11,7 @@
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
     <entry>
-        <title type="html"><![CDATA[手写axios]]></title>
+        <title type="html"><![CDATA[手写ajax]]></title>
         <id>https://fanfankill.github.io/post/shou-xie-axios/</id>
         <link href="https://fanfankill.github.io/post/shou-xie-axios/">
         </link>
@@ -63,14 +63,14 @@
 <p>abort()：中断请求</p>
 <br>
 <br>
-<h2 id="手写实现axios">手写实现axios</h2>
+<h2 id="手写实现ajax">手写实现ajax</h2>
 <pre><code class="language-js">&lt;script&gt;
     
     //接口在本地node.js实现
       function getdata()
     {
         console.log('发送get请求');
-        axios({
+        ajax({
             url:'http://localhost:3000/getposition',
             parmas:{
                
@@ -84,9 +84,9 @@
     }
 
     
-    //axios手写实现
+    //ajax手写实现
      
-    function axios({
+    function ajax({
         //解构赋值  写好默认值
         url,
         method='GET',
@@ -177,6 +177,75 @@
 <br>
 <h2 id="实现结果">实现结果</h2>
 <figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1624712565528.png" alt="" loading="lazy"></figure>
+<h2 id="axios特点">axios特点</h2>
+<ul>
+<li>
+<p>基本promise的异步ajax请求库</p>
+</li>
+<li>
+<p>浏览器和node都可以使用</p>
+</li>
+<li>
+<p>支持请求/响应数据转换</p>
+</li>
+<li>
+<p>支持请求取消</p>
+</li>
+</ul>
+<h2 id="多个请求响应拦截器-洋葱模型">多个请求/响应拦截器  （洋葱模型）</h2>
+<p>请求拦截器 先添加后执行  响应拦截器 先添加先执行</p>
+<pre><code class="language-js"> //添加请求拦截器
+    axios.interceptors.request.use(
+        config=&gt;{
+            console.log('request interceptor1');
+            return config
+        },
+        error=&gt;{
+            return Promise.reject(error)
+        }
+    )
+
+     //添加请求拦截器
+     axios.interceptors.request.use(
+        config=&gt;{
+            console.log('request interceptor2');
+            return config
+        },
+        error=&gt;{
+            return Promise.reject(error)
+        }
+    )
+    //添加响应拦截器
+    axios.interceptors.response.use(
+        response=&gt;{
+            console.log('response interceptor1');
+            return response
+        },error=&gt;{
+            return Promise.reject(error)
+        }
+    )
+      //添加响应拦截器
+      axios.interceptors.response.use(
+        response=&gt;{
+            console.log('response interceptor2');
+            return response
+        },error=&gt;{
+            return Promise.reject(error)
+        }
+    )
+
+
+ //config 就是传的配置文件 不返回的话就传不过去
+
+//response return的结果会给下一个响应拦截器 最后执行.then(res) 将数据传给res
+
+
+/*request interceptor2
+request interceptor1
+response interceptor1
+response interceptor2*/
+
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -832,7 +901,7 @@ setTimeout(function() {
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[JS知识点]]></title>
+        <title type="html"><![CDATA[JS 节流和防抖 判断数组]]></title>
         <id>https://fanfankill.github.io/post/js-zhi-shi-dian/</id>
         <link href="https://fanfankill.github.io/post/js-zhi-shi-dian/">
         </link>
@@ -1050,6 +1119,15 @@ console.log(arr.toString());//&quot;[object Array]&quot;
 <img src="https://fanfankill.github.io/post-images/1622973728852.png" alt="" loading="lazy"><br>
 当为未出库状态下点击为预计算的信息()，若再次点击驶出按钮后则会修改该车位状态和进出状态并记录数据库<br>
 <img src="https://fanfankill.github.io/post-images/1622973813093.png" alt="" loading="lazy"></p>
+<h2 id="630更新">6.30更新</h2>
+<p>1.新增Echarts图表统计 和 日期天气显示<br>
+2.加强表与表的联系<br>
+3.新增固定车主功能，主要针对小区业主</p>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1624985566544.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1624985575278.png" alt="" loading="lazy"></figure>
+<p><img src="https://fanfankill.github.io/post-images/1624985582564.png" alt="" loading="lazy"><br>
+<img src="https://fanfankill.github.io/post-images/1624985591593.png" alt="" loading="lazy"><br>
+<img src="https://fanfankill.github.io/post-images/1624985599641.png" alt="" loading="lazy"></p>
 ]]></content>
     </entry>
     <entry>

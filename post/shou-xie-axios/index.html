@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8" >
 
-<title>手写axios | fanfan</title>
+<title>手写ajax | fanfan</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1624713652761">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1624985698127">
 <link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
 
 
@@ -49,7 +49,7 @@ status statusTex..." />
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://fanfankill.github.io">
-        <img src="https://fanfankill.github.io/images/avatar.png?v=1624713652761" class="site-logo">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1624985698127" class="site-logo">
         <h1 class="site-title">fanfan</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -117,7 +117,7 @@ status statusTex..." />
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">手写axios</h2>
+            <h2 class="post-title">手写ajax</h2>
             <div class="post-date">2021-06-26</div>
             
               <div class="feature-container" style="background-image: url('https://fanfankill.github.io/post-images/shou-xie-axios.png')">
@@ -171,14 +171,14 @@ status statusTex..." />
 <p>abort()：中断请求</p>
 <br>
 <br>
-<h2 id="手写实现axios">手写实现axios</h2>
+<h2 id="手写实现ajax">手写实现ajax</h2>
 <pre><code class="language-js">&lt;script&gt;
     
     //接口在本地node.js实现
       function getdata()
     {
         console.log('发送get请求');
-        axios({
+        ajax({
             url:'http://localhost:3000/getposition',
             parmas:{
                
@@ -192,9 +192,9 @@ status statusTex..." />
     }
 
     
-    //axios手写实现
+    //ajax手写实现
      
-    function axios({
+    function ajax({
         //解构赋值  写好默认值
         url,
         method='GET',
@@ -285,6 +285,75 @@ status statusTex..." />
 <br>
 <h2 id="实现结果">实现结果</h2>
 <figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1624712565528.png" alt="" loading="lazy"></figure>
+<h2 id="axios特点">axios特点</h2>
+<ul>
+<li>
+<p>基本promise的异步ajax请求库</p>
+</li>
+<li>
+<p>浏览器和node都可以使用</p>
+</li>
+<li>
+<p>支持请求/响应数据转换</p>
+</li>
+<li>
+<p>支持请求取消</p>
+</li>
+</ul>
+<h2 id="多个请求响应拦截器-洋葱模型">多个请求/响应拦截器  （洋葱模型）</h2>
+<p>请求拦截器 先添加后执行  响应拦截器 先添加先执行</p>
+<pre><code class="language-js"> //添加请求拦截器
+    axios.interceptors.request.use(
+        config=&gt;{
+            console.log('request interceptor1');
+            return config
+        },
+        error=&gt;{
+            return Promise.reject(error)
+        }
+    )
+
+     //添加请求拦截器
+     axios.interceptors.request.use(
+        config=&gt;{
+            console.log('request interceptor2');
+            return config
+        },
+        error=&gt;{
+            return Promise.reject(error)
+        }
+    )
+    //添加响应拦截器
+    axios.interceptors.response.use(
+        response=&gt;{
+            console.log('response interceptor1');
+            return response
+        },error=&gt;{
+            return Promise.reject(error)
+        }
+    )
+      //添加响应拦截器
+      axios.interceptors.response.use(
+        response=&gt;{
+            console.log('response interceptor2');
+            return response
+        },error=&gt;{
+            return Promise.reject(error)
+        }
+    )
+
+
+ //config 就是传的配置文件 不返回的话就传不过去
+
+//response return的结果会给下一个响应拦截器 最后执行.then(res) 将数据传给res
+
+
+/*request interceptor2
+request interceptor1
+response interceptor1
+response interceptor2*/
+
+</code></pre>
 
             </div>
             
