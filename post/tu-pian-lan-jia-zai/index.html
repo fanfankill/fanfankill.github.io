@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>图片懒加载 | fanfan</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1625323976492">
+<link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="实现图片懒加载先了解几个属性
+
+offsetWidth/offsetHeight
+
+对象的可见宽度
+
+clientWidth/clientHeight
+
+内容的可见宽度
+
+scrollWidth/scrollHeight
+
+元素完整的高度和..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fanfankill.github.io">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1625323976492" class="site-logo">
+        <h1 class="site-title">fanfan</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/hjqM1TBv9/" class="site-nav">
+            JS
+          </a>
+        
+      
+        
+          <a href="/css" class="site-nav">
+            CSS
+          </a>
+        
+      
+        
+          <a href="/html" class="site-nav">
+            HTML
+          </a>
+        
+      
+        
+          <a href="/tag/KATkWfQKE/" class="site-nav">
+            Http
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      <strong>前端小白</strong>
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanfankill.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">图片懒加载</h2>
+            <div class="post-date">2021-07-03</div>
+            
+            <div class="post-content" v-pre>
+              <p>实现图片懒加载先了解几个属性</p>
+<ul>
+<li>offsetWidth/offsetHeight</li>
+</ul>
+<p>对象的可见宽度</p>
+<ul>
+<li>clientWidth/clientHeight</li>
+</ul>
+<p>内容的可见宽度</p>
+<ul>
+<li>scrollWidth/scrollHeight</li>
+</ul>
+<p>元素完整的高度和宽度，overflow:hidden的部分也计算在内。</p>
+<ul>
+<li>offsetLeft/offsetTop</li>
+</ul>
+<p>当前元素距浏览器边界的偏移量，以像素为单位。</p>
+<ul>
+<li>clientTop/clientLeft</li>
+</ul>
+<p>这个属性测试下来的结果就是border。</p>
+<ul>
+<li>scrollLeft/scrollTop</li>
+</ul>
+<p>设置或返回已经滚动到元素的左边界或上边界的像素数。</p>
+<h2 id="实现代码">实现代码</h2>
+<pre><code class="language-js"> //显示器高度 window.innerHeight
+    //图片到视窗上的距离 getBoundingClientRect().top
+    let imgs=document.querySelectorAll('img')
+    console.log(imgs);
+
+    window.addEventListener('scroll',(e)=&gt;{
+        imgs.forEach(v=&gt;{
+            const imgtop=v.getBoundingClientRect().top
+            console.log(imgtop);
+            if(imgtop&lt;window.innerHeight)
+            {
+              
+                let data_src=v.getAttribute('data-src')
+                 v.setAttribute('src',data_src)
+            }
+            console.log('触发');
+        })
+    })
+
+</code></pre>
+<p>HTML</p>
+<pre><code class="language-html">&lt;img  data-src=&quot;https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb1-q.mafengwo.net%2Fs7%2FM00%2F2E%2F37%2FwKgB6lSuHraAYMNtAAXF8ovILuk683.png&amp;refer=http%3A%2F%2Fb1-q.mafengwo.net&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=jpeg?sec=1627892666&amp;t=953e6a19584b6772c33a1b84604fa63d&quot;&gt;
+</code></pre>
+<p><strong>感觉上面这样触发太频繁 加个节流吧</strong></p>
+<pre><code class="language-JS">//节流写法
+    window.onscroll = throttle(getscroll,200)
+    
+
+
+
+    //主体函数
+    function getscroll() {
+  
+        let imgs = document.querySelectorAll('img')
+
+        imgs.forEach(v=&gt;{
+            const imgtop=v.getBoundingClientRect().top
+            console.log(imgtop);
+            if(imgtop&lt;window.innerHeight)
+            {
+
+                let data_src=v.getAttribute('data-src')
+                 v.setAttribute('src',data_src)
+            }
+          
+        })
+    }
+
+    //节流函数 过一段时间才触发
+    function throttle(fn, delay) {
+        let timer = true
+        return function () {
+            if (!timer) {
+                return false
+            }
+  
+            timer=false
+            setTimeout(() =&gt; {
+            fn()
+            console.log('我是节流');
+            timer = true;
+        }, delay)
+
+        }
+    }
+
+</code></pre>
+<p><img src="https://fanfankill.github.io/post-images/1625323851326.png" alt="" loading="lazy"><br>
+<img src="https://fanfankill.github.io/post-images/1625323855197.png" alt="" loading="lazy"></p>
+<p>不节流效果</p>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1625323862788.png" alt="" loading="lazy"></figure>
+<p>节流后的效果  200ms间隔</p>
+<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1625323858842.png" alt="" loading="lazy"></figure>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanfankill.github.io/post/shou-xie-axios/">
+                  <h3 class="post-title">
+                    手写ajax
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-06-30T12:51:31.040Z</updated>
+    <updated>2021-07-03T14:52:58.737Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,113 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[图片懒加载]]></title>
+        <id>https://fanfankill.github.io/post/tu-pian-lan-jia-zai/</id>
+        <link href="https://fanfankill.github.io/post/tu-pian-lan-jia-zai/">
+        </link>
+        <updated>2021-07-03T14:47:46.000Z</updated>
+        <content type="html"><![CDATA[<p>实现图片懒加载先了解几个属性</p>
+<ul>
+<li>offsetWidth/offsetHeight</li>
+</ul>
+<p>对象的可见宽度</p>
+<ul>
+<li>clientWidth/clientHeight</li>
+</ul>
+<p>内容的可见宽度</p>
+<ul>
+<li>scrollWidth/scrollHeight</li>
+</ul>
+<p>元素完整的高度和宽度，overflow:hidden的部分也计算在内。</p>
+<ul>
+<li>offsetLeft/offsetTop</li>
+</ul>
+<p>当前元素距浏览器边界的偏移量，以像素为单位。</p>
+<ul>
+<li>clientTop/clientLeft</li>
+</ul>
+<p>这个属性测试下来的结果就是border。</p>
+<ul>
+<li>scrollLeft/scrollTop</li>
+</ul>
+<p>设置或返回已经滚动到元素的左边界或上边界的像素数。</p>
+<h2 id="实现代码">实现代码</h2>
+<pre><code class="language-js"> //显示器高度 window.innerHeight
+    //图片到视窗上的距离 getBoundingClientRect().top
+    let imgs=document.querySelectorAll('img')
+    console.log(imgs);
+
+    window.addEventListener('scroll',(e)=&gt;{
+        imgs.forEach(v=&gt;{
+            const imgtop=v.getBoundingClientRect().top
+            console.log(imgtop);
+            if(imgtop&lt;window.innerHeight)
+            {
+              
+                let data_src=v.getAttribute('data-src')
+                 v.setAttribute('src',data_src)
+            }
+            console.log('触发');
+        })
+    })
+
+</code></pre>
+<p>HTML</p>
+<pre><code class="language-html">&lt;img  data-src=&quot;https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb1-q.mafengwo.net%2Fs7%2FM00%2F2E%2F37%2FwKgB6lSuHraAYMNtAAXF8ovILuk683.png&amp;refer=http%3A%2F%2Fb1-q.mafengwo.net&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=jpeg?sec=1627892666&amp;t=953e6a19584b6772c33a1b84604fa63d&quot;&gt;
+</code></pre>
+<p><strong>感觉上面这样触发太频繁 加个节流吧</strong></p>
+<pre><code class="language-JS">//节流写法
+    window.onscroll = throttle(getscroll,200)
+    
+
+
+
+    //主体函数
+    function getscroll() {
+  
+        let imgs = document.querySelectorAll('img')
+
+        imgs.forEach(v=&gt;{
+            const imgtop=v.getBoundingClientRect().top
+            console.log(imgtop);
+            if(imgtop&lt;window.innerHeight)
+            {
+
+                let data_src=v.getAttribute('data-src')
+                 v.setAttribute('src',data_src)
+            }
+          
+        })
+    }
+
+    //节流函数 过一段时间才触发
+    function throttle(fn, delay) {
+        let timer = true
+        return function () {
+            if (!timer) {
+                return false
+            }
+  
+            timer=false
+            setTimeout(() =&gt; {
+            fn()
+            console.log('我是节流');
+            timer = true;
+        }, delay)
+
+        }
+    }
+
+</code></pre>
+<p><img src="https://fanfankill.github.io/post-images/1625323851326.png" alt="" loading="lazy"><br>
+<img src="https://fanfankill.github.io/post-images/1625323855197.png" alt="" loading="lazy"></p>
+<p>不节流效果</p>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1625323862788.png" alt="" loading="lazy"></figure>
+<p>节流后的效果  200ms间隔</p>
+<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1625323858842.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[手写ajax]]></title>
         <id>https://fanfankill.github.io/post/shou-xie-axios/</id>
@@ -1357,59 +1464,6 @@ document.body.onclick = function(event){
 <p>在用户释放鼠标按钮时触发。</p>
 </li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[图解HTTP第五章]]></title>
-        <id>https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/</id>
-        <link href="https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/">
-        </link>
-        <updated>2021-04-27T00:11:29.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="与http协助的web服务器">与HTTP协助的Web服务器</h1>
-<h2 id="用单台虚拟主机实现多个域名">用单台虚拟主机实现多个域名</h2>
-<p>允许一台HTTP服务器搭建多个Web站点。</p>
-<p>即使物理层面只有一台服务器，但只要使用虚拟主机的功能，则可以假想已具有多台服务器</p>
-<p>在互联网上，域名通过 DNS 服务映射到 IP 地址（域名解析）之后访问目标网站，所以，当请求发送到服务器时，已经是IP地址形式访问了</p>
-<h2 id="通信数据转发程序代理-网关-隧道">通信数据转发程序：代理、网关、隧道</h2>
-<ul>
-<li>
-<p>代理</p>
-<p>扮演中间人，接收由客户端发送的请求并转发给服务器，同是，也接收服务器返回的响应并转发给客户端</p>
-</li>
-<li>
-<p>网关</p>
-<p>网关是转发其他服务器通信数据的服务器，接收从客户端发送来的请求时，它就像自己拥有资源的服务器</p>
-</li>
-<li>
-<p>隧道</p>
-<p>隧道是在相隔甚远的客户端和服务器两者之间进行中转，并保持双方通信连接的应用程序</p>
-</li>
-</ul>
-<h3 id="代理"><strong>代理</strong></h3>
-<p>利用代理服务器的理由：利用缓存技术减少网络带宽的流量，组织内部针对特定网站的访问控制，以获取访问日志为主要目的</p>
-<p>代理按两种基准分类：一种是是否使用缓存，另一种是是否会修改报文</p>
-<h4 id="缓存代理">缓存代理</h4>
-<p>代理转发响应时，缓存代理会预先将资源的副本（缓存）保存在代理服务器上</p>
-<p>当代理再次接收对相同资源的请求时，就可以不从源服务器那里获取资源，而是将之前缓存的资源作为响应返回</p>
-<h4 id="透明代理">透明代理</h4>
-<p>转发请求或响应时，不对报文做任何加工的代理类型被称为<strong>透明代理</strong>，反之，称为非透明代理</p>
-<hr>
-<h2 id="网关">网关</h2>
-<p>可以利用网关将HTTP请求转化为其他协议通信</p>
-<p>利用网关能提高通信的安全性，因为可以在客户端与网关之间的通信线路上加密以确保连接的安全。<br>
-<img src="https://fanfankill.github.io/post-images/1619484447634.png" alt="" loading="lazy"></p>
-<h2 id="隧道">隧道</h2>
-<p>隧道可以按要求建立起一条与其他服务器的通信线路，可以使用SSL等加密手段进行通信。隧道的目的就是保住客户端与服务器能安全进行通信<br>
-<img src="https://fanfankill.github.io/post-images/1619484421757.png" alt="" loading="lazy"></p>
-<p>隧道本身不会去解析HTTP请求。请求保持原样中转给服务器。隧道会在双方通信断开连接的时候结束</p>
-<hr>
-<h2 id="保存资源的缓存">保存资源的缓存</h2>
-<p>代理服务器会在服务器返回的响应时，保存一份资源副本<br>
-<img src="https://fanfankill.github.io/post-images/1619484470802.png" alt="" loading="lazy"></p>
-<h3 id="缓存有效期">缓存有效期</h3>
-<p>存在资源更新等影响，需要去向源服务器确认</p>
-<h3 id="客户端的缓存">客户端的缓存</h3>
-<p>缓存也可以存在于客户端浏览器中，这种叫做<strong>临时网络文件</strong></p>
 ]]></content>
     </entry>
 </feed>
