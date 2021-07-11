@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>VUE文档 | fanfan</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1626002877844">
+<link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="v-html :将模板字符串解析为html格式
+split() 组成字符串数组
+模板表达式都被放在沙盒中，只能访问全局变量的一个白名单，如 Math 和 Date 。你不应该在模板表达式中试图访问用户定义的全局变量。
+
+你可以使用动态参数为..." />
+    <meta name="keywords" content="vue" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fanfankill.github.io">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1626002877844" class="site-logo">
+        <h1 class="site-title">fanfan</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/hjqM1TBv9/" class="site-nav">
+            JS
+          </a>
+        
+      
+        
+          <a href="/css" class="site-nav">
+            CSS
+          </a>
+        
+      
+        
+          <a href="/html" class="site-nav">
+            HTML
+          </a>
+        
+      
+        
+          <a href="/tag/KATkWfQKE/" class="site-nav">
+            Http
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      <strong>前端小白</strong>
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanfankill.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">VUE文档</h2>
+            <div class="post-date">2021-07-11</div>
+            
+              <div class="feature-container" style="background-image: url('https://img1.baidu.com/it/u=2526580938,627798856&amp;fm=26&amp;fmt=auto&amp;gp=0.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <p>v-html :将模板字符串解析为html格式</p>
+<p>split() 组成字符串数组</p>
+<p>模板表达式都被放在沙盒中，只能访问<a href="https://github.com/vuejs/vue/blob/v2.6.10/src/core/instance/proxy.js#L9">全局变量的一个白名单</a>，如 <code>Math</code> 和 <code>Date</code> 。你不应该在模板表达式中试图访问用户定义的全局变量。</p>
+<br>
+<p>你可以使用动态参数为一个动态的事件名绑定处理函数：</p>
+<pre><code class="language-js">&lt;a v-on:[eventName]=&quot;doSomething&quot;&gt; ... &lt;/a&gt;
+</code></pre>
+<p>当 <code>eventName</code> 的值为 <code>&quot;focus&quot;</code> 时，<code>v-on:[eventName]</code> 将等价于 <code>v-on:focus</code>。</p>
+<h3 id="v-bind"><a href="https://cn.vuejs.org/v2/guide/syntax.html#v-bind-%E7%BC%A9%E5%86%99"><code>v-bind</code> 缩写</a></h3>
+<pre><code class="language-js">&lt;!-- 完整语法 --&gt;
+&lt;a v-bind:href=&quot;url&quot;&gt;...&lt;/a&gt;
+
+&lt;!-- 缩写 --&gt;
+&lt;a :href=&quot;url&quot;&gt;...&lt;/a&gt;
+
+&lt;!-- 动态参数的缩写 (2.6.0+) --&gt;
+&lt;a :[key]=&quot;url&quot;&gt; ... &lt;/a&gt;
+</code></pre>
+<h3 id="v-on"><a href="https://cn.vuejs.org/v2/guide/syntax.html#v-on-%E7%BC%A9%E5%86%99"><code>v-on</code> 缩写</a></h3>
+<pre><code class="language-js">&lt;!-- 完整语法 --&gt;
+&lt;a v-on:click=&quot;doSomething&quot;&gt;...&lt;/a&gt;
+
+&lt;!-- 缩写 --&gt;
+&lt;a @click=&quot;doSomething&quot;&gt;...&lt;/a&gt;
+
+&lt;!-- 动态参数的缩写 (2.6.0+) --&gt;
+&lt;a @[event]=&quot;doSomething&quot;&gt; ... &lt;/a&gt;
+</code></pre>
+<h2 id="计算属性和侦听器">计算属性和侦听器</h2>
+<pre><code class="language-HTML">&lt;div id=&quot;example&quot;&gt;
+  &lt;p&gt;Original message: &quot;{{ message }}&quot;&lt;/p&gt;
+  &lt;p&gt;Computed reversed message: &quot;{{ reversedMessage }}&quot;&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<pre><code class="language-JS">var vm = new Vue({
+  el: '#example',
+  data: {
+    message: 'Hello'
+  },
+  computed: {
+    // 计算属性的 getter
+    reversedMessage: function () {
+      // `this` 指向 vm 实例
+      return this.message.split('').reverse().join('')
+    }
+  }
+})
+</code></pre>
+<h3 id="计算属性缓存-vs-方法">计算属性缓存 vs 方法</h3>
+<pre><code class="language-JS">&lt;p&gt;Reversed message: &quot;{{ reversedMessage() }}&quot;&lt;/p&gt;
+
+// 在组件中
+methods: {
+  reversedMessage: function () {
+    return this.message.split('').reverse().join('')
+  }
+}
+</code></pre>
+<p>我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的。然而，不同的是<strong>计算属性是基于它们的响应式依赖进行缓存的</strong>。</p>
+<p>这就意味着只要 <code>message</code> 还没有发生改变，多次访问 <code>reversedMessage</code> 计算属性会立即返回之前的计算结果，而不必再次执行函数。</p>
+<p>所以计算属性要是响应试依赖</p>
+<p>这也同样意味着下面的计算属性将不再更新，因为 <code>Date.now()</code> 不是响应式依赖：</p>
+<pre><code class="language-js">computed: {
+  now: function () {
+    return Date.now()
+  }
+}
+</code></pre>
+<h2 id="计算属性-vs-侦听属性">计算属性 vs 侦听属性</h2>
+<p>计算属性默认只有 getter，不过在需要时你也可以提供一个 setter：</p>
+<pre><code class="language-js">// ...
+computed: {
+  fullName: {
+    // getter
+    get: function () {
+      return this.firstName + ' ' + this.lastName
+    },
+    // setter
+    set: function (newValue) {
+      var names = newValue.split(' ')
+      this.firstName = names[0]
+      this.lastName = names[names.length - 1]
+    }
+  }
+}
+// ...
+</code></pre>
+<p><strong>计算属性computed :</strong></p>
+<ol>
+<li>
+<p>支持缓存，只有依赖数据发生改变，才会重新进行计算</p>
+</li>
+<li>
+<p>不支持异步，当computed内有异步操作时无效，无法监听数据的变化</p>
+</li>
+</ol>
+<p>​            3.computed 属性值会默认走缓存，计算属性是基于它们的响应式依赖进行               缓存的，也就是基于data中声明过或者父组件传递的props中的数据通过计算得到的值</p>
+<ol start="4">
+<li>如果一个属性是由其他属性计算而来的，这个属性依赖其他属性，是一个多对一或者一对一，一般用computed</li>
+</ol>
+<p>​           5.如果computed属性属性值是函数，那么默认会走get方法；函数的返回值就是属性的属性值；在computed中的，属性都有一个get和一个set方法，当数据变化时，调用set方法。</p>
+<br>
+<p><strong>侦听属性watch：</strong></p>
+<ol>
+<li>不支持缓存，数据变，直接会触发相应的操作；</li>
+<li>watch支持异步；</li>
+<li>当一个属性发生变化时，需要执行对应的操作；一对多；</li>
+<li>监听数据必须是data中声明过或者父组件传递过来的props中的数据.函数有两个参数，
+<ol>
+<li>immediate：组件加载立即触发回调函数执行</li>
+<li>deep: 深度监听，为了发现<strong>对象内部值</strong>的变化，复杂类型的数据时使用。deep无法监听到数组的变动和对象的新增</li>
+</ol>
+</li>
+</ol>
+<h2 id="条件渲染">条件渲染</h2>
+<p>当 <code>v-if</code> 需要包裹多个元素时候 用 <code>&lt;template&gt;</code></p>
+<p><code>v-show</code> 不支持 <code>&lt;template&gt;</code> 元素，也不支持 <code>v-else</code>。</p>
+<p>当 <code>v-if</code> 与 <code>v-for</code> 一起使用时，<code>v-for</code> 具有比 <code>v-if</code> 更高的优先级</p>
+<h2 id="事件处理方法">事件处理方法</h2>
+<p>内联处理器中的方法</p>
+<pre><code class="language-js">&lt;div id=&quot;example-3&quot;&gt; 
+    &lt;button v-on:click=&quot;say('hi',$event)&quot;&gt;Say hi&lt;/button&gt;  
+	&lt;button v-on:click=&quot;say('what')&quot;&gt;Say what&lt;/button&gt; &lt;/div&gt;
+
+new Vue({
+  el: '#example-3',
+  methods: {
+    say: function (message,event) {
+      alert(message)
+        // 现在我们可以访问原生事件对象
+        if (event) {
+          event.preventDefault()
+        }
+    }
+  }
+})
+//有时也需要在内联语句处理器中访问原始的 DOM 事件。可以用特殊变量 $event 把它传入方法：
+</code></pre>
+<h2 id="事情修饰符">事情修饰符</h2>
+<p>原文博客(https://www.cnblogs.com/xiaoyaoxingchen/p/10405207.html)</p>
+<ul>
+<li>
+<p><code>.stop</code>  阻止冒泡（通俗讲就是阻止事件向上级DOM元素传递）<br>
+<img src="https://fanfankill.github.io/post-images/1626002759503.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p><code>.prevent</code>  阻止默认事件的发生 例如a标签的跳转和表单的提交刷新</p>
+</li>
+<li></li>
+<li>
+<p><code>.capture</code> 捕获冒泡 即有冒泡发生时，有该修饰符的dom元素会先执行</p>
+</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1626002752776.png" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p><code>.self</code>  事件有自身才能触发，通常用于避免冒泡事件的影响<br>
+<img src="https://fanfankill.github.io/post-images/1626002764276.png" alt="" loading="lazy"></p>
+</li>
+<li>
+<p><code>.once</code>    只触发一次</p>
+</li>
+<li>
+<p><code>.passive</code>   对DOM的默认事件进行性能优化</p>
+</li>
+<li>
+<p><code>. native</code> 一般给组件绑定事件加的</p>
+</li>
+</ul>
+<pre><code class="language-html">&lt;!-- 阻止单击事件继续传播 --&gt;
+&lt;a v-on:click.stop=&quot;doThis&quot;&gt;&lt;/a&gt;
+
+&lt;!-- 提交事件不再重载页面 --&gt;
+&lt;form v-on:submit.prevent=&quot;onSubmit&quot;&gt;&lt;/form&gt;
+
+&lt;!-- 修饰符可以串联 --&gt;
+&lt;a v-on:click.stop.prevent=&quot;doThat&quot;&gt;&lt;/a&gt;
+
+&lt;!-- 只有修饰符 --&gt;
+&lt;form v-on:submit.prevent&gt;&lt;/form&gt;
+
+&lt;!-- 添加事件监听器时使用事件捕获模式 --&gt;
+&lt;!-- 即内部元素触发的事件先在此处理，然后才交由内部元素进行处理 --&gt;
+&lt;div v-on:click.capture=&quot;doThis&quot;&gt;...&lt;/div&gt;
+
+&lt;!-- 只当在 event.target 是当前元素自身时触发处理函数 --&gt;
+&lt;!-- 即事件不是从内部元素触发的 --&gt;
+&lt;div v-on:click.self=&quot;doThat&quot;&gt;...&lt;/div&gt;
+</code></pre>
+<br>
+<h2 id="按键修饰符">按键修饰符</h2>
+<ul>
+<li><code>.enter</code></li>
+<li><code>.tab</code></li>
+<li><code>.delete</code> (捕获“删除”和“退格”键)</li>
+<li><code>.esc</code></li>
+<li><code>.space</code></li>
+<li><code>.up</code></li>
+<li><code>.down</code></li>
+<li><code>.left</code></li>
+<li><code>.right</code></li>
+</ul>
+<pre><code class="language-js">&lt;!-- 只有在 `key` 是 `Enter` 时调用 `vm.submit()` --&gt;
+    &lt;input v-on:keyup.enter=&quot;submit&quot;&gt;
+</code></pre>
+<h2 id="系统修饰键">系统修饰键</h2>
+<p>可以用如下修饰符来实现仅在按下相应按键时才触发鼠标或键盘事件的监听器</p>
+<ul>
+<li><code>.ctrl</code></li>
+<li><code>.alt</code></li>
+<li><code>.shift</code></li>
+<li><code>.meta</code></li>
+</ul>
+<h2 id="exact"><code>.exact</code></h2>
+<p>修饰符允许你控制由精确的系统修饰符组合触发的事件。</p>
+<pre><code class="language-html">&lt;!-- 即使 Alt 或 Shift 被一同按下时也会触发 --&gt;
+&lt;button v-on:click.ctrl=&quot;onClick&quot;&gt;A&lt;/button&gt;
+
+&lt;!-- 有且只有 Ctrl 被按下的时候才触发 --&gt;
+&lt;button v-on:click.ctrl.exact=&quot;onCtrlClick&quot;&gt;A&lt;/button&gt;
+
+&lt;!-- 没有任何系统修饰符被按下的时候才触发 --&gt;
+&lt;button v-on:click.exact=&quot;onClick&quot;&gt;A&lt;/button&gt;
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://fanfankill.github.io/tag/YjLqWgkox/" class="tag">
+                    vue
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanfankill.github.io/post/mei-ti-cha-xun/">
+                  <h3 class="post-title">
+                     媒体查询
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
