@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-07-11T11:29:16.914Z</updated>
+    <updated>2021-07-13T09:01:25.345Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,213 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[vue-router]]></title>
+        <id>https://fanfankill.github.io/post/vue-router/</id>
+        <link href="https://fanfankill.github.io/post/vue-router/">
+        </link>
+        <updated>2021-07-13T08:55:32.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>这里的路由就是SPA（单页应用）的路径管理器</strong></p>
+<p>路由用于设定访问路径，并将路径和组件映射起来</p>
+<p><strong>单页面应用(SPA)的核心之一是: 更新视图而不重新请求页面</strong></p>
+<h4 id="1-hash模式">1、Hash模式：</h4>
+<p><strong>vue-router 默认 hash 模式 —— 使用 URL 的 hash 来模拟一个完整的 URL，于是当 URL 改变时，页面不会重新加载。</strong></p>
+<p>可以通过location.hast取得#后面的路由</p>
+<p>window.onhashchange=functioin(){}    //当hash路由改变时候触发</p>
+<h4 id="2-history模式">2、History模式：</h4>
+<p>这种模式充分利用 history.pushState API 来完成 URL 跳转而无须重新加载页面。</p>
+<p>location.pathname 取得路由地址</p>
+<p>onpopstate来监听history的路由变化</p>
+<h4 id="3-使用路由模块来实现页面跳转的方式">3、使用路由模块来实现页面跳转的方式</h4>
+<p>方式1：直接修改地址栏</p>
+<p>方式2：this.$router.push(‘路由地址’)</p>
+<p>方式3：<code>&lt;router-link to=&quot;路由地址&quot;&gt;&lt;/router-link&gt;</code></p>
+<h4>4、实现方式</h4>
+<p><code>Vue.use(VueRouter)</code></p>
+<ol>
+<li>执行VueRouter方法</li>
+<li>如果这个方法有一个属性 install 并且这个属性是一个方法 就会执行install这个方法  例如 (VueRouter.install=function(){})</li>
+<li>install这个方法的第一个参数 是vue</li>
+</ol>
+<p>​</p>
+<h4>5、手写router</h4>
+<pre><code class="language-js">//router的index文件
+
+import  VueRouter from '../myrouter/index'
+import  Vue from 'vue'
+
+const register =() =&gt;import('../src/register')
+const home =()=&gt;import('../src/home')
+
+Vue.use(VueRouter)
+
+const routes=[
+    {
+        path: '/register',
+        name: '注册',
+        component: register,
+        title: '注册',
+      }, {
+        path: '/',
+        name: '首页',
+        component: home,
+        title: '注册',
+      },
+   
+   
+]
+
+const router = new VueRouter({
+    routes
+  })
+
+export default router
+</code></pre>
+<pre><code class="language-js">//实现VueRouter实例 hash模式实现
+
+let Vue
+
+//注册一个类
+class VueRouter{
+    constructor(options)
+    {
+        console.log(options);
+
+        let initPath='/' //默认值
+        Vue.util.defineReactive(this,'current',initPath) //this指向VueRouter  响应式
+        this.current='/' //当前路由
+        this.routes=options.routes//用户路由规则
+        this.mode=options.mode||'hash' //默认hash
+        this.init() //监听路由改变
+        
+    }
+    init()
+    {
+     
+        if(this.mode=='hash'){
+            console.log(location.hash); //拿到hash模式下的hash地址
+
+            //监听第一次加载项目要加/#/
+            window.addEventListener('load',()=&gt;{
+                this.current=location.hash.slice(1)
+    
+            })
+            //监听路由改变
+            window.addEventListener('hashchange',()=&gt;{
+                this.current=location.hash.slice(1)
+            })
+        }
+    }
+}
+
+VueRouter.install=function(_Vue){
+        Vue=_Vue
+
+        //给调用组件添加一个属性  router
+        Vue.mixin({  
+            //全局添加数据和方法  vue3改为compostions api
+            //每一个实例都是一个 $options api 例如app.vue 和main.js 里面的都是一个实例
+            beforeCreate() {
+                console.log(this.$options.name);
+                if(this.$options.router)//根组件上才有的属性
+                {
+                    Vue.prototype.$router=this.$options.router //在Vue实例原生链上添加属性 实现全局添加this.$router属性
+                }
+            },
+        })
+
+        //创建全局组件
+        //router-link 
+        Vue.component('router-link',{
+            //传参过来
+            props:{
+              to:{
+                  type:String,
+                  require:true
+              }
+            },
+            render(h) {
+                return h('a',{attrs:{
+                    href:&quot;#&quot;+this.to
+                }},this.$slots.default)//创建html的内容 就是插槽里面的内容
+            },
+        }),
+
+
+        Vue.component('router-view',{
+            //必须是响应式数据才能触发
+            render(h) {
+
+                //当前路由
+                let current =this.$router.current
+                console.log(current);
+                //获取到了配置的路由数组  然后通过上面的取出对应的路由模块并且渲染出来
+                let routers=this.$router.routes
+                console.log(routers);
+
+                //找出匹配的数组项
+                let com=routers.find(item=&gt;{
+                    return current==item.path
+                })
+                console.log(com);
+                return h(com.component)//创建html
+            },
+        })
+}
+
+
+export default  VueRouter
+</code></pre>
+<pre><code class="language-js">//App.vue 文件
+
+&lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;
+
+
+&lt;div class=&quot;tolink&quot;&gt;
+    &lt;router-link to='/register'&gt;注册&lt;/router-link&gt;
+    &lt;router-link to='/'&gt;home&lt;/router-link&gt;
+   
+&lt;/div&gt;
+   &lt;div&gt;
+      &lt;router-view&gt;&lt;/router-view&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+
+export default {
+  name: 'App',
+  beforeCreate() {
+    console.log(this.$router);
+  },
+  data() {
+    return {
+  
+    }
+  },
+ 
+
+
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+.tolink{
+  width: 40%;
+  margin: auto;
+  display: flex;
+  justify-content:space-between;
+}
+&lt;/style&gt;
+
+</code></pre>
+<p>实现效果</p>
+<figure data-type="image" tabindex="1"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210713165156925.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210713165208681.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[VUE文档]]></title>
         <id>https://fanfankill.github.io/post/vue-wen-dang/</id>
@@ -1347,83 +1554,6 @@ setTimeout(function() {
 </code></pre>
 <p><img src="https://fanfankill.github.io/post-images/1623255137440.png" alt="" loading="lazy"><br>
 当在只剩两个宏任务的setTimeout时候执行第一个时，Promise压入了then的微任务，让第二个宏任务又排到微任务后等待</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[JS 节流和防抖 判断数组]]></title>
-        <id>https://fanfankill.github.io/post/js-zhi-shi-dian/</id>
-        <link href="https://fanfankill.github.io/post/js-zhi-shi-dian/">
-        </link>
-        <updated>2021-06-05T12:44:33.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="节流和防抖">节流和防抖</h2>
-<p><strong>防抖</strong></p>
-<pre><code class="language-js"> //防抖 在第一次触发事件时，不立即执行函数，而是给出一个期限值比如200ms  用于停止动作后才开始触发的
-    function debounce(fn,delay){
-        let timer=null;
-        return function(){
-            if(timer){
-                clearTimeout(timer)//存在即重新计时
-                
-            }
-              timer=setTimeout(fn,delay)
-            
-        }
-    }
-</code></pre>
-<p><strong>节流</strong></p>
-<pre><code class="language-js">//节流 适合一直不给机会触发防抖的
-    function throttle(fn,delay){
-       
-    let valid = true
-    return function() {
-        
-        //闭包函数内的vaild为同一个
-       if(!valid){
-           
-           return false 
-       }
-       
-        valid = false//防止多次触发
-        
-        setTimeout(() =&gt; {
-            fn()
-            valid = true;
-        }, delay)
-    }
-}
-</code></pre>
-<br>
-<br>
-<br>
-<h2 id="判断是不是数组">判断是不是数组</h2>
-<pre><code class="language-js">var a=new Array()
-var b=new Object()
-
-console.log(Array instanceof Object); //true   js数组可以看作对象
-
-console.log(Array.isArray(a)); //true   数组方法
-
-//误区
-typeof(a) //object  typeof运算符用于判断对象的类型，但是对于一些创建的对象，它们都会返回'object'  返回的类型 undefined' 'boolean' 'string' 'number' 'object'  'function'
-
-Object.prototype.toString.call(a) //Object Array 用来判断类型
-
-Object.prototype.toString.call(b) //object Object
-
-//Array 和 Function都是Object的实例 都重写了toString()方法 所以直接调用的话是重写后的方法 调用原型上的方法返回类型
-
-//对toString()方法重写的证明
-console.log(Array.prototype.hasOwnProperty(&quot;toString&quot;));//true
-
-delete Array.prototype.toString;//delete操作符可以删除实例属性
-
-console.log(arr.toString());//&quot;[object Array]&quot;
-
-
-//  prototype 和__proto__    一般来说 __proto__==constructor.prototype
-
-
-</code></pre>
 ]]></content>
     </entry>
 </feed>

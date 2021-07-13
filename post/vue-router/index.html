@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>vue-router | fanfan</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1626166883616">
+<link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="这里的路由就是SPA（单页应用）的路径管理器
+路由用于设定访问路径，并将路径和组件映射起来
+单页面应用(SPA)的核心之一是: 更新视图而不重新请求页面
+1、Hash模式：
+vue-router 默认 hash 模式 —— 使用 URL 的..." />
+    <meta name="keywords" content="vue" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fanfankill.github.io">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1626166883616" class="site-logo">
+        <h1 class="site-title">fanfan</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/hjqM1TBv9/" class="site-nav">
+            JS
+          </a>
+        
+      
+        
+          <a href="/css" class="site-nav">
+            CSS
+          </a>
+        
+      
+        
+          <a href="/html" class="site-nav">
+            HTML
+          </a>
+        
+      
+        
+          <a href="/tag/KATkWfQKE/" class="site-nav">
+            Http
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      <strong>前端小白</strong>
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanfankill.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">vue-router</h2>
+            <div class="post-date">2021-07-13</div>
+            
+              <div class="feature-container" style="background-image: url('https://img0.baidu.com/it/u=3811513511,2709360290&amp;fm=26&amp;fmt=auto&amp;gp=0.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <p><strong>这里的路由就是SPA（单页应用）的路径管理器</strong></p>
+<p>路由用于设定访问路径，并将路径和组件映射起来</p>
+<p><strong>单页面应用(SPA)的核心之一是: 更新视图而不重新请求页面</strong></p>
+<h4 id="1-hash模式">1、Hash模式：</h4>
+<p><strong>vue-router 默认 hash 模式 —— 使用 URL 的 hash 来模拟一个完整的 URL，于是当 URL 改变时，页面不会重新加载。</strong></p>
+<p>可以通过location.hast取得#后面的路由</p>
+<p>window.onhashchange=functioin(){}    //当hash路由改变时候触发</p>
+<h4 id="2-history模式">2、History模式：</h4>
+<p>这种模式充分利用 history.pushState API 来完成 URL 跳转而无须重新加载页面。</p>
+<p>location.pathname 取得路由地址</p>
+<p>onpopstate来监听history的路由变化</p>
+<h4 id="3-使用路由模块来实现页面跳转的方式">3、使用路由模块来实现页面跳转的方式</h4>
+<p>方式1：直接修改地址栏</p>
+<p>方式2：this.$router.push(‘路由地址’)</p>
+<p>方式3：<code>&lt;router-link to=&quot;路由地址&quot;&gt;&lt;/router-link&gt;</code></p>
+<h4>4、实现方式</h4>
+<p><code>Vue.use(VueRouter)</code></p>
+<ol>
+<li>执行VueRouter方法</li>
+<li>如果这个方法有一个属性 install 并且这个属性是一个方法 就会执行install这个方法  例如 (VueRouter.install=function(){})</li>
+<li>install这个方法的第一个参数 是vue</li>
+</ol>
+<p>​</p>
+<h4>5、手写router</h4>
+<pre><code class="language-js">//router的index文件
+
+import  VueRouter from '../myrouter/index'
+import  Vue from 'vue'
+
+const register =() =&gt;import('../src/register')
+const home =()=&gt;import('../src/home')
+
+Vue.use(VueRouter)
+
+const routes=[
+    {
+        path: '/register',
+        name: '注册',
+        component: register,
+        title: '注册',
+      }, {
+        path: '/',
+        name: '首页',
+        component: home,
+        title: '注册',
+      },
+   
+   
+]
+
+const router = new VueRouter({
+    routes
+  })
+
+export default router
+</code></pre>
+<pre><code class="language-js">//实现VueRouter实例 hash模式实现
+
+let Vue
+
+//注册一个类
+class VueRouter{
+    constructor(options)
+    {
+        console.log(options);
+
+        let initPath='/' //默认值
+        Vue.util.defineReactive(this,'current',initPath) //this指向VueRouter  响应式
+        this.current='/' //当前路由
+        this.routes=options.routes//用户路由规则
+        this.mode=options.mode||'hash' //默认hash
+        this.init() //监听路由改变
+        
+    }
+    init()
+    {
+     
+        if(this.mode=='hash'){
+            console.log(location.hash); //拿到hash模式下的hash地址
+
+            //监听第一次加载项目要加/#/
+            window.addEventListener('load',()=&gt;{
+                this.current=location.hash.slice(1)
+    
+            })
+            //监听路由改变
+            window.addEventListener('hashchange',()=&gt;{
+                this.current=location.hash.slice(1)
+            })
+        }
+    }
+}
+
+VueRouter.install=function(_Vue){
+        Vue=_Vue
+
+        //给调用组件添加一个属性  router
+        Vue.mixin({  
+            //全局添加数据和方法  vue3改为compostions api
+            //每一个实例都是一个 $options api 例如app.vue 和main.js 里面的都是一个实例
+            beforeCreate() {
+                console.log(this.$options.name);
+                if(this.$options.router)//根组件上才有的属性
+                {
+                    Vue.prototype.$router=this.$options.router //在Vue实例原生链上添加属性 实现全局添加this.$router属性
+                }
+            },
+        })
+
+        //创建全局组件
+        //router-link 
+        Vue.component('router-link',{
+            //传参过来
+            props:{
+              to:{
+                  type:String,
+                  require:true
+              }
+            },
+            render(h) {
+                return h('a',{attrs:{
+                    href:&quot;#&quot;+this.to
+                }},this.$slots.default)//创建html的内容 就是插槽里面的内容
+            },
+        }),
+
+
+        Vue.component('router-view',{
+            //必须是响应式数据才能触发
+            render(h) {
+
+                //当前路由
+                let current =this.$router.current
+                console.log(current);
+                //获取到了配置的路由数组  然后通过上面的取出对应的路由模块并且渲染出来
+                let routers=this.$router.routes
+                console.log(routers);
+
+                //找出匹配的数组项
+                let com=routers.find(item=&gt;{
+                    return current==item.path
+                })
+                console.log(com);
+                return h(com.component)//创建html
+            },
+        })
+}
+
+
+export default  VueRouter
+</code></pre>
+<pre><code class="language-js">//App.vue 文件
+
+&lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;
+
+
+&lt;div class=&quot;tolink&quot;&gt;
+    &lt;router-link to='/register'&gt;注册&lt;/router-link&gt;
+    &lt;router-link to='/'&gt;home&lt;/router-link&gt;
+   
+&lt;/div&gt;
+   &lt;div&gt;
+      &lt;router-view&gt;&lt;/router-view&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+
+export default {
+  name: 'App',
+  beforeCreate() {
+    console.log(this.$router);
+  },
+  data() {
+    return {
+  
+    }
+  },
+ 
+
+
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+.tolink{
+  width: 40%;
+  margin: auto;
+  display: flex;
+  justify-content:space-between;
+}
+&lt;/style&gt;
+
+</code></pre>
+<p>实现效果</p>
+<figure data-type="image" tabindex="1"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210713165156925.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210713165208681.png" alt="" loading="lazy"></figure>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://fanfankill.github.io/tag/YjLqWgkox/" class="tag">
+                    vue
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanfankill.github.io/post/vue-wen-dang/">
+                  <h3 class="post-title">
+                    VUE文档
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
