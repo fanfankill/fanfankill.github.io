@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-07-13T09:01:25.345Z</updated>
+    <updated>2021-07-14T16:18:09.845Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,79 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[JS设计模式]]></title>
+        <id>https://fanfankill.github.io/post/js-she-ji-mo-shi/</id>
+        <link href="https://fanfankill.github.io/post/js-she-ji-mo-shi/">
+        </link>
+        <updated>2021-07-14T16:16:20.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="js的设计模式">JS的设计模式</h1>
+<p><strong>什么是设计模式</strong></p>
+<p>假设有一个空房间，我们要日复一日地往里 面放一些东西。最简单的办法当然是把这些东西 直接扔进去，但是时间久了，就会发现很难从这 个房子里找到自己想要的东西，要调整某几样东 西的位置也不容易。所以在房间里做一些柜子也 许是个更好的选择，虽然柜子会增加我们的成 本，但它可以在维护阶段为我们带来好处。使用 这些柜子存放东西的规则，或许就是一种模式</p>
+<h2 id="单例模式">单例模式</h2>
+<p>确保只有一个实例，并提供全局访问，类似闭包创建后都去访问一个。</p>
+<h2 id="策略模式">策略模式</h2>
+<p>定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换。表单验证用的多</p>
+<h2 id="代理模式">代理模式</h2>
+<p>为一个对象提供一个代用品或占位符，以便控制对它的访问，用于对数据进行处理后返回</p>
+<h2 id="发布-订阅模式">发布-订阅模式</h2>
+<p>也称作观察者模式（观察者模式子模式），定义了对象间的一种一对多的依赖关系，当一个对象的状态发 生改变时，所有依赖于它的对象都将得到通知 。不直接建立关系，依靠一个中间商来建立</p>
+<pre><code class="language-js">   // 观察者
+var observer = {
+    // 订阅集合
+    subscribes: [],
+
+    // 订阅 存放对应key
+    subscribe: function(key, fn) {
+        //不存在的情况下才默认为一个空数组
+        if (!this.subscribes[key]) {
+            this.subscribes[key] = [];
+        }
+      
+        
+        // 订阅者的处理  是函数就推进去
+        typeof fn === 'function' &amp;&amp; this.subscribes[key].push(fn);
+    },
+
+    // 发布 
+    publish: function() {
+        
+        var type =[].shift.call(arguments) // arguments[0]  去掉第一项 就是 key项 剩余项都是value项
+        
+
+            //调用对应key存的函数
+            fns = this.subscribes[type];
+           
+        
+        // 不存在的订阅类型，以及订阅时未传入处理回调的
+        if (!fns || !fns.length) {
+            return;
+        }
+        
+        // 挨个处理调用 就是订阅同一个key很多次 然后一个个调用
+        for (var i = 0; i &lt; fns.length; ++i) {
+            fns[i].apply(this, arguments);
+        }
+    },
+     
+};
+
+
+//实例
+
+
+observer.subscribe('examinationA', function(score) {
+    console.log(score);
+});
+
+observer.subscribe('examinationA', function(score) {
+    console.log(score);
+});
+
+observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印了出来
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[vue-router]]></title>
         <id>https://fanfankill.github.io/post/vue-router/</id>
@@ -1483,77 +1556,6 @@ server.listen(3000,()=&gt;{
 <figure data-type="image" tabindex="5"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015929804.png" alt="" loading="lazy"></figure>
 <figure data-type="image" tabindex="6"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015931812.png" alt="" loading="lazy"></figure>
 <figure data-type="image" tabindex="7"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/mage-20210616015934765.png" alt="" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[事件循环]]></title>
-        <id>https://fanfankill.github.io/post/shi-jian-xun-huan/</id>
-        <link href="https://fanfankill.github.io/post/shi-jian-xun-huan/">
-        </link>
-        <updated>2021-06-09T16:10:14.000Z</updated>
-        <content type="html"><![CDATA[<p>JS为单线程<br>
-宏任务主要包含：script( 整体代码)、setTimeout、setInterval、I/O、UI 交互事件、setImmediate(Node.js 环境)</p>
-<p>微任务主要包含：Promise、MutaionObserver、process.nextTick(Node.js 环境)<br>
-<img src="https://fanfankill.github.io/post-images/1623256115003.webp" alt="" loading="lazy"></p>
-<p>例子1</p>
-<pre><code class="language-js">console.log('script start');
-
-setTimeout(function() {
-  console.log('timeout1');
-}, 10);
-
-new Promise(resolve =&gt; {
-    console.log('promise1');
-    resolve();
-    setTimeout(() =&gt; console.log('timeout2'), 10);
-}).then(function() {
-    console.log('then1')
-})
-
-console.log('script end');
-</code></pre>
-<p><img src="https://fanfankill.github.io/post-images/1623255042505.png" alt="" loading="lazy"><br>
-先执行第一个log</p>
-<p>setTimeout推入宏队列hong1</p>
-<p>遇到promise马上执行打印然后将它所有的then推入微队列后把setTimeout推入宏队列hong2</p>
-<p>先执行微队列，所以先打印then里面的。然后宏队列再打印<br>
-<br><br>
-<br><br>
-<br><br>
-例子2</p>
-<pre><code class="language-js">  console.log('1');
-
-setTimeout(function() {
-    console.log('2');
-  
-    new Promise(function(resolve) {
-        console.log('4');
-        resolve();
-    }).then(function() {
-        console.log('5')
-    })
-})
-
-new Promise(function(resolve) {
-    console.log('7');
-    resolve();
-}).then(function() {
-    console.log('8')
-})
-
-setTimeout(function() {
-    console.log('9');
-   
-    new Promise(function(resolve) {
-        console.log('11');
-        resolve();
-    }).then(function() {
-        console.log('12')
-    })
-})
-</code></pre>
-<p><img src="https://fanfankill.github.io/post-images/1623255137440.png" alt="" loading="lazy"><br>
-当在只剩两个宏任务的setTimeout时候执行第一个时，Promise压入了then的微任务，让第二个宏任务又排到微任务后等待</p>
 ]]></content>
     </entry>
 </feed>

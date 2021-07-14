@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>JS设计模式 | fanfan</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1626279487988">
+<link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="JS的设计模式
+什么是设计模式
+假设有一个空房间，我们要日复一日地往里 面放一些东西。最简单的办法当然是把这些东西 直接扔进去，但是时间久了，就会发现很难从这 个房子里找到自己想要的东西，要调整某几样东 西的位置也不容易。所以在房间里做一些..." />
+    <meta name="keywords" content="vue" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fanfankill.github.io">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1626279487988" class="site-logo">
+        <h1 class="site-title">fanfan</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/hjqM1TBv9/" class="site-nav">
+            JS
+          </a>
+        
+      
+        
+          <a href="/css" class="site-nav">
+            CSS
+          </a>
+        
+      
+        
+          <a href="/html" class="site-nav">
+            HTML
+          </a>
+        
+      
+        
+          <a href="/tag/KATkWfQKE/" class="site-nav">
+            Http
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      <strong>前端小白</strong>
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanfankill.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">JS设计模式</h2>
+            <div class="post-date">2021-07-15</div>
+            
+              <div class="feature-container" style="background-image: url('https://img2.baidu.com/it/u=3427140993,3139121913&amp;fm=26&amp;fmt=auto&amp;gp=0.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="js的设计模式">JS的设计模式</h1>
+<p><strong>什么是设计模式</strong></p>
+<p>假设有一个空房间，我们要日复一日地往里 面放一些东西。最简单的办法当然是把这些东西 直接扔进去，但是时间久了，就会发现很难从这 个房子里找到自己想要的东西，要调整某几样东 西的位置也不容易。所以在房间里做一些柜子也 许是个更好的选择，虽然柜子会增加我们的成 本，但它可以在维护阶段为我们带来好处。使用 这些柜子存放东西的规则，或许就是一种模式</p>
+<h2 id="单例模式">单例模式</h2>
+<p>确保只有一个实例，并提供全局访问，类似闭包创建后都去访问一个。</p>
+<h2 id="策略模式">策略模式</h2>
+<p>定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换。表单验证用的多</p>
+<h2 id="代理模式">代理模式</h2>
+<p>为一个对象提供一个代用品或占位符，以便控制对它的访问，用于对数据进行处理后返回</p>
+<h2 id="发布-订阅模式">发布-订阅模式</h2>
+<p>也称作观察者模式（观察者模式子模式），定义了对象间的一种一对多的依赖关系，当一个对象的状态发 生改变时，所有依赖于它的对象都将得到通知 。不直接建立关系，依靠一个中间商来建立</p>
+<pre><code class="language-js">   // 观察者
+var observer = {
+    // 订阅集合
+    subscribes: [],
+
+    // 订阅 存放对应key
+    subscribe: function(key, fn) {
+        //不存在的情况下才默认为一个空数组
+        if (!this.subscribes[key]) {
+            this.subscribes[key] = [];
+        }
+      
+        
+        // 订阅者的处理  是函数就推进去
+        typeof fn === 'function' &amp;&amp; this.subscribes[key].push(fn);
+    },
+
+    // 发布 
+    publish: function() {
+        
+        var type =[].shift.call(arguments) // arguments[0]  去掉第一项 就是 key项 剩余项都是value项
+        
+
+            //调用对应key存的函数
+            fns = this.subscribes[type];
+           
+        
+        // 不存在的订阅类型，以及订阅时未传入处理回调的
+        if (!fns || !fns.length) {
+            return;
+        }
+        
+        // 挨个处理调用 就是订阅同一个key很多次 然后一个个调用
+        for (var i = 0; i &lt; fns.length; ++i) {
+            fns[i].apply(this, arguments);
+        }
+    },
+     
+};
+
+
+//实例
+
+
+observer.subscribe('examinationA', function(score) {
+    console.log(score);
+});
+
+observer.subscribe('examinationA', function(score) {
+    console.log(score);
+});
+
+observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印了出来
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://fanfankill.github.io/tag/YjLqWgkox/" class="tag">
+                    vue
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanfankill.github.io/post/vue-router/">
+                  <h3 class="post-title">
+                    vue-router
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
