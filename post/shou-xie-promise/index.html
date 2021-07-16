@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>手写Promise | fanfan</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1626411768232">
+<link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="promise是用来解决两个问题的：
+
+回调地狱，代码难以维护， 常常第一个的函数的输出是第二个函数的输入这种现象
+promise可以支持多个并发的请求，获取并发请求中的数据
+这个promise可以解决异步的问题，本身不能说promise是..." />
+    <meta name="keywords" content="Javascript" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fanfankill.github.io">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1626411768232" class="site-logo">
+        <h1 class="site-title">fanfan</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/hjqM1TBv9/" class="site-nav">
+            JS
+          </a>
+        
+      
+        
+          <a href="/css" class="site-nav">
+            CSS
+          </a>
+        
+      
+        
+          <a href="/html" class="site-nav">
+            HTML
+          </a>
+        
+      
+        
+          <a href="/tag/KATkWfQKE/" class="site-nav">
+            Http
+          </a>
+        
+      
+        
+          <a href="/tag/YjLqWgkox/" class="site-nav">
+            Vue
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      <strong>前端小白</strong>
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanfankill.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">手写Promise</h2>
+            <div class="post-date">2021-07-16</div>
+            
+              <div class="feature-container" style="background-image: url('https://img1.baidu.com/it/u=525722049,125546548&amp;fm=26&amp;fmt=auto&amp;gp=0.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <p>promise是用来解决两个问题的：</p>
+<ul>
+<li>回调地狱，代码难以维护， 常常第一个的函数的输出是第二个函数的输入这种现象</li>
+<li>promise可以支持多个并发的请求，获取并发请求中的数据</li>
+<li>这个promise可以解决异步的问题，本身不能说promise是异步的</li>
+</ul>
+ <br>
+<h2 id="实现代码"><strong>实现代码</strong></h2>
+<pre><code class="language-js"> class mypromise {
+
+        constructor(exeutor) {
+            this.state = PENDING
+            //成功的存储
+            this.value = undefined
+            //失败的存储
+            this.reason = undefined
+
+            //存放成功时候的回调函数
+            this.ResolveCallbakc = []
+            //存放失败时候的回调函数
+            this.RejectCallback = []
+            //要把这个值保存起来 调用then的时候还需要使用
+            let resolve = (value) =&gt; {
+                
+                if (this.state == PENDING) {
+                    //定时器用于then先注册才去改变状态 
+                  setTimeout(()=&gt;{
+                        //存起来
+                    console.log('成功的构造');
+                    this.value = value
+                    //改变状态
+                    this.state = FULFILLED
+                    //全执行
+                    this.ResolveCallbakc.forEach(fn =&gt; fn())  //发布过程
+                  })
+                }
+            }
+            let reject = (reason) =&gt; {
+
+                if (this.state == PENDING) {
+                setTimeout(()=&gt;{
+                    console.log('失败的构造');
+                    //也存起来
+                    this.reason = reason
+
+                    this.state = REJECTED
+
+                    this.RejectCallback.forEach(fn =&gt; fn())
+                })
+                }
+            }
+            //传入两个参数 给用户来改变状态
+            try {
+                exeutor(resolve, reject)
+            } catch (e) {
+                //当前有异常
+                reject(e)
+            }
+        }
+        then(onfulfilled, onrejected) {
+            if (this.state == FULFILLED) {
+                onfulfilled(this.value)
+               
+            }
+            if (this.state == REJECTED) {
+                onrejected(this.reason)
+             
+            }
+            if (this.state == PENDING) {
+                console.log('推入函数');
+                this.ResolveCallbakc.push(() =&gt; {
+                    onfulfilled(this.value)
+                })
+                this.RejectCallback.push(() =&gt; {
+                    onrejected(this.reason)
+                })
+                //链式调用
+                return this;
+
+            }
+
+        }
+
+    }
+</code></pre>
+<h2 id="实例"><strong>实例</strong></h2>
+<pre><code class="language-js"> let fanfan = new mypromise((resolve, reject) =&gt; {
+        console.log('?');
+        resolve('fanfan')
+    }).then(res =&gt; {
+        setTimeout(()=&gt;{
+            console.log('time');
+        })
+        console.log(res);
+
+    }).then(res =&gt; {
+        console.log('?');
+        
+    }).then(res=&gt;{
+        console.log(res);
+    })
+ 
+ // 打印结果 可以看到先是then去注册完才去调用状态改变
+ //先微后宏
+ /**
+ ?
+promise2.html:78 推入函数
+promise2.html:78 推入函数
+promise2.html:78 推入函数
+promise2.html:37 成功的构造
+promise2.html:100 fanfan
+promise2.html:103 ?
+promise2.html:106 fanfan
+promise2.html:98 time
+ */
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://fanfankill.github.io/tag/hjqM1TBv9/" class="tag">
+                    Javascript
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanfankill.github.io/post/js-she-ji-mo-shi/">
+                  <h3 class="post-title">
+                    JS设计模式
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1626279512095">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1626411768232">
 <link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
 
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://fanfankill.github.io">
-        <img src="https://fanfankill.github.io/images/avatar.png?v=1626279512095" class="site-logo">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1626411768232" class="site-logo">
         <h1 class="site-title">fanfan</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -66,6 +66,12 @@
         
           <a href="/tag/KATkWfQKE/" class="site-nav">
             Http
+          </a>
+        
+      
+        
+          <a href="/tag/YjLqWgkox/" class="site-nav">
+            Vue
           </a>
         
       
@@ -168,6 +174,46 @@ setTimeout(function() {
 </code></pre>
 <p><img src="https://fanfankill.github.io/post-images/1623255137440.png" alt="" loading="lazy"><br>
 当在只剩两个宏任务的setTimeout时候执行第一个时，Promise压入了then的微任务，让第二个宏任务又排到微任务后等待</p>
+<br>
+<h2 id="async和await">async和await</h2>
+<ol>
+<li>await后面接一个会return new promise的函数并执行它</li>
+<li>await只能放在async函数里</li>
+</ol>
+<pre><code class="language-js">function 摇色子(){
+    return new Promise((resolve, reject)=&gt;{
+        let sino = parseInt(Math.random() * 6 +1)
+        setTimeout(()=&gt;{
+            resolve(sino)
+        },3000)
+    })
+}
+async function test(){
+    let n =await 摇色子()
+    console.log(n)
+}
+test()
+</code></pre>
+<ul>
+<li>async函数会返回一个promise，并且Promise对象的状态值是resolved（成功的）
+<ul>
+<li>如果你没有在async函数中写return，那么Promise对象resolve的值就是是undefined</li>
+<li>如果你写了return，那么return的值就会作为你成功的时候传入的值</li>
+</ul>
+</li>
+</ul>
+<p><strong>await 等到之后，做了一件什么事情？</strong></p>
+<ul>
+<li>不是promise对象</li>
+<li>是promise对象</li>
+</ul>
+<p>如果不是 promise , await会阻塞后面的代码，先执行async外面的同步代码，同步代码执行完，再回到async内部，把这个非promise的东西，作为 await表达式的结果。<br>
+如果它等到的是一个 promise 对象，await 也会暂停async后面的代码，先执行async外面的同步代码，等着 Promise 对象 fulfilled，然后把 resolve 的参数作为 await 表达式的运算结果。</p>
+<ul>
+<li>如果asycn里的代码都是同步的，那么这个函数被调用就会同步执行</li>
+<li>如果在await后面接的这个promsie都是同步的，后面的promise会同步执行</li>
+<li>如果await里面的promise没有resolve()的成功函数就不会执行await下面的线程了</li>
+</ul>
 
             </div>
             
