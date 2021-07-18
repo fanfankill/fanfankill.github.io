@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-07-16T05:03:27.979Z</updated>
+    <updated>2021-07-18T06:15:08.100Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,289 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[ Vue文档3]]></title>
+        <id>https://fanfankill.github.io/post/vue-wen-dang-3/</id>
+        <link href="https://fanfankill.github.io/post/vue-wen-dang-3/">
+        </link>
+        <updated>2021-07-18T06:14:04.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="prop">Prop</h2>
+<p>字符串数组形式列出的 prop：</p>
+<p><code>props: ['title', 'likes', 'isPublished', 'commentIds', 'author']</code></p>
+<p>prop 各自的名称和类型</p>
+<pre><code class="language-js">props: {
+  title: String,
+  likes: Number,
+  isPublished: Boolean,
+  commentIds: Array,
+  author: Object,
+  callback: Function,
+  contactsPromise: Promise // or any other constructor
+}
+</code></pre>
+<h2 id="传递静态或动态-prop">传递静态或动态 Prop</h2>
+<p>给 prop 传入一个静态的值</p>
+<p><code>&lt;blog-post title=&quot;My journey with Vue&quot;&gt;&lt;/blog-post&gt;</code></p>
+<p>prop 可以通过 <code>v-bind</code> 动态赋值</p>
+<pre><code class="language-js">&lt;!-- 动态赋予一个变量的值 --&gt;
+&lt;blog-post v-bind:title=&quot;post.title&quot;&gt;&lt;/blog-post&gt;
+
+&lt;!-- 动态赋予一个复杂表达式的值 --&gt;
+&lt;blog-post
+  v-bind:title=&quot;post.title + ' by ' + post.author.name&quot;
+&gt;&lt;/blog-post&gt;
+</code></pre>
+<p>需要 <code>v-bind</code> 来告诉 Vue 这是一个 JavaScript 表达式而不是一个字符串。</p>
+<ul>
+<li>传入数字</li>
+<li>传入布尔值</li>
+<li>传入数组</li>
+<li>传入对象</li>
+</ul>
+<h2 id="单向数据流">单向数据流</h2>
+<p>所有的 prop 都使得其父子 prop 之间形成了一个<strong>单向下行绑定</strong>：父级 prop 的更新会向下流动到子组件中，但是反过来则不行，这样会<strong>防止从子组件意外变更父级组件的状态</strong>，从而导致你的应用的数据流向难以理解。</p>
+<p>每次父级组件发生变更时，子组件中所有的 prop 都将会刷新为最新的值。这意味着你<strong>不</strong>应该在一个子组件内部改变 prop</p>
+<p>注意在 JavaScript 中对象和数组是通过引用传入的，所以对于一个数组或对象类型的 prop 来说，在子组件中改变变更这个对象或数组本身<strong>将会</strong>影响到父组件的状态。</p>
+<h2 id="prop-验证">Prop 验证</h2>
+<p>例如你知道的这些类型。如果有一个需求没有被满足，则 Vue 会在浏览器控制台中警告你</p>
+<pre><code class="language-js">Vue.component('my-component', {
+  props: {
+    // 基础的类型检查 (`null` 和 `undefined` 会通过任何类型验证)
+    propA: Number,
+    // 多个可能的类型
+    propB: [String, Number],
+    // 必填的字符串
+    propC: {
+      type: String,
+      required: true
+    },
+    // 带有默认值的数字
+    propD: {
+      type: Number,
+      default: 100
+    },
+    // 带有默认值的对象
+    propE: {
+      type: Object,
+      // 对象或数组默认值必须从一个工厂函数获取
+      default: function () {
+        return { message: 'hello' }
+      }
+    },
+    // 自定义验证函数
+    propF: {
+      validator: function (value) {
+        // 这个值必须匹配下列字符串中的一个
+        return ['success', 'warning', 'danger'].indexOf(value) !== -1
+      }
+    }
+  }
+})
+</code></pre>
+<h2 id="替换合并已有的-attribute">替换/合并已有的 Attribute]</h2>
+<p><code>class</code> 和 <code>style</code> attribute 值会被合并起来</p>
+<h2 id="禁用-attribute-继承">禁用 Attribute 继承</h2>
+<p>如果你<strong>不</strong>希望组件的根元素继承 attribute，你可以在组件的选项中设置 <code>inheritAttrs: false</code>。例如：</p>
+<pre><code class="language-js">Vue.component('my-component', {
+  inheritAttrs: false,
+  // ...
+})
+</code></pre>
+<h2 id="自定义事件"><strong>自定义事件</strong></h2>
+<p>事件名不存在自动大小写转换，在<code>v-on</code>事件监听器DOM模板中会自动转化为小写</p>
+<h2 id="自定义组件v-model">自定义组件<code>v-model</code></h2>
+<p>一个组件上的 <code>v-model</code> 默认会利用名为 <code>value</code> 的 prop 和名为 <code>input</code> 的事件</p>
+<p>但是像单选框、复选框等类型的输入控件可能会将 <code>value</code> attribute 用于不同的目的</p>
+<pre><code class="language-js">Vue.component('base-checkbox', {
+  model: {
+    prop: 'checked',
+    event: 'change'
+  },
+  props: {
+    checked: Boolean
+  },
+  template: `
+    &lt;input
+      type=&quot;checkbox&quot;
+      v-bind:checked=&quot;checked&quot;
+      v-on:change=&quot;$emit('change', $event.target.checked)&quot;
+    &gt;
+  `
+})
+</code></pre>
+<h2 id="将原生事件绑定到组件">将原生事件绑定到组件</h2>
+<p>想要在一个组件的根元素上直接监听一个原生事件。这时，你可以使用 <code>v-on</code> 的 <code>.native</code> 修饰符：</p>
+<p>但元素实际上是一个 <code>&lt;label&gt;</code> 元素的时候监听不到：</p>
+<p>包含了父作用域中不作为 prop 被识别 (且获取) 的特性绑定</p>
+<p>$attrs可以接受上级传递过来的属性</p>
+<pre><code class="language-js">&lt;label&gt;
+  {{ label }}
+  &lt;input
+    v-bind=&quot;$attrs&quot;
+    v-bind:value=&quot;value&quot;
+    v-on:input=&quot;$emit('input', $event.target.value)&quot;
+  &gt;
+&lt;/label&gt;
+</code></pre>
+<p>Vue 提供了一个 <code>$listeners</code> property，它是一个对象，里面包含了作用在这个组件上的所有监听器</p>
+<pre><code class="language-js">{
+  focus: function (event) { /* ... */ }
+  input: function (value) { /* ... */ },
+}
+</code></pre>
+<p>就可以配合 <code>v-on=&quot;$listeners&quot;</code>将所有的事件监听器指向这个组件的某个特定的子元素</p>
+<h2 id="sync-修饰符"><code>.sync</code> 修饰符</h2>
+<p>真正的双向绑定会带来维护上的问题，因为子组件可以变更父组件，且在父组件和子组件两侧都没有明显的变更来源</p>
+<p>带有 <code>.sync</code> 修饰符的 <code>v-bind</code> <strong>不能</strong>和表达式一起使用</p>
+<p>例如 <code>v-bind:title.sync=”doc.title + ‘!’”</code> 是无效的</p>
+<p>简写双向绑定的语法糖</p>
+<p>父</p>
+<p><code>&lt;child :title.sync=&quot;title&quot;&gt; &lt;/child&gt;</code></p>
+<p>子</p>
+<pre><code class="language-js"> &lt;input :value=&quot;title&quot; @input=&quot;abc&quot; type=&quot;text&quot;&gt;
+    props: {
+      title: {
+        type: String,
+        required: true
+      }
+    },
+      methods: {
+      abc(e) {
+        console.log(e.target.value);
+        this.$emit('update:title', e.target.value);
+      }
+    }
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ Vue文档2]]></title>
+        <id>https://fanfankill.github.io/post/vue-wen-dang-2/</id>
+        <link href="https://fanfankill.github.io/post/vue-wen-dang-2/">
+        </link>
+        <updated>2021-07-16T14:18:52.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="表单输入绑定">表单输入绑定</h2>
+<p><code>v-model</code> 指令在表单 <code>&lt;input&gt;</code>、<code>&lt;textarea&gt;</code> 及 <code>&lt;select&gt;</code> 元素上创建双向数据绑定</p>
+<p><code>v-model</code> 会忽略所有表单元素的 <code>value</code>、<code>checked</code>、<code>selected</code> attribute 的初始值而总是将 Vue 实例的数据作为数据来源</p>
+<p><code>.lazy</code>    转为在 <code>change</code> 事件_之后_进行同步</p>
+<p><code>&lt;input v-model.lazy=&quot;msg&quot;&gt;</code></p>
+<br>
+<p><code>.number</code>  自动将用户的输入值转为数值类型</p>
+<p><code>.trim</code>   过滤用户输入的首尾空白字符</p>
+<br>
+<h2 id="组件基础">组件基础</h2>
+<pre><code class="language-vue">// 定义一个名为 button-counter 的新组件
+Vue.component('button-counter', {
+  data: function () {
+    return {
+      count: 0
+    }
+  },
+  template: '&lt;button v-on:click=&quot;count++&quot;&gt;You clicked me {{ count }} times.&lt;/button&gt;'
+})
+</code></pre>
+<pre><code class="language-vue">&lt;div id=&quot;components-demo&quot;&gt;
+  &lt;button-counter&gt;&lt;/button-counter&gt;
+&lt;/div&gt;
+</code></pre>
+<p><code>new Vue({ el: '#components-demo' })</code></p>
+<br>
+<h2 id="data-必须是一个函数"><code>data</code> 必须是一个函数</h2>
+<p><strong>一个组件的 <code>data</code> 选项必须是一个函数</strong>，因此每个实例可以维护一份被返回对象的独立的拷贝：</p>
+<h2 id="组件的组织">组件的组织</h2>
+<p>两种组件的注册类型：<strong>全局注册</strong>和<strong>局部注册</strong></p>
+<p>通过 <code>Vue.component</code> 全局注册</p>
+<br>
+<h2 id="prop向子组件传递数据">prop向子组件传递数据</h2>
+<p>用<code>v-bind</code>来动态传递prop</p>
+<h2 id="单个根元素">单个根元素</h2>
+<p>将模板的内容包裹在一个父元素内(就是最外面的div)</p>
+<h2 id="监听子组件事件">监听子组件事件</h2>
+<p>通过 <code>v-on</code> 监听子组件实例的任意事件</p>
+<p>同时子组件可以通过调用内建的 <strong><code>$emit</code></strong> 方法并传入事件名称来触发一个事件</p>
+<h3 id="在组件上使用-v-model">在组件上使用 <code>v-model</code></h3>
+<p><code>&lt;input v-model=&quot;searchText&quot;&gt;</code></p>
+<p>等价于</p>
+<pre><code class="language-js">&lt;input
+  v-bind:value=&quot;searchText&quot;
+  v-on:input=&quot;searchText = $event.target.value&quot;
+&gt;
+</code></pre>
+<p>为了让它正常工作，这个组件内的 <code>&lt;input&gt;</code> 必须：</p>
+<ul>
+<li>将其 **<code>value</code> **attribute 绑定到一个名叫 <code>value</code> 的 prop 上</li>
+<li>在其 <code>input</code> 事件被触发时，将新的值通过自定义的 <code>input</code> 事件抛出</li>
+</ul>
+<pre><code class="language-vue">Vue.component('custom-input', {
+  props: ['value'],
+  template: `
+    &lt;input
+      v-bind:value=&quot;value&quot;
+      v-on:input=&quot;$emit('input', $event.target.value)&quot;
+    &gt;
+  `
+})
+</code></pre>
+<p>现在 <code>v-model</code> 就应该可以在这个组件上完美地工作起来了：</p>
+<p><code>&lt;custom-input v-model=&quot;searchText&quot;&gt;&lt;/custom-input&gt;</code></p>
+<h2 id="通过插槽分发内容">通过插槽分发内容</h2>
+<p>和 HTML 元素一样，我们经常需要向一个组件传递内容，像这样：</p>
+<pre><code class="language-vue">&lt;alert-box&gt;
+  Something bad happened.
+&lt;/alert-box&gt;
+</code></pre>
+<pre><code class="language-vue">Vue.component('alert-box', {
+  template: `
+    &lt;div class=&quot;demo-alert-box&quot;&gt;
+      &lt;strong&gt;Error!&lt;/strong&gt;
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/div&gt;
+  `
+})
+</code></pre>
+<h2 id="动态组件">动态组件</h2>
+<p>上述内容可以通过 Vue 的 <code>&lt;component&gt;</code> 元素加一个特殊的 <code>is</code> attribute 来实现：</p>
+<pre><code class="language-js">&lt;!-- 组件会在 `currentTabComponent` 改变时改变 --&gt;
+&lt;component v-bind:is=&quot;currentTabComponent&quot;&gt;&lt;/component&gt;
+</code></pre>
+<p><code>currentTabComponent</code> 可以包括</p>
+<ul>
+<li>已注册组件的名字，或</li>
+<li>一个组件的选项对象</li>
+</ul>
+<h2 id="全局注册">全局注册</h2>
+<pre><code class="language-js">Vue.component('my-component-name', {
+  // ... 选项 ...
+})
+</code></pre>
+<h2 id="局部注册">局部注册</h2>
+<p>全局注册往往是不够理想的。比如，如果你使用一个像 webpack 这样的构建系统，全局注册所有的组件意味着即便你已经不再使用一个组件了，它仍然会被包含在你最终的构建结果中。这造成了用户下载的 JavaScript 的无谓的增加。</p>
+<pre><code class="language-js">var ComponentA = { /* ... */ }
+</code></pre>
+<p>然后在 <code>components</code> 选项中定义你想要使用的组件：</p>
+<pre><code class="language-js">new Vue({
+  el: '#app',
+  components: {
+    'component-a': ComponentA,
+  }
+})
+</code></pre>
+<p>如果通过 Babel 和 webpack 使用 ES2015 模块，那么代码看起来更像：</p>
+<pre><code class="language-js">import ComponentA from './ComponentA.vue'
+
+export default {
+  components: {
+    ComponentA
+  },
+  // ...
+}
+</code></pre>
+<p>使用了诸如 Babel 和 webpack 的模块系统。在这些情况下我们推荐创建一个 <code>components</code> 目录，并将每个组件放置在其各自的文件中。</p>
+<h2 id="基础组件的自动化全局注册">基础组件的自动化全局注册</h2>
+<p>可以使用 <code>require.context</code> 只全局注册这些非常通用的基础组件</p>
+<p><strong>全局注册的行为必须在根 Vue 实例 (通过 <code>new Vue</code>) 创建之前发生</strong></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[手写Promise]]></title>
         <id>https://fanfankill.github.io/post/shou-xie-promise/</id>
@@ -1097,286 +1380,6 @@ width: 100vmax;
 request interceptor1
 response interceptor1
 response interceptor2*/
-
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[mustache]]></title>
-        <id>https://fanfankill.github.io/post/mustache/</id>
-        <link href="https://fanfankill.github.io/post/mustache/">
-        </link>
-        <updated>2021-06-26T05:50:01.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="vue源码学习">vue源码学习</h1>
-<h2 id="什么是模板引擎">什么是模板引擎</h2>
-<p><strong>将数据要变为试图最优雅的解决方案</strong></p>
-<p>历史上出现过数据变为视图的方法</p>
-<ul>
-<li>
-<p>纯DOM</p>
-</li>
-<li>
-<p>数组join法</p>
-</li>
-<li>
-<p>ES6的反引号法</p>
-<p>新增的 <code>${a}</code>的语法糖</p>
-</li>
-<li>
-<p>模板引擎</p>
-</li>
-</ul>
-<p><strong>数组join法</strong></p>
-<pre><code class="language-js">//换行一样
-var message='fanfan'
-var str=[
-    '&lt;li&gt;',
-    '&lt;div&gt;'+message+'&lt;/div&gt;',
-    '&lt;/li&gt;'
-].join()
-</code></pre>
-<p>ES6的语法糖</p>
-<pre><code class="language-js">let a='fanfan'
-list.innerHTTML+=`
-	&lt;li&gt;
-		&lt;div class=&quot;fanfan&quot;&gt;
-				${a}的信息
-		&lt;/div&gt;
-	&lt;/li&gt;
-`
-</code></pre>
-<h2 id="mustache库">mustache库</h2>
-<p>{{ }} 像胡子  所以取名叫胡子</p>
-<pre><code class="language-js">  var user = { name: &quot;Olive&quot;, age: 23, sex: &quot;girl&quot; };
-        var template = &quot;My name is  {{name}} ,I'm  {{age}} ,Sex is {{sex}}&quot;;
-        var view = Mustache.render(template, user)
-
-   console.log(view);
-</code></pre>
-<p><strong>简单模式下正则表达式可以实现</strong></p>
-<pre><code class="language-js"> var template = &quot;My name is  {{name}} ,I'm  {{age}} ,Sex is {{sex}}&quot;;
-    
-            console.log(template.replace(/\{\{(\w+)\}\}/g,function(a,b,c){
-                console.log(a,b,c);
-                return '❤'
-            }));
-
-/**
-	b 找出了里面的内容 可以用来替换
-	{{name}} name 12
-	{{age}} age 27
-	{{sex}} sex 43
- 	My name is  ❤ ,I'm  ❤ ,Sex is ❤*/
-</code></pre>
-<pre><code class="language-js"> 
-//进行函数封装
-function likerender(template,data)
-            {
-                return template.replace(/\{\{(\w+)\}\}/g,function(findstr,$1){
-                //匹配data对象里面的属性
-                return data[$1]
-                     });
-            }
-
-            var data={
-                name:'fanfan',
-                age:18,
-                sex:'man'
-            }
-
-            console.log(likerender(template,data));
-		
-//My name is  fanfan ,I'm  18 ,Sex is man
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ 微信小程序开发记录]]></title>
-        <id>https://fanfankill.github.io/post/xiao-cheng-xu-kai-fa-ji-lu/</id>
-        <link href="https://fanfankill.github.io/post/xiao-cheng-xu-kai-fa-ji-lu/">
-        </link>
-        <updated>2021-06-20T07:51:34.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="es6-map函数-选择作用">ES6 map()函数 (选择作用)</h2>
-<pre><code>var users = [
-{name: &quot;张含韵&quot;, &quot;email&quot;: &quot;zhang@email.com&quot;},
-{name: &quot;江一燕&quot;, &quot;email&quot;: &quot;jiang@email.com&quot;},
-{name: &quot;李小璐&quot;, &quot;email&quot;: &quot;li@email.com&quot;}
-];
-
-var emails = users.map(function (user) { return user.email; });
-
-console.log(emails.join(&quot;, &quot;)); 
-
-// zhang@email.com, jiang@email.com, li@email.com
-</code></pre>
-<p>此方法用于我对于获取总数据中选择data里面的数组去选择我需要的部分<br>
-<br></p>
-<h2 id="小程序本地储存">小程序本地储存</h2>
-<p>wx.setStorageSync('key','value);</p>
-<p>wx.getStorageSync( 'key');</p>
-<p>web中存数据会先调用toString() 把数据变为字符串 再进行储存</p>
-<p>小程序存的数据什么类型 获取的就是什么类型</p>
-<br>
-<h2 id="onloadoption">onload(option)</h2>
-<p>{</p>
-<p>​	//option里面包含我从其他页面跳转url带参的参数</p>
-<p>}<br>
-<br></p>
-<h2 id="组件的子传父-父传子">组件的子传父 父传子</h2>
-<pre><code class="language-html">&lt;!-- 监听自定义事件 bindtabsitemchange是子组件向父组件传值加bind --&gt;
-&lt;tab tabs=&quot;{{tabs}}&quot; bindtabsitemchange=&quot;handitemchange&quot;&gt;&lt;/tab&gt;
-</code></pre>
-<p>子组件接受参数</p>
-<pre><code class="language-js"> properties: {
-    tabs:{
-      type:Array,
-      value:[]
-    }
-  },
-</code></pre>
-<p>子组件向父组件传值</p>
-<pre><code class="language-js">  methods: {
-      //点击事件
-      handleitemtap(e)
-      {
-        const {index}=e.currentTarget.dataset
-        this.triggerEvent(&quot;tabsitemchange&quot;,{index} )
-      }
-  }
-</code></pre>
-<p>父组件对传值的处理</p>
-<pre><code class="language-js">//tab子组件点击事件
-handitemchange(e)
-{
-  console.log(e);
-  //获取被点击的标题索引
-  const {index}=e.detail;
-  let {tabs}=this.data
-  tabs.forEach((value,i)=&gt;i==index?value.isactive=true:value.isactive=false)
-  this.setData({
-      //更新父组件的内容
-    tabs
-  })
-  
-},
-</code></pre>
-<br>
-## 用到的周期函数
-<pre><code class="language-js">//只用加载该页面才调用  
-  onLoad: function (options) {
-      console.log(options);
-      this.qureyparams.cid=options.cid
-      console.log(this.qureyparams);
-      this.getgoodslist()
-  },
-
-       //每次回到该页面就会调用
-     onShow(){
-         ...
-     },
-      
-//页面滚动条触底事件 要判断是否有下一页数据 总页数 页码   页码*获取条数&gt;=总数据 没有下一页
-  onReachBottom()
-  {
-      //判断是否还有下一页
-      if(this.qureyparams.pagenum&gt;=this.totalpagesize)
-      {
-        //给个提示
-        wx.showToast({
-          title:'',
-          icon:'none',
-          duration:1500,
-         
-        })
-      }
-      else{
-     
-         this.qureyparams.pagenum++
-        console.log(this.qureyparams.pagenum);
-        this.getgoodslist()
-      }
-  },
-	
-//下拉刷新触发函数 
-  onPullDownRefresh(){
-      //1 重置数组
-      this.setData({
-        goodslist:[]
-      })
-      //重置页数
-      this.qureyparams.pagenum=1
-      //重新发请求
-      this.getgoodslist()
-      //在方法里面手动关闭下拉刷新等待效果
-      //（ wx.stopPullDownRefresh()）
-  },
-      
-      
-</code></pre>
-<p>对于下拉刷新可以在需要的文件下加<code>&quot;enablePullDownRefresh&quot;: true</code></p>
-<p>也可以在app.json全局加刷新效果 包括下拉刷新的样式也是可以添加的</p>
-<pre><code class="language-js">  &quot;window&quot;:{
-    &quot;backgroundTextStyle&quot;:&quot;light&quot;,
-    &quot;navigationBarBackgroundColor&quot;: &quot;#eb4450&quot;,
-    &quot;navigationBarTitleText&quot;: &quot;fanfan&quot;,
-    &quot;navigationBarTextStyle&quot;:&quot;white&quot;,
-
-    &quot;backgroundColor&quot;: &quot;#0094ff&quot;
-
-  },
-</code></pre>
-<br>
-<h2 id="对于下拉加载新数据的方法">对于下拉加载新数据的方法</h2>
-<p>先对原先数据进行解构后，把新数据加进去，而不是刷新数组</p>
-<pre><code class="language-js"> this.setData({
-      goodslist:[...this.data.goodslist,...res.data.message.goods]
-    })
-</code></pre>
-<br>
-<br>
-<h2 id="小程序对于用户权限调用以及获取">小程序对于用户权限调用以及获取</h2>
-<pre><code class="language-js">//权限给与设置  ***
-  //调用小程序内置api 获取用户的收货地址 追踪授权状态 SCOPE
-  //增加收货地址
-  handleaddress() {
-
-    //打印授权的状态
-    wx.getSetting({
-      success: (res) =&gt; { 
-        console.log(res);
-        //判断用户是否给权限
-        const scopeaddress = res.authSetting[&quot;scope.address&quot;]
-        //用户同意权限 直接调用
-        if (scopeaddress || scopeaddress == undefined) {
-          wx.chooseAddress({
-            success: (result) =&gt; {
-              //存地址到缓存
-              wx.setStorageSync('address', result);
-              console.log(result);
-            },
-          });
-        }
-        //如果没给 调用接口让用户同意  打开授权页面
-        else {
-          wx.openSetting({
-            success: (result) =&gt; {
-              console.log(result);
-              //调用用户同意权限接口
-              wx.chooseAddress({
-                success: (res) =&gt; {
-                  wx.setStorageSync('address', res);
-                  console.log(res);
-
-                },
-
-              });
-            },
-
-          });
-        }
-      },
-    });
-  },
 
 </code></pre>
 ]]></content>

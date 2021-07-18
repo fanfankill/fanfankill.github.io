@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title> Vue文档2 | fanfan</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1626588903974">
+<link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="表单输入绑定
+v-model 指令在表单 &lt;input&gt;、&lt;textarea&gt; 及 &lt;select&gt; 元素上创建双向数据绑定
+v-model 会忽略所有表单元素的 value、checked、select..." />
+    <meta name="keywords" content="vue" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://fanfankill.github.io">
+        <img src="https://fanfankill.github.io/images/avatar.png?v=1626588903974" class="site-logo">
+        <h1 class="site-title">fanfan</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tag/hjqM1TBv9/" class="site-nav">
+            JS
+          </a>
+        
+      
+        
+          <a href="/css" class="site-nav">
+            CSS
+          </a>
+        
+      
+        
+          <a href="/html" class="site-nav">
+            HTML
+          </a>
+        
+      
+        
+          <a href="/tag/KATkWfQKE/" class="site-nav">
+            Http
+          </a>
+        
+      
+        
+          <a href="/tag/YjLqWgkox/" class="site-nav">
+            Vue
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      <strong>前端小白</strong>
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanfankill.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title"> Vue文档2</h2>
+            <div class="post-date">2021-07-16</div>
+            
+              <div class="feature-container" style="background-image: url('https://img0.baidu.com/it/u=1330784235,4146572500&amp;fm=26&amp;fmt=auto&amp;gp=0.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="表单输入绑定">表单输入绑定</h2>
+<p><code>v-model</code> 指令在表单 <code>&lt;input&gt;</code>、<code>&lt;textarea&gt;</code> 及 <code>&lt;select&gt;</code> 元素上创建双向数据绑定</p>
+<p><code>v-model</code> 会忽略所有表单元素的 <code>value</code>、<code>checked</code>、<code>selected</code> attribute 的初始值而总是将 Vue 实例的数据作为数据来源</p>
+<p><code>.lazy</code>    转为在 <code>change</code> 事件_之后_进行同步</p>
+<p><code>&lt;input v-model.lazy=&quot;msg&quot;&gt;</code></p>
+<br>
+<p><code>.number</code>  自动将用户的输入值转为数值类型</p>
+<p><code>.trim</code>   过滤用户输入的首尾空白字符</p>
+<br>
+<h2 id="组件基础">组件基础</h2>
+<pre><code class="language-vue">// 定义一个名为 button-counter 的新组件
+Vue.component('button-counter', {
+  data: function () {
+    return {
+      count: 0
+    }
+  },
+  template: '&lt;button v-on:click=&quot;count++&quot;&gt;You clicked me {{ count }} times.&lt;/button&gt;'
+})
+</code></pre>
+<pre><code class="language-vue">&lt;div id=&quot;components-demo&quot;&gt;
+  &lt;button-counter&gt;&lt;/button-counter&gt;
+&lt;/div&gt;
+</code></pre>
+<p><code>new Vue({ el: '#components-demo' })</code></p>
+<br>
+<h2 id="data-必须是一个函数"><code>data</code> 必须是一个函数</h2>
+<p><strong>一个组件的 <code>data</code> 选项必须是一个函数</strong>，因此每个实例可以维护一份被返回对象的独立的拷贝：</p>
+<h2 id="组件的组织">组件的组织</h2>
+<p>两种组件的注册类型：<strong>全局注册</strong>和<strong>局部注册</strong></p>
+<p>通过 <code>Vue.component</code> 全局注册</p>
+<br>
+<h2 id="prop向子组件传递数据">prop向子组件传递数据</h2>
+<p>用<code>v-bind</code>来动态传递prop</p>
+<h2 id="单个根元素">单个根元素</h2>
+<p>将模板的内容包裹在一个父元素内(就是最外面的div)</p>
+<h2 id="监听子组件事件">监听子组件事件</h2>
+<p>通过 <code>v-on</code> 监听子组件实例的任意事件</p>
+<p>同时子组件可以通过调用内建的 <strong><code>$emit</code></strong> 方法并传入事件名称来触发一个事件</p>
+<h3 id="在组件上使用-v-model">在组件上使用 <code>v-model</code></h3>
+<p><code>&lt;input v-model=&quot;searchText&quot;&gt;</code></p>
+<p>等价于</p>
+<pre><code class="language-js">&lt;input
+  v-bind:value=&quot;searchText&quot;
+  v-on:input=&quot;searchText = $event.target.value&quot;
+&gt;
+</code></pre>
+<p>为了让它正常工作，这个组件内的 <code>&lt;input&gt;</code> 必须：</p>
+<ul>
+<li>将其 **<code>value</code> **attribute 绑定到一个名叫 <code>value</code> 的 prop 上</li>
+<li>在其 <code>input</code> 事件被触发时，将新的值通过自定义的 <code>input</code> 事件抛出</li>
+</ul>
+<pre><code class="language-vue">Vue.component('custom-input', {
+  props: ['value'],
+  template: `
+    &lt;input
+      v-bind:value=&quot;value&quot;
+      v-on:input=&quot;$emit('input', $event.target.value)&quot;
+    &gt;
+  `
+})
+</code></pre>
+<p>现在 <code>v-model</code> 就应该可以在这个组件上完美地工作起来了：</p>
+<p><code>&lt;custom-input v-model=&quot;searchText&quot;&gt;&lt;/custom-input&gt;</code></p>
+<h2 id="通过插槽分发内容">通过插槽分发内容</h2>
+<p>和 HTML 元素一样，我们经常需要向一个组件传递内容，像这样：</p>
+<pre><code class="language-vue">&lt;alert-box&gt;
+  Something bad happened.
+&lt;/alert-box&gt;
+</code></pre>
+<pre><code class="language-vue">Vue.component('alert-box', {
+  template: `
+    &lt;div class=&quot;demo-alert-box&quot;&gt;
+      &lt;strong&gt;Error!&lt;/strong&gt;
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/div&gt;
+  `
+})
+</code></pre>
+<h2 id="动态组件">动态组件</h2>
+<p>上述内容可以通过 Vue 的 <code>&lt;component&gt;</code> 元素加一个特殊的 <code>is</code> attribute 来实现：</p>
+<pre><code class="language-js">&lt;!-- 组件会在 `currentTabComponent` 改变时改变 --&gt;
+&lt;component v-bind:is=&quot;currentTabComponent&quot;&gt;&lt;/component&gt;
+</code></pre>
+<p><code>currentTabComponent</code> 可以包括</p>
+<ul>
+<li>已注册组件的名字，或</li>
+<li>一个组件的选项对象</li>
+</ul>
+<h2 id="全局注册">全局注册</h2>
+<pre><code class="language-js">Vue.component('my-component-name', {
+  // ... 选项 ...
+})
+</code></pre>
+<h2 id="局部注册">局部注册</h2>
+<p>全局注册往往是不够理想的。比如，如果你使用一个像 webpack 这样的构建系统，全局注册所有的组件意味着即便你已经不再使用一个组件了，它仍然会被包含在你最终的构建结果中。这造成了用户下载的 JavaScript 的无谓的增加。</p>
+<pre><code class="language-js">var ComponentA = { /* ... */ }
+</code></pre>
+<p>然后在 <code>components</code> 选项中定义你想要使用的组件：</p>
+<pre><code class="language-js">new Vue({
+  el: '#app',
+  components: {
+    'component-a': ComponentA,
+  }
+})
+</code></pre>
+<p>如果通过 Babel 和 webpack 使用 ES2015 模块，那么代码看起来更像：</p>
+<pre><code class="language-js">import ComponentA from './ComponentA.vue'
+
+export default {
+  components: {
+    ComponentA
+  },
+  // ...
+}
+</code></pre>
+<p>使用了诸如 Babel 和 webpack 的模块系统。在这些情况下我们推荐创建一个 <code>components</code> 目录，并将每个组件放置在其各自的文件中。</p>
+<h2 id="基础组件的自动化全局注册">基础组件的自动化全局注册</h2>
+<p>可以使用 <code>require.context</code> 只全局注册这些非常通用的基础组件</p>
+<p><strong>全局注册的行为必须在根 Vue 实例 (通过 <code>new Vue</code>) 创建之前发生</strong></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://fanfankill.github.io/tag/YjLqWgkox/" class="tag">
+                    vue
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://fanfankill.github.io/post/shou-xie-promise/">
+                  <h3 class="post-title">
+                    手写Promise
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
