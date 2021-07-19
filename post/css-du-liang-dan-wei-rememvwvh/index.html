@@ -1,117 +1,599 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" >
 
+<head>
+  <meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="Gridea静态个人博客">
+<meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
+<meta name="theme-color" content="#000">
 <title>CSS度量单位 rem、em、vw、vh | fanfan</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1626669539128">
+<link rel="stylesheet" href="/media/css/pisces.css">
+<link rel="stylesheet" href="/media/fonts/font-awesome.css">
+<link
+  href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
+  rel="stylesheet" type="text/css">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link href="/media/hljs/styles/default.css"
+  rel="stylesheet">
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://fanfankill.github.io/favicon.ico?v=1626667010708">
-<link rel="stylesheet" href="https://fanfankill.github.io/styles/main.css">
+<link rel="stylesheet" href="/styles/main.css">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="/media/js/jquery.js"></script>
+<script src="/media/hljs/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+  onload="renderMathInElement(document.body);"></script>
 
 
 
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
 
-    <meta name="description" content="
-em
-继承父元素大小关系，2em 则为父元素大小的两倍  受自己上级节点影响
-&lt;div class=&quot;div&quot; style=&quot;font-size:20px;&quot;&gt;div 标签中的文字大小为..." />
-    <meta name="keywords" content="css" />
-  </head>
-  <body>
-    <div id="app" class="main">
+  <meta name="description" content="CSS度量单位 rem、em、vw、vh" />
+  <meta name="keywords" content="css" />
+</head>
 
-      <div class="sidebar" :class="{ 'full-height': menuVisible }">
-  <div class="top-container" data-aos="fade-right">
-    <div class="top-header-container">
-      <a class="site-title-container" href="https://fanfankill.github.io">
-        <img src="https://fanfankill.github.io/images/avatar.png?v=1626667010708" class="site-logo">
-        <h1 class="site-title">fanfan</h1>
-      </a>
-      <div class="menu-btn" @click="menuVisible = !menuVisible">
-        <div class="line"></div>
+<body>
+  <div class="head-top-line"></div>
+  <div class="header-box">
+    
+<div class="pisces">
+  <header class="header  ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
+        </div>
       </div>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="brand">
+              <span>fanfan</span>
+            </a>  
+          
+        </div>
+        
+          <p class="subtitle">精于心，简于形</p>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/" target="_self">
+                  <i class="fa fa-home"></i> 首页
+                </a>
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/tag/hjqM1TBv9//" target="_self">
+                  <i class="fa fa-globe"></i> JS
+                </a>
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/css/" target="_self">
+                  <i class="fa fa-globe"></i> CSS
+                </a>
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/html/" target="_self">
+                  <i class="fa fa-globe"></i> HTML
+                </a>
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/tag/KATkWfQKE//" target="_self">
+                  <i class="fa fa-globe"></i> Http
+                </a>
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/tag/YjLqWgkox//" target="_self">
+                  <i class="fa fa-globe"></i> Vue
+                </a>
+              
+            </li>
+          
+          
+            
+              <li class="nav-item ">
+                <a href="/friends/" target="_self">
+                  
+                    <i class="fa fa-address-book"></i> 友情链接
+                  
+                </a>
+              </li>
+            
+          
+          
+            <li id="fa_search" class="nav-item">
+              <a href="javascript:void(0);">
+                <i class="fa fa-search"></i> <span class="language" data-lan="search">搜索</span>
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
     </div>
-    <div>
+  </header>
+</div>
+
+<script type="text/javascript"> 
+ 
+  let showNav = true;
+
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
+  
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+  </div>
+  <div class="main-continer">
+    
+    <div
+      class="section-layout pisces ">
+      <div class="section-layout-wrapper">
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
       
-        
-          <a href="/" class="site-nav">
-            首页
-          </a>
-        
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
       
+      <div class="sidebar-body pisces" id="sidebar_body">
         
-          <a href="/tag/hjqM1TBv9/" class="site-nav">
-            JS
-          </a>
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p class="site-author-name">fanfan</p>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
         
-      
-        
-          <a href="/css" class="site-nav">
-            CSS
-          </a>
-        
-      
-        
-          <a href="/html" class="site-nav">
-            HTML
-          </a>
-        
-      
-        
-          <a href="/tag/KATkWfQKE/" class="site-nav">
-            Http
-          </a>
-        
-      
-        
-          <a href="/tag/YjLqWgkox/" class="site-nav">
-            Vue
-          </a>
-        
-      
+        <span class="site-item-stat-count">31</span>
+        <span class="site-item-stat-name language" data-lan="article">文章</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="">
+        <span class="site-item-stat-count">7</span>
+        <span class="site-item-stat-name language" data-lan="category">分类</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">7</span>
+        <span class="site-item-stat-name language" data-lan="tag">标签</span>
+      </a>
     </div>
   </div>
-  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
-    <div class="social-container">
-      
+  
+    
+  
+  
+    <div class="sidebar-item sidebar-item-social">
+      <div class="social-item">
         
-      
+          
+            <a href="https://github.com/fanfankill">
+              <i class="fa fa-github-alt" title="github"></i>
+            </a>
+          
         
-      
         
-      
+          
+            <a class="social-img" href="#">
+              <img src="\media\images\custom-array-imgSocials-1626669538893-socialImg.png" />
+              <i class="fa fa-qq" title="QQ" ></i>
+            </a>
+          
         
-      
-        
-      
+      </div>
     </div>
-    <div class="site-description">
-      <strong>前端小白</strong>
-    </div>
-    <div class="site-footer">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://fanfankill.github.io/atom.xml" target="_blank">RSS</a>
-    </div>
+  
+
+
+
+</div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#em"><strong>em</strong></a></li>
+<li><a href="#rem"><strong>rem</strong></a></li>
+<li><a href="#vw-%E5%92%8C-vh"><strong>vw 和 vh</strong></a></li>
+<li><a href="#vmin-%E5%92%8C-vmax"><strong>vmin 和 vmax</strong></a></li>
+</ul>
+</li>
+</ul>
+
   </div>
 </div>
 
+<script>
 
-      <div class="main-container">
-        <div class="content-container" data-aos="fade-up">
-          <div class="post-detail">
-            <h2 class="post-title">CSS度量单位 rem、em、vw、vh</h2>
-            <div class="post-date">2021-07-10</div>
-            
-              <div class="feature-container" style="background-image: url('https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fs9.sinaimg.cn%2Fbmiddle%2F436277f8ga8458f989968%26690&amp;refer=http%3A%2F%2Fs9.sinaimg.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=jpeg?sec=1628594867&amp;t=875f31a41487eb3640a54e6bfd0b3fc7')">
-              </div>
-            
-            <div class="post-content" v-pre>
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+      }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
+    });
+  }
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
+        
+      </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    jQuery.Velocity(hideElement, 'stop');
+    jQuery.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        jQuery.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://fanfankill.github.io/post/css-du-liang-dan-wei-rememvwvh/">
+      CSS度量单位 rem、em、vw、vh
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2021-07-10 21:42:52">2021-07-10</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show language" data-lan="category-in">分类于</span>
+      
+      
+      <a href="https://fanfankill.github.io/tag/SPTV9Qrgr/">
+        <span>css</span>
+      </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>2<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>425<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
+    
+  </div>
+</section>
+            <div class="post-body next-md-body" id="post_body">
               <figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1625924625206.png" alt="" loading="lazy"></figure>
 <h2 id="em"><strong>em</strong></h2>
 <p>继承父元素大小关系，2em 则为父元素大小的两倍  受自己上级节点影响</p>
@@ -174,51 +656,3929 @@ width: 100vmax;
 
             </div>
             
-              <div class="tag-container">
-                
-                  <a href="https://fanfankill.github.io/tag/SPTV9Qrgr/" class="tag">
-                    css
-                  </a>
-                
-              </div>
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      fanfan
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://fanfankill.github.io/post/css-du-liang-dan-wei-rememvwvh/" title="CSS度量单位 rem、em、vw、vh">https://fanfankill.github.io/post/css-du-liang-dan-wei-rememvwvh/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://fanfankill.github.io/tag/SPTV9Qrgr/"># css</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title=" 媒体查询" href="https://fanfankill.github.io/post/mei-ti-cha-xun/"> 媒体查询</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title=" 媒体查询" href="https://fanfankill.github.io/post/mei-ti-cha-xun/">上一篇</a>
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="图片懒加载" href="https://fanfankill.github.io/post/tu-pian-lan-jia-zai/">图片懒加载</a>
+        <a class="nav-mobile-next" title="图片懒加载" href="https://fanfankill.github.io/post/tu-pian-lan-jia-zai/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
             
             
-              <div class="next-post">
-                <div class="next">下一篇</div>
-                <a href="https://fanfankill.github.io/post/tu-pian-lan-jia-zai/">
-                  <h3 class="post-title">
-                    图片懒加载
-                  </h3>
-                </a>
-              </div>
-            
-
-            
+  
 
           </div>
-
         </div>
       </div>
     </div>
+    <div class="footer-box">
+  <footer class="footer">
+    <span id="busuanzi_container_site_pv">浏览数 <span id="busuanzi_value_site_pv"></span> 次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">访客数 <span id="busuanzi_value_site_uv"></span> 人</span>
+    <div class="copyright">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> ©2019 | Theme By <a
+        href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao</a>
+    </div>
+    <div class="poweredby">
+      Hardworking
+    </div>
+  </footer>
+  
+  
+  <div class="pisces back-to-top" id="back_to_top">
+    <i class="fa fa-arrow-up"></i>
+    
+    <span class="scrollpercent">
+      <span id="back_to_top_text">0</span>%
+    </span>
+    
+  </div>
+  
+  
+  
+  <div class="bg-img">
+    <img src="\media\images\custom-bgImg.jpg" />
+  </div>
+  
+  
+  
+  
+</div>
+<script>
 
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script type="application/javascript">
+  let sideBarOpen = 'sidebar-open';
+  let body = document.body;
+  let back2Top = document.querySelector('#back_to_top'),
+    back2TopText = document.querySelector('#back_to_top_text'),
+    drawerBox = document.querySelector('#drawer_box'),
+    rightSideBar = document.querySelector('.sidebar'),
+    viewport = document.querySelector('body');
 
-AOS.init();
+  function scrollAnimation(currentY, targetY) {
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
+    let needScrollTop = targetY - currentY
+    let _currentY = currentY
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10)
+      _currentY += dist
+      window.scrollTo(_currentY, currentY)
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY)
+      } else {
+        window.scrollTo(_currentY, targetY)
+      }
+    }, 1)
+  }
+
+  back2Top.addEventListener("click", function (e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+
+  window.addEventListener('scroll', function (e) {
+    let percent = document.scrollingElement.scrollTop / (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight) * 100;
+    if (percent > 1 && !back2Top.classList.contains('back-top-active')) {
+      back2Top.classList.add('back-top-active');
+    }
+    if (percent == 0) {
+      back2Top.classList.remove('back-top-active');
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+
+  let hasCacu = false;
+  window.addEventListener('resize', function (e) {
+    calcuHeight();
+  });
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (!hasCacu && back2Top.classList.contains('pisces') || back2Top.classList.contains('gemini')) {
+      let sideBar = document.querySelector('.sidebar');
+      let navUl = document.querySelector('#site_nav');
+      sideBar.style = 'margin-top:' + (navUl.offsetHeight + navUl.offsetTop + 15) + 'px;';
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+
+  let open = false, MOTION_TIME = 300, RIGHT_MOVE_DIS = '320px';
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll('.right-motion');
+    let right = drawerBox.classList.contains('right');
+
+    let transitionDir = right ? "transition.slideRightIn" : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS
+      };
+      closeProp = {
+        paddingRight: '0px'
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS
+      };
+      closeProp = {
+        paddingLeft: '0px'
+      };
+    }
+
+    drawerBox.onclick = function () {
+      open = !open;
+      jQuery.Velocity(rightSideBar, 'stop');
+      jQuery.Velocity(viewport, 'stop');
+      jQuery.Velocity(rightMotions, 'stop');
+      if (open) {
+        jQuery.Velocity(rightSideBar, {
+          width: RIGHT_MOVE_DIS
+        }, {
+          duration: MOTION_TIME,
+          begin: function () {
+            jQuery.Velocity(rightMotions, transitionDir, {});
+          }
+        })
+        jQuery.Velocity(viewport, openProp, {
+          duration: MOTION_TIME
+        });
+      } else {
+        jQuery.Velocity(rightSideBar, {
+          width: '0px'
+        }, {
+          duration: MOTION_TIME,
+          begin: function () {
+            jQuery.Velocity(rightMotions, {
+              opacity: 0
+            });
+          }
+        })
+        jQuery.Velocity(viewport, closeProp, {
+          duration: MOTION_TIME
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle('muse-line');
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    }
+  }
+
+  // 链接跳转
+  let newWindow = 'false'
+  if (newWindow === 'true') {
+    let links = document.querySelectorAll('.post-body a')
+    links.forEach(item => {
+      if (!item.classList.contains('btn')) {
+        item.setAttribute("target", "_blank");
+      }
+    })
+  }
+
+  let faSearch = document.querySelector('#fa_search');
+  faSearch && faSearch.addEventListener('click', function () {
+    document.querySelector('#search_mask').style = ''
+  })
+
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+  
+  // 离开当前页title变化
+  var leaveTitle = "";
+  var normal_title = document.title;
+  if (leaveTitle) {
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState == 'hidden') {
+        normal_title = document.title;
+        document.title = leaveTitle;
+      } else {
+        document.title = normal_title;
+      }
+    });
+  }
 
 </script>
 
+<link rel="stylesheet" href="/media/css/jquery.fancybox.css" />
+<script src="/media/js/jquery.fancybox.js"></script>
+
+<script>
+  let images = document.querySelectorAll('.section img');
+  images.forEach(image => {
+    var parent = image.parentElement;
+    var next = image.nextElementSibling;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'images';
+    aelem.dataset['rel'] = 'fancybox-button';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.insertBefore(aelem, next);
+  })
+</script>
+
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip">打开微信扫一扫，即可进行扫码打赏哦</p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        jQuery.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        jQuery.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        jQuery.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        jQuery.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      jQuery.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      jQuery.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
+</script>
+
+  </div>
+</body>
+
+<div class="search-mask" id="search_mask" style="display: none;">
+  <div class="search-box">
+    <div class="search-title">
+      <i class="fa fa-search"></i>
+      <div class="input-box">
+        <input id="search" type="text" class="language" data-lan="search" placeholder="搜索">
+      </div>
+      <i id="close" class="fa fa-times-circle"></i>
+    </div>
+    <div class="stat-box">
+      <span id="stat_count">0</span><span class="language" data-lan="stat">条相关条目，使用了</span><span id="stat_times">0</span><span class="language" data-lan="stat-time">毫秒</span>
+      <hr>
+    </div>
+    <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-wen-dang-3/"" data-c="
+          &lt;h2 id=&#34;prop&#34;&gt;Prop&lt;/h2&gt;
+&lt;p&gt;字符串数组形式列出的 prop：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;props: [&#39;title&#39;, &#39;likes&#39;, &#39;isPublished&#39;, &#39;commentIds&#39;, &#39;author&#39;]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;prop 各自的名称和类型&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;props: {
+  title: String,
+  likes: Number,
+  isPublished: Boolean,
+  commentIds: Array,
+  author: Object,
+  callback: Function,
+  contactsPromise: Promise // or any other constructor
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;传递静态或动态-prop&#34;&gt;传递静态或动态 Prop&lt;/h2&gt;
+&lt;p&gt;给 prop 传入一个静态的值&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;blog-post title=&amp;quot;My journey with Vue&amp;quot;&amp;gt;&amp;lt;/blog-post&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;prop 可以通过 &lt;code&gt;v-bind&lt;/code&gt; 动态赋值&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;!-- 动态赋予一个变量的值 --&amp;gt;
+&amp;lt;blog-post v-bind:title=&amp;quot;post.title&amp;quot;&amp;gt;&amp;lt;/blog-post&amp;gt;
+
+&amp;lt;!-- 动态赋予一个复杂表达式的值 --&amp;gt;
+&amp;lt;blog-post
+  v-bind:title=&amp;quot;post.title + &#39; by &#39; + post.author.name&amp;quot;
+&amp;gt;&amp;lt;/blog-post&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;需要 &lt;code&gt;v-bind&lt;/code&gt; 来告诉 Vue 这是一个 JavaScript 表达式而不是一个字符串。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;传入数字&lt;/li&gt;
+&lt;li&gt;传入布尔值&lt;/li&gt;
+&lt;li&gt;传入数组&lt;/li&gt;
+&lt;li&gt;传入对象&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;单向数据流&#34;&gt;单向数据流&lt;/h2&gt;
+&lt;p&gt;所有的 prop 都使得其父子 prop 之间形成了一个&lt;strong&gt;单向下行绑定&lt;/strong&gt;：父级 prop 的更新会向下流动到子组件中，但是反过来则不行，这样会&lt;strong&gt;防止从子组件意外变更父级组件的状态&lt;/strong&gt;，从而导致你的应用的数据流向难以理解。&lt;/p&gt;
+&lt;p&gt;每次父级组件发生变更时，子组件中所有的 prop 都将会刷新为最新的值。这意味着你&lt;strong&gt;不&lt;/strong&gt;应该在一个子组件内部改变 prop&lt;/p&gt;
+&lt;p&gt;注意在 JavaScript 中对象和数组是通过引用传入的，所以对于一个数组或对象类型的 prop 来说，在子组件中改变变更这个对象或数组本身&lt;strong&gt;将会&lt;/strong&gt;影响到父组件的状态。&lt;/p&gt;
+&lt;h2 id=&#34;prop-验证&#34;&gt;Prop 验证&lt;/h2&gt;
+&lt;p&gt;例如你知道的这些类型。如果有一个需求没有被满足，则 Vue 会在浏览器控制台中警告你&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;Vue.component(&#39;my-component&#39;, {
+  props: {
+    // 基础的类型检查 (`null` 和 `undefined` 会通过任何类型验证)
+    propA: Number,
+    // 多个可能的类型
+    propB: [String, Number],
+    // 必填的字符串
+    propC: {
+      type: String,
+      required: true
+    },
+    // 带有默认值的数字
+    propD: {
+      type: Number,
+      default: 100
+    },
+    // 带有默认值的对象
+    propE: {
+      type: Object,
+      // 对象或数组默认值必须从一个工厂函数获取
+      default: function () {
+        return { message: &#39;hello&#39; }
+      }
+    },
+    // 自定义验证函数
+    propF: {
+      validator: function (value) {
+        // 这个值必须匹配下列字符串中的一个
+        return [&#39;success&#39;, &#39;warning&#39;, &#39;danger&#39;].indexOf(value) !== -1
+      }
+    }
+  }
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;替换合并已有的-attribute&#34;&gt;替换/合并已有的 Attribute]&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;class&lt;/code&gt; 和 &lt;code&gt;style&lt;/code&gt; attribute 值会被合并起来&lt;/p&gt;
+&lt;h2 id=&#34;禁用-attribute-继承&#34;&gt;禁用 Attribute 继承&lt;/h2&gt;
+&lt;p&gt;如果你&lt;strong&gt;不&lt;/strong&gt;希望组件的根元素继承 attribute，你可以在组件的选项中设置 &lt;code&gt;inheritAttrs: false&lt;/code&gt;。例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;Vue.component(&#39;my-component&#39;, {
+  inheritAttrs: false,
+  // ...
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;自定义事件&#34;&gt;&lt;strong&gt;自定义事件&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;事件名不存在自动大小写转换，在&lt;code&gt;v-on&lt;/code&gt;事件监听器DOM模板中会自动转化为小写&lt;/p&gt;
+&lt;h2 id=&#34;自定义组件v-model&#34;&gt;自定义组件&lt;code&gt;v-model&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;一个组件上的 &lt;code&gt;v-model&lt;/code&gt; 默认会利用名为 &lt;code&gt;value&lt;/code&gt; 的 prop 和名为 &lt;code&gt;input&lt;/code&gt; 的事件&lt;/p&gt;
+&lt;p&gt;但是像单选框、复选框等类型的输入控件可能会将 &lt;code&gt;value&lt;/code&gt; attribute 用于不同的目的&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;Vue.component(&#39;base-checkbox&#39;, {
+  model: {
+    prop: &#39;checked&#39;,
+    event: &#39;change&#39;
+  },
+  props: {
+    checked: Boolean
+  },
+  template: `
+    &amp;lt;input
+      type=&amp;quot;checkbox&amp;quot;
+      v-bind:checked=&amp;quot;checked&amp;quot;
+      v-on:change=&amp;quot;$emit(&#39;change&#39;, $event.target.checked)&amp;quot;
+    &amp;gt;
+  `
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;将原生事件绑定到组件&#34;&gt;将原生事件绑定到组件&lt;/h2&gt;
+&lt;p&gt;想要在一个组件的根元素上直接监听一个原生事件。这时，你可以使用 &lt;code&gt;v-on&lt;/code&gt; 的 &lt;code&gt;.native&lt;/code&gt; 修饰符：&lt;/p&gt;
+&lt;p&gt;但元素实际上是一个 &lt;code&gt;&amp;lt;label&amp;gt;&lt;/code&gt; 元素的时候监听不到：&lt;/p&gt;
+&lt;p&gt;包含了父作用域中不作为 prop 被识别 (且获取) 的特性绑定&lt;/p&gt;
+&lt;p&gt;$attrs可以接受上级传递过来的属性&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;label&amp;gt;
+  {{ label }}
+  &amp;lt;input
+    v-bind=&amp;quot;$attrs&amp;quot;
+    v-bind:value=&amp;quot;value&amp;quot;
+    v-on:input=&amp;quot;$emit(&#39;input&#39;, $event.target.value)&amp;quot;
+  &amp;gt;
+&amp;lt;/label&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Vue 提供了一个 &lt;code&gt;$listeners&lt;/code&gt; property，它是一个对象，里面包含了作用在这个组件上的所有监听器&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+  focus: function (event) { /* ... */ }
+  input: function (value) { /* ... */ },
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;就可以配合 &lt;code&gt;v-on=&amp;quot;$listeners&amp;quot;&lt;/code&gt;将所有的事件监听器指向这个组件的某个特定的子元素&lt;/p&gt;
+&lt;h2 id=&#34;sync-修饰符&#34;&gt;&lt;code&gt;.sync&lt;/code&gt; 修饰符&lt;/h2&gt;
+&lt;p&gt;真正的双向绑定会带来维护上的问题，因为子组件可以变更父组件，且在父组件和子组件两侧都没有明显的变更来源&lt;/p&gt;
+&lt;p&gt;带有 &lt;code&gt;.sync&lt;/code&gt; 修饰符的 &lt;code&gt;v-bind&lt;/code&gt; &lt;strong&gt;不能&lt;/strong&gt;和表达式一起使用&lt;/p&gt;
+&lt;p&gt;例如 &lt;code&gt;v-bind:title.sync=”doc.title + ‘!’”&lt;/code&gt; 是无效的&lt;/p&gt;
+&lt;p&gt;简写双向绑定的语法糖&lt;/p&gt;
+&lt;p&gt;父&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;child :title.sync=&amp;quot;title&amp;quot;&amp;gt; &amp;lt;/child&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;子&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt; &amp;lt;input :value=&amp;quot;title&amp;quot; @input=&amp;quot;abc&amp;quot; type=&amp;quot;text&amp;quot;&amp;gt;
+    props: {
+      title: {
+        type: String,
+        required: true
+      }
+    },
+      methods: {
+      abc(e) {
+        console.log(e.target.value);
+        this.$emit(&#39;update:title&#39;, e.target.value);
+      }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+"> Vue文档3</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-wen-dang-2/"" data-c="
+          &lt;h2 id=&#34;表单输入绑定&#34;&gt;表单输入绑定&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;v-model&lt;/code&gt; 指令在表单 &lt;code&gt;&amp;lt;input&amp;gt;&lt;/code&gt;、&lt;code&gt;&amp;lt;textarea&amp;gt;&lt;/code&gt; 及 &lt;code&gt;&amp;lt;select&amp;gt;&lt;/code&gt; 元素上创建双向数据绑定&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;v-model&lt;/code&gt; 会忽略所有表单元素的 &lt;code&gt;value&lt;/code&gt;、&lt;code&gt;checked&lt;/code&gt;、&lt;code&gt;selected&lt;/code&gt; attribute 的初始值而总是将 Vue 实例的数据作为数据来源&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;.lazy&lt;/code&gt;    转为在 &lt;code&gt;change&lt;/code&gt; 事件_之后_进行同步&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;input v-model.lazy=&amp;quot;msg&amp;quot;&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;.number&lt;/code&gt;  自动将用户的输入值转为数值类型&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;.trim&lt;/code&gt;   过滤用户输入的首尾空白字符&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;组件基础&#34;&gt;组件基础&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;// 定义一个名为 button-counter 的新组件
+Vue.component(&#39;button-counter&#39;, {
+  data: function () {
+    return {
+      count: 0
+    }
+  },
+  template: &#39;&amp;lt;button v-on:click=&amp;quot;count++&amp;quot;&amp;gt;You clicked me {{ count }} times.&amp;lt;/button&amp;gt;&#39;
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;div id=&amp;quot;components-demo&amp;quot;&amp;gt;
+  &amp;lt;button-counter&amp;gt;&amp;lt;/button-counter&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;new Vue({ el: &#39;#components-demo&#39; })&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;data-必须是一个函数&#34;&gt;&lt;code&gt;data&lt;/code&gt; 必须是一个函数&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;一个组件的 &lt;code&gt;data&lt;/code&gt; 选项必须是一个函数&lt;/strong&gt;，因此每个实例可以维护一份被返回对象的独立的拷贝：&lt;/p&gt;
+&lt;h2 id=&#34;组件的组织&#34;&gt;组件的组织&lt;/h2&gt;
+&lt;p&gt;两种组件的注册类型：&lt;strong&gt;全局注册&lt;/strong&gt;和&lt;strong&gt;局部注册&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过 &lt;code&gt;Vue.component&lt;/code&gt; 全局注册&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;prop向子组件传递数据&#34;&gt;prop向子组件传递数据&lt;/h2&gt;
+&lt;p&gt;用&lt;code&gt;v-bind&lt;/code&gt;来动态传递prop&lt;/p&gt;
+&lt;h2 id=&#34;单个根元素&#34;&gt;单个根元素&lt;/h2&gt;
+&lt;p&gt;将模板的内容包裹在一个父元素内(就是最外面的div)&lt;/p&gt;
+&lt;h2 id=&#34;监听子组件事件&#34;&gt;监听子组件事件&lt;/h2&gt;
+&lt;p&gt;通过 &lt;code&gt;v-on&lt;/code&gt; 监听子组件实例的任意事件&lt;/p&gt;
+&lt;p&gt;同时子组件可以通过调用内建的 &lt;strong&gt;&lt;code&gt;$emit&lt;/code&gt;&lt;/strong&gt; 方法并传入事件名称来触发一个事件&lt;/p&gt;
+&lt;h3 id=&#34;在组件上使用-v-model&#34;&gt;在组件上使用 &lt;code&gt;v-model&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;input v-model=&amp;quot;searchText&amp;quot;&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;等价于&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;input
+  v-bind:value=&amp;quot;searchText&amp;quot;
+  v-on:input=&amp;quot;searchText = $event.target.value&amp;quot;
+&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;为了让它正常工作，这个组件内的 &lt;code&gt;&amp;lt;input&amp;gt;&lt;/code&gt; 必须：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将其 **&lt;code&gt;value&lt;/code&gt; **attribute 绑定到一个名叫 &lt;code&gt;value&lt;/code&gt; 的 prop 上&lt;/li&gt;
+&lt;li&gt;在其 &lt;code&gt;input&lt;/code&gt; 事件被触发时，将新的值通过自定义的 &lt;code&gt;input&lt;/code&gt; 事件抛出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;Vue.component(&#39;custom-input&#39;, {
+  props: [&#39;value&#39;],
+  template: `
+    &amp;lt;input
+      v-bind:value=&amp;quot;value&amp;quot;
+      v-on:input=&amp;quot;$emit(&#39;input&#39;, $event.target.value)&amp;quot;
+    &amp;gt;
+  `
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;现在 &lt;code&gt;v-model&lt;/code&gt; 就应该可以在这个组件上完美地工作起来了：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;custom-input v-model=&amp;quot;searchText&amp;quot;&amp;gt;&amp;lt;/custom-input&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;通过插槽分发内容&#34;&gt;通过插槽分发内容&lt;/h2&gt;
+&lt;p&gt;和 HTML 元素一样，我们经常需要向一个组件传递内容，像这样：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;alert-box&amp;gt;
+  Something bad happened.
+&amp;lt;/alert-box&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;Vue.component(&#39;alert-box&#39;, {
+  template: `
+    &amp;lt;div class=&amp;quot;demo-alert-box&amp;quot;&amp;gt;
+      &amp;lt;strong&amp;gt;Error!&amp;lt;/strong&amp;gt;
+      &amp;lt;slot&amp;gt;&amp;lt;/slot&amp;gt;
+    &amp;lt;/div&amp;gt;
+  `
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;动态组件&#34;&gt;动态组件&lt;/h2&gt;
+&lt;p&gt;上述内容可以通过 Vue 的 &lt;code&gt;&amp;lt;component&amp;gt;&lt;/code&gt; 元素加一个特殊的 &lt;code&gt;is&lt;/code&gt; attribute 来实现：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;!-- 组件会在 `currentTabComponent` 改变时改变 --&amp;gt;
+&amp;lt;component v-bind:is=&amp;quot;currentTabComponent&amp;quot;&amp;gt;&amp;lt;/component&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;currentTabComponent&lt;/code&gt; 可以包括&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;已注册组件的名字，或&lt;/li&gt;
+&lt;li&gt;一个组件的选项对象&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;全局注册&#34;&gt;全局注册&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;Vue.component(&#39;my-component-name&#39;, {
+  // ... 选项 ...
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;局部注册&#34;&gt;局部注册&lt;/h2&gt;
+&lt;p&gt;全局注册往往是不够理想的。比如，如果你使用一个像 webpack 这样的构建系统，全局注册所有的组件意味着即便你已经不再使用一个组件了，它仍然会被包含在你最终的构建结果中。这造成了用户下载的 JavaScript 的无谓的增加。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var ComponentA = { /* ... */ }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;然后在 &lt;code&gt;components&lt;/code&gt; 选项中定义你想要使用的组件：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;new Vue({
+  el: &#39;#app&#39;,
+  components: {
+    &#39;component-a&#39;: ComponentA,
+  }
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果通过 Babel 和 webpack 使用 ES2015 模块，那么代码看起来更像：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;import ComponentA from &#39;./ComponentA.vue&#39;
+
+export default {
+  components: {
+    ComponentA
+  },
+  // ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;使用了诸如 Babel 和 webpack 的模块系统。在这些情况下我们推荐创建一个 &lt;code&gt;components&lt;/code&gt; 目录，并将每个组件放置在其各自的文件中。&lt;/p&gt;
+&lt;h2 id=&#34;基础组件的自动化全局注册&#34;&gt;基础组件的自动化全局注册&lt;/h2&gt;
+&lt;p&gt;可以使用 &lt;code&gt;require.context&lt;/code&gt; 只全局注册这些非常通用的基础组件&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;全局注册的行为必须在根 Vue 实例 (通过 &lt;code&gt;new Vue&lt;/code&gt;) 创建之前发生&lt;/strong&gt;&lt;/p&gt;
+"> Vue文档2</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/shou-xie-promise/"" data-c="
+          &lt;p&gt;promise是用来解决两个问题的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;回调地狱，代码难以维护， 常常第一个的函数的输出是第二个函数的输入这种现象&lt;/li&gt;
+&lt;li&gt;promise可以支持多个并发的请求，获取并发请求中的数据&lt;/li&gt;
+&lt;li&gt;这个promise可以解决异步的问题，本身不能说promise是异步的&lt;/li&gt;
+&lt;/ul&gt;
+ &lt;br&gt;
+&lt;h2 id=&#34;实现代码&#34;&gt;&lt;strong&gt;实现代码&lt;/strong&gt;&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt; class mypromise {
+
+        constructor(exeutor) {
+            this.state = PENDING
+            //成功的存储
+            this.value = undefined
+            //失败的存储
+            this.reason = undefined
+
+            //存放成功时候的回调函数
+            this.ResolveCallbakc = []
+            //存放失败时候的回调函数
+            this.RejectCallback = []
+            //要把这个值保存起来 调用then的时候还需要使用
+            let resolve = (value) =&amp;gt; {
+                
+                if (this.state == PENDING) {
+                    //定时器用于then先注册才去改变状态 
+                  setTimeout(()=&amp;gt;{
+                        //存起来
+                    console.log(&#39;成功的构造&#39;);
+                    this.value = value
+                    //改变状态
+                    this.state = FULFILLED
+                    //全执行
+                    this.ResolveCallbakc.forEach(fn =&amp;gt; fn())  //发布过程
+                  })
+                }
+            }
+            let reject = (reason) =&amp;gt; {
+
+                if (this.state == PENDING) {
+                setTimeout(()=&amp;gt;{
+                    console.log(&#39;失败的构造&#39;);
+                    //也存起来
+                    this.reason = reason
+
+                    this.state = REJECTED
+
+                    this.RejectCallback.forEach(fn =&amp;gt; fn())
+                })
+                }
+            }
+            //传入两个参数 给用户来改变状态
+            try {
+                exeutor(resolve, reject)
+            } catch (e) {
+                //当前有异常
+                reject(e)
+            }
+        }
+        then(onfulfilled, onrejected) {
+            if (this.state == FULFILLED) {
+                onfulfilled(this.value)
+               
+            }
+            if (this.state == REJECTED) {
+                onrejected(this.reason)
+             
+            }
+            if (this.state == PENDING) {
+                console.log(&#39;推入函数&#39;);
+                this.ResolveCallbakc.push(() =&amp;gt; {
+                    onfulfilled(this.value)
+                })
+                this.RejectCallback.push(() =&amp;gt; {
+                    onrejected(this.reason)
+                })
+                //链式调用
+                return this;
+
+            }
+
+        }
+
+    }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;实例&#34;&gt;&lt;strong&gt;实例&lt;/strong&gt;&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt; let fanfan = new mypromise((resolve, reject) =&amp;gt; {
+        console.log(&#39;?&#39;);
+        resolve(&#39;fanfan&#39;)
+    }).then(res =&amp;gt; {
+        setTimeout(()=&amp;gt;{
+            console.log(&#39;time&#39;);
+        })
+        console.log(res);
+
+    }).then(res =&amp;gt; {
+        console.log(&#39;?&#39;);
+        
+    }).then(res=&amp;gt;{
+        console.log(res);
+    })
+ 
+ // 打印结果 可以看到先是then去注册完才去调用状态改变
+ //先微后宏
+ /**
+ ?
+promise2.html:78 推入函数
+promise2.html:78 推入函数
+promise2.html:78 推入函数
+promise2.html:37 成功的构造
+promise2.html:100 fanfan
+promise2.html:103 ?
+promise2.html:106 fanfan
+promise2.html:98 time
+ */
+&lt;/code&gt;&lt;/pre&gt;
+">手写Promise</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js-she-ji-mo-shi/"" data-c="
+          &lt;h1 id=&#34;js的设计模式&#34;&gt;JS的设计模式&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;什么是设计模式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;假设有一个空房间，我们要日复一日地往里 面放一些东西。最简单的办法当然是把这些东西 直接扔进去，但是时间久了，就会发现很难从这 个房子里找到自己想要的东西，要调整某几样东 西的位置也不容易。所以在房间里做一些柜子也 许是个更好的选择，虽然柜子会增加我们的成 本，但它可以在维护阶段为我们带来好处。使用 这些柜子存放东西的规则，或许就是一种模式&lt;/p&gt;
+&lt;h2 id=&#34;单例模式&#34;&gt;单例模式&lt;/h2&gt;
+&lt;p&gt;确保只有一个实例，并提供全局访问，类似闭包创建后都去访问一个。&lt;/p&gt;
+&lt;h2 id=&#34;策略模式&#34;&gt;策略模式&lt;/h2&gt;
+&lt;p&gt;定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换。表单验证用的多&lt;/p&gt;
+&lt;h2 id=&#34;代理模式&#34;&gt;代理模式&lt;/h2&gt;
+&lt;p&gt;为一个对象提供一个代用品或占位符，以便控制对它的访问，用于对数据进行处理后返回&lt;/p&gt;
+&lt;h2 id=&#34;发布-订阅模式&#34;&gt;发布-订阅模式&lt;/h2&gt;
+&lt;p&gt;也称作观察者模式（观察者模式子模式），定义了对象间的一种一对多的依赖关系，当一个对象的状态发 生改变时，所有依赖于它的对象都将得到通知 。不直接建立关系，依靠一个中间商来建立&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;   // 观察者
+var observer = {
+    // 订阅集合
+    subscribes: [],
+
+    // 订阅 存放对应key
+    subscribe: function(key, fn) {
+        //不存在的情况下才默认为一个空数组
+        if (!this.subscribes[key]) {
+            this.subscribes[key] = [];
+        }
+      
+        
+        // 订阅者的处理  是函数就推进去
+        typeof fn === &#39;function&#39; &amp;amp;&amp;amp; this.subscribes[key].push(fn);
+    },
+
+    // 发布 
+    publish: function() {
+        
+        var type =[].shift.call(arguments) // arguments[0]  去掉第一项 就是 key项 剩余项都是value项
+        
+
+            //调用对应key存的函数
+            fns = this.subscribes[type];
+           
+        
+        // 不存在的订阅类型，以及订阅时未传入处理回调的
+        if (!fns || !fns.length) {
+            return;
+        }
+        
+        // 挨个处理调用 就是订阅同一个key很多次 然后一个个调用
+        for (var i = 0; i &amp;lt; fns.length; ++i) {
+            fns[i].apply(this, arguments);
+        }
+    },
+     
+};
+
+
+//实例
+
+
+observer.subscribe(&#39;examinationA&#39;, function(score) {
+    console.log(score);
+});
+
+observer.subscribe(&#39;examinationA&#39;, function(score) {
+    console.log(score);
+});
+
+observer.publish(&#39;examinationA&#39;, 100); // 100  100  里面两个订阅都打印了出来
+&lt;/code&gt;&lt;/pre&gt;
+">JS设计模式</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-router/"" data-c="
+          &lt;p&gt;&lt;strong&gt;这里的路由就是SPA（单页应用）的路径管理器&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;路由用于设定访问路径，并将路径和组件映射起来&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;单页面应用(SPA)的核心之一是: 更新视图而不重新请求页面&lt;/strong&gt;&lt;/p&gt;
+&lt;h4 id=&#34;1-hash模式&#34;&gt;1、Hash模式：&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;vue-router 默认 hash 模式 —— 使用 URL 的 hash 来模拟一个完整的 URL，于是当 URL 改变时，页面不会重新加载。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;可以通过location.hast取得#后面的路由&lt;/p&gt;
+&lt;p&gt;window.onhashchange=functioin(){}    //当hash路由改变时候触发&lt;/p&gt;
+&lt;h4 id=&#34;2-history模式&#34;&gt;2、History模式：&lt;/h4&gt;
+&lt;p&gt;这种模式充分利用 history.pushState API 来完成 URL 跳转而无须重新加载页面。&lt;/p&gt;
+&lt;p&gt;location.pathname 取得路由地址&lt;/p&gt;
+&lt;p&gt;onpopstate来监听history的路由变化&lt;/p&gt;
+&lt;h4 id=&#34;3-使用路由模块来实现页面跳转的方式&#34;&gt;3、使用路由模块来实现页面跳转的方式&lt;/h4&gt;
+&lt;p&gt;方式1：直接修改地址栏&lt;/p&gt;
+&lt;p&gt;方式2：this.$router.push(‘路由地址’)&lt;/p&gt;
+&lt;p&gt;方式3：&lt;code&gt;&amp;lt;router-link to=&amp;quot;路由地址&amp;quot;&amp;gt;&amp;lt;/router-link&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;4、实现方式&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;Vue.use(VueRouter)&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;执行VueRouter方法&lt;/li&gt;
+&lt;li&gt;如果这个方法有一个属性 install 并且这个属性是一个方法 就会执行install这个方法  例如 (VueRouter.install=function(){})&lt;/li&gt;
+&lt;li&gt;install这个方法的第一个参数 是vue&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;​&lt;/p&gt;
+&lt;h4&gt;5、手写router&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//router的index文件
+
+import  VueRouter from &#39;../myrouter/index&#39;
+import  Vue from &#39;vue&#39;
+
+const register =() =&amp;gt;import(&#39;../src/register&#39;)
+const home =()=&amp;gt;import(&#39;../src/home&#39;)
+
+Vue.use(VueRouter)
+
+const routes=[
+    {
+        path: &#39;/register&#39;,
+        name: &#39;注册&#39;,
+        component: register,
+        title: &#39;注册&#39;,
+      }, {
+        path: &#39;/&#39;,
+        name: &#39;首页&#39;,
+        component: home,
+        title: &#39;注册&#39;,
+      },
+   
+   
+]
+
+const router = new VueRouter({
+    routes
+  })
+
+export default router
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//实现VueRouter实例 hash模式实现
+
+let Vue
+
+//注册一个类
+class VueRouter{
+    constructor(options)
+    {
+        console.log(options);
+
+        let initPath=&#39;/&#39; //默认值
+        Vue.util.defineReactive(this,&#39;current&#39;,initPath) //this指向VueRouter  响应式
+        this.current=&#39;/&#39; //当前路由
+        this.routes=options.routes//用户路由规则
+        this.mode=options.mode||&#39;hash&#39; //默认hash
+        this.init() //监听路由改变
+        
+    }
+    init()
+    {
+     
+        if(this.mode==&#39;hash&#39;){
+            console.log(location.hash); //拿到hash模式下的hash地址
+
+            //监听第一次加载项目要加/#/
+            window.addEventListener(&#39;load&#39;,()=&amp;gt;{
+                this.current=location.hash.slice(1)
+    
+            })
+            //监听路由改变
+            window.addEventListener(&#39;hashchange&#39;,()=&amp;gt;{
+                this.current=location.hash.slice(1)
+            })
+        }
+    }
+}
+
+VueRouter.install=function(_Vue){
+        Vue=_Vue
+
+        //给调用组件添加一个属性  router
+        Vue.mixin({  
+            //全局添加数据和方法  vue3改为compostions api
+            //每一个实例都是一个 $options api 例如app.vue 和main.js 里面的都是一个实例
+            beforeCreate() {
+                console.log(this.$options.name);
+                if(this.$options.router)//根组件上才有的属性
+                {
+                    Vue.prototype.$router=this.$options.router //在Vue实例原生链上添加属性 实现全局添加this.$router属性
+                }
+            },
+        })
+
+        //创建全局组件
+        //router-link 
+        Vue.component(&#39;router-link&#39;,{
+            //传参过来
+            props:{
+              to:{
+                  type:String,
+                  require:true
+              }
+            },
+            render(h) {
+                return h(&#39;a&#39;,{attrs:{
+                    href:&amp;quot;#&amp;quot;+this.to
+                }},this.$slots.default)//创建html的内容 就是插槽里面的内容
+            },
+        }),
+
+
+        Vue.component(&#39;router-view&#39;,{
+            //必须是响应式数据才能触发
+            render(h) {
+
+                //当前路由
+                let current =this.$router.current
+                console.log(current);
+                //获取到了配置的路由数组  然后通过上面的取出对应的路由模块并且渲染出来
+                let routers=this.$router.routes
+                console.log(routers);
+
+                //找出匹配的数组项
+                let com=routers.find(item=&amp;gt;{
+                    return current==item.path
+                })
+                console.log(com);
+                return h(com.component)//创建html
+            },
+        })
+}
+
+
+export default  VueRouter
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//App.vue 文件
+
+&amp;lt;template&amp;gt;
+  &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt;
+
+
+&amp;lt;div class=&amp;quot;tolink&amp;quot;&amp;gt;
+    &amp;lt;router-link to=&#39;/register&#39;&amp;gt;注册&amp;lt;/router-link&amp;gt;
+    &amp;lt;router-link to=&#39;/&#39;&amp;gt;home&amp;lt;/router-link&amp;gt;
+   
+&amp;lt;/div&amp;gt;
+   &amp;lt;div&amp;gt;
+      &amp;lt;router-view&amp;gt;&amp;lt;/router-view&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/template&amp;gt;
+
+&amp;lt;script&amp;gt;
+
+export default {
+  name: &#39;App&#39;,
+  beforeCreate() {
+    console.log(this.$router);
+  },
+  data() {
+    return {
+  
+    }
+  },
+ 
+
+
+}
+&amp;lt;/script&amp;gt;
+
+&amp;lt;style&amp;gt;
+.tolink{
+  width: 40%;
+  margin: auto;
+  display: flex;
+  justify-content:space-between;
+}
+&amp;lt;/style&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;实现效果&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210713165156925.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210713165208681.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+">vue-router</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-wen-dang/"" data-c="
+          &lt;p&gt;v-html :将模板字符串解析为html格式&lt;/p&gt;
+&lt;p&gt;split() 组成字符串数组&lt;/p&gt;
+&lt;p&gt;模板表达式都被放在沙盒中，只能访问&lt;a href=&#34;https://github.com/vuejs/vue/blob/v2.6.10/src/core/instance/proxy.js#L9&#34;&gt;全局变量的一个白名单&lt;/a&gt;，如 &lt;code&gt;Math&lt;/code&gt; 和 &lt;code&gt;Date&lt;/code&gt; 。你不应该在模板表达式中试图访问用户定义的全局变量。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;你可以使用动态参数为一个动态的事件名绑定处理函数：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;a v-on:[eventName]=&amp;quot;doSomething&amp;quot;&amp;gt; ... &amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;当 &lt;code&gt;eventName&lt;/code&gt; 的值为 &lt;code&gt;&amp;quot;focus&amp;quot;&lt;/code&gt; 时，&lt;code&gt;v-on:[eventName]&lt;/code&gt; 将等价于 &lt;code&gt;v-on:focus&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;v-bind&#34;&gt;&lt;a href=&#34;https://cn.vuejs.org/v2/guide/syntax.html#v-bind-%E7%BC%A9%E5%86%99&#34;&gt;&lt;code&gt;v-bind&lt;/code&gt; 缩写&lt;/a&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;!-- 完整语法 --&amp;gt;
+&amp;lt;a v-bind:href=&amp;quot;url&amp;quot;&amp;gt;...&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 缩写 --&amp;gt;
+&amp;lt;a :href=&amp;quot;url&amp;quot;&amp;gt;...&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 动态参数的缩写 (2.6.0+) --&amp;gt;
+&amp;lt;a :[key]=&amp;quot;url&amp;quot;&amp;gt; ... &amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;v-on&#34;&gt;&lt;a href=&#34;https://cn.vuejs.org/v2/guide/syntax.html#v-on-%E7%BC%A9%E5%86%99&#34;&gt;&lt;code&gt;v-on&lt;/code&gt; 缩写&lt;/a&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;!-- 完整语法 --&amp;gt;
+&amp;lt;a v-on:click=&amp;quot;doSomething&amp;quot;&amp;gt;...&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 缩写 --&amp;gt;
+&amp;lt;a @click=&amp;quot;doSomething&amp;quot;&amp;gt;...&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 动态参数的缩写 (2.6.0+) --&amp;gt;
+&amp;lt;a @[event]=&amp;quot;doSomething&amp;quot;&amp;gt; ... &amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;计算属性和侦听器&#34;&gt;计算属性和侦听器&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-HTML&#34;&gt;&amp;lt;div id=&amp;quot;example&amp;quot;&amp;gt;
+  &amp;lt;p&amp;gt;Original message: &amp;quot;{{ message }}&amp;quot;&amp;lt;/p&amp;gt;
+  &amp;lt;p&amp;gt;Computed reversed message: &amp;quot;{{ reversedMessage }}&amp;quot;&amp;lt;/p&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-JS&#34;&gt;var vm = new Vue({
+  el: &#39;#example&#39;,
+  data: {
+    message: &#39;Hello&#39;
+  },
+  computed: {
+    // 计算属性的 getter
+    reversedMessage: function () {
+      // `this` 指向 vm 实例
+      return this.message.split(&#39;&#39;).reverse().join(&#39;&#39;)
+    }
+  }
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;计算属性缓存-vs-方法&#34;&gt;计算属性缓存 vs 方法&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-JS&#34;&gt;&amp;lt;p&amp;gt;Reversed message: &amp;quot;{{ reversedMessage() }}&amp;quot;&amp;lt;/p&amp;gt;
+
+// 在组件中
+methods: {
+  reversedMessage: function () {
+    return this.message.split(&#39;&#39;).reverse().join(&#39;&#39;)
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的。然而，不同的是&lt;strong&gt;计算属性是基于它们的响应式依赖进行缓存的&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这就意味着只要 &lt;code&gt;message&lt;/code&gt; 还没有发生改变，多次访问 &lt;code&gt;reversedMessage&lt;/code&gt; 计算属性会立即返回之前的计算结果，而不必再次执行函数。&lt;/p&gt;
+&lt;p&gt;所以计算属性要是响应试依赖&lt;/p&gt;
+&lt;p&gt;这也同样意味着下面的计算属性将不再更新，因为 &lt;code&gt;Date.now()&lt;/code&gt; 不是响应式依赖：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;computed: {
+  now: function () {
+    return Date.now()
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;计算属性-vs-侦听属性&#34;&gt;计算属性 vs 侦听属性&lt;/h2&gt;
+&lt;p&gt;计算属性默认只有 getter，不过在需要时你也可以提供一个 setter：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// ...
+computed: {
+  fullName: {
+    // getter
+    get: function () {
+      return this.firstName + &#39; &#39; + this.lastName
+    },
+    // setter
+    set: function (newValue) {
+      var names = newValue.split(&#39; &#39;)
+      this.firstName = names[0]
+      this.lastName = names[names.length - 1]
+    }
+  }
+}
+// ...
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;计算属性computed :&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;支持缓存，只有依赖数据发生改变，才会重新进行计算&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;不支持异步，当computed内有异步操作时无效，无法监听数据的变化&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;​            3.computed 属性值会默认走缓存，计算属性是基于它们的响应式依赖进行               缓存的，也就是基于data中声明过或者父组件传递的props中的数据通过计算得到的值&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;如果一个属性是由其他属性计算而来的，这个属性依赖其他属性，是一个多对一或者一对一，一般用computed&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;​           5.如果computed属性属性值是函数，那么默认会走get方法；函数的返回值就是属性的属性值；在computed中的，属性都有一个get和一个set方法，当数据变化时，调用set方法。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;侦听属性watch：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;不支持缓存，数据变，直接会触发相应的操作；&lt;/li&gt;
+&lt;li&gt;watch支持异步；&lt;/li&gt;
+&lt;li&gt;当一个属性发生变化时，需要执行对应的操作；一对多；&lt;/li&gt;
+&lt;li&gt;监听数据必须是data中声明过或者父组件传递过来的props中的数据.函数有两个参数，
+&lt;ol&gt;
+&lt;li&gt;immediate：组件加载立即触发回调函数执行&lt;/li&gt;
+&lt;li&gt;deep: 深度监听，为了发现&lt;strong&gt;对象内部值&lt;/strong&gt;的变化，复杂类型的数据时使用。deep无法监听到数组的变动和对象的新增&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;条件渲染&#34;&gt;条件渲染&lt;/h2&gt;
+&lt;p&gt;当 &lt;code&gt;v-if&lt;/code&gt; 需要包裹多个元素时候 用 &lt;code&gt;&amp;lt;template&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;v-show&lt;/code&gt; 不支持 &lt;code&gt;&amp;lt;template&amp;gt;&lt;/code&gt; 元素，也不支持 &lt;code&gt;v-else&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;当 &lt;code&gt;v-if&lt;/code&gt; 与 &lt;code&gt;v-for&lt;/code&gt; 一起使用时，&lt;code&gt;v-for&lt;/code&gt; 具有比 &lt;code&gt;v-if&lt;/code&gt; 更高的优先级&lt;/p&gt;
+&lt;h2 id=&#34;事件处理方法&#34;&gt;事件处理方法&lt;/h2&gt;
+&lt;p&gt;内联处理器中的方法&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;div id=&amp;quot;example-3&amp;quot;&amp;gt; 
+    &amp;lt;button v-on:click=&amp;quot;say(&#39;hi&#39;,$event)&amp;quot;&amp;gt;Say hi&amp;lt;/button&amp;gt;  
+	&amp;lt;button v-on:click=&amp;quot;say(&#39;what&#39;)&amp;quot;&amp;gt;Say what&amp;lt;/button&amp;gt; &amp;lt;/div&amp;gt;
+
+new Vue({
+  el: &#39;#example-3&#39;,
+  methods: {
+    say: function (message,event) {
+      alert(message)
+        // 现在我们可以访问原生事件对象
+        if (event) {
+          event.preventDefault()
+        }
+    }
+  }
+})
+//有时也需要在内联语句处理器中访问原始的 DOM 事件。可以用特殊变量 $event 把它传入方法：
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;事情修饰符&#34;&gt;事情修饰符&lt;/h2&gt;
+&lt;p&gt;原文博客(https://www.cnblogs.com/xiaoyaoxingchen/p/10405207.html)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;.stop&lt;/code&gt;  阻止冒泡（通俗讲就是阻止事件向上级DOM元素传递）&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1626002759503.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;.prevent&lt;/code&gt;  阻止默认事件的发生 例如a标签的跳转和表单的提交刷新&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;.capture&lt;/code&gt; 捕获冒泡 即有冒泡发生时，有该修饰符的dom元素会先执行&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1626002752776.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;.self&lt;/code&gt;  事件有自身才能触发，通常用于避免冒泡事件的影响&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1626002764276.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;.once&lt;/code&gt;    只触发一次&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;.passive&lt;/code&gt;   对DOM的默认事件进行性能优化&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;. native&lt;/code&gt; 一般给组件绑定事件加的&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 阻止单击事件继续传播 --&amp;gt;
+&amp;lt;a v-on:click.stop=&amp;quot;doThis&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 提交事件不再重载页面 --&amp;gt;
+&amp;lt;form v-on:submit.prevent=&amp;quot;onSubmit&amp;quot;&amp;gt;&amp;lt;/form&amp;gt;
+
+&amp;lt;!-- 修饰符可以串联 --&amp;gt;
+&amp;lt;a v-on:click.stop.prevent=&amp;quot;doThat&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 只有修饰符 --&amp;gt;
+&amp;lt;form v-on:submit.prevent&amp;gt;&amp;lt;/form&amp;gt;
+
+&amp;lt;!-- 添加事件监听器时使用事件捕获模式 --&amp;gt;
+&amp;lt;!-- 即内部元素触发的事件先在此处理，然后才交由内部元素进行处理 --&amp;gt;
+&amp;lt;div v-on:click.capture=&amp;quot;doThis&amp;quot;&amp;gt;...&amp;lt;/div&amp;gt;
+
+&amp;lt;!-- 只当在 event.target 是当前元素自身时触发处理函数 --&amp;gt;
+&amp;lt;!-- 即事件不是从内部元素触发的 --&amp;gt;
+&amp;lt;div v-on:click.self=&amp;quot;doThat&amp;quot;&amp;gt;...&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;按键修饰符&#34;&gt;按键修饰符&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.enter&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.tab&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.delete&lt;/code&gt; (捕获“删除”和“退格”键)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.esc&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.space&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.up&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.down&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.left&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.right&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;!-- 只有在 `key` 是 `Enter` 时调用 `vm.submit()` --&amp;gt;
+    &amp;lt;input v-on:keyup.enter=&amp;quot;submit&amp;quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;系统修饰键&#34;&gt;系统修饰键&lt;/h2&gt;
+&lt;p&gt;可以用如下修饰符来实现仅在按下相应按键时才触发鼠标或键盘事件的监听器&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.ctrl&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.alt&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.shift&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.meta&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;exact&#34;&gt;&lt;code&gt;.exact&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;修饰符允许你控制由精确的系统修饰符组合触发的事件。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 即使 Alt 或 Shift 被一同按下时也会触发 --&amp;gt;
+&amp;lt;button v-on:click.ctrl=&amp;quot;onClick&amp;quot;&amp;gt;A&amp;lt;/button&amp;gt;
+
+&amp;lt;!-- 有且只有 Ctrl 被按下的时候才触发 --&amp;gt;
+&amp;lt;button v-on:click.ctrl.exact=&amp;quot;onCtrlClick&amp;quot;&amp;gt;A&amp;lt;/button&amp;gt;
+
+&amp;lt;!-- 没有任何系统修饰符被按下的时候才触发 --&amp;gt;
+&amp;lt;button v-on:click.exact=&amp;quot;onClick&amp;quot;&amp;gt;A&amp;lt;/button&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+">VUE文档</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/mei-ti-cha-xun/"" data-c="
+          &lt;p&gt;媒体属性是CSS3新增的内容&lt;/p&gt;
+&lt;p&gt;媒体属性必须用括号()包起来&lt;/p&gt;
+&lt;h5 id=&#34;media-媒体类型and-媒体特性你的样式&#34;&gt;@media 媒体类型and （媒体特性）{你的样式}&lt;/h5&gt;
+&lt;h2 id=&#34;最大宽度max-width&#34;&gt;最大宽度max-width&lt;/h2&gt;
+&lt;h5 id=&#34;意思是指媒体类型小于或等于指定的宽度时样式生效-如&#34;&gt;意思是指媒体类型小于或等于指定的宽度时，样式生效。如：&lt;/h5&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;@media screen and (max-width:480px){
+ body {
+   display:none;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;最小宽度min-width&#34;&gt;最小宽度min-width&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;@media screen and (min-width:600px) and (max-width:900px){
+  body {background-color:#f5f5f5;}
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;多个媒体特性使用&#34;&gt;&lt;strong&gt;多个媒体特性使用&lt;/strong&gt;&lt;/h2&gt;
+&lt;h5 id=&#34;media-query中可以包含0到多个表达式&#34;&gt;Media Query中可以包含0到多个表达式&lt;/h5&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;/**当屏幕在600px~900px之间时，body的背景色渲染为“#f5f5f5”*/
+@media screen and (min-width:600px) and (max-width:900px){
+  body {background-color:#f5f5f5;}
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;设备屏幕的输出宽度device-width&#34;&gt;&lt;strong&gt;设备屏幕的输出宽度Device Width&lt;/strong&gt;&lt;/h2&gt;
+&lt;h5 id=&#34;以根据屏幕设备的尺寸来设置相应的样式或者调用相应的样式文件&#34;&gt;以根据屏幕设备的尺寸来设置相应的样式（或者调用相应的样式文件）&lt;/h5&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; media=&amp;quot;screen and (max-device-width:480px)&amp;quot; href=&amp;quot;iphone.css&amp;quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;not关键词&#34;&gt;not关键词&lt;/h2&gt;
+&lt;h5 id=&#34;使用关键词not是用来排除某种制定的媒体类型&#34;&gt;使用关键词“not”是用来排除某种制定的媒体类型&lt;/h5&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;@media not print and (max-width: 1200px){样式代码}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;only关键词&#34;&gt;only关键词&lt;/h2&gt;
+&lt;h5 id=&#34;only用来指定某种特定的媒体类型&#34;&gt;only用来指定某种特定的媒体类型&lt;/h5&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; media=&amp;quot;only screen and (max-device-width:240px)&amp;quot; href=&amp;quot;android240.css&amp;quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+"> 媒体查询</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/css-du-liang-dan-wei-rememvwvh/"" data-c="
+          &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1625924625206.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;em&#34;&gt;&lt;strong&gt;em&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;继承父元素大小关系，2em 则为父元素大小的两倍  受自己上级节点影响&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div class=&amp;quot;div&amp;quot; style=&amp;quot;font-size:20px;&amp;quot;&amp;gt;div 标签中的文字大小为 20px
+&amp;lt;p class=&amp;quot;p&amp;quot; style=&amp;quot;font-size:2em&amp;quot;&amp;gt;P 标签中的文字大小为 2em
+&amp;lt;/p&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;效果如下&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;style&gt;
+.div{font-size:20px;}
+.p{font-size:2em;}
+.span{font-size:0.5em;}
+&lt;/style&gt;
+&lt;div class=&#34;div&#34; style=&#34;font-size:20px;&#34;&gt;div 标签中的文字大小为 20px
+&lt;p class=&#34;p&#34; style=&#34;font-size:2em&#34;&gt;P 标签中的文字大小为 2em
+    &lt;span class=&#34;span&#34; style=&#34;font-size:.5em&#34;&gt;span标签中的文字大小为0.5em&lt;/span&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;rem&#34;&gt;&lt;strong&gt;rem&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;就是相对于根节点来进行缩放，如果有嵌套的关&lt;br&gt;
+系，嵌套关系的元素的字体大小始终按照根节点的字体大小进行缩放&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;style&amp;gt;
+html{font-size:16px;}
+.div{font-size:30px;background-color:pink;padding:50px;}
+.p{font-size:1rem;}
+.span{font-size:0.5rem;}
+&amp;lt;/style&amp;gt;
+
+&amp;lt;div class=&amp;quot;div&amp;quot;&amp;gt;div 标签中的文字大小为 30px
+&amp;lt;p class=&amp;quot;p&amp;quot;&amp;gt;P 标签中的文字大小为 1rem
+&amp;lt;span class=&amp;quot;span&amp;quot;&amp;gt;span 标 签 中 的 文 字 大 小 为
+0.5rem&amp;lt;/span&amp;gt;
+&amp;lt;/p&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;div&#34; style=&#34;font-size:30px&#34;&gt;div 标签中的文字大小为 30px
+&lt;p class=&#34;p&#34; style=&#34;font-size:1rem;&#34;&gt;P 标签中的文字大小为 1rem
+&lt;span class=&#34;span&#34; style=&#34;font-size:.5rem&#34;&gt;span 标 签 中 的 文 字 大 小 为
+0.5rem&lt;/span&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;这个rem继承的是html的font-size  默认为16px 这才是根节点&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;vw-和-vh&#34;&gt;&lt;strong&gt;vw 和 vh&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;视窗的宽度和高度，相当于屏幕宽度和高度的 1%&lt;/p&gt;
+&lt;p&gt;处理宽度的时候%单位更合适，处理高度的话 vh 单位更好&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;vmin-和-vmax&#34;&gt;&lt;strong&gt;vmin 和 vmax&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;关于视口高度和宽度两者的最小值或者最大值。&lt;/p&gt;
+&lt;p&gt;如果你要让这个元素始终铺满整个视口的可见区域：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;.box { 
+height: 100vmax; 
+width: 100vmax;
+}
+&lt;/code&gt;&lt;/pre&gt;
+">CSS度量单位 rem、em、vw、vh</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/tu-pian-lan-jia-zai/"" data-c="
+          &lt;p&gt;实现图片懒加载先了解几个属性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;offsetWidth/offsetHeight&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对象的可见宽度&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;clientWidth/clientHeight&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;内容的可见宽度&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;scrollWidth/scrollHeight&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;元素完整的高度和宽度，overflow:hidden的部分也计算在内。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;offsetLeft/offsetTop&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当前元素距浏览器边界的偏移量，以像素为单位。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;clientTop/clientLeft&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这个属性测试下来的结果就是border。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;scrollLeft/scrollTop&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;设置或返回已经滚动到元素的左边界或上边界的像素数。&lt;/p&gt;
+&lt;h2 id=&#34;实现代码&#34;&gt;实现代码&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt; //显示器高度 window.innerHeight
+    //图片到视窗上的距离 getBoundingClientRect().top
+    let imgs=document.querySelectorAll(&#39;img&#39;)
+    console.log(imgs);
+
+    window.addEventListener(&#39;scroll&#39;,(e)=&amp;gt;{
+        imgs.forEach(v=&amp;gt;{
+            const imgtop=v.getBoundingClientRect().top
+            console.log(imgtop);
+            if(imgtop&amp;lt;window.innerHeight)
+            {
+              
+                let data_src=v.getAttribute(&#39;data-src&#39;)
+                 v.setAttribute(&#39;src&#39;,data_src)
+            }
+            console.log(&#39;触发&#39;);
+        })
+    })
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;HTML&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;img  data-src=&amp;quot;https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb1-q.mafengwo.net%2Fs7%2FM00%2F2E%2F37%2FwKgB6lSuHraAYMNtAAXF8ovILuk683.png&amp;amp;refer=http%3A%2F%2Fb1-q.mafengwo.net&amp;amp;app=2002&amp;amp;size=f9999,10000&amp;amp;q=a80&amp;amp;n=0&amp;amp;g=0n&amp;amp;fmt=jpeg?sec=1627892666&amp;amp;t=953e6a19584b6772c33a1b84604fa63d&amp;quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;感觉上面这样触发太频繁 加个节流吧&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-JS&#34;&gt;//节流写法
+    window.onscroll = throttle(getscroll,200)
+    
 
 
 
+    //主体函数
+    function getscroll() {
+  
+        let imgs = document.querySelectorAll(&#39;img&#39;)
+
+        imgs.forEach(v=&amp;gt;{
+            const imgtop=v.getBoundingClientRect().top
+            console.log(imgtop);
+            if(imgtop&amp;lt;window.innerHeight)
+            {
+
+                let data_src=v.getAttribute(&#39;data-src&#39;)
+                 v.setAttribute(&#39;src&#39;,data_src)
+            }
+          
+        })
+    }
+
+    //节流函数 过一段时间才触发
+    function throttle(fn, delay) {
+        let timer = true
+        return function () {
+            if (!timer) {
+                return false
+            }
+  
+            timer=false
+            setTimeout(() =&amp;gt; {
+            fn()
+            console.log(&#39;我是节流&#39;);
+            timer = true;
+        }, delay)
+
+        }
+    }
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1625323851326.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1625323855197.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;p&gt;不节流效果&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1625323862788.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;节流后的效果  200ms间隔&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1625323858842.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+">图片懒加载</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/shou-xie-axios/"" data-c="
+          &lt;h2 id=&#34;axios&#34;&gt;axios&lt;/h2&gt;
+&lt;p&gt;客户端  请求  服务端&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;请求行&lt;/p&gt;
+&lt;p&gt;url&lt;/p&gt;
+&lt;p&gt;请求方式&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;多个请求头&lt;/p&gt;
+&lt;p&gt;域名，cooike，content-Type等&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;请求体&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;post方法传的参数&lt;/p&gt;
+&lt;p&gt;服务端  响应  客户端&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;响应行&lt;/p&gt;
+&lt;p&gt;status statusText&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;多个响应头&lt;/p&gt;
+&lt;p&gt;Content-Type:text/html&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;响应体&lt;/p&gt;
+&lt;p&gt;数据返回&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;xhr&#34;&gt;XHR&lt;/h2&gt;
+&lt;p&gt;XMLHttpRequest对象可以和服务器交互 不会刷新网页&lt;/p&gt;
+&lt;p&gt;只有XHR和fetch发出的才是ajax请求&lt;/p&gt;
+&lt;p&gt;一般的请求就类似跳转和刷新页面&lt;/p&gt;
+&lt;p&gt;ajax只是调用监视回调函数并传入响应相关的数据&lt;/p&gt;
+&lt;h2 id=&#34;api&#34;&gt;API&lt;/h2&gt;
+&lt;p&gt;XMLHttpRequest() //创建XHR对象的构造函数&lt;/p&gt;
+&lt;p&gt;status：响应状态码&lt;/p&gt;
+&lt;p&gt;statusText：响应状态文本&lt;/p&gt;
+&lt;p&gt;onreadystatechange：绑定readyState改变的监听&lt;/p&gt;
+&lt;p&gt;open(method,url)：初始化请求&lt;/p&gt;
+&lt;p&gt;send(data)：发送请求&lt;/p&gt;
+&lt;p&gt;abort()：中断请求&lt;/p&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;手写实现ajax&#34;&gt;手写实现ajax&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;script&amp;gt;
+    
+    //接口在本地node.js实现
+      function getdata()
+    {
+        console.log(&#39;发送get请求&#39;);
+        ajax({
+            url:&#39;http://localhost:3000/getposition&#39;,
+            parmas:{
+               
+            name:&#39;fanfan&#39;,
+            age:19,
+            number:13142278876
+            }
+        }).then(res=&amp;gt;{
+            console.log(res);
+        })
+    }
+
+    
+    //ajax手写实现
+     
+    function ajax({
+        //解构赋值  写好默认值
+        url,
+        method=&#39;GET&#39;,
+        data={},
+        parmas={},
+    }){
+        //返回promise对象
+         return new Promise( (resolve,reject)=&amp;gt;{
+       
+         //对url的处理  有些get请求参数需要拼接另外函数实现拼接
+            url+=&#39;?&#39;+pinjie(parmas)
+    
+             //创建xhr对象
+             const request=new XMLHttpRequest()
+            //打开连接
+             request.open(method,url,true) 
+            //转换为JSON对象 
+            if(method==&#39;GET&#39;)
+            {
+                request.send()
+            }
+           else if(method==&#39;post&#39;)
+           {
+          
+           //发送JSON格式的对象肯定要加请求头 告诉服务器请求体是JSON格式
+            request.setRequestHeader(&#39;Content-Type&#39;,&#39;application/json;charset=uft-8&#39;)
+            //转换为JSON发送
+            request.send(JSON.stringify(data))
+           }
+    
+           //绑定状态改变的监听 从发送变为成功或者失败调用的函数
+           request.onreadystatechange=function(){
+                //进入判断 如果请求没有完成 直接结束
+                if(request.readyState!==4)
+                {
+                    return 
+                }
+                //如果响应状态码在 200~299为成功
+                const {status,statusText} =request
+                //自己加的属性
+                let author=&#39;fanfan&#39;
+                
+                if(status&amp;gt;=200&amp;amp;&amp;amp;status&amp;lt;=299)
+                {
+                    //准备结果对象response 的其中几条
+                    const response={
+                        //对应返回的数据可以知道这些东西是什么
+                        data:JSON.parse(request.response),
+                        status,
+                        statusText,
+                        //自己添加的属性
+                        author
+                      
+                    }
+                    resolve(response)
+                }else{
+                    //请求失败返回message信息和状态码
+                    reject(new Error(&#39;requset error status is &#39;+status))
+                }
+           }
+              
+         })
+    }
+
+    //拼接参数 for-in解决
+    function pinjie(obj)
+    {
+        let  queryString=&#39;&#39;
+        for(let k in obj)
+        {
+            queryString+= k+&#39;=&#39;+obj[k]+&#39;&amp;amp;&#39;
+        }
+        //判断有没有值
+        if(queryString)
+        {
+            queryString=queryString.slice(0,queryString.length-1)
+        }
+        //拼接到url上面
+       return  queryString
+    }
+    
+    
+&amp;lt;/script&amp;gt;
 
 
-  </body>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;实现结果&#34;&gt;实现结果&lt;/h2&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1624712565528.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;axios特点&#34;&gt;axios特点&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;基本promise的异步ajax请求库&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;浏览器和node都可以使用&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;支持请求/响应数据转换&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;支持请求取消&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;多个请求响应拦截器-洋葱模型&#34;&gt;多个请求/响应拦截器  （洋葱模型）&lt;/h2&gt;
+&lt;p&gt;请求拦截器 先添加后执行  响应拦截器 先添加先执行&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt; //添加请求拦截器
+    axios.interceptors.request.use(
+        config=&amp;gt;{
+            console.log(&#39;request interceptor1&#39;);
+            return config
+        },
+        error=&amp;gt;{
+            return Promise.reject(error)
+        }
+    )
+
+     //添加请求拦截器
+     axios.interceptors.request.use(
+        config=&amp;gt;{
+            console.log(&#39;request interceptor2&#39;);
+            return config
+        },
+        error=&amp;gt;{
+            return Promise.reject(error)
+        }
+    )
+    //添加响应拦截器
+    axios.interceptors.response.use(
+        response=&amp;gt;{
+            console.log(&#39;response interceptor1&#39;);
+            return response
+        },error=&amp;gt;{
+            return Promise.reject(error)
+        }
+    )
+      //添加响应拦截器
+      axios.interceptors.response.use(
+        response=&amp;gt;{
+            console.log(&#39;response interceptor2&#39;);
+            return response
+        },error=&amp;gt;{
+            return Promise.reject(error)
+        }
+    )
+
+
+ //config 就是传的配置文件 不返回的话就传不过去
+
+//response return的结果会给下一个响应拦截器 最后执行.then(res) 将数据传给res
+
+
+/*request interceptor2
+request interceptor1
+response interceptor1
+response interceptor2*/
+
+&lt;/code&gt;&lt;/pre&gt;
+">手写ajax</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/mustache/"" data-c="
+          &lt;h1 id=&#34;vue源码学习&#34;&gt;vue源码学习&lt;/h1&gt;
+&lt;h2 id=&#34;什么是模板引擎&#34;&gt;什么是模板引擎&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;将数据要变为试图最优雅的解决方案&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;历史上出现过数据变为视图的方法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;纯DOM&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数组join法&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ES6的反引号法&lt;/p&gt;
+&lt;p&gt;新增的 &lt;code&gt;${a}&lt;/code&gt;的语法糖&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;模板引擎&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;数组join法&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//换行一样
+var message=&#39;fanfan&#39;
+var str=[
+    &#39;&amp;lt;li&amp;gt;&#39;,
+    &#39;&amp;lt;div&amp;gt;&#39;+message+&#39;&amp;lt;/div&amp;gt;&#39;,
+    &#39;&amp;lt;/li&amp;gt;&#39;
+].join()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;ES6的语法糖&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let a=&#39;fanfan&#39;
+list.innerHTTML+=`
+	&amp;lt;li&amp;gt;
+		&amp;lt;div class=&amp;quot;fanfan&amp;quot;&amp;gt;
+				${a}的信息
+		&amp;lt;/div&amp;gt;
+	&amp;lt;/li&amp;gt;
+`
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;mustache库&#34;&gt;mustache库&lt;/h2&gt;
+&lt;p&gt;{{ }} 像胡子  所以取名叫胡子&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  var user = { name: &amp;quot;Olive&amp;quot;, age: 23, sex: &amp;quot;girl&amp;quot; };
+        var template = &amp;quot;My name is  {{name}} ,I&#39;m  {{age}} ,Sex is {{sex}}&amp;quot;;
+        var view = Mustache.render(template, user)
+
+   console.log(view);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;简单模式下正则表达式可以实现&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt; var template = &amp;quot;My name is  {{name}} ,I&#39;m  {{age}} ,Sex is {{sex}}&amp;quot;;
+    
+            console.log(template.replace(/\{\{(\w+)\}\}/g,function(a,b,c){
+                console.log(a,b,c);
+                return &#39;❤&#39;
+            }));
+
+/**
+	b 找出了里面的内容 可以用来替换
+	{{name}} name 12
+	{{age}} age 27
+	{{sex}} sex 43
+ 	My name is  ❤ ,I&#39;m  ❤ ,Sex is ❤*/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt; 
+//进行函数封装
+function likerender(template,data)
+            {
+                return template.replace(/\{\{(\w+)\}\}/g,function(findstr,$1){
+                //匹配data对象里面的属性
+                return data[$1]
+                     });
+            }
+
+            var data={
+                name:&#39;fanfan&#39;,
+                age:18,
+                sex:&#39;man&#39;
+            }
+
+            console.log(likerender(template,data));
+		
+//My name is  fanfan ,I&#39;m  18 ,Sex is man
+&lt;/code&gt;&lt;/pre&gt;
+">mustache</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/xiao-cheng-xu-kai-fa-ji-lu/"" data-c="
+          &lt;h2 id=&#34;es6-map函数-选择作用&#34;&gt;ES6 map()函数 (选择作用)&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;var users = [
+{name: &amp;quot;张含韵&amp;quot;, &amp;quot;email&amp;quot;: &amp;quot;zhang@email.com&amp;quot;},
+{name: &amp;quot;江一燕&amp;quot;, &amp;quot;email&amp;quot;: &amp;quot;jiang@email.com&amp;quot;},
+{name: &amp;quot;李小璐&amp;quot;, &amp;quot;email&amp;quot;: &amp;quot;li@email.com&amp;quot;}
+];
+
+var emails = users.map(function (user) { return user.email; });
+
+console.log(emails.join(&amp;quot;, &amp;quot;)); 
+
+// zhang@email.com, jiang@email.com, li@email.com
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;此方法用于我对于获取总数据中选择data里面的数组去选择我需要的部分&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;小程序本地储存&#34;&gt;小程序本地储存&lt;/h2&gt;
+&lt;p&gt;wx.setStorageSync(&#39;key&#39;,&#39;value);&lt;/p&gt;
+&lt;p&gt;wx.getStorageSync( &#39;key&#39;);&lt;/p&gt;
+&lt;p&gt;web中存数据会先调用toString() 把数据变为字符串 再进行储存&lt;/p&gt;
+&lt;p&gt;小程序存的数据什么类型 获取的就是什么类型&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;onloadoption&#34;&gt;onload(option)&lt;/h2&gt;
+&lt;p&gt;{&lt;/p&gt;
+&lt;p&gt;​	//option里面包含我从其他页面跳转url带参的参数&lt;/p&gt;
+&lt;p&gt;}&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;组件的子传父-父传子&#34;&gt;组件的子传父 父传子&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 监听自定义事件 bindtabsitemchange是子组件向父组件传值加bind --&amp;gt;
+&amp;lt;tab tabs=&amp;quot;{{tabs}}&amp;quot; bindtabsitemchange=&amp;quot;handitemchange&amp;quot;&amp;gt;&amp;lt;/tab&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;子组件接受参数&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt; properties: {
+    tabs:{
+      type:Array,
+      value:[]
+    }
+  },
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;子组件向父组件传值&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  methods: {
+      //点击事件
+      handleitemtap(e)
+      {
+        const {index}=e.currentTarget.dataset
+        this.triggerEvent(&amp;quot;tabsitemchange&amp;quot;,{index} )
+      }
+  }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;父组件对传值的处理&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//tab子组件点击事件
+handitemchange(e)
+{
+  console.log(e);
+  //获取被点击的标题索引
+  const {index}=e.detail;
+  let {tabs}=this.data
+  tabs.forEach((value,i)=&amp;gt;i==index?value.isactive=true:value.isactive=false)
+  this.setData({
+      //更新父组件的内容
+    tabs
+  })
+  
+},
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+## 用到的周期函数
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//只用加载该页面才调用  
+  onLoad: function (options) {
+      console.log(options);
+      this.qureyparams.cid=options.cid
+      console.log(this.qureyparams);
+      this.getgoodslist()
+  },
+
+       //每次回到该页面就会调用
+     onShow(){
+         ...
+     },
+      
+//页面滚动条触底事件 要判断是否有下一页数据 总页数 页码   页码*获取条数&amp;gt;=总数据 没有下一页
+  onReachBottom()
+  {
+      //判断是否还有下一页
+      if(this.qureyparams.pagenum&amp;gt;=this.totalpagesize)
+      {
+        //给个提示
+        wx.showToast({
+          title:&#39;&#39;,
+          icon:&#39;none&#39;,
+          duration:1500,
+         
+        })
+      }
+      else{
+     
+         this.qureyparams.pagenum++
+        console.log(this.qureyparams.pagenum);
+        this.getgoodslist()
+      }
+  },
+	
+//下拉刷新触发函数 
+  onPullDownRefresh(){
+      //1 重置数组
+      this.setData({
+        goodslist:[]
+      })
+      //重置页数
+      this.qureyparams.pagenum=1
+      //重新发请求
+      this.getgoodslist()
+      //在方法里面手动关闭下拉刷新等待效果
+      //（ wx.stopPullDownRefresh()）
+  },
+      
+      
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;对于下拉刷新可以在需要的文件下加&lt;code&gt;&amp;quot;enablePullDownRefresh&amp;quot;: true&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;也可以在app.json全局加刷新效果 包括下拉刷新的样式也是可以添加的&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  &amp;quot;window&amp;quot;:{
+    &amp;quot;backgroundTextStyle&amp;quot;:&amp;quot;light&amp;quot;,
+    &amp;quot;navigationBarBackgroundColor&amp;quot;: &amp;quot;#eb4450&amp;quot;,
+    &amp;quot;navigationBarTitleText&amp;quot;: &amp;quot;fanfan&amp;quot;,
+    &amp;quot;navigationBarTextStyle&amp;quot;:&amp;quot;white&amp;quot;,
+
+    &amp;quot;backgroundColor&amp;quot;: &amp;quot;#0094ff&amp;quot;
+
+  },
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;对于下拉加载新数据的方法&#34;&gt;对于下拉加载新数据的方法&lt;/h2&gt;
+&lt;p&gt;先对原先数据进行解构后，把新数据加进去，而不是刷新数组&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt; this.setData({
+      goodslist:[...this.data.goodslist,...res.data.message.goods]
+    })
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;小程序对于用户权限调用以及获取&#34;&gt;小程序对于用户权限调用以及获取&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//权限给与设置  ***
+  //调用小程序内置api 获取用户的收货地址 追踪授权状态 SCOPE
+  //增加收货地址
+  handleaddress() {
+
+    //打印授权的状态
+    wx.getSetting({
+      success: (res) =&amp;gt; { 
+        console.log(res);
+        //判断用户是否给权限
+        const scopeaddress = res.authSetting[&amp;quot;scope.address&amp;quot;]
+        //用户同意权限 直接调用
+        if (scopeaddress || scopeaddress == undefined) {
+          wx.chooseAddress({
+            success: (result) =&amp;gt; {
+              //存地址到缓存
+              wx.setStorageSync(&#39;address&#39;, result);
+              console.log(result);
+            },
+          });
+        }
+        //如果没给 调用接口让用户同意  打开授权页面
+        else {
+          wx.openSetting({
+            success: (result) =&amp;gt; {
+              console.log(result);
+              //调用用户同意权限接口
+              wx.chooseAddress({
+                success: (res) =&amp;gt; {
+                  wx.setStorageSync(&#39;address&#39;, res);
+                  console.log(res);
+
+                },
+
+              });
+            },
+
+          });
+        }
+      },
+    });
+  },
+
+&lt;/code&gt;&lt;/pre&gt;
+"> 微信小程序开发记录</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/"" data-c="
+          &lt;p&gt;&lt;strong&gt;Node.js&lt;/strong&gt;部分（服务端）&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  var express=require(&#39;express&#39;)
+var app=express()
+var server=require(&#39;http&#39;).createServer(app)
+var io=require(&#39;socket.io&#39;)(server)
+
+app.use(express.static(__dirname+&#39;/public&#39;))
+
+//设置允许跨域
+app.all(&#39;*&#39;, function (req, res, next) {
+      res.header(&amp;quot;Access-Control-Allow-Credentials&amp;quot;, true)
+      res.header(&amp;quot;Access-Control-Allow-Origin&amp;quot;, &amp;quot;*&amp;quot;)
+      res.header(&amp;quot;Access-Control-Allow-Headers&amp;quot;, &amp;quot;X-Requested-With&amp;quot;)
+      res.header(&amp;quot;Access-Control-Allow-Methods&amp;quot;, &amp;quot;PUT,POST,GET,DELETE,OPTIONS&amp;quot;)
+      res.header(&amp;quot;X-Powered-By&amp;quot;, &#39; 3.2.1&#39;)
+      res.header(&amp;quot;Content-Type&amp;quot;, &amp;quot;application/json;charset=utf-8&amp;quot;)
+      next()
+})
+
+//放用户
+const users=[]
+
+io.on(&#39;connection&#39;,function(socket){
+    console.log(&amp;quot;新用户加入房间&amp;quot;);
+
+    //监听Login事件
+    socket.on(&#39;login&#39;,(data)=&amp;gt;{
+            console.log(data);
+        //放数据,顺便增加唯一id
+        users.push({...data,id:socket.id})
+
+        console.log(&#39;id是&#39;+socket.id);
+        //所有人广播
+        io.emit(&#39;loginback&#39;,{...data,id:socket.id})
+    })
+
+    socket.on(&#39;client&#39;,data2=&amp;gt;{
+        console.log(data2.value);
+        data2.users=users.find(u=&amp;gt;u.id==socket.id)
+        console.log(data2.users);
+        socket.broadcast.emit(&#39;sendmes&#39;,data2)
+    })
+    
+})
+
+server.listen(3000,()=&amp;gt;{
+    console.log(&#39;http://127.0.0.1:3000&#39;);
+})
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;前端部分&#34;&gt;前端部分&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;
+
+&amp;lt;head&amp;gt;
+  &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt;
+  &amp;lt;title&amp;gt;Socket聊天室&amp;lt;/title&amp;gt;
+  &amp;lt;style type=&amp;quot;text/css&amp;quot;&amp;gt;
+    /**输入框样式*/
+    .text * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #main {
+      text-align: center;
+    }
+
+    #showmes {
+      position: relative;
+      background: url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fcdn.duitang.com%2Fuploads%2Fitem%2F201209%2F08%2F20120908134318_YVAwx.jpeg&amp;amp;refer=http%3A%2F%2Fcdn.duitang.com&amp;amp;app=2002&amp;amp;size=f9999,10000&amp;amp;q=a80&amp;amp;n=0&amp;amp;g=0n&amp;amp;fmt=jpeg?sec=1626261869&amp;amp;t=964bbb79e059f74901698cdd5f6de691) no-repeat;
+      background-size: 100% 110%;
+      margin: auto;
+      width: 600px;
+      height: 600px;
+      overflow: hidden;
+      overflow-y: scroll;
+    }
+
+    /**别人气泡*/
+    .leftspan2 {
+      float: left;
+      color: grey;
+      font-weight: 1000;
+      position: absolute;
+      top: -18px;
+      font-size: 3px;
+      left: 25px;
+    }
+
+    .leftspan {
+      color: white;
+      background-color: #635f5fec;
+      padding: 5px 8px;
+      font-size: 14px;
+      float: left;
+      position: relative;
+      border-radius: 4px;
+      margin-left: 25px;
+      margin-right: 5px;
+
+    }
+
+    .leftspan::after {
+      content: &#39;&#39;;
+      border: 8px solid #ffffff00;
+      border-right: 8px solid #635f5fec;
+      ;
+      position: absolute;
+      top: 6px;
+      left: -16px;
+    }
+
+    /*自己气泡**/
+    .pp {
+      width: 100%;
+      position: relative;
+      min-height: 20px;
+      float: right;
+      margin-bottom: 15px;
+    }
+
+    .rightspan2 {
+      float: right;
+      color: grey;
+      font-weight: 1000;
+      position: absolute;
+      top: -18px;
+      font-size: 3px;
+      right: 15px;
+    }
+
+    .rightspan {
+      float: right;
+      position: relative;
+      color: rgb(2, 2, 2);
+      font-weight: 500;
+      background-color: #88e99d;
+      padding: 5px 8px;
+      font-size: 14px;
+      border-radius: 4px;
+      margin-left: 5px;
+      margin-right: 15px;
+
+    }
+
+    .rightspan::after {
+      content: &#39;&#39;;
+      border: 8px solid #ffffff00;
+      border-left: 8px solid #88e99d;
+      ;
+      position: absolute;
+      top: 6px;
+      right: -13px;
+
+    }
+
+    /**输入框*/
+    #text {
+      width: 500px;
+      height: 25px;
+    }
+  &amp;lt;/style&amp;gt;
+&amp;lt;/head&amp;gt;
+
+&amp;lt;body&amp;gt;
+
+  &amp;lt;div id=&amp;quot;joinname&amp;quot;&amp;gt;
+    &amp;lt;span&amp;gt;请输入加入的姓名&amp;lt;/span&amp;gt; &amp;lt;input type=&amp;quot;text&amp;quot; id=&amp;quot;name&amp;quot;&amp;gt;&amp;lt;button onclick=&amp;quot;joinchat()&amp;quot;&amp;gt;提交&amp;lt;/button&amp;gt;
+  &amp;lt;/div&amp;gt;
+  &amp;lt;div id=&amp;quot;main&amp;quot; style=&amp;quot;display: none;&amp;quot;&amp;gt;
+    
+    &amp;lt;h1&amp;gt;fanfan的聊天室&amp;lt;/h1&amp;gt;
+    &amp;lt;div id=&amp;quot;showmes&amp;quot;&amp;gt;
+
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;inputtxt&amp;quot;&amp;gt;
+      &amp;lt;input type=&amp;quot;text&amp;quot; id=&amp;quot;text&amp;quot;&amp;gt;&amp;lt;/input&amp;gt;
+      &amp;lt;button id=&amp;quot;btn&amp;quot; onclick=&amp;quot;sendmes()&amp;quot;&amp;gt;发送&amp;lt;/button&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+  &amp;lt;/div&amp;gt;
+
+  &amp;lt;script src=&amp;quot;/socket.io/socket.io.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+  &amp;lt;script&amp;gt;
+    //全局变量
+    name = &#39;&#39;
+    var socket = io(); //连接聊天室的io服务器 io服务器的根地址
+    //连接进聊天室
+    function firstjoin() {
+
+      socket.on(&#39;hello&#39;, data =&amp;gt; {
+        console.log(&#39;服务端发送的东西为：&#39; + data);
+      })
+    }
+
+    function notnull() {
+      if (document.getElementById(&#39;text&#39;).value != &#39;&#39;) {
+        return 1;
+      }
+      else {
+        return 0;
+      }
+    }
+    //自己发信息
+    function sendmes() {
+      if (notnull()) {
+        var mes = document.getElementById(&#39;text&#39;).value
+        var p = document.createElement(&#39;p&#39;);
+        var span = document.createElement(&#39;span&#39;)
+        var span2 = document.createElement(&#39;span&#39;)
+        span.innerHTML = mes;
+        span2.innerHTML = name;
+        span2.className = &#39;rightspan2&#39;
+        span.className = &#39;rightspan&#39;
+        p.className = &#39;pp&#39;
+        p.appendChild(span2)
+        p.appendChild(span)
+        document.getElementById(&#39;showmes&#39;).appendChild(p)
+        socket.emit(&#39;client&#39;, {&#39;value&#39;:document.getElementById(&#39;text&#39;).value,&#39;name&#39;:name})
+        document.getElementById(&#39;text&#39;).value = &#39;&#39;
+
+        document.getElementById(&amp;quot;showmes&amp;quot;).scrollTop += document.getElementById(&amp;quot;showmes&amp;quot;).offsetHeight;
+      }
+
+    }
+    //收到别人发的信息
+    socket.on(&#39;sendmes&#39;, data =&amp;gt; {
+      console.log(data);
+      var p = document.createElement(&#39;p&#39;);
+      var span = document.createElement(&#39;span&#39;);
+      var span2 = document.createElement(&#39;span&#39;);
+      span.className = &#39;leftspan&#39;
+      console.log(&#39;姓名是&#39;+data.users.name);
+      span2.innerHTML = data.users.name
+      span2.className = &#39;leftspan2&#39;
+      span.innerHTML = data.value;
+      p.appendChild(span2)
+      p.appendChild(span)
+      p.className = &#39;pp&#39;
+
+      document.getElementById(&#39;showmes&#39;).appendChild(p)
+
+      document.getElementById(&amp;quot;showmes&amp;quot;).scrollTop += document.getElementById(&amp;quot;showmes&amp;quot;).offsetHeight;
+    })
+
+    //加入聊天室提醒
+    function joinchat() {
+      if (document.getElementById(&#39;name&#39;).value.length &amp;gt;= 1 &amp;amp;&amp;amp; document.getElementById(&#39;name&#39;).value.length &amp;lt;= 6) {
+        //加入盒子隐藏 聊天盒子显示
+        document.getElementById(&#39;main&#39;).style.display=&#39;block&#39;
+        document.getElementById(&#39;joinname&#39;).style.display=&#39;none&#39;
+        name=document.getElementById(&#39;name&#39;).value
+        socket.emit(&#39;login&#39;, { &#39;name&#39;: document.getElementById(&#39;name&#39;).value })
+      }
+
+    }
+    socket.on(&#39;loginback&#39;, data =&amp;gt; {
+      var p = document.createElement(&#39;p&#39;);
+      p.innerHTML = data.name + &#39;加入了房间&#39;;
+      p.style.color = &#39;grey&#39;
+      p.style.fontWeight = &#39;1000&#39;
+      p.style.textAlign = &#39;center&#39;
+      p.style.fontSize = &#39;6px&#39;
+      document.getElementById(&#39;showmes&#39;).appendChild(p)
+    })
+    //回车发送消息
+    document.onkeydown = function (e) {
+      console.log(&#39;1&#39;);
+      var ev = document.all ? window.event : e;
+      if (ev.keyCode == 13) {
+        sendmes();
+      }
+    }
+  &amp;lt;/script&amp;gt;
+&amp;lt;/body&amp;gt;
+
+&amp;lt;/html&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+每次进入页面先输入自己的姓名才能进入聊天室
+每个客户端对应自己独特的socket id来获取发送消息的名称
+给回车绑定事件，每次回车发送 可以实现多人在线实时聊天，且有自己对应的名称 自己发送的消息和收到的消息进行区分
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015910759.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015915621.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015921537.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015925385.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015929804.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;6&#34;&gt;&lt;img src=&#34;file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015931812.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;7&#34;&gt;&lt;img src=&#34;file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/mage-20210616015934765.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+">socket.io实现实时聊天室</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/shi-jian-xun-huan/"" data-c="
+          &lt;p&gt;JS为单线程&lt;br&gt;
+宏任务主要包含：script( 整体代码)、setTimeout、setInterval、I/O、UI 交互事件、setImmediate(Node.js 环境)&lt;/p&gt;
+&lt;p&gt;微任务主要包含：Promise、MutaionObserver、process.nextTick(Node.js 环境)&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1623256115003.webp&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;p&gt;例子1&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;console.log(&#39;script start&#39;);
+
+setTimeout(function() {
+  console.log(&#39;timeout1&#39;);
+}, 10);
+
+new Promise(resolve =&amp;gt; {
+    console.log(&#39;promise1&#39;);
+    resolve();
+    setTimeout(() =&amp;gt; console.log(&#39;timeout2&#39;), 10);
+}).then(function() {
+    console.log(&#39;then1&#39;)
+})
+
+console.log(&#39;script end&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1623255042505.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+先执行第一个log&lt;/p&gt;
+&lt;p&gt;setTimeout推入宏队列hong1&lt;/p&gt;
+&lt;p&gt;遇到promise马上执行打印然后将它所有的then推入微队列后把setTimeout推入宏队列hong2&lt;/p&gt;
+&lt;p&gt;先执行微队列，所以先打印then里面的。然后宏队列再打印&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+例子2&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  console.log(&#39;1&#39;);
+
+setTimeout(function() {
+    console.log(&#39;2&#39;);
+  
+    new Promise(function(resolve) {
+        console.log(&#39;4&#39;);
+        resolve();
+    }).then(function() {
+        console.log(&#39;5&#39;)
+    })
+})
+
+new Promise(function(resolve) {
+    console.log(&#39;7&#39;);
+    resolve();
+}).then(function() {
+    console.log(&#39;8&#39;)
+})
+
+setTimeout(function() {
+    console.log(&#39;9&#39;);
+   
+    new Promise(function(resolve) {
+        console.log(&#39;11&#39;);
+        resolve();
+    }).then(function() {
+        console.log(&#39;12&#39;)
+    })
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1623255137440.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+当在只剩两个宏任务的setTimeout时候执行第一个时，Promise压入了then的微任务，让第二个宏任务又排到微任务后等待&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;async和await&#34;&gt;async和await&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;await后面接一个会return new promise的函数并执行它&lt;/li&gt;
+&lt;li&gt;await只能放在async函数里&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function 摇色子(){
+    return new Promise((resolve, reject)=&amp;gt;{
+        let sino = parseInt(Math.random() * 6 +1)
+        setTimeout(()=&amp;gt;{
+            resolve(sino)
+        },3000)
+    })
+}
+async function test(){
+    let n =await 摇色子()
+    console.log(n)
+}
+test()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;async函数会返回一个promise，并且Promise对象的状态值是resolved（成功的）
+&lt;ul&gt;
+&lt;li&gt;如果你没有在async函数中写return，那么Promise对象resolve的值就是是undefined&lt;/li&gt;
+&lt;li&gt;如果你写了return，那么return的值就会作为你成功的时候传入的值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;await 等到之后，做了一件什么事情？&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不是promise对象&lt;/li&gt;
+&lt;li&gt;是promise对象&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果不是 promise , await会阻塞后面的代码，先执行async外面的同步代码，同步代码执行完，再回到async内部，把这个非promise的东西，作为 await表达式的结果。&lt;br&gt;
+如果它等到的是一个 promise 对象，await 也会暂停async后面的代码，先执行async外面的同步代码，等着 Promise 对象 fulfilled，然后把 resolve 的参数作为 await 表达式的运算结果。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果asycn里的代码都是同步的，那么这个函数被调用就会同步执行&lt;/li&gt;
+&lt;li&gt;如果在await后面接的这个promsie都是同步的，后面的promise会同步执行&lt;/li&gt;
+&lt;li&gt;如果await里面的promise没有resolve()的成功函数就不会执行await下面的线程了&lt;/li&gt;
+&lt;/ul&gt;
+">事件循环</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js-zhi-shi-dian/"" data-c="
+          &lt;h2 id=&#34;节流和防抖&#34;&gt;节流和防抖&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;防抖&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt; //防抖 在第一次触发事件时，不立即执行函数，而是给出一个期限值比如200ms  用于停止动作后才开始触发的
+    function debounce(fn,delay){
+        let timer=null;
+        return function(){
+            if(timer){
+                clearTimeout(timer)//存在即重新计时
+                
+            }
+              timer=setTimeout(fn,delay)
+            
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;节流&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//节流 适合一直不给机会触发防抖的
+    function throttle(fn,delay){
+       
+    let valid = true
+    return function() {
+        
+        //闭包函数内的vaild为同一个
+       if(!valid){
+           
+           return false 
+       }
+       
+        valid = false//防止多次触发
+        
+        setTimeout(() =&amp;gt; {
+            fn()
+            valid = true;
+        }, delay)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;判断是不是数组&#34;&gt;判断是不是数组&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var a=new Array()
+var b=new Object()
+
+console.log(Array instanceof Object); //true   js数组可以看作对象
+
+console.log(Array.isArray(a)); //true   数组方法
+
+//误区
+typeof(a) //object  typeof运算符用于判断对象的类型，但是对于一些创建的对象，它们都会返回&#39;object&#39;  返回的类型 undefined&#39; &#39;boolean&#39; &#39;string&#39; &#39;number&#39; &#39;object&#39;  &#39;function&#39;
+
+Object.prototype.toString.call(a) //Object Array 用来判断类型
+
+Object.prototype.toString.call(b) //object Object
+
+//Array 和 Function都是Object的实例 都重写了toString()方法 所以直接调用的话是重写后的方法 调用原型上的方法返回类型
+
+//对toString()方法重写的证明
+console.log(Array.prototype.hasOwnProperty(&amp;quot;toString&amp;quot;));//true
+
+delete Array.prototype.toString;//delete操作符可以删除实例属性
+
+console.log(arr.toString());//&amp;quot;[object Array]&amp;quot;
+
+
+//  prototype 和__proto__    一般来说 __proto__==constructor.prototype
+
+
+&lt;/code&gt;&lt;/pre&gt;
+">JS 节流和防抖 判断数组</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/dom/"" data-c="
+          &lt;h2 id=&#34;节点层次&#34;&gt;节点层次&lt;/h2&gt;
+&lt;h2 id=&#34;nodename-和-nodevalue-属性&#34;&gt;nodeName 和 nodeValue 属性&lt;/h2&gt;
+&lt;p&gt;if(someNode.nodeType == 1)&lt;/p&gt;
+&lt;p&gt;{&lt;/p&gt;
+&lt;p&gt;//先确定是个元素&lt;/p&gt;
+&lt;p&gt;value = someNode.nodeName;   //nodeName 的值是元素的标签名&lt;/p&gt;
+&lt;p&gt;}&lt;/p&gt;
+&lt;p&gt;对于元素节点，nodeName 中保存的始终都是元素的标签名，而 nodeValue 的值则始终为 null。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;节点关系&#34;&gt;节点关系&lt;/h2&gt;
+&lt;p&gt;每个节点都有一个 **childNodes **属性，其中保存着一个 **NodeList **对象。**NodeList **是一种类数组 对象，用于保存一组有序的节点&lt;/p&gt;
+&lt;p&gt;val.childNodes[0]   //如果是标签之间有空隙 默认为文字  打印出  #text&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;子节点&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;nextSibling&lt;/p&gt;
+&lt;p&gt;previousSibling&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;父节点&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;firstChild&lt;/p&gt;
+&lt;p&gt;lastChild&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;查看是否有子节点&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;val.hasChildNodes()  //boolean&lt;/p&gt;
+&lt;h2 id=&#34;操作节点&#34;&gt;操作节点&lt;/h2&gt;
+&lt;p&gt;**appendChild()**和 **insertBefore()**方法都只插入节点&lt;/p&gt;
+&lt;p&gt;**replaceChild()**方法接受的两个参数是：要插入的节点和要替换的节点。尽管从技术上讲，被替换的节点仍然还在文档中，但它在文档中已经没有了自己的位置&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;removeChild()&lt;/strong&gt; 即要移除 的节点。被移除的节点将成为方法的返回值&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;cloneNode()&lt;/strong&gt; 用于创建调用这个方法的节点 的一个完全相同的副本，接受一个布尔值参数，表示是否执行深复制&lt;/p&gt;
+&lt;h2 id=&#34;document类型&#34;&gt;Document类型&lt;/h2&gt;
+&lt;p&gt; nodeType 的值为 9；&lt;/p&gt;
+&lt;p&gt; nodeName 的值为&amp;quot;#document&amp;quot;；、&lt;/p&gt;
+&lt;p&gt; nodeValue 的值为 null；&lt;/p&gt;
+&lt;p&gt; parentNode 的值为 null；&lt;/p&gt;
+&lt;p&gt; ownerDocument 的值为 null；&lt;/p&gt;
+&lt;p&gt; 其子节点可能是一个 DocumentType（最多一个）、Element（最多一个）、ProcessingInstruction 或 Comment。&lt;/p&gt;
+&lt;p&gt;//设置文档标题&lt;/p&gt;
+&lt;p&gt;document.title = &amp;quot;New page title&amp;quot;;&lt;/p&gt;
+&lt;p&gt;//取得完整的 URL&lt;/p&gt;
+&lt;p&gt;var url = document.URL;&lt;/p&gt;
+&lt;p&gt;//取得域名&lt;/p&gt;
+&lt;p&gt;var domain = document.domain;&lt;/p&gt;
+&lt;p&gt;//取得来源页面的 URL&lt;/p&gt;
+&lt;p&gt;var referrer = document.referrer;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;星号（*）通常表示“全部”。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var allElements = document.getElementsByTagName(&amp;quot;*&amp;quot;); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在 IE 中调用getElementsByTagName(&amp;quot;*&amp;quot;)将会返回所有注释节点&lt;/p&gt;
+&lt;h2 id=&#34;element类型&#34;&gt;Element类型&lt;/h2&gt;
+&lt;p&gt; nodeType 的值为 1；&lt;/p&gt;
+&lt;p&gt; nodeName 的值为元素的标签名；&lt;/p&gt;
+&lt;p&gt; nodeValue 的值为 null；&lt;/p&gt;
+&lt;p&gt; parentNode 可能是 Document 或 Element；&lt;/p&gt;
+&lt;p&gt; 其子节点可能是 Element、Text、Comment、ProcessingInstruction、CDATASection 或 EntityReference。&lt;/p&gt;
+&lt;p&gt;访问元素的标签名&lt;strong&gt;nodeName&lt;/strong&gt; 和&lt;strong&gt;tagName&lt;/strong&gt; 这两个属性会返回 相同的值&lt;/p&gt;
+&lt;p&gt;在 HTML 中，标签名始终都以全部大写表示&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;if (element.tagName.toLowerCase() == &amp;quot;div&amp;quot;) //这样最好（适用于任何文档） //在此执行某些操作 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;取得特性&#34;&gt;取得特性&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;getAttribute()&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;div.getAttribute(&amp;quot;id&amp;quot;) //取得这个元素的特征值&lt;/p&gt;
+&lt;p&gt;特性的名称是不区分大小写的&lt;/p&gt;
+&lt;p&gt;自定义特性应该加上 data-前缀以便验证(用轮播图的时候自定义特性)&lt;/p&gt;
+&lt;h2 id=&#34;设置特性&#34;&gt;设置特性&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;setAttribute()&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;这个方法接受两个参数：要设置的特性名和 值。如果特性已经存在，setAttribute()会以指定的值替换现有的值&lt;/p&gt;
+&lt;p&gt;通过这个方法设置的 特性名会被统一转换为小写形式，即&amp;quot;ID&amp;quot;最终会变成&amp;quot;id&amp;quot;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;div.mycolor = &amp;quot;red&amp;quot;; 
+
+ alert(div.getAttribute(&amp;quot;mycolor&amp;quot;)); //null（IE 除外） 因此想通过 getAttribute()取得同名特性的值，结果会返回 null
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;***removeAttribute()***用于彻底删除元素的特性&lt;/p&gt;
+&lt;p&gt;div.removeAttribute(&amp;quot;class&amp;quot;);&lt;/p&gt;
+&lt;h2 id=&#34;attributes-属性&#34;&gt;attributes 属性&lt;/h2&gt;
+">DOM</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vuenodejsmysql-kai-fa-ting-che-chang-guan-li-xi-tong/"" data-c="
+          &lt;p&gt;前端github  &lt;strong&gt;https://github.com/fanfankill/depotsystem&lt;/strong&gt;&lt;br&gt;
+服务端node  &lt;strong&gt;https://github.com/fanfankill/depotsystem_nodejs&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;522-529&#34;&gt;&lt;strong&gt;5.22-5.29&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;对于车位管理页面完成了以下功能&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;对所有车位信息的获取，总条数的获取以及分页操作&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622270278948.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;新增车位信息（暂时以车位编号为主键 且按自动递增处理，所有其他信息都是在,未要求自己填入）&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622270324356.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;删除车位信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;搜索车位信息&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622270252631.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;修改车位信息（两个1 0 的修改和对车位所属区域的修改，车位价格和车位区域绑定一起，修改区域自动修改价格）&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622270469346.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;添加车位区域（车位名称（主键）车位区域价格 对车位区域的描述）&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622270291881.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;530&#34;&gt;&lt;strong&gt;5.30&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;进出车辆登记&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;暂时登记车牌号码 选择停车区域 node获取当前进入时间&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622391426393.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622391499326.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;li&gt;当获取停车区域时候，使用watch属性，确保每次切换不同区域能够获取相应区域空闲车位&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622391514068.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622391521639.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;li&gt;保证每个车辆只能进入时候被登记一次&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622391560153.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;li&gt;进出管理表与车位管理表相连接，每次登记一个，车位管理也会更新车位状态和车牌信息&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622391622553.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/li&gt;
+&lt;li&gt;每次完成添加后立马更新车位空闲状态，防止多次更新同一个车位&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;531-66&#34;&gt;&lt;strong&gt;5.31-6.6&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;车辆入库出库记录&lt;br&gt;
+(与车位管理相关 每次记录一个后会修改选中的车位状态)&lt;br&gt;
+1.按已出库和未出库来获取数据 点击直接获取（wacth属性）&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622973621842.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622973626404.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+2.对于不同情况下的按钮和驶出时间进行区别设计，当为已驶出状态的按钮点击为已经记录过的详细信息&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622973728852.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+当为未出库状态下点击为预计算的信息()，若再次点击驶出按钮后则会修改该车位状态和进出状态并记录数据库&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1622973813093.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;630更新&#34;&gt;6.30更新&lt;/h2&gt;
+&lt;p&gt;1.新增Echarts图表统计 和 日期天气显示&lt;br&gt;
+2.加强表与表的联系&lt;br&gt;
+3.新增固定车主功能，主要针对小区业主&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1624985566544.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1624985575278.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1624985582564.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1624985591593.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1624985599641.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+">vue+node.js+mysql开发停车场管理系统</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js-shi-jian/"" data-c="
+          &lt;h1 id=&#34;事件&#34;&gt;事件&lt;/h1&gt;
+&lt;p&gt;通过&lt;strong&gt;侦听器&lt;/strong&gt;来预定事件&lt;/p&gt;
+&lt;h2 id=&#34;事件流&#34;&gt;事件流&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;事件流&lt;/strong&gt;描述的是从页面中接收事件的顺序&lt;br&gt;
+事件例图：&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1619594865905.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;p&gt;IE 的事件流是事件冒泡流&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1619594715319.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Netscape Communicator 的事件流是事件捕获流&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1619594736001.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;事件冒泡&#34;&gt;事件冒泡&lt;/h2&gt;
+&lt;p&gt;IE 的事件流叫做&lt;strong&gt;事件冒泡&lt;/strong&gt;，即事件开始时由最具体的元素（文档中嵌套层次最深 的那个节点）接收，然后逐级向上传播到较为不具体的节点（文档）。&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;事件捕捉&#34;&gt;事件捕捉&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;事件捕获&lt;/strong&gt;的思想 是不太具体的节点应该更早接收到事件，而最具体的节点应该最后接收到事件。&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;dom事件流&#34;&gt;DOM事件流&lt;/h2&gt;
+&lt;p&gt;DOM2级事件”规定的事件流包括三个阶段：事件捕获阶段、处于目标阶段和事件冒泡阶段。&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1619594960277.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+在 DOM 事件流中，实际的目标（元素）在捕获阶段不会接收到事件。这意味着在捕获阶段， 事件从 document 到再到后就停止了。下一个阶段是“处于目标”阶段，于是事件在上发生，并在事件处理（后面将会讨论这个概念）中被看成冒泡阶段的一部分。然后，冒泡阶段发生， 事件又传播回文档。&lt;/p&gt;
+&lt;br&gt;
+## 事件处理程序
+&lt;p&gt;事件就是用户或浏览器自身执行的某种动作。诸如 click、load 和 mouseover，都是事件的名字。 而响应某个事件的函数就叫做事件处理程序（或事件侦听器）&lt;/p&gt;
+&lt;p&gt;事件处理程序的名字以&amp;quot;on&amp;quot;开头（onclick，onload）&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;html事件处理程序&#34;&gt;HTML事件处理程序&lt;/h2&gt;
+&lt;p&gt;这个操作是通过指定 onclick 特性并将一些 JavaScript 代码作为它的值来定义的&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;Click Me&amp;quot; onclick=&amp;quot;alert(&#39;Clicked&#39;)&amp;quot; /&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;为了避免使用 HTML 实体，这里使用了单 引号。如果想要使用双引号，那么就要将代码改写成如下所示：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;Click Me&amp;quot; onclick=&amp;quot;alert(&amp;amp;quot;Clicked&amp;amp;quot;)&amp;quot; /&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;事件处理程序中的代码在执行时，有权访问全局作用 域中的任何代码&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 输出 &amp;quot;click&amp;quot; --&amp;gt; 
+&amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;Click Me&amp;quot; onclick=&amp;quot;alert(event.type)&amp;quot;&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这样指定事件处理程序具有一些独到之处。首先，这样会创建一个封装着元素属性值的函数。这个 函数中有一个局部变量 event&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;通过 event 变量，可以直接访问事件对象，你不用自己定义它，也不用从函数的参数列表中读取。 在这个函数内部，this 值等于事件的目标元素&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 输出 &amp;quot;Click Me&amp;quot; --&amp;gt; 
+&amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;Click Me&amp;quot; onclick=&amp;quot;alert(this.value)&amp;quot;&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+ ##  HTML 中指定事件处理程序的缺点
+&lt;p&gt;1.存在一个时差问题。因为用户可能会在 HTML 元素一出现在页面上就触发相应的事件，但当时的事件处理程序有可能尚不具备执行条件。以前面的例子来说明，假设 showMessage()函数是在按钮下方、页面的最底部定义的。如果用户在页面解 析 showMessage()函数之前就单击了按钮就会引发错误。为此，很多 HTML 事件处理程序都会被封 装在一个 try-catch 块中，以便错误不会浮出水面，如下面的例子所示：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;Click Me&amp;quot; onclick=&amp;quot;try{showMessage();}catch(ex){}&amp;quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;2.这样扩展事件处理程序的作用域链在不同浏览器中会导致不同结果。不同 JavaScript 引擎遵循的标识符解析规则略有差异，很可能会在访问非限定对象成员时出错。&lt;/p&gt;
+&lt;p&gt;3.是 HTML 与 JavaScript 代码紧密耦合。如果要更换事 件处理程序，就要改动两个地方：HTML 代码和 JavaScript 代码&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;dom0-级事件处理程序&#34;&gt;DOM0 级事件处理程序&lt;/h2&gt;
+&lt;p&gt;通过 JavaScript 指定事件处理程序的传统方式&lt;/p&gt;
+&lt;p&gt;原因一是简单，二是具有跨浏览器的优势&lt;/p&gt;
+&lt;p&gt;要使用 JavaScript 指定事件处理程序，首先必须取得一 个要操作的对象的引用&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;使用 DOM0 级方法指定的事件处理程序被认为是元素的方法。因此，这时候的事件处理程序是在 元素的作用域中运行；换句话说，程序中的 this 引用当前元素&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+btn.onclick = function(){ 
+alert(this.id); //&amp;quot;myBtn&amp;quot; 
+};
+
+btn.onclick = null; //删除事件处理程序
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以这种方式添加的事件处理程序会在事件流的冒泡阶段被处理&lt;/p&gt;
+&lt;p&gt;将事件处理程序设置为 null 之后，再单击按钮将不会有任何动作发生。&lt;/p&gt;
+&lt;br&gt;
+&lt;br&gt;
+## DOM2 级事件处理程序
+&lt;p&gt;“DOM2级事件”定义了两个方法，用于处理指定和删除事件处理程序的操作：**addEventListener() **和 &lt;strong&gt;removeEventListener()&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;它们都接受 3 个参数：要处 理的事件名、作为事件处理程序的函数和一个布尔值。最后这个布尔值参数如果是 true，表示在捕获 阶段调用事件处理程序；如果是 false，表示在冒泡阶段调用事件处理程序&lt;/p&gt;
+&lt;p&gt;在按钮上为 click 事件添加事件处理程序&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+btn.addEventListener(&amp;quot;click&amp;quot;, function(){ 
+ alert(this.id); 
+}, false); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上面的代码为一个按钮添加了 onclick 事件处理程序，而且该事件会在冒泡阶段被触发&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+btn.addEventListener(&amp;quot;click&amp;quot;, function(){ 
+ alert(this.id); 
+}, false); 
+btn.addEventListener(&amp;quot;click&amp;quot;, function(){ 
+ alert(&amp;quot;Hello world!&amp;quot;); 
+}, false); 
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;这里为按钮添加了两个事件处理程序。这两个事件处理程序会按照添加它们的顺序触发，因此首先 会显示元素的 ID，其次会显示&amp;quot;Hello world!&amp;quot;消息&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过 addEventListener()添加的事件处理程序只能使用 removeEventListener()来移除，这也意味着通过 addEventListener()添加的匿 名函数将无法移除。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+btn.addEventListener(&amp;quot;click&amp;quot;, function(){ 
+ alert(this.id)}, false); 
+//这里省略了其他代码
+btn.removeEventListener(&amp;quot;click&amp;quot;, function(){ //没有用！
+ alert(this.id); 
+}, false); 
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;传入 removeEventListener()中的事件处理程序函数必须与传入 addEventListener()中的&lt;strong&gt;相同&lt;/strong&gt; ，因为一一对应，addEvenListener()可以给click或其他添加很多函数，所以removeEvenListener()也要一一去和它对应&lt;/p&gt;
+&lt;p&gt;大多数情况下，都是将事件处理程序添加到事件流的冒泡阶段（f第三个参数为false），这样可以最大限度地兼容各种浏览器。&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;事件对象&#34;&gt;事件对象&lt;/h2&gt;
+&lt;p&gt;在触发 DOM 上的某个事件时，会产生一个事件对象 event，这个对象中包含着所有与事件有关的 信息。&lt;/p&gt;
+&lt;h2 id=&#34;dom中的事件对象&#34;&gt;DOM中的事件对象&lt;/h2&gt;
+&lt;p&gt;兼容 DOM 的浏览器会将一个 event 对象传入到事件处理程序中&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+btn.onclick = function(event){ 
+ alert(event.type); //&amp;quot;click&amp;quot; 
+}; 
+btn.addEventListener(&amp;quot;click&amp;quot;, function(event){ 
+ alert(event.type); //&amp;quot;click&amp;quot; 
+}, false);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;要阻止特定事件的默认行为，可以使用 preventDefault()方法&lt;/p&gt;
+&lt;p&gt;链接的默认行为就是在 被单击时会导航到其 href 特性指定的 URL。如果你想阻止链接导航这一默认行为，那么通过链接的 onclick 事件处理程序可以取消它&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var link = document.getElementById(&amp;quot;myLink&amp;quot;); 
+link.onclick = function(event){ 
+ event.preventDefault(); 
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;stopPropagation()方法用于立即停止事件在 DOM 层次中的传播&lt;/p&gt;
+&lt;p&gt;从而避免触 发注册在 document.body 上面的事件处理程序&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+btn.onclick = function(event){ 
+ alert(&amp;quot;Clicked&amp;quot;); 
+ event.stopPropagation(); 
+}; 
+document.body.onclick = function(event){ 
+ alert(&amp;quot;Body clicked&amp;quot;); 
+}; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;事件类型&#34;&gt;事件类型&lt;/h2&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;load事件&#34;&gt;&lt;strong&gt;load事件&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;当页面完全加载后（包括所有图像、JavaScript 文件、 CSS 文件等外部资源），就会触发 window 上面的 load 事件。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;body onload=&amp;quot;alert(&#39;Loaded!&#39;)&amp;quot;&amp;gt; 
+&amp;lt;/body&amp;gt;
+
+//对图像的load事件
+&amp;lt;img src=&amp;quot;smile.gif&amp;quot; onload=&amp;quot;alert(&#39;Image loaded.&#39;)&amp;quot;&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;unload-事件&#34;&gt;&lt;strong&gt;unload 事件&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;利用这个事件最多的情况是清除引用，以避免内存泄漏&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h3 id=&#34;resize-事件&#34;&gt;&lt;strong&gt;resize 事件&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;当浏览器窗口被调整到一个新的高度或宽度时，就会触发 resize 事件&lt;/p&gt;
+&lt;p&gt;IE、Safari、Chrome 和 Opera 会在浏览 器窗口变化了 1 像素时就触发 resize 事件，然后随着变化不断重复触发。Firefox 则只会在用户停止调 整窗口大小时才会触发 resize 事件&lt;/p&gt;
+&lt;p&gt;浏览器窗口最小化或最大化时也会触发 resize 事件&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h3 id=&#34;scroll-事件&#34;&gt;&lt;strong&gt;scroll 事件&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;scroll 事件也会在文档被滚动期间重复被触发，所以有必要尽量保持事件 处理程序的代码简单&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h3 id=&#34;焦点事件&#34;&gt;&lt;strong&gt;焦点事件&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;焦点事件会在页面元素获得或失去焦点时触发。利用这些事件并与 document.hasFocus()方法及 document.activeElement 属性配合，可以知晓用户在页面上的行踪&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;blur&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在元素失去焦点时触发。这个事件不会冒泡；所有浏览器都支持它&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DOMFocusIn&lt;/p&gt;
+&lt;p&gt;在元素获得焦点时触发。这个事件与 HTML 事件 focus 等价，但它冒泡&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DOMFoucusOut&lt;/p&gt;
+&lt;p&gt;在元素失去焦点时触发，兼容性不强&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;focus&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在元素获得焦点时触发。这个事件不会冒泡；所有浏览器都支持它。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;focusin&lt;/p&gt;
+&lt;p&gt;这个事件与 HTML 事件 focus 等价，但它冒泡&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;focusout&lt;/p&gt;
+&lt;p&gt;这个事件是 HTML 事件 blur 的通用版本&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;鼠标与滚轮事件&#34;&gt;&lt;strong&gt;鼠标与滚轮事件&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;click&lt;/p&gt;
+&lt;p&gt;在用户单击主鼠标按钮（一般是左边的按钮）或者按下回车键时触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;dblclick&lt;/p&gt;
+&lt;p&gt;在用户双击主鼠标按钮（一般是左边的按钮）时触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mousedown&lt;/p&gt;
+&lt;p&gt;在用户按下了任意鼠标按钮时触发。不能通过键盘触发这个事件。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mouseenter&lt;/p&gt;
+&lt;p&gt;在鼠标光标从元素外部首次移动到元素范围之内时触发。这个事件不冒泡，而且 在光标移动到后代元素上不会触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mouseleave&lt;/p&gt;
+&lt;p&gt;在位于元素上方的鼠标光标移动到元素范围之外时触发。这个事件不冒泡，而且 在光标移动到后代元素上不会触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mousemove&lt;/p&gt;
+&lt;p&gt;当鼠标指针在元素内部移动时重复地触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mouseout&lt;/p&gt;
+&lt;p&gt;在鼠标指针位于一个元素上方，然后用户将其移入另一个元素时触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mouseover&lt;br&gt;
+在鼠标指针位于一个元素外部，然后用户将其首次移入另一个元素边界之内时触 发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mouseup&lt;/p&gt;
+&lt;p&gt;在用户释放鼠标按钮时触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+">JS事件</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/"" data-c="
+          &lt;h1 id=&#34;与http协助的web服务器&#34;&gt;与HTTP协助的Web服务器&lt;/h1&gt;
+&lt;h2 id=&#34;用单台虚拟主机实现多个域名&#34;&gt;用单台虚拟主机实现多个域名&lt;/h2&gt;
+&lt;p&gt;允许一台HTTP服务器搭建多个Web站点。&lt;/p&gt;
+&lt;p&gt;即使物理层面只有一台服务器，但只要使用虚拟主机的功能，则可以假想已具有多台服务器&lt;/p&gt;
+&lt;p&gt;在互联网上，域名通过 DNS 服务映射到 IP 地址（域名解析）之后访问目标网站，所以，当请求发送到服务器时，已经是IP地址形式访问了&lt;/p&gt;
+&lt;h2 id=&#34;通信数据转发程序代理-网关-隧道&#34;&gt;通信数据转发程序：代理、网关、隧道&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;代理&lt;/p&gt;
+&lt;p&gt;扮演中间人，接收由客户端发送的请求并转发给服务器，同是，也接收服务器返回的响应并转发给客户端&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;网关&lt;/p&gt;
+&lt;p&gt;网关是转发其他服务器通信数据的服务器，接收从客户端发送来的请求时，它就像自己拥有资源的服务器&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;隧道&lt;/p&gt;
+&lt;p&gt;隧道是在相隔甚远的客户端和服务器两者之间进行中转，并保持双方通信连接的应用程序&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;代理&#34;&gt;&lt;strong&gt;代理&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;利用代理服务器的理由：利用缓存技术减少网络带宽的流量，组织内部针对特定网站的访问控制，以获取访问日志为主要目的&lt;/p&gt;
+&lt;p&gt;代理按两种基准分类：一种是是否使用缓存，另一种是是否会修改报文&lt;/p&gt;
+&lt;h4 id=&#34;缓存代理&#34;&gt;缓存代理&lt;/h4&gt;
+&lt;p&gt;代理转发响应时，缓存代理会预先将资源的副本（缓存）保存在代理服务器上&lt;/p&gt;
+&lt;p&gt;当代理再次接收对相同资源的请求时，就可以不从源服务器那里获取资源，而是将之前缓存的资源作为响应返回&lt;/p&gt;
+&lt;h4 id=&#34;透明代理&#34;&gt;透明代理&lt;/h4&gt;
+&lt;p&gt;转发请求或响应时，不对报文做任何加工的代理类型被称为&lt;strong&gt;透明代理&lt;/strong&gt;，反之，称为非透明代理&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;网关&#34;&gt;网关&lt;/h2&gt;
+&lt;p&gt;可以利用网关将HTTP请求转化为其他协议通信&lt;/p&gt;
+&lt;p&gt;利用网关能提高通信的安全性，因为可以在客户端与网关之间的通信线路上加密以确保连接的安全。&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1619484447634.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;隧道&#34;&gt;隧道&lt;/h2&gt;
+&lt;p&gt;隧道可以按要求建立起一条与其他服务器的通信线路，可以使用SSL等加密手段进行通信。隧道的目的就是保住客户端与服务器能安全进行通信&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1619484421757.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;p&gt;隧道本身不会去解析HTTP请求。请求保持原样中转给服务器。隧道会在双方通信断开连接的时候结束&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;保存资源的缓存&#34;&gt;保存资源的缓存&lt;/h2&gt;
+&lt;p&gt;代理服务器会在服务器返回的响应时，保存一份资源副本&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1619484470802.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;缓存有效期&#34;&gt;缓存有效期&lt;/h3&gt;
+&lt;p&gt;存在资源更新等影响，需要去向源服务器确认&lt;/p&gt;
+&lt;h3 id=&#34;客户端的缓存&#34;&gt;客户端的缓存&lt;/h3&gt;
+&lt;p&gt;缓存也可以存在于客户端浏览器中，这种叫做&lt;strong&gt;临时网络文件&lt;/strong&gt;&lt;/p&gt;
+">图解HTTP第五章</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/"" data-c="
+          &lt;h1 id=&#34;返回结果的http状态&#34;&gt;返回结果的HTTP状态&lt;/h1&gt;
+&lt;h2 id=&#34;状态码告知从服务器端返回的请求结果&#34;&gt;状态码告知从服务器端返回的请求结果&lt;/h2&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1619419502006.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;2-xx成功&#34;&gt;&lt;strong&gt;2 XX成功&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;响应结果表明请求被正常处理&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;200-ok&#34;&gt;200 OK&lt;/h3&gt;
+&lt;p&gt;正常处理&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;204-no-content&#34;&gt;204 NO Content&lt;/h3&gt;
+&lt;p&gt;表示请求被成功处理，但在返回的响应报文中不含实体的主体部分。&lt;/p&gt;
+&lt;p&gt;应用于只需要客户端往服务器发送信息，而对客户端不需要发送新信息的情况下使用&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;206-partial-content&#34;&gt;206 Partial Content&lt;/h3&gt;
+&lt;p&gt;表示客户端进行了范围请求，而服务器成功执行这部分的GET请求。响应报文中包含由Content-Range指定范围的实体内容&lt;/p&gt;
+&lt;hr&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;3-xx重定向&#34;&gt;&lt;strong&gt;3 XX重定向&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;表明浏览器需要执行某些特殊的处理以正确处理请求&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;301-moved-permanently&#34;&gt;301 Moved Permanently&lt;/h3&gt;
+&lt;p&gt;永久性重定向。表示请求的资源已经被分配了新的URI，以后应使用资源现在所指的URI&lt;/p&gt;
+&lt;p&gt;例如当指定路径末尾未加&amp;quot;/&amp;quot;时，会产生301状态码&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;302-found&#34;&gt;302 Found&lt;/h3&gt;
+&lt;p&gt;临时性重定向。表示请求的资源已经被分配了新的URI，希望用户能使用新的URI访问&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;303-see-other&#34;&gt;303 See Other&lt;/h3&gt;
+&lt;p&gt;表示请求的资源存在着另一个URI，应使用GET方法定向获取请求的资源&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;304-not-modified&#34;&gt;304 Not Modified&lt;/h3&gt;
+&lt;p&gt;表示客户端发送附带条件的请求时，服务器允许请求访问资源，但未找到满足条件的情况。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;307-temporary-redirect&#34;&gt;307 Temporary Redirect&lt;/h3&gt;
+&lt;p&gt;临时冲顶先。与302相似。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;4-xx客户端错误&#34;&gt;&lt;strong&gt;4 XX客户端错误&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;表明客户端发生错误的原因所在&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;400-bad-request&#34;&gt;400 Bad Request&lt;/h3&gt;
+&lt;p&gt;该状态码表示请求报文中存在语法错误。需修改请求的内容后再次发送请求。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;401-unauthorized&#34;&gt;401 Unauthorized&lt;/h3&gt;
+&lt;p&gt;表示发送的请求需要有通过HTTP认证的认证信息&lt;/p&gt;
+&lt;p&gt;当浏览器初次接收到401响应，会弹出认证用的对话窗口&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;403-forbidden&#34;&gt;403 Forbidden&lt;/h3&gt;
+&lt;p&gt;表明请求的资源的访问被服务器拒绝了&lt;/p&gt;
+&lt;p&gt;未获得文件系统的访问授权，访问权限出现某些问题等列举的情况都可能发生403的原因&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;404-not-found&#34;&gt;404 Not Found&lt;/h3&gt;
+&lt;p&gt;表明服务器上无法找到请求的资源。&lt;/p&gt;
+&lt;hr&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;5-xx服务器错误&#34;&gt;&lt;strong&gt;5 XX服务器错误&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;服务器本身的错误&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;500-internal-server-error&#34;&gt;500 Internal Server Error&lt;/h3&gt;
+&lt;p&gt;表明服务器在执行请求时发生了错误。也有可能是WEB应用存在的bug或某些临时故障&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;503-service-unavailable&#34;&gt;503 Service Unavailable&lt;/h3&gt;
+&lt;p&gt;表明服务器暂时处于超负荷或正在进行停机维护，现在无法处理请求。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;​&lt;/p&gt;
+">图解HTTP第四章</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/tu-jie-http-di-san-zhang/"" data-c="
+          &lt;h1 id=&#34;http报文内的http信息&#34;&gt;&lt;strong&gt;HTTP报文内的HTTP信息&lt;/strong&gt;&lt;/h1&gt;
+&lt;h2 id=&#34;http报文&#34;&gt;&lt;strong&gt;HTTP报文&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;用于HTTP协议交互的信息被称为HTTP报文。请求端的HTTP报文叫做请求报文，响应端的叫做响应报文&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1619330989639.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;请求行&#34;&gt;&lt;strong&gt;请求行&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;请求行包括请求的方法，URI和HTTP的版本&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;状态行&#34;&gt;&lt;strong&gt;状态行&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;包含响应结果的状态码，原因短语和HTTP版本&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;首部字段&#34;&gt;&lt;strong&gt;首部字段&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;包含表示请求和响应的各种条件和属性的各类首部&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;编码提升传输速率&#34;&gt;&lt;strong&gt;编码提升传输速率&lt;/strong&gt;&lt;/h1&gt;
+&lt;h2 id=&#34;报文主体和实体主体的差异&#34;&gt;&lt;strong&gt;报文主体和实体主体的差异&lt;/strong&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;报文&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;是HTTP通信中的基本单位&lt;/strong&gt;，有8个字节流组成，通过HTTP通信传输&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;实体&lt;/p&gt;
+&lt;p&gt;作为请求或响应的有效载荷数据被传输，其内容由实体首部和实体主体组成&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;HTTP报文的主体用于传输请求或响应的实体主体&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;压缩传输的内容编码&#34;&gt;&lt;strong&gt;压缩传输的内容编码&lt;/strong&gt;&lt;/h2&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1619331895496.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;分割发送的分块传输编码&#34;&gt;分割发送的分块传输编码&lt;/h2&gt;
+&lt;p&gt;在传输大容量数据时，通过把数据分割成多块，能够让浏览器逐步显示页面&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;分块传输编码&lt;/strong&gt;会将实体主体分成多个部分。每一块都会用十六进制来标记块的大小，而实体主体的最后一块会使用&amp;quot;0(CR+LF)&amp;quot;来标记&lt;/p&gt;
+&lt;p&gt;客户端复制解码，恢复到编码前的实体主体&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;发送多种数据的多部分对象集合&#34;&gt;发送多种数据的多部分对象集合&lt;/h1&gt;
+&lt;p&gt;例如图片，文件的上传&lt;/p&gt;
+&lt;p&gt;在HTTP报文使用多部分对象集合时，需要在首部字段里加上Content-Type。&lt;/p&gt;
+&lt;p&gt;boundary字符串来划分多部分对象集合指明的各类实体&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;获取部分内容的范围请求&#34;&gt;获取部分内容的范围请求&lt;/h1&gt;
+&lt;p&gt;指定范围发送的请求叫&lt;strong&gt;范围请求&lt;/strong&gt;&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1619332602950.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;内容协商返回最合适的内容&#34;&gt;内容协商返回最合适的内容&lt;/h1&gt;
+&lt;p&gt;例网站的中英文版本，以下内容作为为判断标准&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Accept&lt;/li&gt;
+&lt;li&gt;Accept-Charset&lt;/li&gt;
+&lt;li&gt;Accept-Encoding&lt;/li&gt;
+&lt;li&gt;Accept-Language&lt;/li&gt;
+&lt;li&gt;Content-Language&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;内容协商三种类型&lt;/p&gt;
+&lt;h3 id=&#34;服务器驱动协商&#34;&gt;服务器驱动协商&lt;/h3&gt;
+&lt;h3 id=&#34;客户端驱动协商&#34;&gt;客户端驱动协商&lt;/h3&gt;
+&lt;h3 id=&#34;透明协商&#34;&gt;透明协商&lt;/h3&gt;
+">图解HTTP第三章</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/tu-jie-http-di-er-zhang/"" data-c="
+          &lt;h2 id=&#34;http协议用于客户端和服务端之间的通信&#34;&gt;&lt;strong&gt;HTTP协议用于客户端和服务端之间的通信&lt;/strong&gt;&lt;/h2&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1619145642116.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;br&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1619145670666.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;http是不保存状态协议&#34;&gt;&lt;strong&gt;HTTP是不保存状态协议&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;HTTP是不保存状态的协议，即无状态协议。HTTP协议自身不对请求和响应之间的通信状态进行保存。这样是为了更快的处理大量事务，确保协议的 可伸缩性&lt;/p&gt;
+&lt;p&gt;为了保证页面跳转时的状态保存，Cooike就被引入&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;## &lt;em&gt;&lt;strong&gt;*请求URI定位资源*&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1619145690268.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;告知服务器意图的http方法&#34;&gt;&lt;strong&gt;告知服务器意图的HTTP方法&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;GET&lt;/strong&gt;：获取资源&lt;/p&gt;
+&lt;p&gt;GET方法用来请求访问已被URI 识别的资源&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1619147700579.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;POST&lt;/strong&gt;：传输实体主体&lt;/p&gt;
+&lt;p&gt;POST传输更常用&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1619147796053.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;PUT&lt;/strong&gt;：传输文件&lt;/p&gt;
+&lt;p&gt;PUT方法自身不带验证机制，在一般情况下不用&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1619147670212.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;HEAD&lt;/strong&gt;：获得报文头部&lt;/p&gt;
+&lt;p&gt;HEAD方法和GET方法一样，只是不返回报文主体部分，用于确认URI的有效性及资源更新的日期时间等&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1619147639933.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;DELETE&lt;/strong&gt;：删除文件&lt;/p&gt;
+&lt;p&gt;与PUT方法相反的方法，也是不带验证机制的方法&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1619147846458.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;OPTIONS&lt;/strong&gt;：询问支持的方法&lt;/p&gt;
+&lt;p&gt;OPTIONS方法用来查询针对URI指定的资源支持的方法&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;TRACE&lt;/strong&gt;：追踪路径&lt;br&gt;
+TRACE方法是让WEB服务器端将之前的请求通信返回给客户端的方法&lt;br&gt;
+客户端用于查询发送出去的请求怎样被加工的，但不常用&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;持久连接&#34;&gt;&lt;strong&gt;持久连接&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;因为每进行一次HTTP通信就要断开一次TCP连接，对于网页的请求就要很多次的连接和断开操作，浪费通信量。&lt;/p&gt;
+&lt;p&gt;所以HTTP keep-alive的方法出现，只要任意一端没有明确提出断开连接，则保持TCP连接状态&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;使用cookie的状态管理&#34;&gt;&lt;strong&gt;使用Cookie的状态管理&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Cookie技术通过在请求和响应报文中写入Cookie信息来控制客户端的状态&lt;/p&gt;
+&lt;p&gt;Cookie会根据从服务端发送的响应报文内的一个叫做Set-Cookie的首部字段信息，通知客户端保存Cookie。当下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入Cookie值发送出去&lt;/p&gt;
+">图解HTTP 第二章</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/tu-jie-http/"" data-c="
+          &lt;h2 id=&#34;http超文本传输协议&#34;&gt;HTTP（超文本传输协议）&lt;/h2&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;tcpip-分层&#34;&gt;TCP/IP 分层&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;应用层&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  	     1. 决定向用户提供应用服务时通信的活动 (HTTP，FTP，DNS)  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;传输层&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  	     1. 提供处于网络连接中两台计算机之间的数据传输
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;网络层&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  	     1. 处理网络上流动的数据包，为数据传输选择一条路线
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;数据链路层&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  	     1. 一些肉眼可见的硬件设施 网卡 光纤 等
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;tcpip通信传输流&#34;&gt;TCP/IP通信传输流&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;客户端&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;过程&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;服务器&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;应用层&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;HTTP数据&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;应用层&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;传输层&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;加/消去 TCP首部&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;传输层&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;网络层&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;加/消去 IP首部&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;网络层&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;链路层&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;加/消去 以太网首部&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;链路层&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1 id=&#34;与http关系紧密的协议&#34;&gt;&lt;strong&gt;与HTTP关系紧密的协议&lt;/strong&gt;&lt;/h1&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;负责传输的ip协议&#34;&gt;&lt;strong&gt;负责传输的IP协议&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;IP(网际协议)处于网络层，IP协议的作用是把各种数据包传送给对方，而确保传送到对方那里，要满足各种条件。其中两个重要的条件就是&lt;strong&gt;IP地址&lt;/strong&gt;和&lt;strong&gt;MAC地址&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IP地址&lt;/strong&gt;指明了节点被分配到的地址，&lt;strong&gt;Mac地址&lt;/strong&gt;是指网卡所属的固定地址，IP地址可以和MAC地址进行匹配。IP地址可以变换，MAC地址基本不会更改&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;arp协议&#34;&gt;&lt;strong&gt;ARP协议&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;IP间的通信依赖MAC地址。在网络上，通信的双方在同一局域网（LAN）内的情况还是很少的，通常需要多台计算机和网络设备中转。而在进行中转时，&lt;strong&gt;会利用下一站中转设备的MAC地址来搜索下一个中转目标&lt;/strong&gt;。ARP是一种用以解析地址的协议，根据通信方的IP地址就可以反查出对应的MAC地址&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h3 id=&#34;tcp协议&#34;&gt;&lt;strong&gt;TCP协议&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;TCP协议位于传输层，提供可靠的字节流服务。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;字节流服务&lt;/strong&gt;指为了方便传输将大块数据分割成以报文段为单位的数据包进行管理&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;可靠的服务&lt;/strong&gt;指TCP协议能够确认数据最终是否送到对方&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;确保数据能达到目标&#34;&gt;&lt;strong&gt;确保数据能达到目标&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;TCP协议采用&lt;strong&gt;三次握手&lt;/strong&gt;策略。用TCP协议把数据包送出去后，TCP一定会向对方确认是否成功送达。握手过程中使用了TCP的标志——SYN和——ACK。&lt;/p&gt;
+&lt;p&gt;发送端首先发送一个带SYN标志的数据包给对方。接收端收到后，回传一个带有SYN/ACK标志的数据包以示传达确认信息。最后发送端再回传一个带ACK标志的数据包，代表“握手”结束&lt;/p&gt;
+&lt;p&gt;若在握手的过程中某个阶段莫名中断，TCP协议会再次以相同的顺序发送相同的数据包&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;负责域名解析的dns服务&#34;&gt;&lt;strong&gt;负责域名解析的DNS服务&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;DNS服务位于应用层的协议。它提供域名到IP地址之间的解析服务&lt;/p&gt;
+&lt;p&gt;DNS协议提供通过&lt;strong&gt;域名&lt;/strong&gt;(例如 www.baidu.com)查找&lt;strong&gt;IP&lt;/strong&gt;(14.215.177.39)，或逆向从IP反查域名的服务(cmd的nslookup 指令)&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;各种协议与http协议的关系&#34;&gt;各种协议与HTTP协议的关系&lt;/h2&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1619064689862.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+">图解HTTP 第一章</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/zheng-ze-biao-da-shi/"" data-c="
+          &lt;h1 id=&#34;语法&#34;&gt;语法&lt;/h1&gt;
+&lt;p&gt;runoo+b，可以匹配 runoob、runooob、runoooooob 等，+ 号代表前面的字符必须至少出现一次（1次或多次）。&lt;/p&gt;
+&lt;p&gt;runoo&lt;em&gt;b，可以匹配 runob、runoob、runoooooob 等，&lt;/em&gt; 号代表前面的字符可以不出现，也可以出现一次或者多次（0次、或1次、或多次）。&lt;/p&gt;
+&lt;p&gt;colou?r 可以匹配 color 或者 colour，? 问号代表前面的字符最多只可以出现一次（0次、或1次）。&lt;/p&gt;
+">正则表达式</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-qian-zhi-dao-hang-shou-wei/"" data-c="
+          &lt;h1 id=&#34;路由守卫&#34;&gt;路由守卫&lt;/h1&gt;
+&lt;h2 id=&#34;当token不存在时-跳转到登陆界面&#34;&gt;当token不存在时 跳转到登陆界面&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;只有登录界面时 (不考虑注册等其他界面)&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-router.beforeEach((to,from,next)=&amp;gt;{&#34;&gt;  let token=localStorage.getItem(&amp;quot;token&amp;quot;);
+  if(token){//判断是否登录
+    next()
+  }
+
+  else{
+    if(to.path!==&#39;/login&#39;){
+      alert(&amp;quot;请先登录&amp;quot;)
+      next({path:&#39;/login&#39;})
+    }
+    else{
+      next()
+    }
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;
+">VUE 前置导航守卫</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/niu-ke-cuo-ti/"" data-c="
+          &lt;br&gt;
+&lt;h1 id=&#34;3true&#34;&gt;3==true&lt;/h1&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1617673888601.PNG&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;2tostring&#34;&gt;2.toString()&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1617673913588.PNG&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h1 id=&#34;3-数组查重返回有重复的值&#34;&gt;3 数组查重(返回有重复的值)&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;function(arr)
+{
+    let res=[];
+    arr.forEach(function(val){
+        //保证是重复项且新数组中没有存这项
+        if(arr.indexOf(val)!=arr.lastIndexOf(val)&amp;amp;&amp;amp;res.indexOf(val)==-1)
+        {
+            res.push(val)
+        }
+    } )
+    return res
+}
+&lt;/code&gt;&lt;/pre&gt;
+">牛客</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js-ji-ben-shu-ju-lei-xing/"" data-c="
+          &lt;h1 id=&#34;基本数据类型&#34;&gt;基本数据类型&lt;/h1&gt;
+&lt;p&gt;ECMAScript中有5中简单数据类型（也称为基本数据类型）: Undefined、Null、Boolean、Number和String。还有1中复杂的数据类型————Object，Object本质上是由一组无序的名值对组成的。&lt;/p&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;typeof-操作符&#34;&gt;typeof 操作符&lt;/h1&gt;
+&lt;p&gt;由于js中的变量是松散类型的，所以它提供了一种检测当前变量的数据类型的方法，也就是typeof关键字.&lt;br&gt;
+通过typeof关键字，对这5种数据类型会返回下面的值（以字符串形式显示)&lt;br&gt;
+undefined ---------- 如果值未定义 Undefined&lt;/p&gt;
+&lt;p&gt;boolean ---------- 如果这个值是布尔值 Boolean&lt;/p&gt;
+&lt;p&gt;string ---------- 如果这个值是字符串 String&lt;/p&gt;
+&lt;p&gt;number ---------- 如果这个值是数值类型 Number&lt;/p&gt;
+&lt;p&gt;object ---------- 如果这个值是对象或null Object&lt;/p&gt;
+&lt;p&gt;需要注意的是typeof null返回为object,因为特殊值null被认为是一个空的对象引用。&lt;/p&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;undefined&#34;&gt;Undefined&lt;/h1&gt;
+&lt;p&gt;Undefined类型只有一个值，即特殊的undefined。在使用var声明变量但未对其加以初始化时，这个变量的值就是undefined。不过，一般建议尽量给变量初始化，但是在早期的js版本中是没有规定undefined这个值的，所以在有些框架中为了兼容旧版浏览器，会给window对象添加undefined值。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;window[&#39;undefined&#39;] = window[&#39;undefined&#39;];  
+//或者
+window.undefined = window.undefined;  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;null&#34;&gt;Null&lt;/h1&gt;
+&lt;p&gt;Null类型是第二个只有一个值的数据类型，这个特殊的值是null。从逻辑角度来看，null值表示一个空对象指针，而这也正是使用typeof操作符检测null时会返回object的原因。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; var car = null;
+  console.log(typeof car); // &amp;quot;object&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为null而不是其他值。这样一来，只要直接检测null值就可以知道相应的变量是否已经保存了一个对象的引用了。&lt;br&gt;
+例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  if(car != null){
+    //对car对象执行某些操作
+  }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;实际上，undefined值是派生自null值的，因此ECMA-262规定对它们的相等性测试要返回true。&lt;br&gt;
+&lt;code&gt;console.log(undefined == null); //true&lt;/code&gt;&lt;br&gt;
+尽管null和undefined有这样的关系，但它们的用途完全不同。无论在什么情况下都没有必要把一个变量的值显式地设置为undefined，可是同样的规则对null却不适用。换句话说，只要意在保存对象的变量还没有真正保存对象，就应该明确地让该变量保存null值。这样做不仅可以体现null作为空对象指针的惯例，而且也有助于进一步区分null和undefined。&lt;/p&gt;
+  &lt;br&gt;
+&lt;h1 id=&#34;boolean&#34;&gt;Boolean&lt;/h1&gt;
+&lt;p&gt;该类型只有两个字面值：true和false。这两个值与数字值不是一回事，因此true不一定等于1，而false也不一定等于0。&lt;/p&gt;
+&lt;p&gt;虽然Boolean类型的字面值只有两个，但JavaScript中所有类型的值都有与这两个Boolean值等价的值。要将一个值转换为其对应的Boolean值，可以调用类型转换函数Boolean()，例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var message = &#39;Hello World&#39;;
+    var messageAsBoolean = Boolean(message);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在这个例子中，字符串message被转换成了一个Boolean值，该值被保存在messageAsBoolean变量中。可以对任何数据类型的值调用Boolean()函数，而且总会返回一个Boolean值。至于返回的这个值是true还是false，取决于要转换值的数据类型及其实际值。下表给出了各种数据类型及其对象的转换规则。&lt;/p&gt;
+&lt;p&gt;数据类型 转换为true的值	 转换为false的值&lt;br&gt;
+Boolean	true	false&lt;br&gt;
+String	任何非空的字符串	&amp;quot;&amp;quot;(空字符串)&lt;br&gt;
+Number	任何非0数值（包括无穷大）	0和NAN&lt;br&gt;
+Object	任何对象	null&lt;br&gt;
+Undefined	不适用	undefined&lt;/p&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;number&#34;&gt;Number&lt;/h1&gt;
+&lt;p&gt;这种类型用来表示整数和浮点数值，还有一种特殊的数值，即NaN（非数值 Not a Number）。这个数值用于表示一个本来要返回数值的操作数未返回数值的情况（这样就不会抛出错误了）。例如，在其他编程语言中，任何数值除以0都会导致错误，从而停止代码执行。但在JavaScript中，任何数值除以0会返回NaN，因此不会影响其他代码的执行。&lt;/p&gt;
+&lt;p&gt;NaN本身有两个非同寻常的特点。首先，任何涉及NaN的操作（例如NaN/10）都会返回NaN，这个特点在多步计算中有可能导致问题。其次，NaN与任何值都不相等，包括NaN本身。例如，下面的代码会返回false。&lt;br&gt;
+&lt;code&gt;alert(NaN == NaN); //false&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;#String&lt;br&gt;
+String类型用于表示由零或多个16位Unicode字符组成的字符序列，即字符串。字符串可以由单引号(&#39;)或双引号(&amp;quot;)表示。&lt;/p&gt;
+&lt;h1 id=&#34;string类型的特殊性&#34;&gt;String类型的特殊性&lt;/h1&gt;
+&lt;p&gt;string类型有些特殊，因为字符串具有可变的大小，所以显然它不能被直接存储在具有固定大小的变量中。由于效率的原因，我们希望JS只复制对字符串的引用，而不是字符串的内容。但是另一方面，字符串在许多方面都和基本类型的表现相似，而字符串是不可变的这一事实（即没法改变一个字符串值的内容），因此可以将字符串看成行为与基本&lt;/p&gt;
+&lt;h1 id=&#34;类型相似的不可变引用类型&#34;&gt;类型相似的不可变引用类型&lt;/h1&gt;
+&lt;p&gt;Boolean、Number、String 这三个是Javascript中的基本包装类型，也就是这三个其实是一个构造函数，他们是Function的实例，是引用类型，至于这里的String与以上说的String是同名，是因为其实上文说的String是指字符串，这里的String指的是String这个构造函数，上面那么写，是为了更好的理解，因为Javascript是松散类型的。我们可以看下String实例化的例子：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var name = String(&amp;quot;jwy&amp;quot;);
+alert(typeof name);//&amp;quot;string&amp;quot;
+var x=new String(&#39;12345&#39;)
+typeof x //object
+x=&#39;12345&#39;
+typeof x //string
+var author = &amp;quot;Tom&amp;quot;;
+alert(typeof name);//&amp;quot;string&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;至于author这个会有length，substring等等这些方法，其实string只是String的一个实例，类似于C#中的String，和string.&lt;/p&gt;
+&lt;p&gt;注意，typeof 变量 如果值是&amp;quot;string&amp;quot; 的话，也就是这个变量是字符串，在Javascript中，字符串是基本类型，而在C#或Java中，字符串是引用类型，但是Javascript中的String是引用类型，因为它是Javascript中定义好的基本包装类型，在C#中，String跟string其实是一样的。&lt;/p&gt;
+&lt;h1 id=&#34;es6新增&#34;&gt;ES6新增&lt;/h1&gt;
+&lt;p&gt;es6中新增了let命令来声明变量、const命令声明一个只读的常量。&lt;/p&gt;
+&lt;p&gt;let的用法类似于var，但是所声明的变量，只在let命令所在的代码块内有效。&lt;/p&gt;
+&lt;p&gt;const一旦声明，常量的值就不能改变。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1617632333308.JPG&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1617632362296.JPG&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+">JS基本数据类型</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js/"" data-c="
+          &lt;h2 id=&#34;animation-属性&#34;&gt;&lt;strong&gt;animation 属性&lt;/strong&gt;&lt;/h2&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;animation-delay&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;​       属性规定动画开始的延迟时间(2秒延时)&lt;/p&gt;
+&lt;p&gt;​            &lt;code&gt;animation-delay: 2s;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;​        负值也是允许的。如果使用负值，则动画将开始播放，如同已播放 N 秒&lt;/p&gt;
+&lt;p&gt;​            &lt;code&gt;animation-delay: -2s;&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;animation-iteration-count&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;​		 属性指定动画应运行的次数&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;		` animation-iteration-count: 3;`
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;​		使用值 &amp;quot;infinite&amp;quot; 使动画永远持续下去&lt;/p&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;animation-direction&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;​		属性指定是向前播放、向后播放还是交替播放动画&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;normal - 动画正常播放（向前）。默认值&lt;/li&gt;
+&lt;li&gt;reverse - 动画以反方向播放（向后）&lt;/li&gt;
+&lt;li&gt;alternate - 动画先向前播放，然后向后&lt;/li&gt;
+&lt;li&gt;alternate-reverse - 动画先向后播放，然后向前&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;animation-timing-function&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;​		属性规定动画的速度曲线&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ease - 指定从慢速开始，然后加快，然后缓慢结束的动画（默认）&lt;/li&gt;
+&lt;li&gt;linear - 规定从开始到结束的速度相同的动画&lt;/li&gt;
+&lt;li&gt;ease-in - 规定慢速开始的动画&lt;/li&gt;
+&lt;li&gt;ease-out - 规定慢速结束的动画&lt;/li&gt;
+&lt;li&gt;ease-in-out - 指定开始和结束较慢的动画&lt;/li&gt;
+&lt;li&gt;cubic-bezier(n,n,n,n) - 运行您在三次贝塞尔函数中定义自己的值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;animation-fill-mode&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;​		CSS 动画不会在第一个关键帧播放之前或在最后一个关键帧播放之后影响元素&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;none - 默认值。动画在执行之前或之后不会对元素应用任何样式。&lt;/li&gt;
+&lt;li&gt;forwards - 元素将保留由最后一个关键帧设置的样式值（依赖 animation-direction 和 animation-iteration-count）。&lt;/li&gt;
+&lt;li&gt;backwards - 元素将获取由第一个关键帧设置的样式值（取决于 animation-direction），并在动画延迟期间保留该值。&lt;/li&gt;
+&lt;li&gt;both - 动画会同时遵循向前和向后的规则，从而在两个方向上扩展动画属性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;pre&gt;&lt;code&gt;
+//使用简写属性，将动画与 div 元素绑定：
+
+div
+
+{
+
+animation:mymove 5s infinite;
+
+-webkit-animation:mymove 5s infinite; /* Safari 和 Chrome */
+
+}
+
+
+
+//动画帧
+
+ @keyframes mymove {
+
+​          50% {transform-origin: 0 0 0;transform: rotate(360deg);background-color: rgb(83, 83, 90);}
+
+​        
+
+​        }
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1617525832441.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;## &lt;strong&gt;动画可用属性&lt;/strong&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1617524085576.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+">CSS3动画属性</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/xiang-mu-cooike-dai-ma/"" data-c="
+          &lt;h1 id=&#34;cooike详细介绍&#34;&gt;cooike详细介绍&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_37002901/article/details/86601904&#34;&gt;&lt;strong&gt;原文博客&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;cooike储存机制&#34;&gt;cooike储存机制&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;Set-Cookie: name=value[; expires=GMTDate][; domain=domain][; path=path][; secure]&lt;/code&gt;&lt;/p&gt;
+&lt;h1 id=&#34;项目实现代码&#34;&gt;项目实现代码&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;    //获取储存的cooike
+getCookie(name) {
+     var reg=RegExp(name+&#39;=([^;]+)&#39;);
+     var arr=document.cookie.match(reg);
+     if(arr)
+     {
+       return arr[1];
+     }else{
+       return &#39;&#39;;
+     }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;/**存放cookie */
+
+  setCookie(name, value, day) {
+
+   let data = new Date();
+
+   data.setDate(data.getDate() + day);
+
+   document.cookie = name + &amp;quot;=&amp;quot; + value + &amp;quot;;expires=&amp;quot; + data;
+
+  },
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;/**删除cooike*/
+delCookie(name) {
+
+   this.setCookie(name, &#39;&#39;, -1);
+
+  },
+&lt;/code&gt;&lt;/pre&gt;
+">项目cooike实现保存账号密码功能</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/markdown-ji-ben-yu-fa/"" data-c="
+          &lt;h1 id=&#34;对必要语法的摘记&#34;&gt;对必要语法的摘记&lt;/h1&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1617462999416.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+">markdown基本语法</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/about/"" data-c="
+          &lt;blockquote&gt;
+&lt;p&gt;欢迎来到我的小站呀，很高兴遇见你！🤝&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;关于本站&#34;&gt;🏠 关于本站&lt;/h2&gt;
+&lt;h2 id=&#34;博主是谁&#34;&gt;👨‍💻 博主是谁&lt;/h2&gt;
+&lt;h2 id=&#34;兴趣爱好&#34;&gt;⛹ 兴趣爱好&lt;/h2&gt;
+&lt;h2 id=&#34;联系我呀&#34;&gt;📬 联系我呀&lt;/h2&gt;
+">关于</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/hello-gridea/"" data-c="
+          &lt;p&gt;👏  欢迎使用 &lt;strong&gt;Gridea&lt;/strong&gt; ！&lt;br&gt;
+✍️  &lt;strong&gt;Gridea&lt;/strong&gt; 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;&lt;a href=&#34;https://4399.com&#34;&gt;Github&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://gridea.dev/&#34;&gt;Gridea 主页&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;http://fehey.com/&#34;&gt;示例网站&lt;/a&gt;&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1617460798662.jpg&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;特性&#34;&gt;特性👇&lt;/h2&gt;
+&lt;p&gt;📝  你可以使用最酷的 &lt;strong&gt;Markdown&lt;/strong&gt; 语法，进行快速创作&lt;/p&gt;
+&lt;p&gt;🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片&lt;/p&gt;
+&lt;p&gt;🏷️  你可以对文章进行标签分组&lt;/p&gt;
+&lt;p&gt;📋  你可以自定义菜单，甚至可以创建外部链接菜单&lt;/p&gt;
+&lt;p&gt;💻  你可以在 &lt;strong&gt;Windows&lt;/strong&gt;，&lt;strong&gt;MacOS&lt;/strong&gt; 或 &lt;strong&gt;Linux&lt;/strong&gt; 设备上使用此客户端&lt;/p&gt;
+&lt;p&gt;🌎  你可以使用 &lt;strong&gt;𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌&lt;/strong&gt; 或 &lt;strong&gt;Coding Pages&lt;/strong&gt; 向世界展示，未来将支持更多平台&lt;/p&gt;
+&lt;p&gt;💬  你可以进行简单的配置，接入 &lt;a href=&#34;https://github.com/gitalk/gitalk&#34;&gt;Gitalk&lt;/a&gt; 或 &lt;a href=&#34;https://github.com/SukkaW/DisqusJS&#34;&gt;DisqusJS&lt;/a&gt; 评论系统&lt;/p&gt;
+&lt;p&gt;🇬🇧  你可以使用&lt;strong&gt;中文简体&lt;/strong&gt;或&lt;strong&gt;英语&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力&lt;br&gt;
+sdsd&lt;br&gt;
+🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步&lt;/p&gt;
+&lt;p&gt;🌱 当然 &lt;strong&gt;Gridea&lt;/strong&gt; 还很年轻，有很多不足，但请相信，它会不停向前 🏃&lt;/p&gt;
+&lt;p&gt;未来，它一定会成为你离不开的伙伴&lt;/p&gt;
+&lt;p&gt;尽情发挥你的才华吧！&lt;/p&gt;
+&lt;p&gt;😘 Enjoy~&lt;/p&gt;
+">Hello Gridea</a>
+      </div>
+      
+    </div>
+    <div class="page">
+      <div id="page_ul"></div>
+    </div>
+  </div>
+</div>
+<script>
+  !function () {
+    let searchMask = document.querySelector('#search_mask');
+    let result = document.querySelector('#result');
+    let items = document.querySelectorAll('.item');
+    let searchBox = document.querySelector('#search');
+    let statCount = document.querySelector('#stat_count');
+    let statTimes = document.querySelector('#stat_times');
+    let pageUl = document.querySelector('#page_ul');
+    let close = document.querySelector('#close');
+    
+    close.addEventListener('click', function() {
+      searchMask.style = 'display: none;'
+    })
+
+    let finds = [];
+    let contents = [];
+    let pageSize = 10;
+    items.forEach(item => {
+      let a = item.querySelector('a');
+      contents.push({
+        title: a.innerText,
+        details: a.dataset.c,
+        link: a.href
+      })
+      item.remove();
+    })
+
+    function insertStr(soure, start, count) {
+      let newStr = soure.substr(start, count);
+      return soure.slice(0, start) + '<em>' + newStr + '</em>' + soure.slice(start + count);
+    }
+
+    pageUl.addEventListener('click', function(event) {
+      let target = event.target;
+      if (target.__proto__ === HTMLSpanElement.prototype) {
+        appendResults(parseInt(target.dataset.i));
+      }
+    })
+
+    function appendResults(index) {
+      let htmlResult = '';
+      let start = index || 0;
+      let end = Math.min(start + pageSize, finds.length);
+      for (let i = start; i < end; i++) {
+        const current = finds[i];
+        let html = current.title;
+        let sum = 0;
+        let positions = current.positions;
+        positions.forEach(position => {
+          html = insertStr(html, position.start + sum, position.count);
+          sum += 9;
+        })
+        htmlResult += `<div class="item"><a class="result-title" href="${current.link}">${html}</a></div>`;
+      }
+      result.innerHTML = htmlResult;
+      pageUl.innerHTML = '';
+      let count = finds.length / pageSize;
+      let lis = '';
+      if (start !== 0) {
+        lis += `<span class="fa fa-angle-left" data-i='${start - 1}'></span>`;
+      }
+      for (let i = 0; i < count; i++) {
+        lis += `<span class='${i === start?'current':''}' data-i='${i}'>${i+1}</span>`;     
+      }
+      if (start+1 < count) {
+        lis += `<span class="fa fa-angle-right" data-i='${start+1}'></span>`;  
+      }
+      pageUl.innerHTML = lis;
+    }
+
+    function search(delay) {
+      let timer = null
+      return function () {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          let start = Date.now();
+          let segments = searchBox.value.split(' ').filter(c => c != '');
+          if (segments.length <= 0) {
+            return;
+          }
+          finds = [];
+          let htmlResult = '';
+          contents.forEach(content => {
+            let title = content.title;
+            let positions = [];
+            let find = false;
+            segments.forEach((segment) => {
+              if (content.title.includes(segment)) {
+                find = true;
+                positions.push({
+                  start: content.title.indexOf(segment),
+                  count: segment.length
+                })
+              } else if (content.details.includes(segment)) {
+                find = true;
+              }
+            });
+            if (find) {
+              finds.push({
+                title: content.title,
+                link: content.link,
+                positions
+              });
+            }
+          })
+          appendResults(0);
+          statCount.textContent = finds.length;
+          statTimes.textContent = Date.now() - start;
+        }, delay)
+      }
+    }
+    searchBox.addEventListener('input', search(200));
+  }()
+</script>
+
+<input hidden id="copy" />
+<script>
+  !function () {
+    let times = document.querySelectorAll('.publish-time');
+    for (let i = 0; i < times.length; i++) {
+      let date = times[i].dataset.t;
+      let time = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
+      if (time < 60) {
+        str = time + '秒之前';
+      } else if (time < 3600) {
+        str = Math.floor(time / 60) + '分钟之前';
+      } else if (time >= 3600 && time < 86400) {
+        str = Math.floor(time / 3600) + '小时之前';
+      } else if (time >= 86400 && time < 259200) {
+        str = Math.floor(time / 86400) + '天之前';
+      } else {
+        str = times[i].textContent;
+      }
+      times[i].textContent = str;
+    }
+  }();
+</script>
+
+<script>
+  let language = '';
+  if (language !== '') {
+    let map = new Map();
+    if (language === 'en') {
+      map.set('search', 'Search');
+      map.set('category', 'Categories');
+      map.set('article', 'Articles');
+      map.set('tag', 'Tags');
+      map.set('top', 'Top');
+      map.set('publish', 'published');
+      map.set('minute', ' minutes');
+      map.set('read-more', 'Read More');
+      map.set('view', 'View');
+      map.set('words', ' words');
+      map.set('category-in', 'category in');
+      map.set('preview', 'Meta');
+      map.set('index', 'Toc');
+      map.set('no-archives', "You haven't created yet");
+      map.set('archives', " articles in total");
+      map.set('cloud-tags', " tags in total");
+      map.set('copyright', "Copyright: ");
+      map.set('author', "Author: ");
+      map.set('link', "Link: ");
+      map.set('leave-message', "Leave a message");
+      map.set('format', "Links Format");
+      map.set('site-name', "Name: ");
+      map.set('site-link', "Link: ");
+      map.set('site-desc', "Desc: ");
+      map.set('stat', " related results, taking ");
+      map.set('stat-time', " ms");
+      map.set('site-img', "Image: ");
+    }
+
+    if (map.size > 0) {
+      let lanElems = document.querySelectorAll('.language');
+      lanElems.forEach(elem => {
+        let lan = elem.dataset.lan, text = map.get(lan);
+        if (elem.__proto__ === HTMLInputElement.prototype) {
+          elem.placeholder = text
+        } else {
+          if (elem.dataset.count) {
+            text = elem.dataset.count + text;
+          }
+          elem.textContent = text;
+        }
+      })
+    }
+  }
+  //拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+
+</script>
+<script src="/media/js/motion.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script>
+  var scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 200
+  });
+</script>
+
+
+<script src="/media/js/mouse/peace.js"></script>
+
+
+<script src="/media/js/cool.js"></script>
+
+
+
 </html>
