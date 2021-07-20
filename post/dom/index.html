@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>DOM | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1626748256005">
+<link rel="shortcut icon" href="/favicon.ico?v=1626779852383">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">32</span>
+        <span class="site-item-stat-count">33</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1167,6 +1167,59 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/shen-qian-kao-bei/"" data-c="
+          &lt;ul&gt;
+&lt;li&gt;基本数据类型的特点：直接存储在栈(stack)中的数据&lt;/li&gt;
+&lt;li&gt;引用数据类型的特点：存储的是该对象在栈中引用，真实的数据存放在堆内存里&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;浅拷贝&#34;&gt;浅拷贝&lt;/h2&gt;
+&lt;p&gt;对象的直接赋值&lt;/p&gt;
+&lt;p&gt;obj1=obj2&lt;/p&gt;
+&lt;h2 id=&#34;深拷贝&#34;&gt;深拷贝&lt;/h2&gt;
+&lt;p&gt;JSON.parse() 与 JSON.Stringify()&lt;/p&gt;
+&lt;p&gt;先转化为字符串然后再转化为JS对象，相当于另外开辟了一块空间&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  var clone = function (obj) {
+
+       return JSON.parse(JSON.stringify(obj));
+        } 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这种方法只适用于&lt;strong&gt;纯数据json对象的深度克隆&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+普用方法
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  var clone = function (obj) {
+
+                    if(obj === null) return null
+
+                    if(typeof obj !== &#39;object&#39;) return obj;
+
+                    if(obj.constructor===Date) return new Date(obj);
+
+                    if(obj.constructor === RegExp) return new RegExp(obj);
+
+                     var newObj = new obj.constructor ();  //保持继承链
+
+                    for (var key in obj) {
+
+                            if (obj.hasOwnProperty(key)) {  //不遍历其原型链上的属性
+
+                            var val = obj[key];
+
+                            newObj[key] = typeof val === &#39;object&#39; ? arguments.callee(val) : val; // 使用arguments.callee解除与函数名的耦合
+
+                           }
+
+                } 
+
+                return newObj; 
+
+        };
+
+
+&lt;/code&gt;&lt;/pre&gt;
+">深浅拷贝</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-wen-dang-4-cha-cao/"" data-c="

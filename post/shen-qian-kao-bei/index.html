@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>JS基本数据类型 | fanfan</title>
+<title>深浅拷贝 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1626779852383">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,7 +41,7 @@
 
 
 
-  <meta name="description" content="JS基本数据类型" />
+  <meta name="description" content="深浅拷贝" />
   <meta name="keywords" content="Javascript" />
 </head>
 
@@ -282,15 +282,12 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">基本数据类型</a></li>
-<li><a href="#typeof-%E6%93%8D%E4%BD%9C%E7%AC%A6">typeof 操作符</a></li>
-<li><a href="#undefined">Undefined</a></li>
-<li><a href="#null">Null</a></li>
-<li><a href="#boolean">Boolean</a></li>
-<li><a href="#number">Number</a></li>
-<li><a href="#string%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%89%B9%E6%AE%8A%E6%80%A7">String类型的特殊性</a></li>
-<li><a href="#%E7%B1%BB%E5%9E%8B%E7%9B%B8%E4%BC%BC%E7%9A%84%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B">类型相似的不可变引用类型</a></li>
-<li><a href="#es6%E6%96%B0%E5%A2%9E">ES6新增</a></li>
+<li>
+<ul>
+<li><a href="#%E6%B5%85%E6%8B%B7%E8%B4%9D">浅拷贝</a></li>
+<li><a href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D">深拷贝</a></li>
+</ul>
+</li>
 </ul>
 
   </div>
@@ -556,8 +553,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/js-ji-ben-shu-ju-lei-xing/">
-      JS基本数据类型
+    <a class="post-title-link" href="https://fanfankill.github.io/post/shen-qian-kao-bei/">
+      深浅拷贝
     </a>
   </h1>
   <div class="post-meta">
@@ -565,7 +562,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-04-05 22:10:10">2021-04-05</span>
+      <span class="publish-time" data-t="2021-07-20 19:16:01">2021-07-20</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -584,94 +581,65 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>7<span class="language" data-lan="minute">分钟</span></span>
+      <span>1<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1684<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>223<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h1 id="基本数据类型">基本数据类型</h1>
-<p>ECMAScript中有5中简单数据类型（也称为基本数据类型）: Undefined、Null、Boolean、Number和String。还有1中复杂的数据类型————Object，Object本质上是由一组无序的名值对组成的。</p>
-<br>
-<h1 id="typeof-操作符">typeof 操作符</h1>
-<p>由于js中的变量是松散类型的，所以它提供了一种检测当前变量的数据类型的方法，也就是typeof关键字.<br>
-通过typeof关键字，对这5种数据类型会返回下面的值（以字符串形式显示)<br>
-undefined ---------- 如果值未定义 Undefined</p>
-<p>boolean ---------- 如果这个值是布尔值 Boolean</p>
-<p>string ---------- 如果这个值是字符串 String</p>
-<p>number ---------- 如果这个值是数值类型 Number</p>
-<p>object ---------- 如果这个值是对象或null Object</p>
-<p>需要注意的是typeof null返回为object,因为特殊值null被认为是一个空的对象引用。</p>
-<br>
-<h1 id="undefined">Undefined</h1>
-<p>Undefined类型只有一个值，即特殊的undefined。在使用var声明变量但未对其加以初始化时，这个变量的值就是undefined。不过，一般建议尽量给变量初始化，但是在早期的js版本中是没有规定undefined这个值的，所以在有些框架中为了兼容旧版浏览器，会给window对象添加undefined值。</p>
-<pre><code>window['undefined'] = window['undefined'];  
-//或者
-window.undefined = window.undefined;  
+              <ul>
+<li>基本数据类型的特点：直接存储在栈(stack)中的数据</li>
+<li>引用数据类型的特点：存储的是该对象在栈中引用，真实的数据存放在堆内存里</li>
+</ul>
+<h2 id="浅拷贝">浅拷贝</h2>
+<p>对象的直接赋值</p>
+<p>obj1=obj2</p>
+<h2 id="深拷贝">深拷贝</h2>
+<p>JSON.parse() 与 JSON.Stringify()</p>
+<p>先转化为字符串然后再转化为JS对象，相当于另外开辟了一块空间</p>
+<pre><code class="language-js">  var clone = function (obj) {
+
+       return JSON.parse(JSON.stringify(obj));
+        } 
 </code></pre>
+<p>这种方法只适用于<strong>纯数据json对象的深度克隆</strong></p>
 <br>
-<h1 id="null">Null</h1>
-<p>Null类型是第二个只有一个值的数据类型，这个特殊的值是null。从逻辑角度来看，null值表示一个空对象指针，而这也正是使用typeof操作符检测null时会返回object的原因。</p>
-<pre><code> var car = null;
-  console.log(typeof car); // &quot;object&quot;
+普用方法
+<pre><code class="language-js">  var clone = function (obj) {
+
+                    if(obj === null) return null
+
+                    if(typeof obj !== 'object') return obj;
+
+                    if(obj.constructor===Date) return new Date(obj);
+
+                    if(obj.constructor === RegExp) return new RegExp(obj);
+
+                     var newObj = new obj.constructor ();  //保持继承链
+
+                    for (var key in obj) {
+
+                            if (obj.hasOwnProperty(key)) {  //不遍历其原型链上的属性
+
+                            var val = obj[key];
+
+                            newObj[key] = typeof val === 'object' ? arguments.callee(val) : val; // 使用arguments.callee解除与函数名的耦合
+
+                           }
+
+                } 
+
+                return newObj; 
+
+        };
+
+
 </code></pre>
-<p>如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为null而不是其他值。这样一来，只要直接检测null值就可以知道相应的变量是否已经保存了一个对象的引用了。<br>
-例如：</p>
-<pre><code>  if(car != null){
-    //对car对象执行某些操作
-  }
-</code></pre>
-<p>实际上，undefined值是派生自null值的，因此ECMA-262规定对它们的相等性测试要返回true。<br>
-<code>console.log(undefined == null); //true</code><br>
-尽管null和undefined有这样的关系，但它们的用途完全不同。无论在什么情况下都没有必要把一个变量的值显式地设置为undefined，可是同样的规则对null却不适用。换句话说，只要意在保存对象的变量还没有真正保存对象，就应该明确地让该变量保存null值。这样做不仅可以体现null作为空对象指针的惯例，而且也有助于进一步区分null和undefined。</p>
-  <br>
-<h1 id="boolean">Boolean</h1>
-<p>该类型只有两个字面值：true和false。这两个值与数字值不是一回事，因此true不一定等于1，而false也不一定等于0。</p>
-<p>虽然Boolean类型的字面值只有两个，但JavaScript中所有类型的值都有与这两个Boolean值等价的值。要将一个值转换为其对应的Boolean值，可以调用类型转换函数Boolean()，例如：</p>
-<pre><code>var message = 'Hello World';
-    var messageAsBoolean = Boolean(message);
-</code></pre>
-<p>在这个例子中，字符串message被转换成了一个Boolean值，该值被保存在messageAsBoolean变量中。可以对任何数据类型的值调用Boolean()函数，而且总会返回一个Boolean值。至于返回的这个值是true还是false，取决于要转换值的数据类型及其实际值。下表给出了各种数据类型及其对象的转换规则。</p>
-<p>数据类型 转换为true的值	 转换为false的值<br>
-Boolean	true	false<br>
-String	任何非空的字符串	&quot;&quot;(空字符串)<br>
-Number	任何非0数值（包括无穷大）	0和NAN<br>
-Object	任何对象	null<br>
-Undefined	不适用	undefined</p>
-<br>
-<h1 id="number">Number</h1>
-<p>这种类型用来表示整数和浮点数值，还有一种特殊的数值，即NaN（非数值 Not a Number）。这个数值用于表示一个本来要返回数值的操作数未返回数值的情况（这样就不会抛出错误了）。例如，在其他编程语言中，任何数值除以0都会导致错误，从而停止代码执行。但在JavaScript中，任何数值除以0会返回NaN，因此不会影响其他代码的执行。</p>
-<p>NaN本身有两个非同寻常的特点。首先，任何涉及NaN的操作（例如NaN/10）都会返回NaN，这个特点在多步计算中有可能导致问题。其次，NaN与任何值都不相等，包括NaN本身。例如，下面的代码会返回false。<br>
-<code>alert(NaN == NaN); //false</code></p>
-<p>#String<br>
-String类型用于表示由零或多个16位Unicode字符组成的字符序列，即字符串。字符串可以由单引号(')或双引号(&quot;)表示。</p>
-<h1 id="string类型的特殊性">String类型的特殊性</h1>
-<p>string类型有些特殊，因为字符串具有可变的大小，所以显然它不能被直接存储在具有固定大小的变量中。由于效率的原因，我们希望JS只复制对字符串的引用，而不是字符串的内容。但是另一方面，字符串在许多方面都和基本类型的表现相似，而字符串是不可变的这一事实（即没法改变一个字符串值的内容），因此可以将字符串看成行为与基本</p>
-<h1 id="类型相似的不可变引用类型">类型相似的不可变引用类型</h1>
-<p>Boolean、Number、String 这三个是Javascript中的基本包装类型，也就是这三个其实是一个构造函数，他们是Function的实例，是引用类型，至于这里的String与以上说的String是同名，是因为其实上文说的String是指字符串，这里的String指的是String这个构造函数，上面那么写，是为了更好的理解，因为Javascript是松散类型的。我们可以看下String实例化的例子：</p>
-<pre><code>var name = String(&quot;jwy&quot;);
-alert(typeof name);//&quot;string&quot;
-var x=new String('12345')
-typeof x //object
-x='12345'
-typeof x //string
-var author = &quot;Tom&quot;;
-alert(typeof name);//&quot;string&quot;
-</code></pre>
-<p>至于author这个会有length，substring等等这些方法，其实string只是String的一个实例，类似于C#中的String，和string.</p>
-<p>注意，typeof 变量 如果值是&quot;string&quot; 的话，也就是这个变量是字符串，在Javascript中，字符串是基本类型，而在C#或Java中，字符串是引用类型，但是Javascript中的String是引用类型，因为它是Javascript中定义好的基本包装类型，在C#中，String跟string其实是一样的。</p>
-<h1 id="es6新增">ES6新增</h1>
-<p>es6中新增了let命令来声明变量、const命令声明一个只读的常量。</p>
-<p>let的用法类似于var，但是所声明的变量，只在let命令所在的代码块内有效。</p>
-<p>const一旦声明，常量的值就不能改变。</p>
-<br>
-<p><img src="https://fanfankill.github.io/post-images/1617632333308.JPG" alt="" loading="lazy"><br>
-<img src="https://fanfankill.github.io/post-images/1617632362296.JPG" alt="" loading="lazy"></p>
 
             </div>
             
@@ -684,7 +652,7 @@ alert(typeof name);//&quot;string&quot;
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/js-ji-ben-shu-ju-lei-xing/" title="JS基本数据类型">https://fanfankill.github.io/post/js-ji-ben-shu-ju-lei-xing/</a>
+      <a href="https://fanfankill.github.io/post/shen-qian-kao-bei/" title="深浅拷贝">https://fanfankill.github.io/post/shen-qian-kao-bei/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -699,15 +667,11 @@ alert(typeof name);//&quot;string&quot;
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="牛客" href="https://fanfankill.github.io/post/niu-ke-cuo-ti/">牛客</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="牛客" href="https://fanfankill.github.io/post/niu-ke-cuo-ti/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="CSS3动画属性" href="https://fanfankill.github.io/post/js/">CSS3动画属性</a>
-        <a class="nav-mobile-next" title="CSS3动画属性" href="https://fanfankill.github.io/post/js/">下一篇</a>
+        <a class="nav-pc-next" title=" Vue文档4 插槽" href="https://fanfankill.github.io/post/vue-wen-dang-4-cha-cao/"> Vue文档4 插槽</a>
+        <a class="nav-mobile-next" title=" Vue文档4 插槽" href="https://fanfankill.github.io/post/vue-wen-dang-4-cha-cao/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

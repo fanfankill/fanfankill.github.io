@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1626748256005">
+<link rel="shortcut icon" href="/favicon.ico?v=1626779852383">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -213,7 +213,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">32</span>
+        <span class="site-item-stat-count">33</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -276,6 +276,69 @@
         <div class="section-box pisces">
           <section class="section bg-color posts-expand slide-down-in">
             
+  <article class="post-list-box  post box-shadow-wrapper">
+    <div class="article-wrapper bg-color">
+      <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://fanfankill.github.io/post/xiang-mu-cooike-dai-ma/">
+      项目cooike实现保存账号密码功能
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2021-04-04 14:15:45">2021-04-04</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show language" data-lan="category-in">分类于</span>
+      
+      
+      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/">
+        <span>Javascript</span>
+      </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>1<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>91<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
+    
+  </div>
+</section>
+      <div class="post-body">
+        
+        
+          
+        
+        
+        <div class="post-button text-center">
+          <a class="btn language" data-lan="read-more" href="https://fanfankill.github.io/post/xiang-mu-cooike-dai-ma/" rel="contents">
+            阅读全文 »
+          </a>
+        </div>
+        
+      </div>
+      
+        <footer class="post-footer">
+          <div class="post-eof"></div>
+        </footer>
+      
+    </div>
+  </article>
+
   <article class="post-list-box  post box-shadow-wrapper">
     <div class="article-wrapper bg-color">
       <section class="post-header">
@@ -688,6 +751,59 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/shen-qian-kao-bei/"" data-c="
+          &lt;ul&gt;
+&lt;li&gt;基本数据类型的特点：直接存储在栈(stack)中的数据&lt;/li&gt;
+&lt;li&gt;引用数据类型的特点：存储的是该对象在栈中引用，真实的数据存放在堆内存里&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;浅拷贝&#34;&gt;浅拷贝&lt;/h2&gt;
+&lt;p&gt;对象的直接赋值&lt;/p&gt;
+&lt;p&gt;obj1=obj2&lt;/p&gt;
+&lt;h2 id=&#34;深拷贝&#34;&gt;深拷贝&lt;/h2&gt;
+&lt;p&gt;JSON.parse() 与 JSON.Stringify()&lt;/p&gt;
+&lt;p&gt;先转化为字符串然后再转化为JS对象，相当于另外开辟了一块空间&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  var clone = function (obj) {
+
+       return JSON.parse(JSON.stringify(obj));
+        } 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这种方法只适用于&lt;strong&gt;纯数据json对象的深度克隆&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+普用方法
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  var clone = function (obj) {
+
+                    if(obj === null) return null
+
+                    if(typeof obj !== &#39;object&#39;) return obj;
+
+                    if(obj.constructor===Date) return new Date(obj);
+
+                    if(obj.constructor === RegExp) return new RegExp(obj);
+
+                     var newObj = new obj.constructor ();  //保持继承链
+
+                    for (var key in obj) {
+
+                            if (obj.hasOwnProperty(key)) {  //不遍历其原型链上的属性
+
+                            var val = obj[key];
+
+                            newObj[key] = typeof val === &#39;object&#39; ? arguments.callee(val) : val; // 使用arguments.callee解除与函数名的耦合
+
+                           }
+
+                } 
+
+                return newObj; 
+
+        };
+
+
+&lt;/code&gt;&lt;/pre&gt;
+">深浅拷贝</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-wen-dang-4-cha-cao/"" data-c="
