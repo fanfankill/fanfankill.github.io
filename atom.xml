@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-07-19T05:27:17.080Z</updated>
+    <updated>2021-07-20T02:21:19.659Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -11,14 +11,21 @@
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
     <entry>
-        <title type="html"><![CDATA[ Vue文档3]]></title>
+        <title type="html"><![CDATA[ Vue文档4 插槽]]></title>
+        <id>https://fanfankill.github.io/post/vue-wen-dang-4-cha-cao/</id>
+        <link href="https://fanfankill.github.io/post/vue-wen-dang-4-cha-cao/">
+        </link>
+        <updated>2021-07-20T02:19:43.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ Vue文档3 Prop]]></title>
         <id>https://fanfankill.github.io/post/vue-wen-dang-3/</id>
         <link href="https://fanfankill.github.io/post/vue-wen-dang-3/">
         </link>
         <updated>2021-07-18T06:14:04.000Z</updated>
     </entry>
     <entry>
-        <title type="html"><![CDATA[ Vue文档2]]></title>
+        <title type="html"><![CDATA[ Vue文档2 components]]></title>
         <id>https://fanfankill.github.io/post/vue-wen-dang-2/</id>
         <link href="https://fanfankill.github.io/post/vue-wen-dang-2/">
         </link>
@@ -46,7 +53,7 @@
         <updated>2021-07-13T08:55:32.000Z</updated>
     </entry>
     <entry>
-        <title type="html"><![CDATA[VUE文档]]></title>
+        <title type="html"><![CDATA[VUE文档 base]]></title>
         <id>https://fanfankill.github.io/post/vue-wen-dang/</id>
         <link href="https://fanfankill.github.io/post/vue-wen-dang/">
         </link>
@@ -72,12 +79,5 @@
         <link href="https://fanfankill.github.io/post/tu-pian-lan-jia-zai/">
         </link>
         <updated>2021-07-03T14:47:46.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[手写ajax]]></title>
-        <id>https://fanfankill.github.io/post/shou-xie-axios/</id>
-        <link href="https://fanfankill.github.io/post/shou-xie-axios/">
-        </link>
-        <updated>2021-06-26T13:00:27.000Z</updated>
     </entry>
 </feed>

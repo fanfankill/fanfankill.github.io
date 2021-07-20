@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1626672273033">
+<link rel="shortcut icon" href="/favicon.ico?v=1626747675452">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">31</span>
+        <span class="site-item-stat-count">32</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1158,6 +1158,124 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
     <div class="result" id="result">
       
       <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-wen-dang-4-cha-cao/"" data-c="
+          &lt;h2 id=&#34;插槽&#34;&gt;插槽&lt;/h2&gt;
+&lt;p&gt;合成组件  里面可以包括HTML片段，其他组件等&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;navigation-link url=&amp;quot;/profile&amp;quot;&amp;gt;
+  Your Profile
+&amp;lt;/navigation-link&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;组件写法&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;  v-bind:href=&amp;quot;url&amp;quot;
+  class=&amp;quot;nav-link&amp;quot;
+&amp;gt;
+  &amp;lt;slot&amp;gt;&amp;lt;/slot&amp;gt;
+&amp;lt;/a&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;编辑作用域&#34;&gt;编辑作用域&lt;/h2&gt;
+&lt;p&gt;插槽中使用数据&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;navigation-link url=&amp;quot;/profile&amp;quot;&amp;gt;
+  Logged in as {{ user.name }}
+&amp;lt;/navigation-link&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;该插槽跟模板的其它地方一样可以访问相同的实例 property&lt;/p&gt;
+&lt;p&gt;而&lt;strong&gt;不能&lt;/strong&gt;访问 &lt;code&gt;&amp;lt;navigation-link&amp;gt;&lt;/code&gt; 的作用域，例如上面的 &lt;code&gt;url&lt;/code&gt; 是访问不到的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;后备内容&#34;&gt;后备内容&lt;/h2&gt;
+&lt;p&gt;等于默认渲染，它只会在没有提供内容的时候被渲染 ，例如在一个 &lt;code&gt;&amp;lt;submit-button&amp;gt;&lt;/code&gt; 组件中&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;button type=&amp;quot;submit&amp;quot;&amp;gt;
+  &amp;lt;slot&amp;gt;Submit&amp;lt;/slot&amp;gt;
+&amp;lt;/button&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;现在当我在一个父级组件中使用 &lt;code&gt;&amp;lt;submit-button&amp;gt;&lt;/code&gt; 并且不提供任何插槽内容时：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;submit-button&amp;gt;&amp;lt;/submit-button&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;后备内容“Submit”将会被渲染：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;button type=&amp;quot;submit&amp;quot;&amp;gt;
+  Submit
+&amp;lt;/button&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;但如果提供内容就会替代插槽里面的后备内容&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;submit-button&amp;gt;
+  Save
+&amp;lt;/submit-button&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;具名插槽&#34;&gt;具名插槽&lt;/h2&gt;
+&lt;p&gt;有时我们需要多个插槽&lt;/p&gt;
+&lt;p&gt;有时我们需要多个插槽。例如对于一个带有如下模板的 &lt;code&gt;&amp;lt;base-layout&amp;gt;&lt;/code&gt; 组件：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;div class=&amp;quot;container&amp;quot;&amp;gt;
+  &amp;lt;header&amp;gt;
+    &amp;lt;!-- 我们希望把页头放这里 --&amp;gt;
+  &amp;lt;/header&amp;gt;
+  &amp;lt;main&amp;gt;
+    &amp;lt;!-- 我们希望把主要内容放这里 --&amp;gt;
+  &amp;lt;/main&amp;gt;
+  &amp;lt;footer&amp;gt;
+    &amp;lt;!-- 我们希望把页脚放这里 --&amp;gt;
+  &amp;lt;/footer&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;slot&amp;gt;&lt;/code&gt; 元素有一个特殊的 attribute：&lt;code&gt;name&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;div class=&amp;quot;container&amp;quot;&amp;gt;
+  &amp;lt;header&amp;gt;
+    &amp;lt;slot name=&amp;quot;header&amp;quot;&amp;gt;&amp;lt;/slot&amp;gt;
+  &amp;lt;/header&amp;gt;
+  &amp;lt;main&amp;gt;
+    &amp;lt;slot&amp;gt;&amp;lt;/slot&amp;gt;
+  &amp;lt;/main&amp;gt;
+  &amp;lt;footer&amp;gt;
+    &amp;lt;slot name=&amp;quot;footer&amp;quot;&amp;gt;&amp;lt;/slot&amp;gt;
+  &amp;lt;/footer&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;一个不带 &lt;code&gt;name&lt;/code&gt; 的 &lt;code&gt;&amp;lt;slot&amp;gt;&lt;/code&gt; 出口会带有隐含的名字“default”。&lt;/p&gt;
+&lt;p&gt;我们可以在一个 &lt;code&gt;&amp;lt;template&amp;gt;&lt;/code&gt; 元素上使用 &lt;code&gt;v-slot&lt;/code&gt; 指令&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;base-layout&amp;gt;  &amp;lt;template v-slot:header&amp;gt;    &amp;lt;h1&amp;gt;Here might be a page title&amp;lt;/h1&amp;gt;  &amp;lt;/template&amp;gt;  &amp;lt;p&amp;gt;A paragraph for the main content.&amp;lt;/p&amp;gt;  &amp;lt;p&amp;gt;And another one.&amp;lt;/p&amp;gt;  &amp;lt;template v-slot:footer&amp;gt;    &amp;lt;p&amp;gt;Here&#39;s some contact info&amp;lt;/p&amp;gt;  &amp;lt;/template&amp;gt;&amp;lt;/base-layout&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;现在 &lt;code&gt;&amp;lt;template&amp;gt;&lt;/code&gt; 元素中的所有内容都将会被传入相应的插槽。任何没有被包裹在带有 &lt;code&gt;v-slot&lt;/code&gt; 的 &lt;code&gt;&amp;lt;template&amp;gt;&lt;/code&gt; 中的内容都会被视为默认插槽的内容。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;v-slot&lt;/code&gt; 只能添加在 &lt;code&gt;&amp;lt;template&amp;gt;&lt;/code&gt; 上&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;作用域插槽&#34;&gt;作用域插槽&lt;/h2&gt;
+&lt;p&gt;因为从父级传来的值在插槽子级是不可以直接访问的&lt;/p&gt;
+&lt;p&gt;子&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;span&amp;gt;  &amp;lt;slot&amp;gt;{{ user.lastName }}&amp;lt;/slot&amp;gt;&amp;lt;/span&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;父&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;current-user&amp;gt;  {{ user.firstName }}&amp;lt;/current-user&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;所以用到了&lt;strong&gt;插槽 prop&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;span&amp;gt;  &amp;lt;slot v-bind:user=&amp;quot;user&amp;quot;&amp;gt;    {{ user.lastName }}  &amp;lt;/slot&amp;gt;&amp;lt;/span&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;v-slot&lt;/code&gt; 来定义我们提供的插槽 prop 的名字&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;current-user&amp;gt;  &amp;lt;template v-slot:default=&amp;quot;slotProps&amp;quot;&amp;gt;    {{ slotProps.user.firstName }}  &amp;lt;/template&amp;gt;&amp;lt;/current-user&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;独占默认插槽的缩写语法&#34;&gt;独占默认插槽的缩写语法&lt;/h3&gt;
+&lt;p&gt;当只有默认插槽时候可以简写&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;current-user v-slot=&amp;quot;slotProps&amp;quot;&amp;gt;  {{ slotProps.user.firstName }}&amp;lt;/current-user&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;只要出现多个插槽，请始终为&lt;em&gt;所有的&lt;/em&gt;插槽使用完整的基于 &lt;code&gt;&amp;lt;template&amp;gt;&lt;/code&gt; 的语法：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;current-user&amp;gt;  &amp;lt;template v-slot:default=&amp;quot;slotProps&amp;quot;&amp;gt;    {{ slotProps.user.firstName }}  &amp;lt;/template&amp;gt;  &amp;lt;template v-slot:other=&amp;quot;otherSlotProps&amp;quot;&amp;gt;    ...  &amp;lt;/template&amp;gt;&amp;lt;/current-user&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;解构插槽prop&#34;&gt;解构插槽Prop&lt;/h3&gt;
+&lt;p&gt;作用域插槽的内部工作原理是将你的插槽内容包裹在一个拥有单个参数的函数里：&lt;/p&gt;
+&lt;p&gt;使用 &lt;a href=&#34;https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#%E8%A7%A3%E6%9E%84%E5%AF%B9%E8%B1%A1&#34;&gt;ES2015 解构&lt;/a&gt;来传入具体的插槽 prop&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;current-user v-slot=&amp;quot;{ user }&amp;quot;&amp;gt;  {{ user.firstName }}&amp;lt;/current-user&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;动态插槽名&#34;&gt;动态插槽名&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;base-layout&amp;gt;  &amp;lt;template v-slot:[dynamicSlotName]&amp;gt;    ...  &amp;lt;/template&amp;gt;&amp;lt;/base-layout&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;具名插槽的缩写&#34;&gt;具名插槽的缩写&lt;/h2&gt;
+&lt;p&gt;把参数之前的所有内容 (&lt;code&gt;v-slot:&lt;/code&gt;) 替换为字符 &lt;code&gt;#&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;例如 &lt;code&gt;v-slot:header&lt;/code&gt; 可以被重写为 &lt;code&gt;#header&lt;/code&gt;&#39;&lt;/p&gt;
+"> Vue文档4 插槽</a>
+      </div>
+      
+      <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-wen-dang-3/"" data-c="
           &lt;h2 id=&#34;prop&#34;&gt;Prop&lt;/h2&gt;
 &lt;p&gt;字符串数组形式列出的 prop：&lt;/p&gt;
@@ -1306,7 +1424,7 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
       }
     }
 &lt;/code&gt;&lt;/pre&gt;
-"> Vue文档3</a>
+"> Vue文档3 Prop</a>
       </div>
       
       <div class="item">
@@ -1431,7 +1549,7 @@ export default {
 &lt;h2 id=&#34;基础组件的自动化全局注册&#34;&gt;基础组件的自动化全局注册&lt;/h2&gt;
 &lt;p&gt;可以使用 &lt;code&gt;require.context&lt;/code&gt; 只全局注册这些非常通用的基础组件&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;全局注册的行为必须在根 Vue 实例 (通过 &lt;code&gt;new Vue&lt;/code&gt;) 创建之前发生&lt;/strong&gt;&lt;/p&gt;
-"> Vue文档2</a>
+"> Vue文档2 components</a>
       </div>
       
       <div class="item">
@@ -2055,7 +2173,7 @@ new Vue({
 &amp;lt;!-- 没有任何系统修饰符被按下的时候才触发 --&amp;gt;
 &amp;lt;button v-on:click.exact=&amp;quot;onClick&amp;quot;&amp;gt;A&amp;lt;/button&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-">VUE文档</a>
+">VUE文档 base</a>
       </div>
       
       <div class="item">

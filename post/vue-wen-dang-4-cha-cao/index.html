@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>Hello Gridea | fanfan</title>
+<title> Vue文档4 插槽 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1626747675452">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="Hello Gridea" />
-  <meta name="keywords" content="前端,Gridea" />
+  <meta name="description" content=" Vue文档4 插槽" />
+  <meta name="keywords" content="vue" />
 </head>
 
 <body>
@@ -284,7 +284,18 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E7%89%B9%E6%80%A7">特性👇</a></li>
+<li><a href="#%E6%8F%92%E6%A7%BD">插槽</a></li>
+<li><a href="#%E7%BC%96%E8%BE%91%E4%BD%9C%E7%94%A8%E5%9F%9F">编辑作用域</a></li>
+<li><a href="#%E5%90%8E%E5%A4%87%E5%86%85%E5%AE%B9">后备内容</a></li>
+<li><a href="#%E5%85%B7%E5%90%8D%E6%8F%92%E6%A7%BD">具名插槽</a></li>
+<li><a href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%8F%92%E6%A7%BD">作用域插槽</a>
+<ul>
+<li><a href="#%E7%8B%AC%E5%8D%A0%E9%BB%98%E8%AE%A4%E6%8F%92%E6%A7%BD%E7%9A%84%E7%BC%A9%E5%86%99%E8%AF%AD%E6%B3%95">独占默认插槽的缩写语法</a></li>
+<li><a href="#%E8%A7%A3%E6%9E%84%E6%8F%92%E6%A7%BDprop">解构插槽Prop</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8A%A8%E6%80%81%E6%8F%92%E6%A7%BD%E5%90%8D">动态插槽名</a></li>
+<li><a href="#%E5%85%B7%E5%90%8D%E6%8F%92%E6%A7%BD%E7%9A%84%E7%BC%A9%E5%86%99">具名插槽的缩写</a></li>
 </ul>
 </li>
 </ul>
@@ -552,8 +563,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/hello-gridea/">
-      Hello Gridea
+    <a class="post-title-link" href="https://fanfankill.github.io/post/vue-wen-dang-4-cha-cao/">
+       Vue文档4 插槽
     </a>
   </h1>
   <div class="post-meta">
@@ -561,7 +572,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2018-12-12 00:00:00">2018-12-12</span>
+      <span class="publish-time" data-t="2021-07-20 10:19:43">2021-07-20</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -570,14 +581,8 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://fanfankill.github.io/tag/AbmvFb4Dt/">
-        <span>前端</span>
-      </a>、
-      
-      
-      
-      <a href="https://fanfankill.github.io/tag/JWF4yuWQM/">
-        <span>Gridea</span>
+      <a href="https://fanfankill.github.io/tag/YjLqWgkox/">
+        <span>vue</span>
       </a>
       
       
@@ -586,40 +591,130 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>2<span class="language" data-lan="minute">分钟</span></span>
+      <span>5<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>299<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1026<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://4399.com">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a><br>
-<img src="https://fanfankill.github.io/post-images/1617460798662.jpg" alt="" loading="lazy"></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力<br>
-sdsd<br>
-🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+              <h2 id="插槽">插槽</h2>
+<p>合成组件  里面可以包括HTML片段，其他组件等</p>
+<pre><code class="language-vue">&lt;navigation-link url=&quot;/profile&quot;&gt;
+  Your Profile
+&lt;/navigation-link&gt;
+</code></pre>
+<p>组件写法</p>
+<pre><code class="language-vue">  v-bind:href=&quot;url&quot;
+  class=&quot;nav-link&quot;
+&gt;
+  &lt;slot&gt;&lt;/slot&gt;
+&lt;/a&gt;
+</code></pre>
+<br>
+<h2 id="编辑作用域">编辑作用域</h2>
+<p>插槽中使用数据</p>
+<pre><code class="language-vue">&lt;navigation-link url=&quot;/profile&quot;&gt;
+  Logged in as {{ user.name }}
+&lt;/navigation-link&gt;
+</code></pre>
+<p>该插槽跟模板的其它地方一样可以访问相同的实例 property</p>
+<p>而<strong>不能</strong>访问 <code>&lt;navigation-link&gt;</code> 的作用域，例如上面的 <code>url</code> 是访问不到的。</p>
+<p><strong>父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的</strong></p>
+<br>
+<h2 id="后备内容">后备内容</h2>
+<p>等于默认渲染，它只会在没有提供内容的时候被渲染 ，例如在一个 <code>&lt;submit-button&gt;</code> 组件中</p>
+<pre><code class="language-vue">&lt;button type=&quot;submit&quot;&gt;
+  &lt;slot&gt;Submit&lt;/slot&gt;
+&lt;/button&gt;
+</code></pre>
+<p>现在当我在一个父级组件中使用 <code>&lt;submit-button&gt;</code> 并且不提供任何插槽内容时：</p>
+<p><code>&lt;submit-button&gt;&lt;/submit-button&gt;</code></p>
+<p>后备内容“Submit”将会被渲染：</p>
+<pre><code class="language-vue">&lt;button type=&quot;submit&quot;&gt;
+  Submit
+&lt;/button&gt;
+</code></pre>
+<p>但如果提供内容就会替代插槽里面的后备内容</p>
+<pre><code class="language-vue">&lt;submit-button&gt;
+  Save
+&lt;/submit-button&gt;
+
+</code></pre>
+<br>
+<h2 id="具名插槽">具名插槽</h2>
+<p>有时我们需要多个插槽</p>
+<p>有时我们需要多个插槽。例如对于一个带有如下模板的 <code>&lt;base-layout&gt;</code> 组件：</p>
+<pre><code class="language-vue">&lt;div class=&quot;container&quot;&gt;
+  &lt;header&gt;
+    &lt;!-- 我们希望把页头放这里 --&gt;
+  &lt;/header&gt;
+  &lt;main&gt;
+    &lt;!-- 我们希望把主要内容放这里 --&gt;
+  &lt;/main&gt;
+  &lt;footer&gt;
+    &lt;!-- 我们希望把页脚放这里 --&gt;
+  &lt;/footer&gt;
+&lt;/div&gt;
+</code></pre>
+<p><code>&lt;slot&gt;</code> 元素有一个特殊的 attribute：<code>name</code></p>
+<pre><code class="language-vue">&lt;div class=&quot;container&quot;&gt;
+  &lt;header&gt;
+    &lt;slot name=&quot;header&quot;&gt;&lt;/slot&gt;
+  &lt;/header&gt;
+  &lt;main&gt;
+    &lt;slot&gt;&lt;/slot&gt;
+  &lt;/main&gt;
+  &lt;footer&gt;
+    &lt;slot name=&quot;footer&quot;&gt;&lt;/slot&gt;
+  &lt;/footer&gt;
+&lt;/div&gt;
+</code></pre>
+<p>一个不带 <code>name</code> 的 <code>&lt;slot&gt;</code> 出口会带有隐含的名字“default”。</p>
+<p>我们可以在一个 <code>&lt;template&gt;</code> 元素上使用 <code>v-slot</code> 指令</p>
+<pre><code class="language-vue">&lt;base-layout&gt;  &lt;template v-slot:header&gt;    &lt;h1&gt;Here might be a page title&lt;/h1&gt;  &lt;/template&gt;  &lt;p&gt;A paragraph for the main content.&lt;/p&gt;  &lt;p&gt;And another one.&lt;/p&gt;  &lt;template v-slot:footer&gt;    &lt;p&gt;Here's some contact info&lt;/p&gt;  &lt;/template&gt;&lt;/base-layout&gt;
+</code></pre>
+<p>现在 <code>&lt;template&gt;</code> 元素中的所有内容都将会被传入相应的插槽。任何没有被包裹在带有 <code>v-slot</code> 的 <code>&lt;template&gt;</code> 中的内容都会被视为默认插槽的内容。</p>
+<p><strong><code>v-slot</code> 只能添加在 <code>&lt;template&gt;</code> 上</strong></p>
+<br>
+<h2 id="作用域插槽">作用域插槽</h2>
+<p>因为从父级传来的值在插槽子级是不可以直接访问的</p>
+<p>子</p>
+<pre><code class="language-vue">&lt;span&gt;  &lt;slot&gt;{{ user.lastName }}&lt;/slot&gt;&lt;/span&gt;
+</code></pre>
+<p>父</p>
+<pre><code class="language-vue">&lt;current-user&gt;  {{ user.firstName }}&lt;/current-user&gt;
+</code></pre>
+<p>所以用到了<strong>插槽 prop</strong></p>
+<pre><code class="language-vue">&lt;span&gt;  &lt;slot v-bind:user=&quot;user&quot;&gt;    {{ user.lastName }}  &lt;/slot&gt;&lt;/span&gt;
+</code></pre>
+<p><code>v-slot</code> 来定义我们提供的插槽 prop 的名字</p>
+<pre><code class="language-vue">&lt;current-user&gt;  &lt;template v-slot:default=&quot;slotProps&quot;&gt;    {{ slotProps.user.firstName }}  &lt;/template&gt;&lt;/current-user&gt;
+</code></pre>
+<h3 id="独占默认插槽的缩写语法">独占默认插槽的缩写语法</h3>
+<p>当只有默认插槽时候可以简写</p>
+<pre><code class="language-vue">&lt;current-user v-slot=&quot;slotProps&quot;&gt;  {{ slotProps.user.firstName }}&lt;/current-user&gt;
+</code></pre>
+<p>只要出现多个插槽，请始终为<em>所有的</em>插槽使用完整的基于 <code>&lt;template&gt;</code> 的语法：</p>
+<pre><code class="language-vue">&lt;current-user&gt;  &lt;template v-slot:default=&quot;slotProps&quot;&gt;    {{ slotProps.user.firstName }}  &lt;/template&gt;  &lt;template v-slot:other=&quot;otherSlotProps&quot;&gt;    ...  &lt;/template&gt;&lt;/current-user&gt;
+</code></pre>
+<h3 id="解构插槽prop">解构插槽Prop</h3>
+<p>作用域插槽的内部工作原理是将你的插槽内容包裹在一个拥有单个参数的函数里：</p>
+<p>使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#%E8%A7%A3%E6%9E%84%E5%AF%B9%E8%B1%A1">ES2015 解构</a>来传入具体的插槽 prop</p>
+<pre><code class="language-vue">&lt;current-user v-slot=&quot;{ user }&quot;&gt;  {{ user.firstName }}&lt;/current-user&gt;
+</code></pre>
+<br>
+<h2 id="动态插槽名">动态插槽名</h2>
+<pre><code class="language-vue">&lt;base-layout&gt;  &lt;template v-slot:[dynamicSlotName]&gt;    ...  &lt;/template&gt;&lt;/base-layout&gt;
+</code></pre>
+<br>
+<h2 id="具名插槽的缩写">具名插槽的缩写</h2>
+<p>把参数之前的所有内容 (<code>v-slot:</code>) 替换为字符 <code>#</code></p>
+<p>例如 <code>v-slot:header</code> 可以被重写为 <code>#header</code>'</p>
 
             </div>
             
@@ -632,7 +727,7 @@ sdsd<br>
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/hello-gridea/" title="Hello Gridea">https://fanfankill.github.io/post/hello-gridea/</a>
+      <a href="https://fanfankill.github.io/post/vue-wen-dang-4-cha-cao/" title=" Vue文档4 插槽">https://fanfankill.github.io/post/vue-wen-dang-4-cha-cao/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -641,20 +736,18 @@ sdsd<br>
   </ul>
   <div class="tags">
     
-      <a href="https://fanfankill.github.io/tag/AbmvFb4Dt/"># 前端</a>
-    
-      <a href="https://fanfankill.github.io/tag/JWF4yuWQM/"># Gridea</a>
+      <a href="https://fanfankill.github.io/tag/YjLqWgkox/"># vue</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="markdown基本语法" href="https://fanfankill.github.io/post/markdown-ji-ben-yu-fa/">markdown基本语法</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="markdown基本语法" href="https://fanfankill.github.io/post/markdown-ji-ben-yu-fa/">上一篇</a>
-      
     </div>
     <div class="nav-next">
+      
+        <a class="nav-pc-next" title=" Vue文档3 Prop" href="https://fanfankill.github.io/post/vue-wen-dang-3/"> Vue文档3 Prop</a>
+        <a class="nav-mobile-next" title=" Vue文档3 Prop" href="https://fanfankill.github.io/post/vue-wen-dang-3/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
     </div>
   </div>
