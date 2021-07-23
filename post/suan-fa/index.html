@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>socket.io实现实时聊天室 | fanfan</title>
+<title>算法 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1627020020869">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="socket.io实现实时聊天室" />
-  <meta name="keywords" content="Javascript" />
+  <meta name="description" content="算法" />
+  <meta name="keywords" content="题目" />
 </head>
 
 <body>
@@ -284,7 +284,9 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E5%89%8D%E7%AB%AF%E9%83%A8%E5%88%86">前端部分</a></li>
+<li><a href="#%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C"><strong>连续子数组的最大和</strong></a></li>
+<li><a href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%E5%AD%97"><strong>数组中出现次数超过一半的数字</strong></a></li>
+<li><a href="#%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8"><strong>合并两个排序的链表</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -552,8 +554,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/">
-      socket.io实现实时聊天室
+    <a class="post-title-link" href="https://fanfankill.github.io/post/suan-fa/">
+      算法
     </a>
   </h1>
   <div class="post-meta">
@@ -561,7 +563,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-06-16 01:55:30">2021-06-16</span>
+      <span class="publish-time" data-t="2021-07-21 20:20:13">2021-07-21</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -570,8 +572,8 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/">
-        <span>Javascript</span>
+      <a href="https://fanfankill.github.io/tag/RyHRU5tQB/">
+        <span>题目</span>
       </a>
       
       
@@ -580,310 +582,114 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>7<span class="language" data-lan="minute">分钟</span></span>
+      <span>2<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1115<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>185<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p><strong>Node.js</strong>部分（服务端）</p>
-<pre><code class="language-js">  var express=require('express')
-var app=express()
-var server=require('http').createServer(app)
-var io=require('socket.io')(server)
+              <h2 id="连续子数组的最大和"><strong>连续子数组的最大和</strong></h2>
+<br>
+<pre><code class="language-js">    function FindGreatestSumOfSubArray(array)
+    {
+       
+        let temp=0
+        let max=-99999
+        let arr=[]
 
-app.use(express.static(__dirname+'/public'))
-
-//设置允许跨域
-app.all('*', function (req, res, next) {
-      res.header(&quot;Access-Control-Allow-Credentials&quot;, true)
-      res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;)
-      res.header(&quot;Access-Control-Allow-Headers&quot;, &quot;X-Requested-With&quot;)
-      res.header(&quot;Access-Control-Allow-Methods&quot;, &quot;PUT,POST,GET,DELETE,OPTIONS&quot;)
-      res.header(&quot;X-Powered-By&quot;, ' 3.2.1')
-      res.header(&quot;Content-Type&quot;, &quot;application/json;charset=utf-8&quot;)
-      next()
-})
-
-//放用户
-const users=[]
-
-io.on('connection',function(socket){
-    console.log(&quot;新用户加入房间&quot;);
-
-    //监听Login事件
-    socket.on('login',(data)=&gt;{
-            console.log(data);
-        //放数据,顺便增加唯一id
-        users.push({...data,id:socket.id})
-
-        console.log('id是'+socket.id);
-        //所有人广播
-        io.emit('loginback',{...data,id:socket.id})
-    })
-
-    socket.on('client',data2=&gt;{
-        console.log(data2.value);
-        data2.users=users.find(u=&gt;u.id==socket.id)
-        console.log(data2.users);
-        socket.broadcast.emit('sendmes',data2)
-    })
-    
-})
-
-server.listen(3000,()=&gt;{
-    console.log('http://127.0.0.1:3000');
-})
-
-</code></pre>
-<h2 id="前端部分">前端部分</h2>
-<pre><code class="language-js">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-
-&lt;head&gt;
-  &lt;meta charset=&quot;UTF-8&quot;&gt;
-  &lt;title&gt;Socket聊天室&lt;/title&gt;
-  &lt;style type=&quot;text/css&quot;&gt;
-    /**输入框样式*/
-    .text * {
-      margin: 0;
-      padding: 0;
+        for(let i=0;i&lt;array.length;i++)
+        {
+            
+            temp+=array[i]
+            arr.push(array[i])
+            if(temp&gt;max)
+            {
+                max=temp
+            }
+            if(temp&lt;0){
+                temp=0
+                arr=[]
+            }
+              
+        }
+        return max
     }
-
-    #main {
-      text-align: center;
-    }
-
-    #showmes {
-      position: relative;
-      background: url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fcdn.duitang.com%2Fuploads%2Fitem%2F201209%2F08%2F20120908134318_YVAwx.jpeg&amp;refer=http%3A%2F%2Fcdn.duitang.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=jpeg?sec=1626261869&amp;t=964bbb79e059f74901698cdd5f6de691) no-repeat;
-      background-size: 100% 110%;
-      margin: auto;
-      width: 600px;
-      height: 600px;
-      overflow: hidden;
-      overflow-y: scroll;
-    }
-
-    /**别人气泡*/
-    .leftspan2 {
-      float: left;
-      color: grey;
-      font-weight: 1000;
-      position: absolute;
-      top: -18px;
-      font-size: 3px;
-      left: 25px;
-    }
-
-    .leftspan {
-      color: white;
-      background-color: #635f5fec;
-      padding: 5px 8px;
-      font-size: 14px;
-      float: left;
-      position: relative;
-      border-radius: 4px;
-      margin-left: 25px;
-      margin-right: 5px;
-
-    }
-
-    .leftspan::after {
-      content: '';
-      border: 8px solid #ffffff00;
-      border-right: 8px solid #635f5fec;
-      ;
-      position: absolute;
-      top: 6px;
-      left: -16px;
-    }
-
-    /*自己气泡**/
-    .pp {
-      width: 100%;
-      position: relative;
-      min-height: 20px;
-      float: right;
-      margin-bottom: 15px;
-    }
-
-    .rightspan2 {
-      float: right;
-      color: grey;
-      font-weight: 1000;
-      position: absolute;
-      top: -18px;
-      font-size: 3px;
-      right: 15px;
-    }
-
-    .rightspan {
-      float: right;
-      position: relative;
-      color: rgb(2, 2, 2);
-      font-weight: 500;
-      background-color: #88e99d;
-      padding: 5px 8px;
-      font-size: 14px;
-      border-radius: 4px;
-      margin-left: 5px;
-      margin-right: 15px;
-
-    }
-
-    .rightspan::after {
-      content: '';
-      border: 8px solid #ffffff00;
-      border-left: 8px solid #88e99d;
-      ;
-      position: absolute;
-      top: 6px;
-      right: -13px;
-
-    }
-
-    /**输入框*/
-    #text {
-      width: 500px;
-      height: 25px;
-    }
-  &lt;/style&gt;
-&lt;/head&gt;
-
-&lt;body&gt;
-
-  &lt;div id=&quot;joinname&quot;&gt;
-    &lt;span&gt;请输入加入的姓名&lt;/span&gt; &lt;input type=&quot;text&quot; id=&quot;name&quot;&gt;&lt;button onclick=&quot;joinchat()&quot;&gt;提交&lt;/button&gt;
-  &lt;/div&gt;
-  &lt;div id=&quot;main&quot; style=&quot;display: none;&quot;&gt;
-    
-    &lt;h1&gt;fanfan的聊天室&lt;/h1&gt;
-    &lt;div id=&quot;showmes&quot;&gt;
-
-    &lt;/div&gt;
-    &lt;div class=&quot;inputtxt&quot;&gt;
-      &lt;input type=&quot;text&quot; id=&quot;text&quot;&gt;&lt;/input&gt;
-      &lt;button id=&quot;btn&quot; onclick=&quot;sendmes()&quot;&gt;发送&lt;/button&gt;
-    &lt;/div&gt;
-
-  &lt;/div&gt;
-
-  &lt;script src=&quot;/socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
-  &lt;script&gt;
-    //全局变量
-    name = ''
-    var socket = io(); //连接聊天室的io服务器 io服务器的根地址
-    //连接进聊天室
-    function firstjoin() {
-
-      socket.on('hello', data =&gt; {
-        console.log('服务端发送的东西为：' + data);
-      })
-    }
-
-    function notnull() {
-      if (document.getElementById('text').value != '') {
-        return 1;
-      }
-      else {
-        return 0;
-      }
-    }
-    //自己发信息
-    function sendmes() {
-      if (notnull()) {
-        var mes = document.getElementById('text').value
-        var p = document.createElement('p');
-        var span = document.createElement('span')
-        var span2 = document.createElement('span')
-        span.innerHTML = mes;
-        span2.innerHTML = name;
-        span2.className = 'rightspan2'
-        span.className = 'rightspan'
-        p.className = 'pp'
-        p.appendChild(span2)
-        p.appendChild(span)
-        document.getElementById('showmes').appendChild(p)
-        socket.emit('client', {'value':document.getElementById('text').value,'name':name})
-        document.getElementById('text').value = ''
-
-        document.getElementById(&quot;showmes&quot;).scrollTop += document.getElementById(&quot;showmes&quot;).offsetHeight;
-      }
-
-    }
-    //收到别人发的信息
-    socket.on('sendmes', data =&gt; {
-      console.log(data);
-      var p = document.createElement('p');
-      var span = document.createElement('span');
-      var span2 = document.createElement('span');
-      span.className = 'leftspan'
-      console.log('姓名是'+data.users.name);
-      span2.innerHTML = data.users.name
-      span2.className = 'leftspan2'
-      span.innerHTML = data.value;
-      p.appendChild(span2)
-      p.appendChild(span)
-      p.className = 'pp'
-
-      document.getElementById('showmes').appendChild(p)
-
-      document.getElementById(&quot;showmes&quot;).scrollTop += document.getElementById(&quot;showmes&quot;).offsetHeight;
-    })
-
-    //加入聊天室提醒
-    function joinchat() {
-      if (document.getElementById('name').value.length &gt;= 1 &amp;&amp; document.getElementById('name').value.length &lt;= 6) {
-        //加入盒子隐藏 聊天盒子显示
-        document.getElementById('main').style.display='block'
-        document.getElementById('joinname').style.display='none'
-        name=document.getElementById('name').value
-        socket.emit('login', { 'name': document.getElementById('name').value })
-      }
-
-    }
-    socket.on('loginback', data =&gt; {
-      var p = document.createElement('p');
-      p.innerHTML = data.name + '加入了房间';
-      p.style.color = 'grey'
-      p.style.fontWeight = '1000'
-      p.style.textAlign = 'center'
-      p.style.fontSize = '6px'
-      document.getElementById('showmes').appendChild(p)
-    })
-    //回车发送消息
-    document.onkeydown = function (e) {
-      console.log('1');
-      var ev = document.all ? window.event : e;
-      if (ev.keyCode == 13) {
-        sendmes();
-      }
-    }
-  &lt;/script&gt;
-&lt;/body&gt;
-
-&lt;/html&gt;
-
 </code></pre>
 <br>
 <br>
+<h2 id="数组中出现次数超过一半的数字"><strong>数组中出现次数超过一半的数字</strong></h2>
 <br>
-每次进入页面先输入自己的姓名才能进入聊天室
-每个客户端对应自己独特的socket id来获取发送消息的名称
-给回车绑定事件，每次回车发送 可以实现多人在线实时聊天，且有自己对应的名称 自己发送的消息和收到的消息进行区分
-<figure data-type="image" tabindex="1"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015910759.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="2"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015915621.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="3"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015921537.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="4"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015925385.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="5"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015929804.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="6"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015931812.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="7"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/mage-20210616015934765.png" alt="" loading="lazy"></figure>
+<pre><code class="language-js">function MoreThanHalfNum_Solution(numbers)
+{
+     
+     //先排序
+        numbers.sort(function (a, b) {
+            return a - b
+        })
+        console.log(numbers);
+
+        let flag = 0
+        let count = 0
+        let number
+       if(numbers.length==1)
+       {
+           return numbers[0]
+       }
+       else{
+        for (let i = 0; i &lt; numbers.length - 1; i++) {
+            if (numbers[i] == numbers[i + 1]) {
+                count++
+
+                if (count &gt; flag) {
+
+                    flag = count
+                    count = 0
+                    number = numbers[i]
+                }
+           
+
+            }
+            else {
+                count = 0
+
+            }
+
+
+        }
+        return number
+       }
+   
+    
+}
+</code></pre>
+<br>
+<br>
+<h2 id="合并两个排序的链表"><strong>合并两个排序的链表</strong></h2>
+<br>
+<pre><code class="language-js">function Merge(pHead1, pHead2)
+{ // write code here
+     
+    if (pHead1 == null) {
+        return pHead2;
+    } else if (pHead2 == null) {
+        return pHead1;
+    }
+    var result = {};
+    if (pHead1.val &lt; pHead2.val) {
+        result = pHead1;
+        result.next = Merge(pHead1.next, pHead2);
+    } else {
+        result = pHead2;
+        result.next = Merge(pHead1, pHead2.next);
+    }
+    return result;
+}
+</code></pre>
 
             </div>
             
@@ -896,7 +702,7 @@ server.listen(3000,()=&gt;{
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/" title="socket.io实现实时聊天室">https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/</a>
+      <a href="https://fanfankill.github.io/post/suan-fa/" title="算法">https://fanfankill.github.io/post/suan-fa/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -905,21 +711,21 @@ server.listen(3000,()=&gt;{
   </ul>
   <div class="tags">
     
-      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/"># Javascript</a>
+      <a href="https://fanfankill.github.io/tag/RyHRU5tQB/"># 题目</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title=" 微信小程序开发记录" href="https://fanfankill.github.io/post/xiao-cheng-xu-kai-fa-ji-lu/"> 微信小程序开发记录</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title=" 微信小程序开发记录" href="https://fanfankill.github.io/post/xiao-cheng-xu-kai-fa-ji-lu/">上一篇</a>
+        <a class="nav-pc-next" title=" 阿里云部署node项目" href="https://fanfankill.github.io/post/a-li-yun-bu-shu-node-xiang-mu/"> 阿里云部署node项目</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title=" 阿里云部署node项目" href="https://fanfankill.github.io/post/a-li-yun-bu-shu-node-xiang-mu/">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="事件循环" href="https://fanfankill.github.io/post/shi-jian-xun-huan/">事件循环</a>
-        <a class="nav-mobile-next" title="事件循环" href="https://fanfankill.github.io/post/shi-jian-xun-huan/">下一篇</a>
+        <a class="nav-pc-next" title="深浅拷贝" href="https://fanfankill.github.io/post/shen-qian-kao-bei/">深浅拷贝</a>
+        <a class="nav-mobile-next" title="深浅拷贝" href="https://fanfankill.github.io/post/shen-qian-kao-bei/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

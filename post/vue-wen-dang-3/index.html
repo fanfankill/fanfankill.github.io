@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title> Vue文档3 Prop | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1626858288994">
+<link rel="shortcut icon" href="/favicon.ico?v=1627020020869">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -107,7 +107,7 @@
             <li class="nav-item ">
               
               
-                <a href="/css/" target="_self">
+                <a href="tag/SPTV9Qrgr/" target="_self">
                   <i class="fa fa-globe"></i> CSS
                 </a>
               
@@ -120,8 +120,8 @@
             <li class="nav-item ">
               
               
-                <a href="/html/" target="_self">
-                  <i class="fa fa-globe"></i> HTML
+                <a href="tag/RyHRU5tQB//" target="_self">
+                  <i class="fa fa-globe"></i> 算法
                 </a>
               
             </li>
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">33</span>
+        <span class="site-item-stat-count">35</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1244,6 +1244,173 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/a-li-yun-bu-shu-node-xiang-mu/"" data-c="
+          &lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;下载node和npm并且配置环境变量&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;下载数据库并本地连接导入&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;下载Nginx并配置反向代理&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;下载pm2挂载node&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;a href=&#34;http://139.196.87.221&#34;&gt;fanfan的停车场网址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://fanfankill.github.io/post/vuenodejsmysql-kai-fa-ting-che-chang-guan-li-xi-tong/&#34;&gt;项目介绍博客&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;目前部分功能上线以后有问题，正在整改中，vue路由改为hash模式，因为后端暂时没有去做路由配置。&lt;/p&gt;
+&lt;p&gt;支持自己注册，邀请码暂时没有限制&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;项目需要改进的点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;首次加载过慢，未优化性能&lt;/li&gt;
+&lt;li&gt;头像加载有问题&lt;/li&gt;
+&lt;li&gt;某些接口上线以后出现问题，无法交互（可能数据库版本问题）&lt;/li&gt;
+&lt;li&gt;聊天系统暂时没做优化，做了个雏形出来&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;p&gt;自己第一次部署项目，碰到无数的坑，这里总结出了我碰到的坑和找到的好资源&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;没头绪的小伙伴点击这里  &lt;a href=&#34;https://www.bilibili.com/video/BV1n54y1V7Ne?p=21&#34;&gt;B站老师教学&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这个老师讲的很详细，但不免自己会遇到一些坑，根据这个视频的讲解配上下面的博客链接可以让自己少走点弯路。&lt;/p&gt;
+&lt;p&gt;准备好一个云服务器和连接工具(我用的xshell)&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;配置node和npm&#34;&gt;配置node和npm&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/huangenai/p/10815426.html&#34;&gt;参考博客&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;主要配置环境变量&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;数据库的配置连接&#34;&gt;数据库的配置连接&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.jb51.net/article/190714.htm&#34;&gt;参考博客&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一定养成 &lt;code&gt;# ls&lt;/code&gt;查看目录的习惯，这里下载的mysql版本有点低，建议自己去官网下载，如果你自己本地数据库版本过高，是导入不进去阿里云服务器的。&lt;/p&gt;
+&lt;p&gt;我是navicat远程连接的数据库，sql文件一直导入不进去就是因为版本的问题&lt;/p&gt;
+&lt;p&gt;如有导入出错的，尝试改sql文件中以下内容&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;utf8mb4_0900_ai_ci&lt;/code&gt; 改为&lt;code&gt;utf8_general_ci&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;utf8mb4&lt;/code&gt;改为&lt;code&gt;utf8&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;还有每次更新数据库版本先要卸载当前版本，不然一直给你抛错。&lt;/p&gt;
+&lt;p&gt;记得在阿里云开启安全组&lt;strong&gt;3306&lt;/strong&gt;的端口&lt;/p&gt;
+&lt;img src=&#34;C:\Users\16239\AppData\Roaming\Typora\typora-user-images\image-20210723123518577.png&#34; alt=&#34;image-20210723123518577&#34; style=&#34;zoom:150%;&#34; /&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;nginx配置&#34;&gt;Nginx配置&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_42815754/article/details/82980326&#34;&gt;参考博客&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Nginx默认80端口，阿里云安全组也记得要打开&lt;/p&gt;
+&lt;p&gt;proxy_pass  http://127.0.0.1:3000  //这是需要改的东西 最后的端口号依自己的来&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;pm2配置&#34;&gt;PM2配置&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/panbingwen/p/11664175.html&#34;&gt;参考博客&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_43442102/article/details/100544399&#34;&gt;什么是PM2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;配置后应该就可以随时访问了&lt;/p&gt;
+"> 阿里云部署node项目</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/suan-fa/"" data-c="
+          &lt;h2 id=&#34;连续子数组的最大和&#34;&gt;&lt;strong&gt;连续子数组的最大和&lt;/strong&gt;&lt;/h2&gt;
+&lt;br&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;    function FindGreatestSumOfSubArray(array)
+    {
+       
+        let temp=0
+        let max=-99999
+        let arr=[]
+
+        for(let i=0;i&amp;lt;array.length;i++)
+        {
+            
+            temp+=array[i]
+            arr.push(array[i])
+            if(temp&amp;gt;max)
+            {
+                max=temp
+            }
+            if(temp&amp;lt;0){
+                temp=0
+                arr=[]
+            }
+              
+        }
+        return max
+    }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;数组中出现次数超过一半的数字&#34;&gt;&lt;strong&gt;数组中出现次数超过一半的数字&lt;/strong&gt;&lt;/h2&gt;
+&lt;br&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function MoreThanHalfNum_Solution(numbers)
+{
+     
+     //先排序
+        numbers.sort(function (a, b) {
+            return a - b
+        })
+        console.log(numbers);
+
+        let flag = 0
+        let count = 0
+        let number
+       if(numbers.length==1)
+       {
+           return numbers[0]
+       }
+       else{
+        for (let i = 0; i &amp;lt; numbers.length - 1; i++) {
+            if (numbers[i] == numbers[i + 1]) {
+                count++
+
+                if (count &amp;gt; flag) {
+
+                    flag = count
+                    count = 0
+                    number = numbers[i]
+                }
+           
+
+            }
+            else {
+                count = 0
+
+            }
+
+
+        }
+        return number
+       }
+   
+    
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;合并两个排序的链表&#34;&gt;&lt;strong&gt;合并两个排序的链表&lt;/strong&gt;&lt;/h2&gt;
+&lt;br&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function Merge(pHead1, pHead2)
+{ // write code here
+     
+    if (pHead1 == null) {
+        return pHead2;
+    } else if (pHead2 == null) {
+        return pHead1;
+    }
+    var result = {};
+    if (pHead1.val &amp;lt; pHead2.val) {
+        result = pHead1;
+        result.next = Merge(pHead1.next, pHead2);
+    } else {
+        result = pHead2;
+        result.next = Merge(pHead1, pHead2.next);
+    }
+    return result;
+}
+&lt;/code&gt;&lt;/pre&gt;
+">算法</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/shen-qian-kao-bei/"" data-c="
@@ -3593,7 +3760,7 @@ console.log(arr.toString());//&amp;quot;[object Array]&amp;quot;
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vuenodejsmysql-kai-fa-ting-che-chang-guan-li-xi-tong/"" data-c="
           &lt;p&gt;前端github  &lt;strong&gt;https://github.com/fanfankill/depotsystem&lt;/strong&gt;&lt;br&gt;
-服务端node  &lt;strong&gt;https://github.com/fanfankill/depotsystem_nodejs&lt;/strong&gt;&lt;/p&gt;
+服务端node整合   &lt;strong&gt;https://github.com/fanfankill/DeportCar.git&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;522-529&#34;&gt;&lt;strong&gt;5.22-5.29&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;对于车位管理页面完成了以下功能&lt;/p&gt;
 &lt;ul&gt;
