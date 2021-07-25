@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1627052998957">
+<link rel="shortcut icon" href="/favicon.ico?v=1627189919798">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -1178,13 +1178,38 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
 &lt;p&gt;&lt;a href=&#34;https://fanfankill.github.io/post/vuenodejsmysql-kai-fa-ting-che-chang-guan-li-xi-tong/&#34;&gt;项目介绍博客&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;目前部分功能上线以后有问题，正在整改中，vue路由改为hash模式，因为后端暂时没有去做路由配置。&lt;/p&gt;
 &lt;p&gt;支持自己注册，邀请码暂时没有限制&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;测试账号：19198001091
+
+测试密码：20010620
+&lt;/code&gt;&lt;/pre&gt;
 &lt;br&gt;
 &lt;p&gt;项目需要改进的点&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;首次加载过慢，未优化性能 (估计路由懒加载还是不够)&lt;/li&gt;
-&lt;li&gt;头像加载有问题 =&amp;gt;头像问题解决&lt;/li&gt;
-&lt;li&gt;某些接口上线以后出现问题，无法交互（可能数据库版本问题）&lt;/li&gt;
-&lt;li&gt;聊天系统暂时没优化，做了个雏形出来&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;首次加载过慢，未优化性能 （好像只能谷歌进？）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;头像加载有问题 （头像接口已改 目前在研究如何优化这个接口）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;某些接口上线以后出现问题，无法交互（可能数据库版本问题）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;获取临时车接口问题 报错显示group by语句有误 （线下都好好的）已修复&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;续费接口问题 报错插入的时间格式不正确  用的moment.js计算的时间，果然线下线上差别还是有点大&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ER_TRUNCATED_WRONG_VALUE: Incorrect datetime value: &#39;2023-08-07T16:37:39+08:00&#39; for column &#39;DueDate&#39; at&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;row 1&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;时间问题解决 改成标准的&lt;code&gt;&#39;YYYY-MM-DD HH:mm:ss&#39;&lt;/code&gt;模式&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;聊天系统暂时没优化，做了个雏形出来&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;br&gt;
 &lt;p&gt;自己第一次部署项目，碰到无数的坑，这里总结出了我碰到的坑和找到的好资源&lt;/p&gt;
@@ -1208,7 +1233,6 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
 &lt;br&gt;
 &lt;p&gt;还有每次更新数据库版本先要卸载当前版本，不然一直给你抛错。&lt;/p&gt;
 &lt;p&gt;记得在阿里云开启安全组&lt;strong&gt;3306&lt;/strong&gt;的端口&lt;/p&gt;
-&lt;img src=&#34;C:\Users\16239\AppData\Roaming\Typora\typora-user-images\image-20210723123518577.png&#34; alt=&#34;image-20210723123518577&#34; style=&#34;zoom:150%;&#34; /&gt;
 &lt;br&gt;
 &lt;h2 id=&#34;nginx配置&#34;&gt;Nginx配置&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_42815754/article/details/82980326&#34;&gt;参考博客&lt;/a&gt;&lt;/p&gt;
