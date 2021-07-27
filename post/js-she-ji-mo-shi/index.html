@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1627189919798">
+<link rel="shortcut icon" href="/favicon.ico?v=1627372669687">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">35</span>
+        <span class="site-item-stat-count">36</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1156,6 +1156,69 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-wen-dang-cha-jian/"" data-c="
+          &lt;p&gt;插件通常用来为 Vue 添加全局功能。插件的功能范围没有严格的限制——一般有下面几种：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;添加全局方法或者 property。如：&lt;a href=&#34;https://github.com/karol-f/vue-custom-element&#34;&gt;vue-custom-element&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;添加全局资源：指令/过滤器/过渡等。如 &lt;a href=&#34;https://github.com/vuejs/vue-touch&#34;&gt;vue-touch&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;通过全局混入来添加一些组件选项。如 &lt;a href=&#34;https://github.com/vuejs/vue-router&#34;&gt;vue-router&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;添加 Vue 实例方法，通过把它们添加到 &lt;code&gt;Vue.prototype&lt;/code&gt; 上实现。&lt;/li&gt;
+&lt;li&gt;一个库，提供自己的 API，同时提供上面提到的一个或多个功能。如 vue-router&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;Vue.use()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;它需要在你调用 &lt;code&gt;new Vue()&lt;/code&gt; 启动应用之前完成：&lt;/p&gt;
+&lt;p&gt;有些组件经常会用这个去注册&lt;/p&gt;
+&lt;p&gt;主要因为其中注册的组件都有一个叫 &lt;code&gt;install&lt;/code&gt; 的方法&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Vue.use&lt;/code&gt; 会自动阻止多次注册相同插件&lt;/p&gt;
+&lt;p&gt;Vue.use()会默认调用这个方法去注册，同时传一个 Vue 这个类的参数。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// 引入组件
+import LoadingComponent from &#39;./loading.vue&#39;
+// 定义 Loading 对象
+const Loading={
+    // install 是默认的方法。当外界在 use 这个组件的时候，就会调用本身的 install 方法，同时传一个 Vue 这个类的参数。
+    install:function(Vue){
+        Vue.component(&#39;Loading&#39;,LoadingComponent)
+    }
+}
+// 导出
+export default Loading
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;Vue.mixin()&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;vue中提供了一种混合机制--mixins，用来更高效的实现组件内容的复用。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;组件在引用之后相当于&lt;strong&gt;在父组件内开辟了一块单独的空间&lt;/strong&gt;，来根据父组件props过来的值进行相应的操作，单本质上两者还是&lt;strong&gt;泾渭分明&lt;/strong&gt;，相对独立。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let mixin={
+    data(){
+        return{
+            msg:1
+        }
+    },
+    methods:{
+        foo(){
+            console.log(&#39;hello from mixin!----&#39;+this.msg++)
+        }
+    }
+}
+var child=Vue.component(&#39;child&#39;,{ 
+        template:`&amp;lt;h1 @click=&amp;quot;foo&amp;quot;&amp;gt;child component&amp;lt;/h1&amp;gt;`, 
+        mixins:[mixin]
+})
+Vue.component(&#39;kid&#39;,{ 
+        template:`&amp;lt;h1 @click=&amp;quot;foo&amp;quot;&amp;gt;kid component&amp;lt;/h1&amp;gt;`, 
+        mixins:[mixin]
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;但引入的都是开辟独立空间的一块内存，所以不会共用，类似把有相同的方法和属性共享写出去。&lt;/p&gt;
+&lt;h2 id=&#34;方法的覆盖&#34;&gt;方法的覆盖&lt;/h2&gt;
+&lt;p&gt;如果在引用mixins的同时，在组件中重复定义相同的方法，则mixins中的方法会被覆盖。&lt;/p&gt;
+&lt;h2 id=&#34;合并生命周期&#34;&gt;合并生命周期&lt;/h2&gt;
+&lt;p&gt;与组件里面的生命周期会进行合并&lt;/p&gt;
+"> Vue文档 插件</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/a-li-yun-bu-shu-node-xiang-mu/"" data-c="
