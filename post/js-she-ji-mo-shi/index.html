@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1627372669687">
+<link rel="shortcut icon" href="/favicon.ico?v=1627564593611">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">36</span>
+        <span class="site-item-stat-count">37</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1156,6 +1156,344 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/es6-kai-pian/"" data-c="
+          &lt;p&gt;&lt;code&gt;let&lt;/code&gt; 暂时性死区&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var tmp = 123;
+
+if (true) {
+  tmp = &#39;abc&#39;; // ReferenceError
+  let tmp;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;const&lt;/code&gt;主要注意数组，对象内部值的改变&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Object.freeze&lt;/code&gt;对象冻结&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;字符串拓展&#34;&gt;字符串拓展&lt;/h2&gt;
+&lt;p&gt;模板字符串&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;`Hello ${name}, how are you ${time}?`
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;模板编译&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let template = `
+&amp;lt;ul&amp;gt;
+  &amp;lt;% for(let i=0; i &amp;lt; data.supplies.length; i++) { %&amp;gt;
+    &amp;lt;li&amp;gt;&amp;lt;%= data.supplies[i] %&amp;gt;&amp;lt;/li&amp;gt;
+  &amp;lt;% } %&amp;gt;
+&amp;lt;/ul&amp;gt;
+`;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;使用&lt;code&gt;&amp;lt;%= ... %&amp;gt;&lt;/code&gt;输出 JavaScript 表达式。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;includes&#34;&gt;&lt;code&gt;includes()&lt;/code&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;includes()&lt;/strong&gt;：返回布尔值，表示是否找到了参数字符串。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;startsWith()&lt;/strong&gt;：返回布尔值，表示参数字符串是否在原字符串的头部。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;endsWith()&lt;/strong&gt;：返回布尔值，表示参数字符串是否在原字符串的尾部&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let s = &#39;Hello world!&#39;;
+
+s.startsWith(&#39;Hello&#39;) // true
+s.endsWith(&#39;!&#39;) // true
+s.includes(&#39;o&#39;) // true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这三个方法都支持第二个参数，表示开始搜索的位置。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;repeat&#34;&gt;&lt;code&gt;repeat&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;repeat&lt;/code&gt;方法返回一个新字符串，表示将原字符串重复&lt;code&gt;n&lt;/code&gt;次。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;&#39;x&#39;.repeat(3) // &amp;quot;xxx&amp;quot;
+&#39;hello&#39;.repeat(2) // &amp;quot;hellohello&amp;quot;
+&#39;na&#39;.repeat(0) // &amp;quot;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;padstarpadend&#34;&gt;&lt;code&gt;padStar()，padEnd()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;padStart()&lt;/code&gt;用于头部补全，&lt;code&gt;padEnd()&lt;/code&gt;用于尾部补全。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;&#39;x&#39;.padStart(5, &#39;ab&#39;) // &#39;ababx&#39;
+&#39;x&#39;.padStart(4, &#39;ab&#39;) // &#39;abax&#39;
+
+&#39;x&#39;.padEnd(5, &#39;ab&#39;) // &#39;xabab&#39;
+&#39;x&#39;.padEnd(4, &#39;ab&#39;) // &#39;xaba&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;trimstarttrimend&#34;&gt;&lt;code&gt;trimStart()，trimEnd()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;trim()&lt;/code&gt;方法的分解版&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const s = &#39;  abc  &#39;;
+
+s.trim() // &amp;quot;abc&amp;quot;
+s.trimStart() // &amp;quot;abc  &amp;quot;
+s.trimEnd() // &amp;quot;  abc&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;replaceall&#34;&gt;&lt;code&gt;replaceAll()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;replace&lt;/code&gt;只替换第一匹配的&lt;/p&gt;
+&lt;p&gt;这个替换所以匹配的&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;&#39;aabbcc&#39;.replace(/b/g, &#39;_&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;函数拓展&#34;&gt;函数拓展&lt;/h2&gt;
+&lt;p&gt;ES6默认值的加入&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Point(x = 0, y = 0) {
+  this.x = x;
+  this.y = y;
+  //参数变量是默认声明的，所以不能用let或const再次声明。
+  let x = 1; // error
+}
+
+const p = new Point();
+p // { x: 0, y: 0 }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;解构赋值&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 写法一
+function m1({x = 0, y = 0} = {}) {
+  return [x, y];
+}
+
+// 写法二
+function m2({x, y} = { x: 0, y: 0 }) {
+  return [x, y];
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;区别&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 函数没有参数的情况
+m1() // [0, 0]
+m2() // [0, 0]
+
+// x 和 y 都有值的情况
+m1({x: 3, y: 8}) // [3, 8]
+m2({x: 3, y: 8}) // [3, 8]
+
+// x 有值，y 无值的情况
+m1({x: 3}) // [3, 0]
+m2({x: 3}) // [3, undefined]
+
+// x 和 y 都无值的情况
+m1({}) // [0, 0];
+m2({}) // [undefined, undefined]
+
+m1({z: 3}) // [0, 0]
+m2({z: 3}) // [undefined, undefined]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;rest参数&#34;&gt;rest参数&lt;/h3&gt;
+&lt;p&gt;rest 参数代替&lt;code&gt;arguments&lt;/code&gt;变量的例子&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// arguments变量的写法
+function sortNumbers() {
+  return Array.prototype.slice.call(arguments).sort();
+}
+
+// rest参数的写法
+const sortNumbers = (...numbers) =&amp;gt; numbers.sort();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;arguments&lt;/code&gt;对象不是数组，而是一个类似数组的对象。所以为了使用数组的方法，必须使用&lt;code&gt;Array.prototype.slice.call&lt;/code&gt;先将其转为数组.rest 参数就不存在这个问题，它就是一个真正的数组，数组特有的方法都可以使用。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意，rest 参数之后不能再有其他参数&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;name属性&#34;&gt;name属性&lt;/h3&gt;
+&lt;p&gt;函数的&lt;code&gt;name&lt;/code&gt;属性，返回该函数的函数名。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function foo() {}
+foo.name // &amp;quot;foo&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;箭头函数&#34;&gt;箭头函数&lt;/h3&gt;
+&lt;p&gt;一行代码的情况&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 普通函数写法
+var result = values.sort(function (a, b) {
+  return a - b;
+});
+
+// 箭头函数写法
+var result = values.sort((a, b) =&amp;gt; a - b);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;注意点&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;（1）箭头函数没有自己的&lt;code&gt;this&lt;/code&gt;对象，内部的&lt;code&gt;this&lt;/code&gt;就是定义时上层作用域中的&lt;code&gt;this&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;（2）不可以当作构造函数，也就是说，不可以对箭头函数使用&lt;code&gt;new&lt;/code&gt;命令，否则会抛出一个错误。&lt;/p&gt;
+&lt;p&gt;（3）不可以使用&lt;code&gt;arguments&lt;/code&gt;对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。&lt;/p&gt;
+&lt;p&gt;（4）不可以使用&lt;code&gt;yield&lt;/code&gt;命令，因此箭头函数不能用作 Generator 函数。&lt;/p&gt;
+&lt;br&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function foo() {
+  setTimeout(() =&amp;gt; {
+    console.log(&#39;id:&#39;, this.id);
+  }, 100);
+}
+
+var id = 21;
+
+foo.call({ id: 42 });
+// id: 42
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;箭头函数导致&lt;code&gt;this&lt;/code&gt;总是指向函数定义生效时所在的对象，所以打印42&lt;/p&gt;
+&lt;p&gt;对象的属性建议使用传统的写法定义，不要用箭头函数定义。&lt;/p&gt;
+&lt;h3 id=&#34;尾调用-递归&#34;&gt;尾调用 、递归&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function f(x){
+  return g(x);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;非尾递归的 Fibonacci 数列实现如下。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Fibonacci (n) {
+  if ( n &amp;lt;= 1 ) {return 1};
+
+  return Fibonacci(n - 1) + Fibonacci(n - 2);
+}
+
+Fibonacci(10) // 89
+Fibonacci(100) // 超时
+Fibonacci(500) // 超时
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;尾递归优化过的 Fibonacci 数列实现如下。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Fibonacci2 (n , ac1 = 1 , ac2 = 1) {
+  if( n &amp;lt;= 1 ) {return ac2};
+
+  return Fibonacci2 (n - 1, ac2, ac1 + ac2);
+}
+
+Fibonacci2(100) // 573147844013817200000
+Fibonacci2(1000) // 7.0330367711422765e+208
+Fibonacci2(10000) // Infinity
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;数组拓展&#34;&gt;数组拓展&lt;/h3&gt;
+&lt;p&gt;数组克隆&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const a1 = [1, 2];
+// 写法一
+const a2 = [...a1];
+// 写法二
+const [...a2] = a1;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;数组合并&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const arr1 = [&#39;a&#39;, &#39;b&#39;];
+const arr2 = [&#39;c&#39;];
+const arr3 = [&#39;d&#39;, &#39;e&#39;];
+
+// ES5 的合并数组
+arr1.concat(arr2, arr3);
+// [ &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39; ]
+
+// ES6 的合并数组
+[...arr1, ...arr2, ...arr3]
+// [ &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39; ]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;arraryfron&#34;&gt;&lt;code&gt;Arrary.fron()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;类数组的转换&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;let arrayLike = {
+    &#39;0&#39;: &#39;a&#39;,
+    &#39;1&#39;: &#39;b&#39;,
+    &#39;2&#39;: &#39;c&#39;,
+    length: 3
+};
+
+// ES5的写法
+var arr1 = [].slice.call(arrayLike); // [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+
+// ES6的写法
+let arr2 = Array.from(arrayLike); // [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;arrayof&#34;&gt;&lt;code&gt;Array.of()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;用于将一组值，转换为数组。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Array.of(3, 11, 8) // [3,11,8]
+Array.of(3) // [3]
+Array.of(3).length // 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Array() // []
+Array(3) // [, , ,]
+Array(3, 11, 8) // [3, 11, 8]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;Array()&lt;/code&gt;方法没有参数、一个参数、三个参数时，返回的结果都不一样。只有当参数个数不少于 2 个时，&lt;code&gt;Array()&lt;/code&gt;才会返回由参数组成的新数组。参数只有一个正整数时，实际上是指定数组的长度。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;copywithin&#34;&gt;&lt;code&gt;copyWithin()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;使用这个方法，会修改当前数组。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Array.prototype.copyWithin(target, start = 0, end = this.length)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;它接受三个参数。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;target（必需）：从该位置开始替换数据。如果为负值，表示倒数。&lt;/li&gt;
+&lt;li&gt;start（可选）：从该位置开始读取数据，默认为 0。如果为负值，表示从末尾开始计算。&lt;/li&gt;
+&lt;li&gt;end（可选）：到该位置前停止读取数据，默认等于数组长度。如果为负值，表示从末尾开始计算。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;/ 将3号位复制到0号位
+[1, 2, 3, 4, 5].copyWithin(0, 3, 4)
+// [4, 2, 3, 4, 5]
+
+// -2相当于3号位，-1相当于4号位
+[1, 2, 3, 4, 5].copyWithin(0, -2, -1)
+// [4, 2, 3, 4, 5]
+
+// 将3号位复制到0号位
+[].copyWithin.call({length: 5, 3: 1}, 0, 3)
+// {0: 1, 3: 1, length: 5}
+
+// 将2号位到数组结束，复制到0号位
+let i32a = new Int32Array([1, 2, 3, 4, 5]);
+i32a.copyWithin(0, 2);
+// Int32Array [3, 4, 5, 4, 5]
+
+// 对于没有部署 TypedArray 的 copyWithin 方法的平台
+// 需要采用下面的写法
+[].copyWithin.call(new Int32Array([1, 2, 3, 4, 5]), 0, 3, 4);
+// Int32Array [4, 2, 3, 4, 5]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;find和findindex&#34;&gt;&lt;code&gt;find()&lt;/code&gt;和&lt;code&gt;findIndex()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;find&lt;/code&gt;方法，用于找出第一个符合条件的数组成员。如果没有符合条件的成员，则返回&lt;code&gt;undefined&lt;/code&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[1, 4, -5, 10].find((n) =&amp;gt; n &amp;lt; 0)
+// -5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;findIndex&lt;/code&gt;方法的用法与&lt;code&gt;find&lt;/code&gt;方法非常类似，返回第一个符合条件的数组成员的位置，如果所有成员都不符合条件，则返回&lt;code&gt;-1&lt;/code&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[1, 5, 10, 15].findIndex(function(value, index, arr) {
+  return value &amp;gt; 9;
+}) // 2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;fill&#34;&gt;&lt;code&gt;fill()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;fill&lt;/code&gt;方法使用给定值，填充一个数组。用于空数组的初始化非常方便。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;].fill(7)
+// [7, 7, 7]
+
+new Array(3).fill(7)
+// [7, 7, 7]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;fill&lt;/code&gt;方法还可以接受第二个和第三个参数，用于指定填充的起始位置和结束位置。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;].fill(7, 1, 2)
+// [&#39;a&#39;, 7, &#39;c&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;includes-2&#34;&gt;&lt;code&gt;includes()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;返回一个布尔值，表示某个数组是否包含给定的值&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[1, 2, 3].includes(2)     // true
+[1, 2, 3].includes(4)     // false
+[1, 2, NaN].includes(NaN) // true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;flag-flagmap&#34;&gt;&lt;code&gt;flag()&lt;/code&gt; 、&lt;code&gt;flagMap()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;用于将嵌套的数组“拉平”，变成一维的数组。该方法返回一个新数组，对原数据没有影响。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[1, 2, [3, 4]].flat()
+// [1, 2, 3, 4]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;flat()&lt;/code&gt;默认只会“拉平”一层，如果想要“拉平”多层的嵌套数组，可以将&lt;code&gt;flat()&lt;/code&gt;方法的参数写成一个整数，表示想要拉平的层数，默认为1。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;[1, 2, [3, [4, 5]]].flat()
+// [1, 2, 3, [4, 5]]
+
+[1, 2, [3, [4, 5]]].flat(2)
+// [1, 2, 3, 4, 5]
+
+
+//如果不管有多少层嵌套，都要转成一维数组，可以用Infinity关键字作为参数。
+[1, [2, [3]]].flat(Infinity)
+// [1, 2, 3]
+
+//如果原数组有空位，flat()方法会跳过空位。
+[1, 2, , 4, 5].flat()
+// [1, 2, 4, 5]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;flatMap()&lt;/code&gt;方法对原数组的每个成员执行一个函数&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;flatMap()&lt;/code&gt;只能展开一层数组。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 相当于 [[[2]], [[4]], [[6]], [[8]]].flat()
+[1, 2, 3, 4].flatMap(x =&amp;gt; [[x * 2]])
+// [[2], [4], [6], [8]]
+&lt;/code&gt;&lt;/pre&gt;
+">ES6开篇</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-wen-dang-cha-jian/"" data-c="
