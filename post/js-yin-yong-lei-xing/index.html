@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>VUE 前置导航守卫 | fanfan</title>
+<title>JS引用类型 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1627622968463">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="VUE 前置导航守卫" />
-  <meta name="keywords" content="vue" />
+  <meta name="description" content="JS引用类型" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -282,9 +282,36 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB">路由守卫</a>
+<li>
 <ul>
-<li><a href="#%E5%BD%93token%E4%B8%8D%E5%AD%98%E5%9C%A8%E6%97%B6-%E8%B7%B3%E8%BD%AC%E5%88%B0%E7%99%BB%E9%99%86%E7%95%8C%E9%9D%A2">当token不存在时 跳转到登陆界面</a></li>
+<li><a href="#object">Object</a>
+<ul>
+<li><a href="#%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95">表示方法</a></li>
+<li><a href="#%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F">访问方式</a></li>
+</ul>
+</li>
+<li><a href="#array">Array</a>
+<ul>
+<li><a href="#%E8%A1%A8%E7%A4%BA%E5%BD%A2%E5%BC%8F">表示形式</a></li>
+<li><a href="#%E6%A3%80%E6%9F%A5%E6%95%B0%E7%BB%84">检查数组</a></li>
+<li><a href="#%E8%BD%AC%E6%8D%A2%E6%96%B9%E6%B3%95">转换方法</a></li>
+<li><a href="#join"><code>join()</code></a></li>
+<li><a href="#pop-push-shift-unshift"><code>pop() push() shift() unshift()</code></a></li>
+<li><a href="#%E9%87%8D%E6%8E%92%E5%BA%8F%E6%96%B9%E6%B3%95">重排序方法</a></li>
+<li><a href="#%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95">操作方法</a></li>
+<li><a href="#%E4%BD%8D%E7%BD%AE%E6%96%B9%E6%B3%95">位置方法</a></li>
+<li><a href="#indexof-lastindexof"><code>indexOf() lastIndexOf()</code></a></li>
+<li><a href="#%E8%BF%AD%E4%BB%A3%E6%96%B9%E6%B3%95">迭代方法</a></li>
+<li><a href="#%E5%BD%92%E5%B9%B6%E6%96%B9%E6%B3%95">归并方法</a></li>
+</ul>
+</li>
+<li><a href="#date%E7%B1%BB%E5%9E%8B">Date类型</a></li>
+<li><a href="#function">Function</a>
+<ul>
+<li><a href="#%E5%87%BD%E6%95%B0%E5%86%85%E9%83%A8%E5%B1%9E%E6%80%A7">函数内部属性</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E5%B1%9E%E6%80%A7%E5%92%8C%E6%96%B9%E6%B3%95">函数属性和方法</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -552,8 +579,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/vue-qian-zhi-dao-hang-shou-wei/">
-      VUE 前置导航守卫
+    <a class="post-title-link" href="https://fanfankill.github.io/post/js-yin-yong-lei-xing/">
+      JS引用类型
     </a>
   </h1>
   <div class="post-meta">
@@ -561,54 +588,206 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-04-07 19:48:49">2021-04-07</span>
+      <span class="publish-time" data-t="2021-07-30 13:09:41">2021-07-30</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show language" data-lan="category-in">分类于</span>
-      
-      
-      <a href="https://fanfankill.github.io/tag/YjLqWgkox/">
-        <span>vue</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>1<span class="language" data-lan="minute">分钟</span></span>
+      <span>6<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>67<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1242<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h1 id="路由守卫">路由守卫</h1>
-<h2 id="当token不存在时-跳转到登陆界面">当token不存在时 跳转到登陆界面</h2>
-<p><strong>只有登录界面时 (不考虑注册等其他界面)</strong></p>
-<pre><code class="language-router.beforeEach((to,from,next)=&gt;{">  let token=localStorage.getItem(&quot;token&quot;);
-  if(token){//判断是否登录
-    next()
-  }
+              <h2 id="object">Object</h2>
+<h3 id="表示方法">表示方法</h3>
+<ul>
+<li>
+<p>new 操作符后跟 Object 构造函数</p>
+<p><code>var person = new Object();</code></p>
+</li>
+<li>
+<p>使用对象字面量表示法</p>
+<p><code>var person = { name : &quot;Nicholas&quot;, age : 29 };</code></p>
+</li>
+</ul>
+<br>
+<h3 id="访问方式">访问方式</h3>
+<pre><code class="language-javascript">alert(person[&quot;name&quot;]); //&quot;Nicholas&quot; 
 
-  else{
-    if(to.path!=='/login'){
-      alert(&quot;请先登录&quot;)
-      next({path:'/login'})
-    }
-    else{
-      next()
-    }
-  }
-});
+alert(person.name); //&quot;Nicholas&quot; 
+
+</code></pre>
+<br>
+<br>
+<h2 id="array">Array</h2>
+<h3 id="表示形式">表示形式</h3>
+<ul>
+<li><code>var colors = new Array(20);</code></li>
+<li><code>var colors = new Array(&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;);</code></li>
+<li><code>var colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];</code></li>
+</ul>
+<br>
+<h3 id="检查数组">检查数组</h3>
+<ul>
+<li><code>if (value instanceof Array){ //对数组执行某些操作 }</code></li>
+<li><code>Array.isArray()方法</code></li>
+<li><code>Object.prototype.tostring.call(this)</code></li>
+</ul>
+<br>
+<h3 id="转换方法">转换方法</h3>
+<ul>
+<li><code>alert(colors.toString()); // red,blue,green</code></li>
+<li><code>alert(colors.valueOf()); // red,blue,green</code></li>
+<li><code>alert(colors); // red,blue,green</code></li>
+</ul>
+<br>
+<h3 id="join"><code>join()</code></h3>
+<pre><code class="language-js">var colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;]; 
+alert(colors.join(&quot;,&quot;)); //red,green,blue 
+alert(colors.join(&quot;||&quot;)); //red||green||blue 
+</code></pre>
+<br>
+<h3 id="pop-push-shift-unshift"><code>pop() push() shift() unshift()</code></h3>
+<pre><code class="language-js">var colors = new Array(); //创建一个数组
+var count = colors.unshift(&quot;red&quot;, &quot;green&quot;);
+count = colors.unshift(&quot;black&quot;); 
+
+//数组中各项的顺序为&quot;black&quot;、&quot;red&quot;、&quot;green&quot;。
+
+</code></pre>
+<br>
+<h3 id="重排序方法">重排序方法</h3>
+<p><code>reverse()</code>会反转数组项的顺序</p>
+<pre><code class="language-js">var values = [1, 2, 3, 4, 5]; 
+values.reverse(); 
+alert(values); //5,4,3,2,1
+</code></pre>
+<br>
+<p><code>sort()</code></p>
+<p>sort()方法会调用每个数组项的 toString()转型方法，然后比较得到的字符串，以 确定如何排序。</p>
+<pre><code class="language-js">var values = [0, 1, 5, 10, 15]; 
+values.sort(); 
+alert(values); //0,1,10,15,5 
+</code></pre>
+<p>改造</p>
+<pre><code class="language-js">var values = [0, 1, 5, 10, 15]; 
+values.sort((a,b)=&gt;{
+    return a-b
+}); 
+alert(values); //0,1,5,10,15 
+</code></pre>
+<br>
+<h3 id="操作方法">操作方法</h3>
+<p><code>concat()</code></p>
+<p>这个方法会先创建当前数组一个副本，然后将接收到的参数 添加到这个副本的末尾，最后返回新构建的数组。</p>
+<pre><code class="language-js">var colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;]; 
+var colors2 = colors.concat(&quot;yellow&quot;, [&quot;black&quot;, &quot;brown&quot;]); 
+
+alert(colors); //red,green,blue 
+alert(colors2); //red,green,blue,yellow,black,brown 
+</code></pre>
+<br>
+<p><code>splice()</code></p>
+<p>splice()方法始终都会返回一个数组，该数组中包含从原始数组中删除的项</p>
+<ul>
+<li>第一参数是开始位置</li>
+<li>第二个参数是删除项</li>
+<li>第三个参数是从开始位置往后插入项</li>
+</ul>
+<pre><code class="language-js">var colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;];
+
+colors.splice(1, 1, &quot;red&quot;, &quot;purple&quot;); 
+
+alert(colors); // red,red,purple,blue 
+
+</code></pre>
+<br>
+<h3 id="位置方法">位置方法</h3>
+<h3 id="indexof-lastindexof"><code>indexOf() lastIndexOf()</code></h3>
+<p><code>indexOf()</code>查找到第一个符合的返回index，未找到为-1</p>
+<p><code>lastIndexOf()</code>查找到最后一个符合的返回index，未找到为-1</p>
+<p>第一个参数为查找对象 第二个参数为开始位置</p>
+<br>
+<h3 id="迭代方法">迭代方法</h3>
+<ul>
+<li>every()：对数组中的每一项运行给定函数，如果该函数对每一项都返回 true，则返回 true。</li>
+<li>filter()：对数组中的每一项运行给定函数，返回该函数会返回 true 的项组成的数组。</li>
+<li>forEach()：对数组中的每一项运行给定函数。这个方法没有返回值</li>
+<li>map()：对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组。</li>
+<li>some()：对数组中的每一项运行给定函数，如果该函数对任一项返回 true，则返回 true</li>
+</ul>
+<p><code>map()</code></p>
+<pre><code class="language-js">var numbers = [1,2,3,4,5,4,3,2,1]; 
+var mapResult = numbers.map(function(item, index, array){ 
+ return item * 2; 
+}); 
+alert(mapResult); //[2,4,6,8,10,8,6,4,2] 
+</code></pre>
+<br>
+<h3 id="归并方法">归并方法</h3>
+<p><code>reduce() redunceRight()</code></p>
+<p>reduce()方法从数组的第一项开始，逐个遍历 到最后。而 reduceRight()则从数组的最后一项开始，向前遍历到第一项。</p>
+<pre><code class="language-js">var values = [1,2,3,4,5]; 
+var sum = values.reduce(function(prev, cur, index, array){ 
+ return prev + cur; 
+}); 
+alert(sum); //15 
+</code></pre>
+<br>
+<h2 id="date类型">Date类型</h2>
+<p>创建</p>
+<p><code>var now = new Date();</code></p>
+<pre><code class="language-js">// 本地时间 2000 年 1 月 1 日午夜零时
+var y2k = new Date(2000, 0); 
+</code></pre>
+<p><code>Date.parse()</code>接收一个表示日期的字符串参数，然后尝试根据这个字符串返回相应日 期的毫秒数</p>
+<p>Date 类型的 toLocaleString()方法会按照与浏览器 设置的地区相适应的格式返回日期和时间</p>
+<p><img src="https://fanfankill.github.io/post-images/1627622953316.png" alt="" loading="lazy">!</p>
+<br>
+<h2 id="function">Function</h2>
+<p>无重载</p>
+<p>一个函数可以作为另一个函数的参数传递</p>
+<p>函数内部属性<code>arguments</code>  和  <code>this</code></p>
+<p>arguments 的主要用途是保存函数参数</p>
+<p>这个对象还有一个名叫 callee 的属性，该属性是一个指针，指向拥有这个 arguments 对象的函数。</p>
+<br>
+<h3 id="函数内部属性">函数内部属性</h3>
+<p>这个对象还有一个名叫 callee 的属性，该属性是一个指针，指向拥有这个 arguments 对象的函数。</p>
+<pre><code class="language-js">window.color = &quot;red&quot;; 
+var o = { color: &quot;blue&quot; }; 
+function sayColor(){ 
+ alert(this.color); 
+} 
+sayColor(); //&quot;red&quot; 
+o.sayColor = sayColor; 
+o.sayColor(); //&quot;blue&quot; 
+</code></pre>
+<br>
+<h3 id="函数属性和方法">函数属性和方法</h3>
+<p>每个函数都包含两个 属性：length 和 prototype</p>
+<p>length 属性表示函数希望接收的命名参数的个数</p>
+<p>prototype 属性是不可枚举的，因此使用 for-in 无法发现</p>
+<br>
+<p>每个函数都包含两个非继承而来的方法：apply()和 call()。</p>
+<p>apply()方法接收两个参数：一个 是在其中运行函数的作用域，另一个是参数数组</p>
+<p>call()第一个参数是 this 值，其余参数都直接传递给函数</p>
+<p>真正强大的地方是能够扩充函数 赖以运行的作用域</p>
+<pre><code class="language-js">window.color = &quot;red&quot;; 
+var o = { color: &quot;blue&quot; }; 
+function sayColor(){ 
+ alert(this.color); 
+} 
+sayColor(); //red 
+sayColor.call(this); //red 
+sayColor.call(window); //red 
+sayColor.call(o); //blue 
 </code></pre>
 
             </div>
@@ -622,7 +801,7 @@
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/vue-qian-zhi-dao-hang-shou-wei/" title="VUE 前置导航守卫">https://fanfankill.github.io/post/vue-qian-zhi-dao-hang-shou-wei/</a>
+      <a href="https://fanfankill.github.io/post/js-yin-yong-lei-xing/" title="JS引用类型">https://fanfankill.github.io/post/js-yin-yong-lei-xing/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -631,21 +810,15 @@
   </ul>
   <div class="tags">
     
-      <a href="https://fanfankill.github.io/tag/YjLqWgkox/"># vue</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="正则表达式" href="https://fanfankill.github.io/post/zheng-ze-biao-da-shi/">正则表达式</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="正则表达式" href="https://fanfankill.github.io/post/zheng-ze-biao-da-shi/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="牛客" href="https://fanfankill.github.io/post/niu-ke-cuo-ti/">牛客</a>
-        <a class="nav-mobile-next" title="牛客" href="https://fanfankill.github.io/post/niu-ke-cuo-ti/">下一篇</a>
+        <a class="nav-pc-next" title="ES6开篇" href="https://fanfankill.github.io/post/es6-kai-pian/">ES6开篇</a>
+        <a class="nav-mobile-next" title="ES6开篇" href="https://fanfankill.github.io/post/es6-kai-pian/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

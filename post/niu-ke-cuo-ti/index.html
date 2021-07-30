@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>牛客 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1627565845203">
+<link rel="shortcut icon" href="/favicon.ico?v=1627622968463">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">37</span>
+        <span class="site-item-stat-count">38</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1118,6 +1118,195 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js-yin-yong-lei-xing/"" data-c="
+          &lt;h2 id=&#34;object&#34;&gt;Object&lt;/h2&gt;
+&lt;h3 id=&#34;表示方法&#34;&gt;表示方法&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;new 操作符后跟 Object 构造函数&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;var person = new Object();&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;使用对象字面量表示法&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;var person = { name : &amp;quot;Nicholas&amp;quot;, age : 29 };&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;访问方式&#34;&gt;访问方式&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;alert(person[&amp;quot;name&amp;quot;]); //&amp;quot;Nicholas&amp;quot; 
+
+alert(person.name); //&amp;quot;Nicholas&amp;quot; 
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;array&#34;&gt;Array&lt;/h2&gt;
+&lt;h3 id=&#34;表示形式&#34;&gt;表示形式&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;var colors = new Array(20);&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;var colors = new Array(&amp;quot;red&amp;quot;, &amp;quot;blue&amp;quot;, &amp;quot;green&amp;quot;);&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;var colors = [&amp;quot;red&amp;quot;, &amp;quot;blue&amp;quot;, &amp;quot;green&amp;quot;];&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;检查数组&#34;&gt;检查数组&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;if (value instanceof Array){ //对数组执行某些操作 }&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Array.isArray()方法&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Object.prototype.tostring.call(this)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;转换方法&#34;&gt;转换方法&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;alert(colors.toString()); // red,blue,green&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;alert(colors.valueOf()); // red,blue,green&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;alert(colors); // red,blue,green&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;join&#34;&gt;&lt;code&gt;join()&lt;/code&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var colors = [&amp;quot;red&amp;quot;, &amp;quot;green&amp;quot;, &amp;quot;blue&amp;quot;]; 
+alert(colors.join(&amp;quot;,&amp;quot;)); //red,green,blue 
+alert(colors.join(&amp;quot;||&amp;quot;)); //red||green||blue 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;pop-push-shift-unshift&#34;&gt;&lt;code&gt;pop() push() shift() unshift()&lt;/code&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var colors = new Array(); //创建一个数组
+var count = colors.unshift(&amp;quot;red&amp;quot;, &amp;quot;green&amp;quot;);
+count = colors.unshift(&amp;quot;black&amp;quot;); 
+
+//数组中各项的顺序为&amp;quot;black&amp;quot;、&amp;quot;red&amp;quot;、&amp;quot;green&amp;quot;。
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;重排序方法&#34;&gt;重排序方法&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;reverse()&lt;/code&gt;会反转数组项的顺序&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var values = [1, 2, 3, 4, 5]; 
+values.reverse(); 
+alert(values); //5,4,3,2,1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;sort()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;sort()方法会调用每个数组项的 toString()转型方法，然后比较得到的字符串，以 确定如何排序。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var values = [0, 1, 5, 10, 15]; 
+values.sort(); 
+alert(values); //0,1,10,15,5 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;改造&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var values = [0, 1, 5, 10, 15]; 
+values.sort((a,b)=&amp;gt;{
+    return a-b
+}); 
+alert(values); //0,1,5,10,15 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;操作方法&#34;&gt;操作方法&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;concat()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;这个方法会先创建当前数组一个副本，然后将接收到的参数 添加到这个副本的末尾，最后返回新构建的数组。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var colors = [&amp;quot;red&amp;quot;, &amp;quot;green&amp;quot;, &amp;quot;blue&amp;quot;]; 
+var colors2 = colors.concat(&amp;quot;yellow&amp;quot;, [&amp;quot;black&amp;quot;, &amp;quot;brown&amp;quot;]); 
+
+alert(colors); //red,green,blue 
+alert(colors2); //red,green,blue,yellow,black,brown 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;splice()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;splice()方法始终都会返回一个数组，该数组中包含从原始数组中删除的项&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一参数是开始位置&lt;/li&gt;
+&lt;li&gt;第二个参数是删除项&lt;/li&gt;
+&lt;li&gt;第三个参数是从开始位置往后插入项&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var colors = [&amp;quot;red&amp;quot;, &amp;quot;green&amp;quot;, &amp;quot;blue&amp;quot;];
+
+colors.splice(1, 1, &amp;quot;red&amp;quot;, &amp;quot;purple&amp;quot;); 
+
+alert(colors); // red,red,purple,blue 
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;位置方法&#34;&gt;位置方法&lt;/h3&gt;
+&lt;h3 id=&#34;indexof-lastindexof&#34;&gt;&lt;code&gt;indexOf() lastIndexOf()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;indexOf()&lt;/code&gt;查找到第一个符合的返回index，未找到为-1&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;lastIndexOf()&lt;/code&gt;查找到最后一个符合的返回index，未找到为-1&lt;/p&gt;
+&lt;p&gt;第一个参数为查找对象 第二个参数为开始位置&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;迭代方法&#34;&gt;迭代方法&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;every()：对数组中的每一项运行给定函数，如果该函数对每一项都返回 true，则返回 true。&lt;/li&gt;
+&lt;li&gt;filter()：对数组中的每一项运行给定函数，返回该函数会返回 true 的项组成的数组。&lt;/li&gt;
+&lt;li&gt;forEach()：对数组中的每一项运行给定函数。这个方法没有返回值&lt;/li&gt;
+&lt;li&gt;map()：对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组。&lt;/li&gt;
+&lt;li&gt;some()：对数组中的每一项运行给定函数，如果该函数对任一项返回 true，则返回 true&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;map()&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var numbers = [1,2,3,4,5,4,3,2,1]; 
+var mapResult = numbers.map(function(item, index, array){ 
+ return item * 2; 
+}); 
+alert(mapResult); //[2,4,6,8,10,8,6,4,2] 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;归并方法&#34;&gt;归并方法&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;reduce() redunceRight()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;reduce()方法从数组的第一项开始，逐个遍历 到最后。而 reduceRight()则从数组的最后一项开始，向前遍历到第一项。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var values = [1,2,3,4,5]; 
+var sum = values.reduce(function(prev, cur, index, array){ 
+ return prev + cur; 
+}); 
+alert(sum); //15 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;date类型&#34;&gt;Date类型&lt;/h2&gt;
+&lt;p&gt;创建&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;var now = new Date();&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// 本地时间 2000 年 1 月 1 日午夜零时
+var y2k = new Date(2000, 0); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;Date.parse()&lt;/code&gt;接收一个表示日期的字符串参数，然后尝试根据这个字符串返回相应日 期的毫秒数&lt;/p&gt;
+&lt;p&gt;Date 类型的 toLocaleString()方法会按照与浏览器 设置的地区相适应的格式返回日期和时间&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1627622953316.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;!&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;function&#34;&gt;Function&lt;/h2&gt;
+&lt;p&gt;无重载&lt;/p&gt;
+&lt;p&gt;一个函数可以作为另一个函数的参数传递&lt;/p&gt;
+&lt;p&gt;函数内部属性&lt;code&gt;arguments&lt;/code&gt;  和  &lt;code&gt;this&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;arguments 的主要用途是保存函数参数&lt;/p&gt;
+&lt;p&gt;这个对象还有一个名叫 callee 的属性，该属性是一个指针，指向拥有这个 arguments 对象的函数。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;函数内部属性&#34;&gt;函数内部属性&lt;/h3&gt;
+&lt;p&gt;这个对象还有一个名叫 callee 的属性，该属性是一个指针，指向拥有这个 arguments 对象的函数。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;window.color = &amp;quot;red&amp;quot;; 
+var o = { color: &amp;quot;blue&amp;quot; }; 
+function sayColor(){ 
+ alert(this.color); 
+} 
+sayColor(); //&amp;quot;red&amp;quot; 
+o.sayColor = sayColor; 
+o.sayColor(); //&amp;quot;blue&amp;quot; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;函数属性和方法&#34;&gt;函数属性和方法&lt;/h3&gt;
+&lt;p&gt;每个函数都包含两个 属性：length 和 prototype&lt;/p&gt;
+&lt;p&gt;length 属性表示函数希望接收的命名参数的个数&lt;/p&gt;
+&lt;p&gt;prototype 属性是不可枚举的，因此使用 for-in 无法发现&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;每个函数都包含两个非继承而来的方法：apply()和 call()。&lt;/p&gt;
+&lt;p&gt;apply()方法接收两个参数：一个 是在其中运行函数的作用域，另一个是参数数组&lt;/p&gt;
+&lt;p&gt;call()第一个参数是 this 值，其余参数都直接传递给函数&lt;/p&gt;
+&lt;p&gt;真正强大的地方是能够扩充函数 赖以运行的作用域&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;window.color = &amp;quot;red&amp;quot;; 
+var o = { color: &amp;quot;blue&amp;quot; }; 
+function sayColor(){ 
+ alert(this.color); 
+} 
+sayColor(); //red 
+sayColor.call(this); //red 
+sayColor.call(window); //red 
+sayColor.call(o); //blue 
+&lt;/code&gt;&lt;/pre&gt;
+">JS引用类型</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/es6-kai-pian/"" data-c="
