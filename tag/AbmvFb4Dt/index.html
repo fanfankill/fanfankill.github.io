@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1627622968463">
+<link rel="shortcut icon" href="/favicon.ico?v=1627717744975">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -213,7 +213,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">38</span>
+        <span class="site-item-stat-count">41</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -284,6 +284,24 @@
           <small class="language" data-lan="tag">标签</small>
         </h2>
       </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
       
       
@@ -699,6 +717,435 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/tcp-xie-yi-ru-he-bao-zheng-jian-neng-bei-wan-zheng-song-da-liu-lan-qi/"" data-c="
+          &lt;p&gt;衡量Web⻚⾯性能的时候有⼀个重要的指标叫“&lt;strong&gt;FP（First Paint）&lt;/strong&gt;”，是指从⻚⾯加载到⾸次开始绘制 的时⻓。影响FP指标其中⼀个重要的因素是⽹络加载速度。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;一个数据包的旅程&#34;&gt;⼀个数据包的“旅程”&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;IP：把数据包送达⽬的主机&lt;/p&gt;
+&lt;p&gt;数据包要在互联⽹上进⾏传输，就要符合⽹际协议（Internet Protocol，简称IP）标准。你只需要知道⼀个家庭的具体 地址，就可以往这个地址发送包裹，这样物流系统就能把物品送到⽬的地。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;计算机的地址就称为IP地址，访问任何⽹站实际上只是你的计算机向另外⼀台计算机请求信息。&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;如果要想把⼀个数据包从主机A发送给主机B，那么在传输之前，数据包上会被附加上主机B的IP地址信息，这样在传输过程中才能正确寻址。额外地，数据包上还会附加上主机A本⾝的IP地址，有了这些信息主机B 才可以回复信息给主机A。&lt;/p&gt;
+&lt;p&gt;附加的信息会被装进⼀个叫IP头的数据结构⾥。&lt;/p&gt;
+&lt;p&gt;IP头是IP数据包开头的信 息，包含IP版本、源IP地址、⽬标IP地址、⽣存时间等信息。&lt;/p&gt;
+&lt;br&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;UDP：把数据包送达应⽤程序&lt;/p&gt;
+&lt;p&gt;IP是⾮常底层的协议，只负责把数据包传送到对⽅电脑，但是对⽅电脑并不知道把数据包交给哪个程序&lt;/p&gt;
+&lt;p&gt;因此，需要基于IP之上开发能和应⽤打交道的协议，最常⻅的是“&lt;strong&gt;⽤⼾数据包协议&lt;/strong&gt;（User Datagram Protocol）”，简称&lt;strong&gt;UDP&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;UDP中⼀个最重要的信息是&lt;strong&gt;端⼝号&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;每个想访问⽹络的程序都需要绑定⼀个端⼝ 号。通过端⼝号UDP就能把指定的数据包发送给指定的程序了&lt;/p&gt;
+&lt;p&gt;所以&lt;strong&gt;IP&lt;/strong&gt;通过&lt;strong&gt;IP地址&lt;/strong&gt;信息把数据包发送给指定的电脑，⽽&lt;strong&gt;UDP&lt;/strong&gt;通过&lt;strong&gt;端⼝号&lt;/strong&gt;把数据包分发给正确的程序。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;UDP头&lt;/strong&gt;中除了⽬的端⼝，还有源端⼝号等信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1627717737811.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;在使⽤UDP发送数据时，有各种因素会导致数据包出错，虽然UDP可以校验数据是否正确，但是对于错误的 数据包，UDP并不提供重发机制，只是丢弃当前的包，⽽且UDP在发送之后也⽆法知道是否能达到⽬的地。&lt;/p&gt;
+  &lt;br&gt;
+&lt;p&gt;&lt;strong&gt;虽说UDP不能保证数据可靠性，但是传输速度却⾮常快&lt;/strong&gt;&lt;/p&gt;
+  &lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;TCP：把数据完整地送达应⽤程序&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;⽤UDP来传输会&lt;strong&gt;存在两个问题&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据包在传输过程中容易丢失&lt;/li&gt;
+&lt;li&gt;⼤⽂件会被拆分成很多⼩的数据包来传输，这些⼩的数据包会经过不同的路由，并在不同的时间到达接收 端，⽽UDP协议并不知道如何组装这些数据包，从⽽把这些数据包还原成完整的⽂件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;p&gt;** TCP（Transmission Control Protocol，传输控制协议）是⼀种⾯向 连接的、可靠的、基于字节流的传输层通信协议。**相对于UDP，TCP有下⾯两个特点:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于数据包丢失的情况，TCP提供重传机制；&lt;/li&gt;
+&lt;li&gt;TCP引⼊了数据包排序机制，⽤来保证把乱序的数据包组合成⼀个完整的⽂件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;tcp完整的连接过程&#34;&gt;TCP完整的连接过程&lt;/h2&gt;
+&lt;p&gt;⼀个完整的TCP连接的⽣命周期包括了“&lt;strong&gt;建⽴连接&lt;/strong&gt;”“&lt;strong&gt;传输数据&lt;/strong&gt;”和“&lt;strong&gt;断开连接&lt;/strong&gt;”三个阶 段。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;连接建立&lt;/strong&gt;。通过&amp;quot;&lt;strong&gt;三次握手&lt;/strong&gt;&amp;quot;来建立客户端和服务器端的连接。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;传输数据阶段&lt;/strong&gt;。&lt;strong&gt;接收端需要对每个数据包进⾏确认操作&lt;/strong&gt;，&lt;/p&gt;
+&lt;p&gt;也就是接收端在接收到数据包 之后，需要发送确认数据包给发送端。所以当发送端发送了⼀个数据包之后，在规定时间内没有接收到接 收端反馈的确认消息，则判断为数据包丢失，并触发发送端的重发机制。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;⼀个⼤的⽂件在传输过程 中会被拆分成很多⼩的数据包，这些数据包到达接收端后，接收端会按照TCP头中的序号为其排序，从⽽ 保证组成完整的数据。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;断开连接阶段&lt;/strong&gt;。“&lt;strong&gt;四次挥⼿&lt;/strong&gt;”来保证双 ⽅都能断开连接。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;互联⽹中的数据是通过数据包来传输的，数据包在传输过程中容易丢失或出错。&lt;/li&gt;
+&lt;li&gt;IP负责把数据包送达⽬的主机。&lt;/li&gt;
+&lt;li&gt;UDP负责把数据包送达具体应⽤。&lt;/li&gt;
+&lt;li&gt;⽽TCP保证了数据完整地传输，它的连接可分为三个阶段：建⽴连接、传输数据和断开连接&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;​&lt;/p&gt;
+">TCP协议：如何保证⻚⾯⽂件能被完整送达浏览器？</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/han-shu-biao-da-shi/"" data-c="
+          &lt;h2 id=&#34;定义&#34;&gt;定义&lt;/h2&gt;
+&lt;p&gt;定义函数的 方式有两种：一种是&lt;strong&gt;函数声明&lt;/strong&gt;，另一种就是&lt;strong&gt;函数表达式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;关于函数声明，它的一个重要特征就是&lt;strong&gt;函数声明提升&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;执行以下代码的结果可 能会让人意想不到&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;if(condition){ 
+ function sayHi(){ 
+ alert(&amp;quot;Hi!&amp;quot;); 
+ } 
+} else { 
+ function sayHi(){ 
+ alert(&amp;quot;Yo!&amp;quot;); 
+ } 
+} 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这在 ECMAScript 中属于无效语法，JavaScript 引擎会尝试修正错误，将其转换为合 理的状态。大多数浏览器会返回第二个声明。&lt;/p&gt;
+&lt;p&gt;修改&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var sayHi; 
+if(condition){ 
+ sayHi = function(){ 
+ alert(&amp;quot;Hi!&amp;quot;); 
+ }; 
+} else { 
+ sayHi = function(){ 
+ alert(&amp;quot;Yo!&amp;quot;); 
+ }; 
+} 
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;递归&#34;&gt;递归&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function factorial(num){ 
+ if (num &amp;lt;= 1){ 
+ return 1; 
+ } else { 
+ return num * factorial(num-1); 
+ } 
+} 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;减小耦合，但增大了内存开销。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function factorial(num){ 
+ if (num &amp;lt;= 1){ 
+ return 1; 
+ } else { 
+ return num * arguments.callee(num-1); 
+ } 
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;闭包&#34;&gt;闭包&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;闭包&lt;/strong&gt;是指有权访问另一个 函数作用域中的变量的函数。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function createFunctions(){ 
+ var result = new Array(); 
+ for (var i=0; i &amp;lt; 10; i++){ 
+ result[i] = function(){ 
+ return i; 
+ }; 
+ } 
+ return result; 
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以它们引用的都是同一个变量 i 。 当 createFunctions()函数返回后，变量 i 的值是 10&lt;/p&gt;
+&lt;p&gt;修改&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function createFunctions(){ 
+ var result = new Array(); 
+ for (var i=0; i &amp;lt; 10; i++){ 
+ result[i] = function(num){ 
+ return function(){ 
+ return num; 
+ }; 
+ }(i);
+ } 
+ return result; 
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在这个 匿名函数内部，又创建并返回了一个访问 num 的闭包&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;this对象&#34;&gt;this对象&lt;/h3&gt;
+&lt;p&gt;匿名函数的执行环境具有&lt;strong&gt;全局性&lt;/strong&gt;，因此其 this 对象通常指向 window&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var name = &amp;quot;The Window&amp;quot;; 
+var object = { 
+ name : &amp;quot;My Object&amp;quot;, 
+ getNameFunc : function(){ 
+ return function(){ 
+ return this.name; 
+ }; 
+ } 
+}; 
+alert(object.getNameFunc()()); //&amp;quot;The Window&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;每个函数在被调用时都会自动取得两个特殊变量：this 和 arguments。内部函 数在搜索这两个变量时，只会搜索到其活动对象为止，因此永远不可能直接访问外部函数中的这两个变量&lt;/p&gt;
+&lt;br&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var name = &amp;quot;The Window&amp;quot;; 
+var object = { 
+ name : &amp;quot;My Object&amp;quot;, 
+ getName: function(){ 
+ return this.name; 
+ } 
+}; 
+
+
+
+object.getName(); //&amp;quot;My Object&amp;quot; 
+(object.getName)(); //&amp;quot;My Object&amp;quot; 
+(object.getName = object.getName)(); //&amp;quot;The Window&amp;quot;，
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;第二行代码在调用这个方法前先给它加上了括号。虽然加上括号之后，就好像只 是在引用一个函数，但 this 的值得到了维持，因为 object.getName 和(object.getName)的定义 是相同的。&lt;/p&gt;
+&lt;p&gt;第三行代码先执行了一条赋值语句，然后再调用赋值后的结果。因为这个赋值表达式的值是 函数本身，所以 this 的值不能得到维持，结果就返回了&amp;quot;The Window&amp;quot;。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;内存泄漏&#34;&gt;内存泄漏&lt;/h3&gt;
+&lt;p&gt;如果闭包的作用域链中保存着一个 HTML 元素，那么就意味着该元素将无法被销毁&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function assignHandler(){ 
+ var element = document.getElementById(&amp;quot;someElement&amp;quot;); 
+ element.onclick = function(){ 
+ alert(element.id); 
+ }; 
+} 
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;由于匿名函数保存了一个对 assignHandler()的活动对象的引用，因此 就会导致无法减少 element 的引用数&lt;/p&gt;
+&lt;p&gt;修改&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function assignHandler(){ 
+ var element = document.getElementById(&amp;quot;someElement&amp;quot;); 
+ var id = element.id; 
+ 
+ element.onclick = function(){ 
+ alert(id); 
+ }; 
+ 
+ element = null; 
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;通过把 element.id 的一个副本保存在一个变量中，并且在闭包中引用该变量消 除了循环引用&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;模仿块级作用域&#34;&gt;模仿块级作用域&lt;/h2&gt;
+&lt;p&gt;语法&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;(function(){ 
+ //这里是块级作用域
+})();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以上代码定义并立即调用了一个匿名函数，可以避免命名的变量被其他地方调用&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;私有变量&#34;&gt;私有变量&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;(function(){ 
+    //私有变量
+    var a 
+    //私有函数
+    function b(){
+    	...  
+    }
+ (function(){ 
+ //这里可以去调用
+	})();
+})();
+&lt;/code&gt;&lt;/pre&gt;
+"> 函数表达式</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/es6-day2/"" data-c="
+          &lt;h2 id=&#34;对象扩展&#34;&gt;对象扩展&lt;/h2&gt;
+&lt;p&gt;ES6 一共有 5 种方法可以遍历对象的属性。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（1）for...in&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;for...in&lt;/code&gt;循环遍历对象自身的和继承的可枚举属性（不含 Symbol 属性）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（2）Object.keys(obj)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Object.keys&lt;/code&gt;返回一个数组，包括对象自身的（不含继承的）所有可枚举属性（不含 Symbol 属性）的键名。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（3）Object.getOwnPropertyNames(obj)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Object.getOwnPropertyNames&lt;/code&gt;返回一个数组，包含对象自身的所有属性（不含 Symbol 属性，但是包括不可枚举属性）的键名。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（4）Object.getOwnPropertySymbols(obj)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Object.getOwnPropertySymbols&lt;/code&gt;返回一个数组，包含对象自身的所有 Symbol 属性的键名。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（5）Reflect.ownKeys(obj)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Reflect.ownKeys&lt;/code&gt;返回一个数组，包含对象自身的（不含继承的）所有键名，不管键名是 Symbol 或字符串，也不管是否可枚举。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;super-关键字&#34;&gt;super 关键字&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;super&lt;/code&gt;指向当前对象的原型对象&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const proto = {
+  foo: &#39;hello&#39;
+};
+
+const obj = {
+  foo: &#39;world&#39;,
+  find() {
+    return super.foo;
+  }
+};
+
+Object.setPrototypeOf(obj, proto);
+obj.find() // &amp;quot;hello&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;objectis&#34;&gt;&lt;code&gt;Object.is()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;它用来比较两个值是否严格相等，与严格比较运算符（===）的行为基本一致。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Object.is(&#39;foo&#39;, &#39;foo&#39;)
+// true
+Object.is({}, {})
+// false
+
++0 === -0 //true
+NaN === NaN // false
+
+Object.is(+0, -0) // false
+Object.is(NaN, NaN) // true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;objectassign&#34;&gt;&lt;code&gt;Object.assign()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Object.assign()&lt;/code&gt;方法用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const target = { a: 1 };
+
+const source1 = { b: 2 };
+const source2 = { c: 3 };
+
+Object.assign(target, source1, source2);
+target // {a:1, b:2, c:3}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;Object.assign()&lt;/code&gt;方法的第一个参数是目标对象，后面的参数都是源对象。&lt;/p&gt;
+&lt;p&gt;如果目标对象与源对象有同名属性，或多个源对象有同名属性，则后面的属性会覆盖前面的属性。&lt;/p&gt;
+&lt;p&gt;如果该参数不是对象，则会先转成对象，然后返回。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;typeof Object.assign(2) // &amp;quot;object&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;上面代码中，&lt;code&gt;v1&lt;/code&gt;、&lt;code&gt;v2&lt;/code&gt;、&lt;code&gt;v3&lt;/code&gt;分别是字符串、布尔值和数值，结果只有字符串合入目标对象（以字符数组的形式），数值和布尔值都会被忽略。这是因为只有字符串的包装对象，会产生可枚举属性。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const v1 = &#39;abc&#39;;
+const v2 = true;
+const v3 = 10;
+
+const obj = Object.assign({}, v1, v2, v3);
+console.log(obj); // { &amp;quot;0&amp;quot;: &amp;quot;a&amp;quot;, &amp;quot;1&amp;quot;: &amp;quot;b&amp;quot;, &amp;quot;2&amp;quot;: &amp;quot;c&amp;quot; }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;注意点&#34;&gt;注意点&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;浅拷贝&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;源对象某个属性的值是对象，那么目标对象拷贝得到的是这个对象的引用。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const obj1 = {a: {b: 1}};
+const obj2 = Object.assign({}, obj1);
+
+obj1.a.b = 2;
+obj2.a.b // 2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;同名属性的替换&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;一旦遇到同名属性，&lt;code&gt;Object.assign()&lt;/code&gt;的处理方法是替换，而不是添加。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const target = { a: { b: &#39;c&#39;, d: &#39;e&#39; } }
+const source = { a: { b: &#39;hello&#39; } }
+Object.assign(target, source)
+// { a: { b: &#39;hello&#39; } }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;数组的处理&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Object.assign()&lt;/code&gt;可以用来处理数组，但是会把数组视为对象。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Object.assign([1, 2, 3], [4, 5])
+// [4, 5, 3]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上面代码中，&lt;code&gt;Object.assign()&lt;/code&gt;把数组视为属性名为 0、1、2 的对象，因此源数组的 0 号属性&lt;code&gt;4&lt;/code&gt;覆盖了目标数组的 0 号属性&lt;code&gt;1&lt;/code&gt;   这里的&lt;code&gt;key&lt;/code&gt;值就是数组的&lt;code&gt;index&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;取值函数的处理&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;复制函数的返回值&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const source = {
+  get foo() { return 1 }
+};
+const target = {};
+
+Object.assign(target, source)
+// { foo: 1 }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;常用点&#34;&gt;常用点&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;为对象添加属性&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class Point {  constructor(x, y) {    Object.assign(this, {x, y});  }}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;为对象添加方法&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Object.assign(SomeClass.prototype, {  someMethod(arg1, arg2) {    ···  },  anotherMethod() {    ···  }});// 等同于下面的写法SomeClass.prototype.someMethod = function (arg1, arg2) {  ···};SomeClass.prototype.anotherMethod = function () {  ···};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;克隆对象&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;采用这种方法克隆，只能克隆原始对象自身的值，不能克隆它继承的值。&lt;/p&gt;
+&lt;p&gt;当克隆对象只有一级时候可以看做深拷贝&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function clone(origin) {  return Object.assign({}, origin);}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;合并多个对象&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const merge =  (target, ...sources) =&amp;gt; Object.assign(target, ...sources);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;为属性指定默认值&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const DEFAULTS = {  logLevel: 0,  outputFormat: &#39;html&#39;};function processContent(options) {  options = Object.assign({}, DEFAULTS, options);  console.log(options);  // ...}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;Object.assign()&lt;/code&gt;方法将&lt;code&gt;DEFAULTS&lt;/code&gt;和&lt;code&gt;options&lt;/code&gt;合并成一个新对象，如果两者有同名属性，则&lt;code&gt;options&lt;/code&gt;的属性值会覆盖&lt;code&gt;DEFAULTS&lt;/code&gt;的属性值。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;objectgetownpropertydescriptors&#34;&gt;&lt;code&gt;Object.getOwnPropertyDescriptors()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;​			会返回某个对象属性的描述对象&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const obj = {  foo: 123,  get bar() { return &#39;abc&#39; }};Object.getOwnPropertyDescriptors(obj)// { foo://    { value: 123,//      writable: true,//      enumerable: true,//      configurable: true },//   bar://    { get: [Function: get bar],//      set: undefined,//      enumerable: true,//      configurable: true } }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;__proto__属性objectsetprototypeofobjectgetprototypeof&#34;&gt;__proto__属性，Object.setPrototypeOf()，Object.getPrototypeOf()&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;__proto__&lt;/code&gt;属性，用来读取或设置当前对象的原型对象&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// es5 的写法const obj = {  method: function() { ... }};obj.__proto__ = someOtherObj;// es6 的写法var obj = Object.create(someOtherObj);obj.method = function() { ... };
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;objectsetprototypeof&#34;&gt;&lt;code&gt;Object.setPrototypeOf()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;用来设置一个对象的原型对象&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;let proto = {};let obj = { x: 10 };Object.setPrototypeOf(obj, proto);proto.y = 20;proto.z = 40;obj.x // 10obj.y // 20obj.z // 40
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;objectgetprototypeof&#34;&gt;&lt;code&gt;Object.getPrototypeOf()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;用于读取一个对象的原型对象。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Rectangle() {  // ...}const rec = new Rectangle();Object.getPrototypeOf(rec) === Rectangle.prototype// trueObject.setPrototypeOf(rec, Object.prototype);Object.getPrototypeOf(rec) === Rectangle.prototype// false
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;objectkeysobjectvaluesobjectentries&#34;&gt;Object.keys()，Object.values()，Object.entries()&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;Object.keys&lt;/code&gt;方法，返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键名。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var obj = { foo: &#39;bar&#39;, baz: 42 };Object.keys(obj)// [&amp;quot;foo&amp;quot;, &amp;quot;baz&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;Object.values&lt;/code&gt;方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键值。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const obj = { foo: &#39;bar&#39;, baz: 42 };Object.values(obj)// [&amp;quot;bar&amp;quot;, 42]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;Object.entries()&lt;/code&gt;方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（enumerable）属性的键值对数组。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const obj = { foo: &#39;bar&#39;, baz: 42 };Object.entries(obj)// [ [&amp;quot;foo&amp;quot;, &amp;quot;bar&amp;quot;], [&amp;quot;baz&amp;quot;, 42] ]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+">ES6 day2</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js-yin-yong-lei-xing/"" data-c="
