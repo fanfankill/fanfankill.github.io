@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>图解HTTP第四章 | fanfan</title>
+<title>作用域 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1627812888811">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="图解HTTP第四章" />
-  <meta name="keywords" content="网络" />
+  <meta name="description" content="作用域" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -282,37 +282,26 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%9A%84http%E7%8A%B6%E6%80%81">返回结果的HTTP状态</a>
+<li>
 <ul>
-<li><a href="#%E7%8A%B6%E6%80%81%E7%A0%81%E5%91%8A%E7%9F%A5%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%BF%94%E5%9B%9E%E7%9A%84%E8%AF%B7%E6%B1%82%E7%BB%93%E6%9E%9C">状态码告知从服务器端返回的请求结果</a></li>
-<li><a href="#2-xx%E6%88%90%E5%8A%9F"><strong>2 XX成功</strong></a>
+<li><a href="#%E7%B1%BB%E5%9E%8B">类型</a>
 <ul>
-<li><a href="#200-ok">200 OK</a></li>
-<li><a href="#204-no-content">204 NO Content</a></li>
-<li><a href="#206-partial-content">206 Partial Content</a></li>
+<li><a href="#%E5%8A%A8%E6%80%81%E5%B1%9E%E6%80%A7">动态属性</a></li>
+<li><a href="#%E5%A4%8D%E5%88%B6%E5%8F%98%E9%87%8F%E5%80%BC">复制变量值</a></li>
+<li><a href="#%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0">传递参数</a></li>
+<li><a href="#%E6%A3%80%E6%9F%A5%E7%B1%BB%E5%9E%8B">检查类型</a></li>
 </ul>
 </li>
-<li><a href="#3-xx%E9%87%8D%E5%AE%9A%E5%90%91"><strong>3 XX重定向</strong></a>
+<li><a href="#%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83%E5%8F%8A%E4%BD%9C%E7%94%A8%E5%9F%9F">执行环境及作用域</a>
 <ul>
-<li><a href="#301-moved-permanently">301 Moved Permanently</a></li>
-<li><a href="#302-found">302 Found</a></li>
-<li><a href="#303-see-other">303 See Other</a></li>
-<li><a href="#304-not-modified">304 Not Modified</a></li>
-<li><a href="#307-temporary-redirect">307 Temporary Redirect</a></li>
+<li><a href="#%E5%BB%B6%E9%95%BF%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE">延长作用域链</a></li>
+<li><a href="#%E6%B2%A1%E6%9C%89%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F">没有块级作用域</a></li>
 </ul>
 </li>
-<li><a href="#4-xx%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%94%99%E8%AF%AF"><strong>4 XX客户端错误</strong></a>
+<li><a href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86">垃圾收集</a>
 <ul>
-<li><a href="#400-bad-request">400 Bad Request</a></li>
-<li><a href="#401-unauthorized">401 Unauthorized</a></li>
-<li><a href="#403-forbidden">403 Forbidden</a></li>
-<li><a href="#404-not-found">404 Not Found</a></li>
-</ul>
-</li>
-<li><a href="#5-xx%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%94%99%E8%AF%AF"><strong>5 XX服务器错误</strong></a>
-<ul>
-<li><a href="#500-internal-server-error">500 Internal Server Error</a></li>
-<li><a href="#503-service-unavailable">503 Service Unavailable</a></li>
+<li><a href="#%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4">标记清除</a></li>
+<li><a href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0">引用计数</a></li>
 </ul>
 </li>
 </ul>
@@ -582,8 +571,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/">
-      图解HTTP第四章
+    <a class="post-title-link" href="https://fanfankill.github.io/post/zuo-yong-yu/">
+      作用域
     </a>
   </h1>
   <div class="post-meta">
@@ -591,120 +580,127 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-04-26 14:02:49">2021-04-26</span>
+      <span class="publish-time" data-t="2021-08-01 13:06:30">2021-08-01</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show language" data-lan="category-in">分类于</span>
-      
-      
-      <a href="https://fanfankill.github.io/tag/KATkWfQKE/">
-        <span>网络</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>3<span class="language" data-lan="minute">分钟</span></span>
+      <span>5<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>631<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1281<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h1 id="返回结果的http状态">返回结果的HTTP状态</h1>
-<h2 id="状态码告知从服务器端返回的请求结果">状态码告知从服务器端返回的请求结果</h2>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1619419502006.png" alt="" loading="lazy"></figure>
-<hr>
-<h2 id="2-xx成功"><strong>2 XX成功</strong></h2>
-<p>响应结果表明请求被正常处理</p>
+              <h2 id="类型">类型</h2>
+<p>ECMAScript 变量包含：基本类型值和引用类型值</p>
+<p><strong>基本类型值</strong>指的是 简单的数据段，而<strong>引用类型值</strong>指那些可能由多个值构成的对象。</p>
+<p>基本数据类型：Undefined、Null、Boolean、Number 和 String</p>
+<br>
+<h3 id="动态属性">动态属性</h3>
+<p>我们不能给基本类型的值添加属性</p>
+<pre><code class="language-js">var name = &quot;Nicholas&quot;; 
+name.age = 27; 
+alert(name.age); //undefined
+</code></pre>
+<br>
+<h3 id="复制变量值">复制变量值</h3>
+<p>基本类型就是值复制</p>
+<p>当从一个变量向另一个变量复制引用类型的值时，同样也会将存储在变量对象中的值复制一份放到 为新变量分配的空间中。不同的是，这个值的副本实际上是一个指针，而这个指针指向存储在堆中的一 个对象。</p>
+<br>
+<h3 id="传递参数">传递参数</h3>
+<p>为了证明对象是按<strong>值传递</strong>的</p>
+<pre><code class="language-js">function setName(obj) { 
+ obj.name = &quot;Nicholas&quot;; 
+ obj = new Object(); 
+ obj.name = &quot;Greg&quot;; 
+} 
+var person = new Object(); 
+setName(person); 
+alert(person.name); //&quot;Nicholas&quot; 
+</code></pre>
+<p>当在函数内部重写 obj 时，这 个变量引用的就是一个局部对象了。而这个局部对象会在函数执行完毕后立即被销毁。</p>
+<br>
+<h3 id="检查类型">检查类型</h3>
+<p><code>typeof</code></p>
+<pre><code class="language-js">var s = &quot;Nicholas&quot;; 
+var b = true; 
+var i = 22; 
+var u; 
+var n = null; 
+var o = new Object(); 
+alert(typeof s); //string 
+alert(typeof i); //number 
+alert(typeof b); //boolean 
+alert(typeof u); //undefined 
+alert(typeof n); //object 
+alert(typeof o); //object
+</code></pre>
+<br>
+<p><code>instanceof</code></p>
+<pre><code class="language-js">alert(person instanceof Object); // 变量 person 是 Object 吗？
+alert(colors instanceof Array); // 变量 colors 是 Array 吗？
+alert(pattern instanceof RegExp); // 变量 pattern 是 RegExp 吗？
+</code></pre>
+<p>所有引用类型的值都是 Object 的实例。因此，在检测一个引用类型值和 Object 构造 函数时，instanceof 操作符始终会返回 true</p>
+<br>
+<h2 id="执行环境及作用域">执行环境及作用域</h2>
+<p>在 Web 浏览器中，全局执行环境被认为是 window 对象，因 此所有全局变量和函数都是作为 window 对象的属性和方法创建的。</p>
+<p>全局执行环境直到应用程序退 出——例如关闭网页或浏览器——时才会被销毁</p>
+<p>每个函数都有自己的<strong>执行环境</strong>。</p>
+<p>当代码在一个环境中执行时，会创建变量对象的一个<strong>作用域链</strong>（scope chain）。作用域链的用途，是 保证对执行环境有权访问的所有变量和函数的有序访问。</p>
+<p>内部环境可以通过作用域链访问所有的外部环境，但 外部环境不能访问内部环境中的任何变量和函数</p>
+<br>
+<h3 id="延长作用域链">延长作用域链</h3>
+<p>然执行环境的类型总共只有两种——全局和局部（函数）</p>
+<ul>
+<li>try-catch 语句的 catch 块</li>
+<li>with 语句</li>
+</ul>
+<pre><code class="language-js">function buildUrl() { 
+ var qs = &quot;?debug=true&quot;; 
+ with(location){ 
+ var url = location.href + qs; 
+ } 
+ return url; 
+} 
+</code></pre>
+<p>with 语句接收的是 location 对象，因此其变量对象中就包含了 location 对象的所有属 性和方法，而这个变量对象被添加到了作用域链的前端</p>
+<br>
+<h3 id="没有块级作用域">没有块级作用域</h3>
+<p>由 for 语句创建的变量 i 即使在 for 循环执行结束后，也依旧会存在 于循环外部的执行环境中。</p>
+<ul>
+<li>声明变量</li>
+</ul>
+<p>使用 var 声明的变量会自动被添加到最接近的环境中</p>
 <ul>
 <li>
-<h3 id="200-ok">200 OK</h3>
-<p>正常处理</p>
-</li>
-<li>
-<h3 id="204-no-content">204 NO Content</h3>
-<p>表示请求被成功处理，但在返回的响应报文中不含实体的主体部分。</p>
-<p>应用于只需要客户端往服务器发送信息，而对客户端不需要发送新信息的情况下使用</p>
-</li>
-<li>
-<h3 id="206-partial-content">206 Partial Content</h3>
-<p>表示客户端进行了范围请求，而服务器成功执行这部分的GET请求。响应报文中包含由Content-Range指定范围的实体内容</p>
-<hr>
+<p>查询标识符</p>
+<p>当在某个环境中为了读取或写入而引用一个标识符时，搜索过程从作用域链的前端开始，向上逐级查询与给定名字匹配的标识符。找到 了该标识符，搜索过程停止</p>
 </li>
 </ul>
-<h2 id="3-xx重定向"><strong>3 XX重定向</strong></h2>
-<p>表明浏览器需要执行某些特殊的处理以正确处理请求</p>
-<ul>
-<li>
-<h3 id="301-moved-permanently">301 Moved Permanently</h3>
-<p>永久性重定向。表示请求的资源已经被分配了新的URI，以后应使用资源现在所指的URI</p>
-<p>例如当指定路径末尾未加&quot;/&quot;时，会产生301状态码</p>
-</li>
-<li>
-<h3 id="302-found">302 Found</h3>
-<p>临时性重定向。表示请求的资源已经被分配了新的URI，希望用户能使用新的URI访问</p>
-</li>
-<li>
-<h3 id="303-see-other">303 See Other</h3>
-<p>表示请求的资源存在着另一个URI，应使用GET方法定向获取请求的资源</p>
-</li>
-<li>
-<h3 id="304-not-modified">304 Not Modified</h3>
-<p>表示客户端发送附带条件的请求时，服务器允许请求访问资源，但未找到满足条件的情况。</p>
-</li>
-<li>
-<h3 id="307-temporary-redirect">307 Temporary Redirect</h3>
-<p>临时冲顶先。与302相似。</p>
-</li>
-</ul>
-<hr>
-<h2 id="4-xx客户端错误"><strong>4 XX客户端错误</strong></h2>
-<p>表明客户端发生错误的原因所在</p>
-<ul>
-<li>
-<h3 id="400-bad-request">400 Bad Request</h3>
-<p>该状态码表示请求报文中存在语法错误。需修改请求的内容后再次发送请求。</p>
-</li>
-<li>
-<h3 id="401-unauthorized">401 Unauthorized</h3>
-<p>表示发送的请求需要有通过HTTP认证的认证信息</p>
-<p>当浏览器初次接收到401响应，会弹出认证用的对话窗口</p>
-</li>
-<li>
-<h3 id="403-forbidden">403 Forbidden</h3>
-<p>表明请求的资源的访问被服务器拒绝了</p>
-<p>未获得文件系统的访问授权，访问权限出现某些问题等列举的情况都可能发生403的原因</p>
-</li>
-<li>
-<h3 id="404-not-found">404 Not Found</h3>
-<p>表明服务器上无法找到请求的资源。</p>
-<hr>
-</li>
-</ul>
-<h2 id="5-xx服务器错误"><strong>5 XX服务器错误</strong></h2>
-<p>服务器本身的错误</p>
-<ul>
-<li>
-<h3 id="500-internal-server-error">500 Internal Server Error</h3>
-<p>表明服务器在执行请求时发生了错误。也有可能是WEB应用存在的bug或某些临时故障</p>
-</li>
-<li>
-<h3 id="503-service-unavailable">503 Service Unavailable</h3>
-<p>表明服务器暂时处于超负荷或正在进行停机维护，现在无法处理请求。</p>
-</li>
-</ul>
-<p>​</p>
+<br>
+<h2 id="垃圾收集">垃圾收集</h2>
+<p>JavaScript 具有自动垃圾收集机制</p>
+<p>这种垃圾收集机制的原理其实很简单：找<strong>出那些不再继续使用的变 量，然后释放其占用的内存</strong></p>
+<p>为此，垃圾收集器会按照固定的时间间隔， 周期性地执行这一操作</p>
+<br>
+<h3 id="标记清除">标记清除</h3>
+<p>JavaScript 中最常用的垃圾收集方式是<strong>标记清除</strong></p>
+<p>当变量进入环境时，就将这个变量标记为“进入环境”。</p>
+<p>而当变量离开环境时，则将其 标记为“离开环境”</p>
+<p>垃圾收集器在运行的时候会给存储在内存中的所有变量都加上标记。然后，它会去掉环境中的变量以及被环境中的变量引用的变量的标记。而在此之后再被加上标记 的变量将被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。</p>
+<br>
+<h3 id="引用计数">引用计数</h3>
+<p>不太常见的垃圾收集策略</p>
+<p><strong>引用计数</strong>的含义是跟踪记录每 个值被引用的次数</p>
+<p>当声明了一个变量并将一个引用类型值赋给该变量时，则这个值的引用次数就是 1，如果同一个值又被赋给另一个变量，则该值的引用次数加 1。相反，如果包含对这个值引用的变量又取 得了另外一个值，则这个值的引用次数减 1。当这个值的引用次数变成 0 时，则说明没有办法再访问这 个值了，因而就可以将其占用的内存空间回收回来。</p>
+<br>
 
             </div>
             
@@ -717,7 +713,7 @@
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/" title="图解HTTP第四章">https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/</a>
+      <a href="https://fanfankill.github.io/post/zuo-yong-yu/" title="作用域">https://fanfankill.github.io/post/zuo-yong-yu/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -726,21 +722,19 @@
   </ul>
   <div class="tags">
     
-      <a href="https://fanfankill.github.io/tag/KATkWfQKE/"># 网络</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="图解HTTP第五章" href="https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/">图解HTTP第五章</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="图解HTTP第五章" href="https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/">上一篇</a>
+        <a class="nav-pc-next" title="HTTP请求流程：为什么很多站点第⼆次打开速度会很快？" href="https://fanfankill.github.io/post/http-qing-qiu-liu-cheng-wei-shi-me-hen-duo-zhan-dian-di-ci-da-kai-su-du-hui-hen-kuai/">HTTP请求流程：为什么很多站点第⼆次打开速度会很快？</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="HTTP请求流程：为什么很多站点第⼆次打开速度会很快？" href="https://fanfankill.github.io/post/http-qing-qiu-liu-cheng-wei-shi-me-hen-duo-zhan-dian-di-ci-da-kai-su-du-hui-hen-kuai/">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="图解HTTP第三章" href="https://fanfankill.github.io/post/tu-jie-http-di-san-zhang/">图解HTTP第三章</a>
-        <a class="nav-mobile-next" title="图解HTTP第三章" href="https://fanfankill.github.io/post/tu-jie-http-di-san-zhang/">下一篇</a>
+        <a class="nav-pc-next" title="TCP协议：如何保证⻚⾯⽂件能被完整送达浏览器？" href="https://fanfankill.github.io/post/tcp-xie-yi-ru-he-bao-zheng-jian-neng-bei-wan-zheng-song-da-liu-lan-qi/">TCP协议：如何保证⻚⾯⽂件能被完整送达浏览器？</a>
+        <a class="nav-mobile-next" title="TCP协议：如何保证⻚⾯⽂件能被完整送达浏览器？" href="https://fanfankill.github.io/post/tcp-xie-yi-ru-he-bao-zheng-jian-neng-bei-wan-zheng-song-da-liu-lan-qi/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

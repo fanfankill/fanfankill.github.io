@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>图解HTTP第四章 | fanfan</title>
+<title>HTTP请求流程：为什么很多站点第⼆次打开速度会很快？ | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1627812888811">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="图解HTTP第四章" />
-  <meta name="keywords" content="网络" />
+  <meta name="description" content="HTTP请求流程：为什么很多站点第⼆次打开速度会很快？" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -282,39 +282,26 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%9A%84http%E7%8A%B6%E6%80%81">返回结果的HTTP状态</a>
+<li>
 <ul>
-<li><a href="#%E7%8A%B6%E6%80%81%E7%A0%81%E5%91%8A%E7%9F%A5%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%BF%94%E5%9B%9E%E7%9A%84%E8%AF%B7%E6%B1%82%E7%BB%93%E6%9E%9C">状态码告知从服务器端返回的请求结果</a></li>
-<li><a href="#2-xx%E6%88%90%E5%8A%9F"><strong>2 XX成功</strong></a>
+<li><a href="#%E6%9E%84%E5%BB%BA%E8%AF%B7%E6%B1%82">构建请求</a></li>
+<li><a href="#%E6%9F%A5%E6%89%BE%E7%BC%93%E5%AD%98">查找缓存</a></li>
+<li><a href="#%E5%87%86%E5%A4%87ip%E5%9C%B0%E5%9D%80%E5%92%8C%E7%AB%AF%E5%8F%A3">准备IP地址和端⼝</a></li>
+<li><a href="#%E7%AD%89%E5%BE%85tcp%E9%98%9F%E5%88%97">等待TCP队列</a></li>
+<li><a href="#%E5%BB%BA%E7%AB%8Btcp%E8%BF%9E%E6%8E%A5">建⽴TCP连接</a></li>
+<li><a href="#%E5%8F%91%E9%80%81http%E8%AF%B7%E6%B1%82">发送HTTP请求</a></li>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%A4%84%E7%90%86http%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B">服务端处理HTTP请求流程</a>
 <ul>
-<li><a href="#200-ok">200 OK</a></li>
-<li><a href="#204-no-content">204 NO Content</a></li>
-<li><a href="#206-partial-content">206 Partial Content</a></li>
+<li><a href="#%E8%BF%94%E5%9B%9E%E8%AF%B7%E6%B1%82">返回请求</a></li>
 </ul>
 </li>
-<li><a href="#3-xx%E9%87%8D%E5%AE%9A%E5%90%91"><strong>3 XX重定向</strong></a>
+<li><a href="#%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5">断开连接</a>
 <ul>
-<li><a href="#301-moved-permanently">301 Moved Permanently</a></li>
-<li><a href="#302-found">302 Found</a></li>
-<li><a href="#303-see-other">303 See Other</a></li>
-<li><a href="#304-not-modified">304 Not Modified</a></li>
-<li><a href="#307-temporary-redirect">307 Temporary Redirect</a></li>
+<li><a href="#%E9%87%8D%E5%AE%9A%E5%90%91">重定向</a></li>
 </ul>
 </li>
-<li><a href="#4-xx%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%94%99%E8%AF%AF"><strong>4 XX客户端错误</strong></a>
-<ul>
-<li><a href="#400-bad-request">400 Bad Request</a></li>
-<li><a href="#401-unauthorized">401 Unauthorized</a></li>
-<li><a href="#403-forbidden">403 Forbidden</a></li>
-<li><a href="#404-not-found">404 Not Found</a></li>
-</ul>
-</li>
-<li><a href="#5-xx%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%94%99%E8%AF%AF"><strong>5 XX服务器错误</strong></a>
-<ul>
-<li><a href="#500-internal-server-error">500 Internal Server Error</a></li>
-<li><a href="#503-service-unavailable">503 Service Unavailable</a></li>
-</ul>
-</li>
+<li><a href="#%E6%89%80%E4%BB%A5%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BE%88%E5%A4%9A%E7%AB%99%E7%82%B9%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%89%93%E5%BC%80%E9%80%9F%E5%BA%A6%E4%BC%9A%E5%BE%88%E5%BF%AB">所以为什么很多站点第⼆次打开速度会很快？</a></li>
+<li><a href="#%E7%99%BB%E5%BD%95%E7%8A%B6%E6%80%81%E6%98%AF%E5%A6%82%E4%BD%95%E4%BF%9D%E6%8C%81%E7%9A%84">登录状态是如何保持的？</a></li>
 </ul>
 </li>
 </ul>
@@ -582,8 +569,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/">
-      图解HTTP第四章
+    <a class="post-title-link" href="https://fanfankill.github.io/post/http-qing-qiu-liu-cheng-wei-shi-me-hen-duo-zhan-dian-di-ci-da-kai-su-du-hui-hen-kuai/">
+      HTTP请求流程：为什么很多站点第⼆次打开速度会很快？
     </a>
   </h1>
   <div class="post-meta">
@@ -591,120 +578,133 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-04-26 14:02:49">2021-04-26</span>
+      <span class="publish-time" data-t="2021-08-01 17:51:15">2021-08-01</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show language" data-lan="category-in">分类于</span>
-      
-      
-      <a href="https://fanfankill.github.io/tag/KATkWfQKE/">
-        <span>网络</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>3<span class="language" data-lan="minute">分钟</span></span>
+      <span>7<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>631<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1884<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h1 id="返回结果的http状态">返回结果的HTTP状态</h1>
-<h2 id="状态码告知从服务器端返回的请求结果">状态码告知从服务器端返回的请求结果</h2>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1619419502006.png" alt="" loading="lazy"></figure>
-<hr>
-<h2 id="2-xx成功"><strong>2 XX成功</strong></h2>
-<p>响应结果表明请求被正常处理</p>
+              <p>HTTP协议，正是建⽴在TCP连接基础之上的。<strong>HTTP是⼀种允许浏览器向服务器获取资源的协议，是 Web的基础</strong></p>
+<p><strong>HTTP也是浏览器使⽤最⼴的协议</strong></p>
+<br>
+<p><strong>输入一个url会发生什么？</strong></p>
+<h2 id="构建请求">构建请求</h2>
+<p>⾸先，浏览器构建<strong>请求⾏</strong>信息，如下</p>
+<p><code>GET /index.html HTTP1.1</code></p>
+<br>
+<h2 id="查找缓存">查找缓存</h2>
+<p>在真正发起⽹络请求之前，浏览器会先在浏览器缓存中查询是否有要请求的⽂件。其中，<strong>浏览器缓存是⼀种 在本地保存资源副本，以供下次请求时直接使⽤的技术</strong>。</p>
+<p>当浏览器发现请求的资源已经在浏览器缓存中存有副本，它会<strong>拦截请求</strong>，返回该资源的副本。这样做的好处有：</p>
+<ul>
+<li>缓解服务器端压⼒，提升性能（获取资源的耗时更短了）；</li>
+<li>对于⽹站来说，缓存是实现快速资源加载的重要组成部分。</li>
+</ul>
+<p>当然，如果缓存查找失败，就会进⼊⽹络请求过程了。</p>
+<br>
+<h2 id="准备ip地址和端口">准备IP地址和端⼝</h2>
+<p>HTTP和TCP的关系</p>
+<p>浏览器使⽤HTTP协议作为 <strong>应⽤层协议</strong>，⽤来封装请求的⽂本信息；并使⽤<strong>TCP/IP作传输层协议</strong>将它发到⽹络上</p>
+<p>在HTTP⼯作开 始之前，浏览器需要通过TCP与服务器建⽴连接。也就是说<strong>HTTP的内容是通过TCP的传输数据阶段来实现的</strong><br>
+<img src="https://fanfankill.github.io/post-images/1627811506470.png" alt="" loading="lazy"></p>
+<br>
 <ul>
 <li>
-<h3 id="200-ok">200 OK</h3>
-<p>正常处理</p>
+<p>HTTP⽹络请求的第⼀步是做什么呢？</p>
+<p>是和服务器建⽴TCP连接</p>
 </li>
 <li>
-<h3 id="204-no-content">204 NO Content</h3>
-<p>表示请求被成功处理，但在返回的响应报文中不含实体的主体部分。</p>
-<p>应用于只需要客户端往服务器发送信息，而对客户端不需要发送新信息的情况下使用</p>
-</li>
-<li>
-<h3 id="206-partial-content">206 Partial Content</h3>
-<p>表示客户端进行了范围请求，而服务器成功执行这部分的GET请求。响应报文中包含由Content-Range指定范围的实体内容</p>
-<hr>
+<p>那怎么获取IP地址和端⼝号呢？</p>
+<p>利⽤URL 地址来获取IP和端⼝信息</p>
 </li>
 </ul>
-<h2 id="3-xx重定向"><strong>3 XX重定向</strong></h2>
-<p>表明浏览器需要执行某些特殊的处理以正确处理请求</p>
+<p>IP是 难以记忆，</p>
+<p>负责把域名和IP地址做⼀⼀映射关系。这套域名映射为IP的系统就叫 做“域名系统”，简称<strong>DNS</strong></p>
+<p><strong>在第⼀步浏览器会请求DNS返回域名对应的IP</strong>，当然浏览器还提供了 <strong>DNS数据缓存服务</strong>。</p>
+<p>如果某个域名已经解析过了，那么浏览器会缓存解析的结果，以供下次查询时直接使 ⽤，这样也会减少⼀次⽹络请求。</p>
+<p>拿到IP之后，接下来就需要获取端⼝号了。通常情况下，如果URL没有特别指明端⼝号，那么HTTP协议<strong>默认是80端⼝</strong>。</p>
+<br>
+<h2 id="等待tcp队列">等待TCP队列</h2>
+<p>现在已经把端⼝和IP地址都准备好了，那么下⼀步是不是可以建⽴TCP连接了呢？</p>
+<p>答案依然是“不⾏”。Chrome有个机制，同⼀个域名同时最多只能建⽴6个TCP连接，如果在同⼀个域名下同时有10个请求发⽣，那么其中4个请求会进⼊排队等待状态，直⾄进⾏中的请求完成。</p>
+<p>当然，如果当前请求数量少于6，会直接进⼊下⼀步，建⽴TCP连接。</p>
+<br>
+<h2 id="建立tcp连接">建⽴TCP连接</h2>
+<p>排队等待结束之后，终于可以快乐地和服务器握⼿了。</p>
+<br>
+<h2 id="发送http请求">发送HTTP请求</h2>
+<p>⼀旦建⽴了TCP连接，浏览器就可以和服务器进⾏通信了。⽽HTTP中的数据正是在这个通信过程中传输 的。</p>
+<p>⾸先浏览器会向服务器发送请求⾏，它包括了<strong>请求⽅法、请求URI（Uniform Resource Identifier）和 HTTP版本协议</strong>。</p>
+<p>在浏览器发送请求⾏命令之后，还要以<strong>请求头</strong>形式发送其他⼀些信息，⽐如包含了浏览器所使⽤的操作系统、浏览器内核等信息，以及当前请求的域名信息、浏览器端的 Cookie信息，等等。<br>
+<img src="https://fanfankill.github.io/post-images/1627812653198.png" alt="" loading="lazy"></p>
+<br>
+<h2 id="服务端处理http请求流程">服务端处理HTTP请求流程</h2>
+<p>历经千⾟万苦，HTTP的请求信息终于被送达了服务器。接下来，服务器会根据浏览器的请求信息来准备相 应的内容。</p>
+<h3 id="返回请求">返回请求</h3>
+<p>⼀旦服务器处理结束，便可以返回数据给浏览器了。</p>
+<p>返回响应⾏、响应头和响应体的数据<br>
+<img src="https://fanfankill.github.io/post-images/1627812730509.png" alt="" loading="lazy"></p>
+<p>⾸先服务器会返回<strong>响应⾏</strong>，包括协议版本和状态码。</p>
+<p>服务器会 通过请求⾏的状态码来告诉浏览器它的处理结果</p>
+<p>服务器也会随同响应向浏览器发送<strong>响应头</strong>。</p>
+<p>发送完响应头后，服务器就可以继续发送<strong>响应体</strong>的数据</p>
+<br>
+<h2 id="断开连接">断开连接</h2>
+<p>⼀旦服务器向客⼾端返回了请求数据，它就要关闭 TCP 连接。不过如果浏览器或者服务器在 其头信息中加⼊了：<code>Connection:Keep-Alive</code></p>
+<p>那么TCP连接在发送后将仍然保持打开状态，这样浏览器就可以继续通过同⼀个TCP连接发送请求。<strong>保持 TCP连接可以省去下次请求时需要建⽴连接的时间，提升资源加载速度</strong>。</p>
+<br>
+<h3 id="重定向">重定向</h3>
+<p>⽐如当你在浏览器中打开geekbang.org 后，你会发现最终打开的⻚⾯地址是 https://www.geekbang.org。</p>
+<p>这两个URL之所以不⼀样，是因为涉及到了⼀个重定向操作。</p>
+<p><img src="https://fanfankill.github.io/post-images/1627811566799.png" alt="" loading="lazy"><br>
+状态301就是告诉浏览器，我需要重定向到另外⼀个⽹ 址，⽽需要重定向的⽹址正是包含在响应头的Location字段中，接下来，浏览器获取Location字段中的地 址，并使⽤该地址重新导航，这就是⼀个完整重定向的执⾏流程</p>
+<br>
+<h2 id="所以为什么很多站点第二次打开速度会很快">所以为什么很多站点第⼆次打开速度会很快？</h2>
+<p><strong>DNS缓存</strong>和<strong>⻚⾯资源缓存</strong>这两块数据是 会被浏览器缓存的。</p>
+<p>DNS缓存⽐较简单，它主要就是在浏览器本地把对应的IP<strong>和域名关联起来</strong></p>
+<p>重点看下浏览器资源缓存</p>
+<p><img src="https://fanfankill.github.io/post-images/1627811578305.png" alt="" loading="lazy"><br>
+当服务器返回HTTP响应头给浏览器时，浏览器是通过响应头中的<strong>Cache-Control</strong>字段来设置是否缓存该资源。</p>
+<p>通过Cache-Control中的Max-age参数来设置缓存过期时间</p>
+<p>但如果缓存过期了，浏览器则会继续发起⽹络请求，并且在HTTP请求头中带上：<code>If-None-Match:&quot;4f80f-13c-3a1xb12a&quot;</code></p>
+<p>服务器收到请求头后，会根据If-None-Match的值来判断请求的资源是否有更新。</p>
+<ul>
+<li>如果没有更新，就返回304状态码，相当于服务器告诉浏览器：“这个缓存可以继续使⽤，这次就不重复 发送数据给你了。”</li>
+<li>如果资源有更新，服务器就直接返回最新资源给浏览器。</li>
+</ul>
+<br>
+<h2 id="登录状态是如何保持的">登录状态是如何保持的？</h2>
 <ul>
 <li>
-<h3 id="301-moved-permanently">301 Moved Permanently</h3>
-<p>永久性重定向。表示请求的资源已经被分配了新的URI，以后应使用资源现在所指的URI</p>
-<p>例如当指定路径末尾未加&quot;/&quot;时，会产生301状态码</p>
+<p>⽤⼾打开登录⻚⾯，在登录框⾥填⼊⽤⼾名和密码，点击确定按钮</p>
 </li>
 <li>
-<h3 id="302-found">302 Found</h3>
-<p>临时性重定向。表示请求的资源已经被分配了新的URI，希望用户能使用新的URI访问</p>
+<p>服务器接收到浏览器提交的信息校验之后，会⽣成⼀ 段表⽰⽤⼾⾝份的字符串，并把该字符串写到响应头的Set-Cookie字段⾥，如下所⽰，然后把响应头发送 给浏览器。</p>
+<p><code>Set-Cookie: UID=3431uad;</code></p>
 </li>
 <li>
-<h3 id="303-see-other">303 See Other</h3>
-<p>表示请求的资源存在着另一个URI，应使用GET方法定向获取请求的资源</p>
+<p>浏览器在接收到服务器的响应头后，开始解析响应头，如果遇到响应头⾥含有Set-Cookie字段的情况，浏 览器就会把这个字段信息保存到本地。⽐如把UID=3431uad保持到本地。</p>
 </li>
 <li>
-<h3 id="304-not-modified">304 Not Modified</h3>
-<p>表示客户端发送附带条件的请求时，服务器允许请求访问资源，但未找到满足条件的情况。</p>
+<p>当⽤⼾再次访问时，浏览器会发起HTTP请求，但在发起请求之前，浏览器会读取之前保存的Cookie数 据，并把数据写进请求头⾥的Cookie字段⾥（如下所⽰），然后浏览器再将请求头发送给服务器。</p>
 </li>
 <li>
-<h3 id="307-temporary-redirect">307 Temporary Redirect</h3>
-<p>临时冲顶先。与302相似。</p>
+<p>服务器在收到HTTP请求头数据之后，就会查找请求头⾥⾯的“Cookie”字段信息，当查找到包 含UID=3431uad的信息时，服务器查询后台，并判断该⽤⼾是已登录状态，然后⽣成含有该⽤⼾信息的 ⻚⾯数据，并把⽣成的数据发送给浏览器。</p>
+</li>
+<li>
+<p>浏览器在接收到该含有当前⽤⼾的⻚⾯数据后，就可以正确展⽰⽤⼾登录的状态信息了</p>
 </li>
 </ul>
-<hr>
-<h2 id="4-xx客户端错误"><strong>4 XX客户端错误</strong></h2>
-<p>表明客户端发生错误的原因所在</p>
-<ul>
-<li>
-<h3 id="400-bad-request">400 Bad Request</h3>
-<p>该状态码表示请求报文中存在语法错误。需修改请求的内容后再次发送请求。</p>
-</li>
-<li>
-<h3 id="401-unauthorized">401 Unauthorized</h3>
-<p>表示发送的请求需要有通过HTTP认证的认证信息</p>
-<p>当浏览器初次接收到401响应，会弹出认证用的对话窗口</p>
-</li>
-<li>
-<h3 id="403-forbidden">403 Forbidden</h3>
-<p>表明请求的资源的访问被服务器拒绝了</p>
-<p>未获得文件系统的访问授权，访问权限出现某些问题等列举的情况都可能发生403的原因</p>
-</li>
-<li>
-<h3 id="404-not-found">404 Not Found</h3>
-<p>表明服务器上无法找到请求的资源。</p>
-<hr>
-</li>
-</ul>
-<h2 id="5-xx服务器错误"><strong>5 XX服务器错误</strong></h2>
-<p>服务器本身的错误</p>
-<ul>
-<li>
-<h3 id="500-internal-server-error">500 Internal Server Error</h3>
-<p>表明服务器在执行请求时发生了错误。也有可能是WEB应用存在的bug或某些临时故障</p>
-</li>
-<li>
-<h3 id="503-service-unavailable">503 Service Unavailable</h3>
-<p>表明服务器暂时处于超负荷或正在进行停机维护，现在无法处理请求。</p>
-</li>
-</ul>
-<p>​</p>
 
             </div>
             
@@ -717,7 +717,7 @@
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/" title="图解HTTP第四章">https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/</a>
+      <a href="https://fanfankill.github.io/post/http-qing-qiu-liu-cheng-wei-shi-me-hen-duo-zhan-dian-di-ci-da-kai-su-du-hui-hen-kuai/" title="HTTP请求流程：为什么很多站点第⼆次打开速度会很快？">https://fanfankill.github.io/post/http-qing-qiu-liu-cheng-wei-shi-me-hen-duo-zhan-dian-di-ci-da-kai-su-du-hui-hen-kuai/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -726,21 +726,15 @@
   </ul>
   <div class="tags">
     
-      <a href="https://fanfankill.github.io/tag/KATkWfQKE/"># 网络</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="图解HTTP第五章" href="https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/">图解HTTP第五章</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="图解HTTP第五章" href="https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="图解HTTP第三章" href="https://fanfankill.github.io/post/tu-jie-http-di-san-zhang/">图解HTTP第三章</a>
-        <a class="nav-mobile-next" title="图解HTTP第三章" href="https://fanfankill.github.io/post/tu-jie-http-di-san-zhang/">下一篇</a>
+        <a class="nav-pc-next" title="作用域" href="https://fanfankill.github.io/post/zuo-yong-yu/">作用域</a>
+        <a class="nav-mobile-next" title="作用域" href="https://fanfankill.github.io/post/zuo-yong-yu/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

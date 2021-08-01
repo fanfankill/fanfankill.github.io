@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>牛客 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1627717744975">
+<link rel="shortcut icon" href="/favicon.ico?v=1627812888811">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">41</span>
+        <span class="site-item-stat-count">43</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1120,6 +1120,230 @@
     <div class="result" id="result">
       
       <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/http-qing-qiu-liu-cheng-wei-shi-me-hen-duo-zhan-dian-di-ci-da-kai-su-du-hui-hen-kuai/"" data-c="
+          &lt;p&gt;HTTP协议，正是建⽴在TCP连接基础之上的。&lt;strong&gt;HTTP是⼀种允许浏览器向服务器获取资源的协议，是 Web的基础&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;HTTP也是浏览器使⽤最⼴的协议&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;输入一个url会发生什么？&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;构建请求&#34;&gt;构建请求&lt;/h2&gt;
+&lt;p&gt;⾸先，浏览器构建&lt;strong&gt;请求⾏&lt;/strong&gt;信息，如下&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;GET /index.html HTTP1.1&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;查找缓存&#34;&gt;查找缓存&lt;/h2&gt;
+&lt;p&gt;在真正发起⽹络请求之前，浏览器会先在浏览器缓存中查询是否有要请求的⽂件。其中，&lt;strong&gt;浏览器缓存是⼀种 在本地保存资源副本，以供下次请求时直接使⽤的技术&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;当浏览器发现请求的资源已经在浏览器缓存中存有副本，它会&lt;strong&gt;拦截请求&lt;/strong&gt;，返回该资源的副本。这样做的好处有：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;缓解服务器端压⼒，提升性能（获取资源的耗时更短了）；&lt;/li&gt;
+&lt;li&gt;对于⽹站来说，缓存是实现快速资源加载的重要组成部分。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当然，如果缓存查找失败，就会进⼊⽹络请求过程了。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;准备ip地址和端口&#34;&gt;准备IP地址和端⼝&lt;/h2&gt;
+&lt;p&gt;HTTP和TCP的关系&lt;/p&gt;
+&lt;p&gt;浏览器使⽤HTTP协议作为 &lt;strong&gt;应⽤层协议&lt;/strong&gt;，⽤来封装请求的⽂本信息；并使⽤&lt;strong&gt;TCP/IP作传输层协议&lt;/strong&gt;将它发到⽹络上&lt;/p&gt;
+&lt;p&gt;在HTTP⼯作开 始之前，浏览器需要通过TCP与服务器建⽴连接。也就是说&lt;strong&gt;HTTP的内容是通过TCP的传输数据阶段来实现的&lt;/strong&gt;&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1627811506470.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;HTTP⽹络请求的第⼀步是做什么呢？&lt;/p&gt;
+&lt;p&gt;是和服务器建⽴TCP连接&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;那怎么获取IP地址和端⼝号呢？&lt;/p&gt;
+&lt;p&gt;利⽤URL 地址来获取IP和端⼝信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;IP是 难以记忆，&lt;/p&gt;
+&lt;p&gt;负责把域名和IP地址做⼀⼀映射关系。这套域名映射为IP的系统就叫 做“域名系统”，简称&lt;strong&gt;DNS&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;在第⼀步浏览器会请求DNS返回域名对应的IP&lt;/strong&gt;，当然浏览器还提供了 &lt;strong&gt;DNS数据缓存服务&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;如果某个域名已经解析过了，那么浏览器会缓存解析的结果，以供下次查询时直接使 ⽤，这样也会减少⼀次⽹络请求。&lt;/p&gt;
+&lt;p&gt;拿到IP之后，接下来就需要获取端⼝号了。通常情况下，如果URL没有特别指明端⼝号，那么HTTP协议&lt;strong&gt;默认是80端⼝&lt;/strong&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;等待tcp队列&#34;&gt;等待TCP队列&lt;/h2&gt;
+&lt;p&gt;现在已经把端⼝和IP地址都准备好了，那么下⼀步是不是可以建⽴TCP连接了呢？&lt;/p&gt;
+&lt;p&gt;答案依然是“不⾏”。Chrome有个机制，同⼀个域名同时最多只能建⽴6个TCP连接，如果在同⼀个域名下同时有10个请求发⽣，那么其中4个请求会进⼊排队等待状态，直⾄进⾏中的请求完成。&lt;/p&gt;
+&lt;p&gt;当然，如果当前请求数量少于6，会直接进⼊下⼀步，建⽴TCP连接。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;建立tcp连接&#34;&gt;建⽴TCP连接&lt;/h2&gt;
+&lt;p&gt;排队等待结束之后，终于可以快乐地和服务器握⼿了。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;发送http请求&#34;&gt;发送HTTP请求&lt;/h2&gt;
+&lt;p&gt;⼀旦建⽴了TCP连接，浏览器就可以和服务器进⾏通信了。⽽HTTP中的数据正是在这个通信过程中传输 的。&lt;/p&gt;
+&lt;p&gt;⾸先浏览器会向服务器发送请求⾏，它包括了&lt;strong&gt;请求⽅法、请求URI（Uniform Resource Identifier）和 HTTP版本协议&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;在浏览器发送请求⾏命令之后，还要以&lt;strong&gt;请求头&lt;/strong&gt;形式发送其他⼀些信息，⽐如包含了浏览器所使⽤的操作系统、浏览器内核等信息，以及当前请求的域名信息、浏览器端的 Cookie信息，等等。&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1627812653198.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;服务端处理http请求流程&#34;&gt;服务端处理HTTP请求流程&lt;/h2&gt;
+&lt;p&gt;历经千⾟万苦，HTTP的请求信息终于被送达了服务器。接下来，服务器会根据浏览器的请求信息来准备相 应的内容。&lt;/p&gt;
+&lt;h3 id=&#34;返回请求&#34;&gt;返回请求&lt;/h3&gt;
+&lt;p&gt;⼀旦服务器处理结束，便可以返回数据给浏览器了。&lt;/p&gt;
+&lt;p&gt;返回响应⾏、响应头和响应体的数据&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1627812730509.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;p&gt;⾸先服务器会返回&lt;strong&gt;响应⾏&lt;/strong&gt;，包括协议版本和状态码。&lt;/p&gt;
+&lt;p&gt;服务器会 通过请求⾏的状态码来告诉浏览器它的处理结果&lt;/p&gt;
+&lt;p&gt;服务器也会随同响应向浏览器发送&lt;strong&gt;响应头&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;发送完响应头后，服务器就可以继续发送&lt;strong&gt;响应体&lt;/strong&gt;的数据&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;断开连接&#34;&gt;断开连接&lt;/h2&gt;
+&lt;p&gt;⼀旦服务器向客⼾端返回了请求数据，它就要关闭 TCP 连接。不过如果浏览器或者服务器在 其头信息中加⼊了：&lt;code&gt;Connection:Keep-Alive&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;那么TCP连接在发送后将仍然保持打开状态，这样浏览器就可以继续通过同⼀个TCP连接发送请求。&lt;strong&gt;保持 TCP连接可以省去下次请求时需要建⽴连接的时间，提升资源加载速度&lt;/strong&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;重定向&#34;&gt;重定向&lt;/h3&gt;
+&lt;p&gt;⽐如当你在浏览器中打开geekbang.org 后，你会发现最终打开的⻚⾯地址是 https://www.geekbang.org。&lt;/p&gt;
+&lt;p&gt;这两个URL之所以不⼀样，是因为涉及到了⼀个重定向操作。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1627811566799.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+状态301就是告诉浏览器，我需要重定向到另外⼀个⽹ 址，⽽需要重定向的⽹址正是包含在响应头的Location字段中，接下来，浏览器获取Location字段中的地 址，并使⽤该地址重新导航，这就是⼀个完整重定向的执⾏流程&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;所以为什么很多站点第二次打开速度会很快&#34;&gt;所以为什么很多站点第⼆次打开速度会很快？&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;DNS缓存&lt;/strong&gt;和&lt;strong&gt;⻚⾯资源缓存&lt;/strong&gt;这两块数据是 会被浏览器缓存的。&lt;/p&gt;
+&lt;p&gt;DNS缓存⽐较简单，它主要就是在浏览器本地把对应的IP&lt;strong&gt;和域名关联起来&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;重点看下浏览器资源缓存&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1627811578305.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+当服务器返回HTTP响应头给浏览器时，浏览器是通过响应头中的&lt;strong&gt;Cache-Control&lt;/strong&gt;字段来设置是否缓存该资源。&lt;/p&gt;
+&lt;p&gt;通过Cache-Control中的Max-age参数来设置缓存过期时间&lt;/p&gt;
+&lt;p&gt;但如果缓存过期了，浏览器则会继续发起⽹络请求，并且在HTTP请求头中带上：&lt;code&gt;If-None-Match:&amp;quot;4f80f-13c-3a1xb12a&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;服务器收到请求头后，会根据If-None-Match的值来判断请求的资源是否有更新。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果没有更新，就返回304状态码，相当于服务器告诉浏览器：“这个缓存可以继续使⽤，这次就不重复 发送数据给你了。”&lt;/li&gt;
+&lt;li&gt;如果资源有更新，服务器就直接返回最新资源给浏览器。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;登录状态是如何保持的&#34;&gt;登录状态是如何保持的？&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;⽤⼾打开登录⻚⾯，在登录框⾥填⼊⽤⼾名和密码，点击确定按钮&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;服务器接收到浏览器提交的信息校验之后，会⽣成⼀ 段表⽰⽤⼾⾝份的字符串，并把该字符串写到响应头的Set-Cookie字段⾥，如下所⽰，然后把响应头发送 给浏览器。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Set-Cookie: UID=3431uad;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;浏览器在接收到服务器的响应头后，开始解析响应头，如果遇到响应头⾥含有Set-Cookie字段的情况，浏 览器就会把这个字段信息保存到本地。⽐如把UID=3431uad保持到本地。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;当⽤⼾再次访问时，浏览器会发起HTTP请求，但在发起请求之前，浏览器会读取之前保存的Cookie数 据，并把数据写进请求头⾥的Cookie字段⾥（如下所⽰），然后浏览器再将请求头发送给服务器。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;服务器在收到HTTP请求头数据之后，就会查找请求头⾥⾯的“Cookie”字段信息，当查找到包 含UID=3431uad的信息时，服务器查询后台，并判断该⽤⼾是已登录状态，然后⽣成含有该⽤⼾信息的 ⻚⾯数据，并把⽣成的数据发送给浏览器。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;浏览器在接收到该含有当前⽤⼾的⻚⾯数据后，就可以正确展⽰⽤⼾登录的状态信息了&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+">HTTP请求流程：为什么很多站点第⼆次打开速度会很快？</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/zuo-yong-yu/"" data-c="
+          &lt;h2 id=&#34;类型&#34;&gt;类型&lt;/h2&gt;
+&lt;p&gt;ECMAScript 变量包含：基本类型值和引用类型值&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基本类型值&lt;/strong&gt;指的是 简单的数据段，而&lt;strong&gt;引用类型值&lt;/strong&gt;指那些可能由多个值构成的对象。&lt;/p&gt;
+&lt;p&gt;基本数据类型：Undefined、Null、Boolean、Number 和 String&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;动态属性&#34;&gt;动态属性&lt;/h3&gt;
+&lt;p&gt;我们不能给基本类型的值添加属性&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var name = &amp;quot;Nicholas&amp;quot;; 
+name.age = 27; 
+alert(name.age); //undefined
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;复制变量值&#34;&gt;复制变量值&lt;/h3&gt;
+&lt;p&gt;基本类型就是值复制&lt;/p&gt;
+&lt;p&gt;当从一个变量向另一个变量复制引用类型的值时，同样也会将存储在变量对象中的值复制一份放到 为新变量分配的空间中。不同的是，这个值的副本实际上是一个指针，而这个指针指向存储在堆中的一 个对象。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;传递参数&#34;&gt;传递参数&lt;/h3&gt;
+&lt;p&gt;为了证明对象是按&lt;strong&gt;值传递&lt;/strong&gt;的&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function setName(obj) { 
+ obj.name = &amp;quot;Nicholas&amp;quot;; 
+ obj = new Object(); 
+ obj.name = &amp;quot;Greg&amp;quot;; 
+} 
+var person = new Object(); 
+setName(person); 
+alert(person.name); //&amp;quot;Nicholas&amp;quot; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;当在函数内部重写 obj 时，这 个变量引用的就是一个局部对象了。而这个局部对象会在函数执行完毕后立即被销毁。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;检查类型&#34;&gt;检查类型&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;typeof&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var s = &amp;quot;Nicholas&amp;quot;; 
+var b = true; 
+var i = 22; 
+var u; 
+var n = null; 
+var o = new Object(); 
+alert(typeof s); //string 
+alert(typeof i); //number 
+alert(typeof b); //boolean 
+alert(typeof u); //undefined 
+alert(typeof n); //object 
+alert(typeof o); //object
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;instanceof&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;alert(person instanceof Object); // 变量 person 是 Object 吗？
+alert(colors instanceof Array); // 变量 colors 是 Array 吗？
+alert(pattern instanceof RegExp); // 变量 pattern 是 RegExp 吗？
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;所有引用类型的值都是 Object 的实例。因此，在检测一个引用类型值和 Object 构造 函数时，instanceof 操作符始终会返回 true&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;执行环境及作用域&#34;&gt;执行环境及作用域&lt;/h2&gt;
+&lt;p&gt;在 Web 浏览器中，全局执行环境被认为是 window 对象，因 此所有全局变量和函数都是作为 window 对象的属性和方法创建的。&lt;/p&gt;
+&lt;p&gt;全局执行环境直到应用程序退 出——例如关闭网页或浏览器——时才会被销毁&lt;/p&gt;
+&lt;p&gt;每个函数都有自己的&lt;strong&gt;执行环境&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;当代码在一个环境中执行时，会创建变量对象的一个&lt;strong&gt;作用域链&lt;/strong&gt;（scope chain）。作用域链的用途，是 保证对执行环境有权访问的所有变量和函数的有序访问。&lt;/p&gt;
+&lt;p&gt;内部环境可以通过作用域链访问所有的外部环境，但 外部环境不能访问内部环境中的任何变量和函数&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;延长作用域链&#34;&gt;延长作用域链&lt;/h3&gt;
+&lt;p&gt;然执行环境的类型总共只有两种——全局和局部（函数）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;try-catch 语句的 catch 块&lt;/li&gt;
+&lt;li&gt;with 语句&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function buildUrl() { 
+ var qs = &amp;quot;?debug=true&amp;quot;; 
+ with(location){ 
+ var url = location.href + qs; 
+ } 
+ return url; 
+} 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;with 语句接收的是 location 对象，因此其变量对象中就包含了 location 对象的所有属 性和方法，而这个变量对象被添加到了作用域链的前端&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;没有块级作用域&#34;&gt;没有块级作用域&lt;/h3&gt;
+&lt;p&gt;由 for 语句创建的变量 i 即使在 for 循环执行结束后，也依旧会存在 于循环外部的执行环境中。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;声明变量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;使用 var 声明的变量会自动被添加到最接近的环境中&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;查询标识符&lt;/p&gt;
+&lt;p&gt;当在某个环境中为了读取或写入而引用一个标识符时，搜索过程从作用域链的前端开始，向上逐级查询与给定名字匹配的标识符。找到 了该标识符，搜索过程停止&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;垃圾收集&#34;&gt;垃圾收集&lt;/h2&gt;
+&lt;p&gt;JavaScript 具有自动垃圾收集机制&lt;/p&gt;
+&lt;p&gt;这种垃圾收集机制的原理其实很简单：找&lt;strong&gt;出那些不再继续使用的变 量，然后释放其占用的内存&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;为此，垃圾收集器会按照固定的时间间隔， 周期性地执行这一操作&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;标记清除&#34;&gt;标记清除&lt;/h3&gt;
+&lt;p&gt;JavaScript 中最常用的垃圾收集方式是&lt;strong&gt;标记清除&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当变量进入环境时，就将这个变量标记为“进入环境”。&lt;/p&gt;
+&lt;p&gt;而当变量离开环境时，则将其 标记为“离开环境”&lt;/p&gt;
+&lt;p&gt;垃圾收集器在运行的时候会给存储在内存中的所有变量都加上标记。然后，它会去掉环境中的变量以及被环境中的变量引用的变量的标记。而在此之后再被加上标记 的变量将被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;引用计数&#34;&gt;引用计数&lt;/h3&gt;
+&lt;p&gt;不太常见的垃圾收集策略&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;引用计数&lt;/strong&gt;的含义是跟踪记录每 个值被引用的次数&lt;/p&gt;
+&lt;p&gt;当声明了一个变量并将一个引用类型值赋给该变量时，则这个值的引用次数就是 1，如果同一个值又被赋给另一个变量，则该值的引用次数加 1。相反，如果包含对这个值引用的变量又取 得了另外一个值，则这个值的引用次数减 1。当这个值的引用次数变成 0 时，则说明没有办法再访问这 个值了，因而就可以将其占用的内存空间回收回来。&lt;/p&gt;
+&lt;br&gt;
+">作用域</a>
+      </div>
+      
+      <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/tcp-xie-yi-ru-he-bao-zheng-jian-neng-bei-wan-zheng-song-da-liu-lan-qi/"" data-c="
           &lt;p&gt;衡量Web⻚⾯性能的时候有⼀个重要的指标叫“&lt;strong&gt;FP（First Paint）&lt;/strong&gt;”，是指从⻚⾯加载到⾸次开始绘制 的时⻓。影响FP指标其中⼀个重要的因素是⽹络加载速度。&lt;/p&gt;
 &lt;br&gt;
@@ -1160,7 +1384,7 @@
 &lt;li&gt;⼤⽂件会被拆分成很多⼩的数据包来传输，这些⼩的数据包会经过不同的路由，并在不同的时间到达接收 端，⽽UDP协议并不知道如何组装这些数据包，从⽽把这些数据包还原成完整的⽂件。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;br&gt;
-&lt;p&gt;** TCP（Transmission Control Protocol，传输控制协议）是⼀种⾯向 连接的、可靠的、基于字节流的传输层通信协议。**相对于UDP，TCP有下⾯两个特点:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;TCP（Transmission Control Protocol，传输控制协议）是⼀种⾯向 连接的、可靠的、基于字节流的传输层通信协议&lt;/strong&gt; 。   相对于UDP，TCP有下⾯两个特点:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;对于数据包丢失的情况，TCP提供重传机制；&lt;/li&gt;
 &lt;li&gt;TCP引⼊了数据包排序机制，⽤来保证把乱序的数据包组合成⼀个完整的⽂件。&lt;/li&gt;

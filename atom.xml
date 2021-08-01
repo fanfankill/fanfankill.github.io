@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-07-31T08:08:02.991Z</updated>
+    <updated>2021-08-01T10:14:54.630Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[HTTP请求流程：为什么很多站点第⼆次打开速度会很快？]]></title>
+        <id>https://fanfankill.github.io/post/http-qing-qiu-liu-cheng-wei-shi-me-hen-duo-zhan-dian-di-ci-da-kai-su-du-hui-hen-kuai/</id>
+        <link href="https://fanfankill.github.io/post/http-qing-qiu-liu-cheng-wei-shi-me-hen-duo-zhan-dian-di-ci-da-kai-su-du-hui-hen-kuai/">
+        </link>
+        <updated>2021-08-01T09:51:15.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[作用域]]></title>
+        <id>https://fanfankill.github.io/post/zuo-yong-yu/</id>
+        <link href="https://fanfankill.github.io/post/zuo-yong-yu/">
+        </link>
+        <updated>2021-08-01T05:06:30.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[TCP协议：如何保证⻚⾯⽂件能被完整送达浏览器？]]></title>
         <id>https://fanfankill.github.io/post/tcp-xie-yi-ru-he-bao-zheng-jian-neng-bei-wan-zheng-song-da-liu-lan-qi/</id>
@@ -65,19 +79,5 @@
         <link href="https://fanfankill.github.io/post/suan-fa/">
         </link>
         <updated>2021-07-21T12:20:13.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[深浅拷贝]]></title>
-        <id>https://fanfankill.github.io/post/shen-qian-kao-bei/</id>
-        <link href="https://fanfankill.github.io/post/shen-qian-kao-bei/">
-        </link>
-        <updated>2021-07-20T11:16:01.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ Vue文档4 插槽]]></title>
-        <id>https://fanfankill.github.io/post/vue-wen-dang-4-cha-cao/</id>
-        <link href="https://fanfankill.github.io/post/vue-wen-dang-4-cha-cao/">
-        </link>
-        <updated>2021-07-19T02:19:43.000Z</updated>
     </entry>
 </feed>
