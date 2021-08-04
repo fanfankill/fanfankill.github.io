@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>图解HTTP第五章 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1627995535421">
+<link rel="shortcut icon" href="/favicon.ico?v=1628084305767">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,19 +231,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">45</span>
+        <span class="site-item-stat-count">46</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">7</span>
+        <span class="site-item-stat-count">8</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">7</span>
+        <span class="site-item-stat-count">8</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -1151,6 +1151,131 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/htmlcss-he-javascriptshi-ru-he-bian-cheng-de/"" data-c="
+          &lt;p&gt;导航被提交后就进⼊了渲染阶段。&lt;/p&gt;
+&lt;h2 id=&#34;构建dom树&#34;&gt;构建DOM树&lt;/h2&gt;
+&lt;p&gt;为什么要构建DOM树呢？&lt;/p&gt;
+&lt;p&gt;这是因为浏览器⽆法直接理解和使⽤HTML，所以需要将HTML转换为 浏览器能够理解的结构——&lt;strong&gt;DOM树&lt;/strong&gt;。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628084109723.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;样式计算&#34;&gt;样式计算&lt;/h2&gt;
+&lt;p&gt;样式计算的⽬的是为了计算出DOM节点中每个元素的具体样式&lt;/p&gt;
+&lt;h3 id=&#34;把css转换为浏览器能够理解的结构&#34;&gt;把CSS转换为浏览器能够理解的结构&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628084117590.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;CSS样式来源主要有上面三种&lt;/p&gt;
+&lt;p&gt;浏览器也是⽆法直接理解这些纯⽂本的CSS样式，所以当渲染引擎接收到 CSS⽂本时，会执⾏⼀个转换操作，&lt;strong&gt;将CSS⽂本转换为浏览器可以理解的结构—— styleSheets&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;只需要在控制台中输⼊ document.styleSheets，然后就看到如下图所⽰的结构：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628084131779.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;)&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;转换样式表中的属性值使其标准化&#34;&gt;转换样式表中的属性值，使其标准化&lt;/h3&gt;
+&lt;p&gt;接下来就要对其进⾏属性值的标准化操作&lt;/p&gt;
+&lt;p&gt;的CSS⽂本中有很多属性值，如2em、blue、bold，这些类型数值不容易被渲染引 擎理解，所以需要&lt;strong&gt;将所有值转换为渲染引擎容易理解的、标准化的计算值&lt;/strong&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628084154198.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;计算出dom树中每个节点的具体样式&#34;&gt;计算出DOM树中每个节点的具体样式&lt;/h3&gt;
+&lt;p&gt;样式计算过程中的第一个规则是CSS继承。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;CSS继承就是每个DOM节点都包含有⽗节点的样式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;样式计算过程中的第⼆个规则是样式层叠。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;层叠是CSS的⼀个基本特征，它是⼀个定义了如何合 并来⾃多个源的属性值的算法。它在CSS处于核⼼地位，CSS的全称“层叠样式表”正是强调了这 ⼀点&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这个阶段最终输出的内容是每个DOM节点的样式，并被保存 在ComputedStyle的结构内。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;布局阶段&#34;&gt;布局阶段&lt;/h2&gt;
+&lt;p&gt;接下来就需要&lt;strong&gt;计算出DOM树中可⻅元素的⼏何位置&lt;/strong&gt;，我们把这个计 算过程叫做布局。&lt;/p&gt;
+&lt;h3 id=&#34;创建布局树&#34;&gt;创建布局树&lt;/h3&gt;
+&lt;p&gt;在显⽰之前，我们还要额外地构建⼀棵只包含可⻅元素布局树&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628084173184.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;从上图可以看出，DOM树中所有不可⻅的节点都没有包含到布局树中&lt;/p&gt;
+&lt;p&gt;为了构建布局树，浏览器⼤体上完成了下⾯这些⼯作：&lt;/p&gt;
+&lt;p&gt;为了构建布局树，浏览器⼤体上完成了下⾯这些⼯作：&lt;/p&gt;
+&lt;p&gt;⽽不可⻅的节点会被布局树忽略掉，如head标签下⾯的全部内容，再⽐如body.p.span这个元 素，因为它的属性包含 dispaly:none，所以这个元素也没有被包进布局树。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;布局计算&#34;&gt;布局计算&lt;/h3&gt;
+&lt;p&gt;接下来，就计算布局树节点的坐标位置&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;分层&#34;&gt;分层&lt;/h2&gt;
+&lt;p&gt;现在我们有了布局树，因为⻚⾯中有很多复杂的效果，如⼀些复杂的3D变换、⻚⾯滚动，或者使⽤z-indexing做z轴排序等，为了 更加⽅便地实现这些效果，&lt;strong&gt;渲染引擎还需要为特定的节点⽣成专⽤的图层，并⽣成⼀棵对应的图层树&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;浏览器的⻚⾯实际上被分成了很多图层，这些图层叠加后合成了最终的⻚⾯&lt;/strong&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628084183718.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;浏览器的⻚⾯实际上被分成了很多图层，这些图层叠加后合成了最终的⻚⾯&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;但并不是布局树的每个节点都包含⼀个图层，如果⼀个节点没有对应的层，那么这个节点就从属 于⽗节点的图层。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;那么需要满⾜什么条件，渲染引擎才会为特定的节点创建新的层呢？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第⼀点，拥有层叠上下⽂属性的元素会被提升为单独的⼀层。&lt;/strong&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;6&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628084191361.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;第⼆点，需要剪裁（clip）的地⽅也会被创建为图层。&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;style&amp;gt;
+div {
+width: 200;
+height: 200;
+overflow:auto;
+background: gray;
+}
+&amp;lt;/style&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;div &amp;gt;
+&amp;lt;p&amp;gt;所以元素有了层叠上下⽂的属性或者需要被剪裁，那么就会被提升成为单独⼀层，你可以参看下图：&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;从上图我们可以看到，document层上有A和B层，⽽B层之上⼜有两个图层。这些图层组织在⼀起也是⼀颗树状结构。&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;图层树是基于布局树来创建的，为了找出哪些元素需要在哪些层中，渲染引擎会遍历布局树来创建层树（Update LayerTree）。&amp;lt;/p&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在这⾥我们把div的⼤⼩限定为200 * 200像素，⽽div⾥⾯的⽂字内容⽐较多，⽂字所显⽰的区域肯定会超出 200 * 200的⾯积，这时候就产⽣了剪裁&lt;/p&gt;
+&lt;p&gt;出现这种裁剪情况的时候，渲染引擎会为⽂字部分单独创建⼀个层，如果出现滚动条，滚动条也会被提升为 单独的层。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;7&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628084201544.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;图层绘制&#34;&gt;图层绘制&lt;/h2&gt;
+&lt;p&gt;在完成图层树的构建之后，渲染引擎会对图层树中的每个图层进⾏绘制&lt;/p&gt;
+&lt;p&gt;渲染引擎实现图层的绘制与之类似，会把⼀个图层的绘制拆分成很多⼩的绘制指令，然后再把这些指令按照 顺序组成⼀个待绘制列表，如下图所⽰：&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;8&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628084215184.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;栅格化raster操作&#34;&gt;栅格化（raster）操作&lt;/h2&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;9&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628084222127.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;当图层的绘制列表准备好之后，主线程会把该绘制列表提交（commit）给合成线程&lt;/p&gt;
+&lt;p&gt;我们把⽤⼾可以看到的这个部分叫做&lt;strong&gt;视⼝&lt;/strong&gt; （viewport）。&lt;/p&gt;
+&lt;p&gt;有的图层可以很⼤，⽐如有的⻚⾯你使⽤滚动条要滚动好久才能滚动到底部，但是通过视 ⼝，⽤⼾只能看到⻚⾯的很⼩⼀部分，所以在这种情况下，要绘制出所有图层内容的话，就会产⽣太⼤的开 销，⽽且也没有必要。&lt;/p&gt;
+&lt;p&gt;基于这个原因，&lt;strong&gt;合成线程会将图层划分为图块&lt;/strong&gt;（tile）&lt;/p&gt;
+&lt;p&gt;合成线程会按照视⼝附近的图块来优先⽣成位图，实际⽣成位图的操作是由栅格化来执⾏的。所谓栅格 化，是指将图块转换为位图。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;合成和显示&#34;&gt;合成和显⽰&lt;/h2&gt;
+&lt;p&gt;⼀旦所有图块都被光栅化，合成线程就会⽣成⼀个绘制图块的命令⸺“DrawQuad”，然后将该命令提交 给浏览器进程。&lt;/p&gt;
+&lt;p&gt;到这⾥，经过这⼀系列的阶段，编写好的HTML、CSS、JavaScript等⽂件，经过浏览器就会显⽰出漂亮的 ⻚⾯了。&lt;/p&gt;
+&lt;p&gt;整个渲染流程：&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;10&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628084239640.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;p&gt;⼀个完整的渲染流程⼤致可总结为如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;渲染进程将HTML内容转换为能够读懂的DOM树结构。&lt;/li&gt;
+&lt;li&gt;渲染引擎将CSS样式表转化为浏览器可以理解的styleSheets，计算出DOM节点的样式。&lt;/li&gt;
+&lt;li&gt;创建布局树，并计算元素的布局信息。&lt;/li&gt;
+&lt;li&gt;对布局树进⾏分层，并⽣成分层树。&lt;/li&gt;
+&lt;li&gt;为每个图层⽣成绘制列表，并将其提交到合成线程。&lt;/li&gt;
+&lt;li&gt;合成线程将图层分成图块，并在光栅化线程池中将图块转换成位图。&lt;/li&gt;
+&lt;li&gt;合成线程发送绘制图块命令DrawQuad给浏览器进程。&lt;/li&gt;
+&lt;li&gt;浏览器进程根据DrawQuad消息⽣成⻚⾯，并显⽰到显⽰器上。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;相关概念&#34;&gt;相关概念&lt;/h2&gt;
+&lt;h3 id=&#34;更新了元素的几何属性重排&#34;&gt;更新了元素的⼏何属性（重排）&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;11&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628084287094.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;如果你通过JavaScript或者CSS修改元素的⼏何位置属性，例如改变元素的宽度、⾼度 等，那么浏览器会触发重新布局，解析之后的⼀系列⼦阶段，这个过程就叫&lt;strong&gt;重排&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;重排需要更新完整 的渲染流⽔线，所以开销也是最⼤的。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;更新元素的绘制属性重绘&#34;&gt;更新元素的绘制属性（重绘）&lt;/h3&gt;
+&lt;p&gt;⽐如通过JavaScript更改某些元素的背景颜⾊&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;12&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628084293505.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;如果修改了元素的背景颜⾊，那么布局阶段将不会被执⾏，因为并没有引起⼏何位置的变 换，所以就直接进⼊了绘制阶段，然后执⾏之后的⼀系列⼦阶段，这个过程就叫&lt;strong&gt;重绘&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;重绘省去了布局和分层阶段，所以执⾏效率会⽐重排操作要⾼⼀些。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;直接合成阶段&#34;&gt;直接合成阶段&lt;/h3&gt;
+&lt;p&gt;如果你更改⼀个既不要布局也不要绘制的属性，渲染引擎将跳过布局和绘制，只执⾏ 后续的合成操作，我们把这个过程叫做&lt;strong&gt;合成&lt;/strong&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;13&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628084297971.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;因为是在⾮主线程上合成，并没有占⽤主线程的资源，另外也避 开了布局和绘制两个⼦阶段，所以相对于重绘和重排，&lt;strong&gt;合成能⼤⼤提升绘制效率&lt;/strong&gt;。&lt;/p&gt;
+">HTML、CSS和JavaScript，是如何变成⻚⾯的？</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/mian-xiang-dui-xiang-de-cheng-xu-she-ji/"" data-c="
