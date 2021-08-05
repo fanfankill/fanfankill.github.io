@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1628084440971">
+<link rel="shortcut icon" href="/favicon.ico?v=1628146298248">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -213,7 +213,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">46</span>
+        <span class="site-item-stat-count">47</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -284,6 +284,10 @@
           <small class="language" data-lan="tag">标签</small>
         </h2>
       </div>
+      
+      
+      
+      
       
       
       
@@ -726,6 +730,171 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/bom/"" data-c="
+          &lt;h2 id=&#34;window-对象&#34;&gt;window 对象&lt;/h2&gt;
+&lt;p&gt;BOM 的核心对象是 window，&lt;/p&gt;
+&lt;p&gt;在浏览器中，window 对象有双重角色， 它既是通过 JavaScript 访问浏览器窗口的一个接口，又是 ECMAScript 规定的 Global 对象。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;全局作用域&#34;&gt;全局作用域&lt;/h3&gt;
+&lt;p&gt;window 对象同时扮演着 ECMAScript 中 Global 对象的角色，因此所有在全局作用域中声明 的变量、函数都会变成 window 对象的属性和方法。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var age = 29; 
+function sayAge(){ 
+ alert(this.age); 
+} 
+
+alert(window.age); //29 
+sayAge(); //29 
+window.sayAge(); //29
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;由于&lt;code&gt;sayAge()&lt;/code&gt;存在于全局作用域中，因此 this.age 被映射到 window.age&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;定义全局变量与在 window 对象上直接定义属性还 是有一点差别&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;全局变量不能通过 delete 操作符删除，而直接在 window 对象上的定义的属性可以&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var age = 29; 
+window.color = &amp;quot;red&amp;quot;; 
+
+//在 IE &amp;lt; 9 时抛出错误，在其他所有浏览器中都返回 false 
+delete window.age; 
+
+//在 IE &amp;lt; 9 时抛出错误，在其他所有浏览器中都返回 true 
+delete window.color; //returns true 
+
+alert(window.age); //29 
+alert(window.color); //undefined 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;因为刚才使用 var 语句添加的 window 属性有一个名为[[Configurable]]的特性，这个特性的值被 设置为false，因此这样定义的属性不可以通过delete操作符删除。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;尝试访问未声明的变量会抛出错误，但是通过查询 window 对象，可以知 道某个可能未声明的变量是否存在&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//这里会抛出错误，因为 oldValue 未定义
+var newValue = oldValue; 
+
+//这里不会抛出错误，因为这是一次属性查询
+//newValue 的值是 undefined 
+var newValue = window.oldValue; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;窗口关系及框架&#34;&gt;窗口关系及框架&lt;/h3&gt;
+&lt;p&gt;每个框架都拥有自己的 window 对象，并且保存在 frames 集合中&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;html&amp;gt; 
+ &amp;lt;head&amp;gt; 
+ &amp;lt;title&amp;gt;Frameset Example&amp;lt;/title&amp;gt; 
+ &amp;lt;/head&amp;gt; 
+ &amp;lt;frameset rows=&amp;quot;160,*&amp;quot;&amp;gt; 
+ &amp;lt;frame src=&amp;quot;frame.htm&amp;quot; name=&amp;quot;topFrame&amp;quot;&amp;gt; 
+ &amp;lt;frameset cols=&amp;quot;50%,50%&amp;quot;&amp;gt; 
+ &amp;lt;frame src=&amp;quot;anotherframe.htm&amp;quot; name=&amp;quot;leftFrame&amp;quot;&amp;gt; 
+ &amp;lt;frame src=&amp;quot;yetanotherframe.htm&amp;quot; name=&amp;quot;rightFrame&amp;quot;&amp;gt; 
+ &amp;lt;/frameset&amp;gt; 
+ &amp;lt;/frameset&amp;gt; 
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;访问框架方式&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210805132150524.png&#34; alt=&#34;image-20210805132150524&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;窗口位置&#34;&gt;窗口位置&lt;/h3&gt;
+&lt;p&gt;用来确定和修改 window 对象位置，IE、Safari、Opera 和 Chrome 都提供了 &lt;code&gt;screenLeft&lt;/code&gt;和 &lt;code&gt;screenTop&lt;/code&gt;属性，分别用于表示窗口相对于屏幕左边和上边的位置&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;窗口大小&#34;&gt;窗口大小&lt;/h3&gt;
+&lt;p&gt;多个属性：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;innerWidth&lt;/code&gt;、&lt;code&gt;innerHeight&lt;/code&gt; 表示当前视窗（viewport）的宽度和高度&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;outerWidth&lt;/code&gt;、&lt;code&gt;outerHeight&lt;/code&gt;返回浏览器窗口本身的尺寸（无论是从最外层的 window 对象还是从 某个框架访问）&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;clientWidth&lt;/code&gt;、&lt;code&gt;clientHeight&lt;/code&gt; ：width+左右padding、height + 上下padding&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;clientTop&lt;/code&gt;：boder.top(上边框的宽度)&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;offsetWidth&lt;/code&gt; 、&lt;code&gt;offsetHeight&lt;/code&gt;：width + 左右padding + 左右boder、height + 上下padding +上下boder&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;offsetTop&lt;/code&gt; 当前元素 上边框 外边缘 到 最近的已定位父级（offsetParent） 上边框 内边缘的 距离&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;scrollWidth&lt;/code&gt;、&lt;code&gt;scrollHeight&lt;/code&gt;：width&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;scrollTop&lt;/code&gt;：:内容层顶部 到 可视区域顶部的距离  (用的最多)&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;resizeTo()和 resizeBy()方法可以调整浏览器窗口的大小&lt;/p&gt;
+&lt;p&gt;resizeTo()接收浏览器窗口的新宽度和新高度&lt;/p&gt;
+&lt;p&gt;resizeBy()接收新窗口与原窗口的宽 度和高度之差&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//调整到 100×100 
+window.resizeTo(100, 100); 
+
+//调整到 200×150 
+window.resizeBy(100, 50); 
+
+//调整到 300×300 
+window.resizeTo(300, 300); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;导航和打开窗口&#34;&gt;导航和打开窗口&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;window.open()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;接收 4 个参数：要加载的 URL、窗口目标、一个特性字符串以及一个表示新页面是否取代浏览 器历史记录中当前加载页面的布尔值。&lt;/p&gt;
+&lt;p&gt;如果第二个参数是已有窗口或框架的名称，那么就会在具 有该名称的窗口或框架中加载第一个参数指定的 URL。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//等同于&amp;lt; a href=&amp;quot;http://www.wrox.com&amp;quot; target=&amp;quot;topFrame&amp;quot;&amp;gt;&amp;lt;/a&amp;gt; 
+window.open(&amp;quot;http://www.wrox.com/&amp;quot;, &amp;quot;topFrame&amp;quot;); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;弹出窗口&#34;&gt;弹出窗口&lt;/h4&gt;
+&lt;p&gt;如果给 window.open()传递的第二个参数并不是一个已经存在的窗口或框架，那么该方法就会根 据在第三个参数位置上传入的字符串创建一个新窗口或新标签页。&lt;/p&gt;
+&lt;p&gt;调用 close()方法还可以关闭新打开的窗口&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;wroxWin.close()&lt;/code&gt; 、&lt;code&gt;Window.close()&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;location对象&#34;&gt;location对象&lt;/h2&gt;
+&lt;p&gt;它提供了与当前窗口中加载的文档有关的信息，还提供了一 些导航功能&lt;/p&gt;
+&lt;p&gt;下表列出了 location 对象的所有属性&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210805143522135.png&#34; alt=&#34;image-20210805143522135&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;位置操作&#34;&gt;位置操作&lt;/h3&gt;
+&lt;p&gt;使用 location 对象可以通过很多方式来改变浏览器的位置。&lt;/p&gt;
+&lt;p&gt;使用 assign()方法并为其传递一个 URL&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;location.assign(&amp;quot;http://www.wrox.com&amp;quot;);&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;可以立即打开新 URL 并在浏览器的历史记录中生成一条记录&lt;/p&gt;
+&lt;p&gt;下列两行代码与 显式调用 assign()方法的效果完全一样。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;window.location = &amp;quot;http://www.wrox.com&amp;quot;; 
+location.href = &amp;quot;http://www.wrox.com&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;replace()&lt;/code&gt;方法不会在浏览器上留痕，不会在历史记录中生成新记 录&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;location.replace(&amp;quot;http://www.wrox.com/&amp;quot;);&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;reload()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;默认先从缓存找&lt;/p&gt;
+&lt;p&gt;作用是重新加载当前显示的页面，如果要强制从服务器重新加载传参&lt;code&gt;location.reload(true)&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;history-对象&#34;&gt;history 对象&lt;/h2&gt;
+&lt;p&gt;history 对象保存着用户上网的历史记录&lt;/p&gt;
+&lt;p&gt;使用 &lt;code&gt;go()&lt;/code&gt;方法可以在用户的历史记录中任意跳转，可以向后也可以向前。&lt;/p&gt;
+&lt;p&gt;还可以使用两个简写方法 &lt;code&gt;back()&lt;/code&gt;和 &lt;code&gt;forward()&lt;/code&gt;来代替 &lt;code&gt;go()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;这个方法接受一个参数， 表示向后或向前跳转的页面数的一个整数值。负数表示向后跳转，正数反之&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//后退一页
+history.go(-1); 
+
+//前进一页
+history.go(1); 
+
+//前进两页
+history.go(2); 
+
+
+//跳转到最近的 wrox.com 页面
+//如果历史记录中不包含该字符串，那么这个方法什么也不做
+history.go(&amp;quot;wrox.com&amp;quot;); 
+
+//后退一页
+history.back(); 
+
+//前进一页
+history.forward(); 
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;history 对象还有一个 length 属性，保存着历史记录的数量&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;if (history.length == 0){ 
+ //这应该是用户打开窗口后的第一个页面
+} 
+
+&lt;/code&gt;&lt;/pre&gt;
+">BOM</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/htmlcss-he-javascriptshi-ru-he-bian-cheng-de/"" data-c="
