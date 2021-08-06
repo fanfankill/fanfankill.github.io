@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1628243528496">
+<link rel="shortcut icon" href="/favicon.ico?v=1628256884234">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">48</span>
+        <span class="site-item-stat-count">49</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1156,6 +1156,78 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/wei-shi-me-javascript-dai-ma-hui-chu-xian-zhan-yi-chu/"" data-c="
+          &lt;p&gt;哪些情况下代码才算是“⼀段”代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1. 当JavaScript执⾏全局代码的时候，会编译全局代码并创建全局执⾏上下⽂，⽽且在整个⻚⾯的⽣存周期 内，全局执⾏上下⽂只有⼀份。
+2. 当调⽤⼀个函数的时候，函数体内的代码会被编译，并创建函数执⾏上下⽂，⼀般情况下，函数执⾏结 束之后，创建的函数执⾏上下⽂会被销毁。
+3.  当使⽤eval函数的时候，eval的代码也会被编译，并创建执⾏上下⽂。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628256874452.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;那为什么会出现这种错误呢？这就涉及到了&lt;strong&gt;调⽤栈&lt;/strong&gt;的内容&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;调⽤栈就是⽤来管理函数调⽤关系的⼀种数据结构&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;什么是函数调用&#34;&gt;什么是函数调⽤&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var a = 2
+function add(){
+var b = 10
+return a+b
+}
+add()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;⾸先，从全局执⾏上下⽂中，取出add函数代码。&lt;/li&gt;
+&lt;li&gt;其次，对add函数的这段代码进⾏编译，并创建该函数的执⾏上下⽂和可执⾏代码。&lt;/li&gt;
+&lt;li&gt;最后，执⾏代码，输出结果&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当执⾏到add函数的时候，我们就有了两个执⾏上下⽂了⸺全局执⾏上下⽂和add函数的执⾏上 下⽂。&lt;/p&gt;
+&lt;p&gt;也就是说在执⾏JavaScript时，可能会存在多个执⾏上下⽂，那么JavaScript引擎是如何管理这些执⾏上下 ⽂的呢？&lt;/p&gt;
+&lt;p&gt;答案是通过⼀种叫&lt;strong&gt;栈的数据结构来管理的&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;什么是栈&#34;&gt;什么是栈&lt;/h2&gt;
+&lt;p&gt;栈中的元素满⾜&lt;strong&gt;后进先出&lt;/strong&gt;的特点&lt;/p&gt;
+&lt;p&gt;JavaScript引擎正是利⽤栈的这种结构来管理执⾏上下⽂的。&lt;/p&gt;
+&lt;p&gt;通常把这种⽤来管理执⾏上下⽂的栈称为执⾏上下⽂栈，⼜称&lt;strong&gt;调⽤栈&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;调⽤栈是JavaScript引擎追踪函数执⾏的⼀个机制&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;栈溢出stack-overflow&#34;&gt;栈溢出（Stack Overflow）&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;调⽤栈&lt;/strong&gt;是有⼤⼩的，当⼊栈的执⾏上下⽂超过⼀定数⽬，JavaScript引擎就会报错，我们把这种错误叫做&lt;strong&gt;栈溢出&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;特别是在你写递归代码的时候，就很容易出现栈溢出的情况。&lt;/p&gt;
+&lt;p&gt;修改以下代码使其不会栈溢出&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function runStack (n) {
+if (n === 0) return 100;
+return runStack( n- 2);
+}
+runStack(50000)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;尾递归解决&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function runStack (n, result=100) {
+if (n === 0) return result;
+return runStack( n- 2, result);
+}
+runStack(50000, 100)
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;或者循环解决&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function runStack (n) {
+    while(true)
+        {
+            if (n === 0) return 100;
+            else if (n==1) return 100;
+            else {
+                n=n-2
+            }
+        } 
+
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+">为什么JavaScript代码会出现栈溢出？</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/proxy/"" data-c="
