@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>fanfan</title>
+<title>Proxy | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1628243528496">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,6 +41,8 @@
 
 
 
+  <meta name="description" content="Proxy" />
+  <meta name="keywords" content="Javascript" />
 </head>
 
 <body>
@@ -199,10 +201,26 @@
   <div class="main-continer">
     
     <div
-      class="section-layout  pisces">
+      class="section-layout pisces ">
       <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -258,490 +276,706 @@
 
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%A6%82%E8%BF%B0">概述</a></li>
+<li><a href="#proxy%E5%AE%9E%E4%BE%8B%E7%9A%84%E6%96%B9%E6%B3%95">Proxy实例的方法</a>
+<ul>
+<li><a href="#get">get()</a></li>
+</ul>
+</li>
+<li><a href="#set">set()</a></li>
+<li><a href="#apply">apply()</a></li>
+<li><a href="#reflect">Reflect</a>
+<ul>
+<li><a href="#%E6%A6%82%E8%BF%B0-2">概述</a></li>
+<li><a href="#%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95">静态方法</a></li>
+<li><a href="#reflectgettarget-name-receiver">Reflect.get(target, name, receiver)</a></li>
+<li><a href="#reflectsettarget-name-value-receiver">Reflect.set(target, name, value, receiver)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
 </div>
+
 <script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'pisces';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
       }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
     });
   }
-  </script>
-        <div class="section-box tag-line box-shadow-wrapper">
-          <section class="section tags-section posts-expand bg-color">
-            <div class="padding-wrapper">
-  <div class="tag-timeline-box">
-    <div class="tag-timeline-wrapper">
-      <div class="tag-timeline-title">
-        <h2>
-          Javascript
-          <small class="language" data-lan="tag">标签</small>
-        </h2>
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
+        
       </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    jQuery.Velocity(hideElement, 'stop');
+    jQuery.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        jQuery.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://fanfankill.github.io/post/proxy/">
+      Proxy
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2021-08-06 16:09:22">2021-08-06</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      
-      <a href="https://fanfankill.github.io/post/proxy/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              08-06
-              <small>Proxy</small>
-            </h1>
-          </div>
-        </div>
+      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/">
+        <span>Javascript</span>
       </a>
       
       
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/bom/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              08-05
-              <small>BOM</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/mian-xiang-dui-xiang-de-cheng-xu-she-ji/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              08-03
-              <small> 面向对象的程序设计</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/zuo-yong-yu/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              08-01
-              <small>作用域</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/han-shu-biao-da-shi/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-31
-              <small> 函数表达式</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/es6-day2/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-31
-              <small>ES6 day2</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/js-yin-yong-lei-xing/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-30
-              <small>JS引用类型</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/es6-kai-pian/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-29
-              <small>ES6开篇</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/a-li-yun-bu-shu-node-xiang-mu/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-23
-              <small> 阿里云部署node项目</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/shen-qian-kao-bei/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-20
-              <small>深浅拷贝</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/shou-xie-promise/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-16
-              <small>手写Promise</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/js-she-ji-mo-shi/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-15
-              <small>JS设计模式</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/tu-pian-lan-jia-zai/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-03
-              <small>图片懒加载</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/shou-xie-axios/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              06-26
-              <small>手写ajax</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/mustache/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              06-26
-              <small>mustache</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              06-16
-              <small>socket.io实现实时聊天室</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/shi-jian-xun-huan/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              06-10
-              <small>事件循环</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/js-zhi-shi-dian/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              06-05
-              <small>JS 节流和防抖 判断数组</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/dom/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              06-01
-              <small>DOM</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/js-shi-jian/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              04-28
-              <small>JS事件</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/niu-ke-cuo-ti/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              04-06
-              <small>牛客</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/js-ji-ben-shu-ju-lei-xing/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              04-05
-              <small>JS基本数据类型</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/xiang-mu-cooike-dai-ma/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              04-04
-              <small>项目cooike实现保存账号密码功能</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>8<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>1676<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
+    
+  </div>
+</section>
+            <div class="post-body next-md-body" id="post_body">
+              <h2 id="概述">概述</h2>
+<p>Proxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“元编程”（meta programming），即对编程语言进行编程</p>
+<p>Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截</p>
+<pre><code class="language-js">var obj = new Proxy({}, {
+  get: function (target, propKey, receiver) {
+    console.log(`getting ${propKey}!`);
+    return Reflect.get(target, propKey, receiver);
+  },
+  set: function (target, propKey, value, receiver) {
+    console.log(`setting ${propKey}!`);
+    return Reflect.set(target, propKey, value, receiver);
+  }
+});
+
+
+obj.count = 1
+//  setting count!
+++obj.count
+//  getting count!
+//  setting count!
+//  2
+</code></pre>
+<br>
+<p>ES6 原生提供 Proxy 构造函数，用来生成 Proxy 实例。</p>
+<p><code>var proxy = new Proxy(target, handler);</code></p>
+<p>Proxy 对象的所有用法，都是上面这种形式，不同的只是<code>handler</code>参数的写法</p>
+<p><code>target</code>参数表示所要拦截的目标对象，<code>handler</code>参数也是一个对象，用来定制拦截行为</p>
+<p>Proxy 实例也可以作为其他对象的原型对象</p>
+<pre><code class="language-js">var proxy = new Proxy({}, {
+  get: function(target, propKey) {
+    return 35;
+  }
+});
+
+let obj = Object.create(proxy);
+obj.time // 35
+</code></pre>
+<p>上面代码中，<code>proxy</code>对象是<code>obj</code>对象的原型，<code>obj</code>对象本身并没有<code>time</code>属性，所以根据原型链，会在<code>proxy</code>对象上读取该属性，导致被拦截。</p>
+<br>
+<p>下面是 Proxy 支持的拦截操作一览，一共 13 种。</p>
+<ul>
+<li><strong>get(target, propKey, receiver)</strong>：拦截对象属性的读取，比如<code>proxy.foo</code>和<code>proxy['foo']</code>。</li>
+<li><strong>set(target, propKey, value, receiver)</strong>：拦截对象属性的设置，比如<code>proxy.foo = v</code>或<code>proxy['foo'] = v</code>，返回一个布尔值。</li>
+<li><strong>has(target, propKey)</strong>：拦截<code>propKey in proxy</code>的操作，返回一个布尔值。</li>
+<li><strong>deleteProperty(target, propKey)</strong>：拦截<code>delete proxy[propKey]</code>的操作，返回一个布尔值。</li>
+<li><strong>ownKeys(target)</strong>：拦截<code>Object.getOwnPropertyNames(proxy)</code>、<code>Object.getOwnPropertySymbols(proxy)</code>、<code>Object.keys(proxy)</code>、<code>for...in</code>循环，返回一个数组。该方法返回目标对象所有自身的属性的属性名，而<code>Object.keys()</code>的返回结果仅包括目标对象自身的可遍历属性。</li>
+<li><strong>getOwnPropertyDescriptor(target, propKey)</strong>：拦截<code>Object.getOwnPropertyDescriptor(proxy, propKey)</code>，返回属性的描述对象。</li>
+<li><strong>defineProperty(target, propKey, propDesc)</strong>：拦截<code>Object.defineProperty(proxy, propKey, propDesc）</code>、<code>Object.defineProperties(proxy, propDescs)</code>，返回一个布尔值。</li>
+<li><strong>preventExtensions(target)</strong>：拦截<code>Object.preventExtensions(proxy)</code>，返回一个布尔值。</li>
+<li><strong>getPrototypeOf(target)</strong>：拦截<code>Object.getPrototypeOf(proxy)</code>，返回一个对象。</li>
+<li><strong>isExtensible(target)</strong>：拦截<code>Object.isExtensible(proxy)</code>，返回一个布尔值。</li>
+<li><strong>setPrototypeOf(target, proto)</strong>：拦截<code>Object.setPrototypeOf(proxy, proto)</code>，返回一个布尔值。如果目标对象是函数，那么还有两种额外操作可以拦截。</li>
+<li><strong>apply(target, object, args)</strong>：拦截 Proxy 实例作为函数调用的操作，比如<code>proxy(...args)</code>、<code>proxy.call(object, ...args)</code>、<code>proxy.apply(...)</code>。</li>
+<li><strong>construct(target, args)</strong>：拦截 Proxy 实例作为构造函数调用的操作，比如<code>new proxy(...args)</code>。</li>
+</ul>
+<br>
+<pre><code class="language-js">var handler = {
+  get: function(target, name) {
+    if (name === 'prototype') {
+      return Object.prototype;
+    }
+    return 'Hello, ' + name;
+  },
+
+  apply: function(target, thisBinding, args) {
+    return args[0];
+  },
+
+  construct: function(target, args) {
+    return {value: args[1]};
+  }
+};
+
+var fproxy = new Proxy(function(x, y) {
+  return x + y;
+}, handler);
+
+fproxy(1, 2) // 1     实例函数 拦截apply
+new fproxy(1, 2) // {value: 2}  构造函数constructor
+fproxy.prototype === Object.prototype // true
+fproxy.foo === &quot;Hello, foo&quot; // true
+</code></pre>
+<br>
+<h2 id="proxy实例的方法">Proxy实例的方法</h2>
+<h3 id="get">get()</h3>
+<p><code>et</code>方法用于拦截某个属性的读取操作，可以接受三个参数：<strong>目标对象</strong>、<strong>属性名</strong>和 <strong>proxy 实例本身</strong></p>
+<pre><code class="language-js">var person = {
+  name: &quot;张三&quot;
+};
+
+var proxy = new Proxy(person, {
+  get: function(target, propKey) {
+    if (propKey in target) {
+      return target[propKey];
+    } else {
+      throw new ReferenceError(&quot;Prop name \&quot;&quot; + propKey + &quot;\&quot; does not exist.&quot;);
+    }
+  }
+});
+
+proxy.name // &quot;张三&quot;
+proxy.age // 抛出一个错误
+</code></pre>
+<br>
+<p><code>get</code>方法可以继承。</p>
+<pre><code class="language-js">let proto = new Proxy({}, {
+  get(target, propertyKey, receiver) {
+    console.log('GET ' + propertyKey);
+    return target[propertyKey];
+  }
+});
+
+let obj = Object.create(proto);
+obj.foo // &quot;GET foo&quot;
+</code></pre>
+<p>拦截操作定义在<code>Prototype</code>对象上面，所以如果读取<code>obj</code>对象继承的属性时，拦截会生效。</p>
+<br>
+<p>利用<code>get</code>拦截，实现一个生成各种 DOM 节点的通用函数<code>dom</code></p>
+<pre><code class="language-js">const dom = new Proxy({}, {
+  get(target, property) {
+    return function(attrs = {}, ...children) {
+      const el = document.createElement(property);
+        //添加属性
+      for (let prop of Object.keys(attrs)) {
+        el.setAttribute(prop, attrs[prop]);
+      }
+      for (let child of children) {
+        if (typeof child === 'string') {
+          child = document.createTextNode(child);
+        }
+        el.appendChild(child);
+      }
+      return el;
+    }
+  }
+});
+
+const el = dom.div({},
+  'Hello, my name is ',
+  dom.a({href: '//example.com'}, 'Mark'),
+  '. I like:',
+  dom.ul({},
+    dom.li({}, 'The web'),
+    dom.li({}, 'Food'),
+    dom.li({}, '…actually that\'s it')
+  )
+);
+
+document.body.appendChild(el);
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1628237451351.png" alt="" loading="lazy"></figure>
+<br>
+<h2 id="set">set()</h2>
+<p><code>set</code>方法用来拦截某个属性的赋值操作，可以接受四个参数：<strong>目标对象</strong>、<strong>属性名</strong>、<strong>属性值</strong>和 <strong>Proxy 实例本身</strong>，其中最后一个参数可选</p>
+<pre><code class="language-js">let validator = {
+  set: function(obj, prop, value) {
+    if (prop === 'age') {
+      if (!Number.isInteger(value)) {
+        throw new TypeError('The age is not an integer');
+      }
+      if (value &gt; 200) {
+        throw new RangeError('The age seems invalid');
+      }
+    }
+
+    // 对于满足条件的 age 属性以及其他属性，直接保存
+    obj[prop] = value;
+    return true;
+  }
+};
+
+let person = new Proxy({}, validator);
+
+person.age = 100;
+
+person.age // 100
+person.age = 'young' // 报错
+person.age = 300 // 报错
+</code></pre>
+<br>
+<p>如果目标对象自身的某个属性不可写，那么<code>set</code>方法将不起作用</p>
+<pre><code class="language-js">const obj = {};
+Object.defineProperty(obj, 'foo', {
+  value: 'bar',
+  writable: false
+});
+
+const handler = {
+  set: function(obj, prop, value, receiver) {
+    obj[prop] = 'baz';
+    return true;
+  }
+};
+
+const proxy = new Proxy(obj, handler);
+proxy.foo = 'baz';
+proxy.foo // &quot;bar&quot;
+</code></pre>
+<br>
+<p>注意，<code>set</code>代理应当返回一个布尔值。严格模式下，<code>set</code>代理如果没有返回<code>true</code>，就会报错。</p>
+<pre><code class="language-js">'use strict';
+const handler = {
+  set: function(obj, prop, value, receiver) {
+    obj[prop] = receiver;
+    // 无论有没有下面这一行，都会报错
+    return false;
+  }
+};
+const proxy = new Proxy({}, handler);
+proxy.foo = 'bar';
+// TypeError: 'set' on proxy: trap returned falsish for property 'foo'
+</code></pre>
+<br>
+<h2 id="apply">apply()</h2>
+<p><code>apply</code>方法拦截函数的调用、<code>call</code>和<code>apply</code>操作</p>
+<p><code>apply</code>方法可以接受三个参数：分别是目标对象、目标对象的上下文对象（<code>this</code>）和目标对象的参数数组</p>
+<pre><code class="language-js">var target = function () { return 'I am the target'; };
+var handler = {
+  apply: function () {
+    return 'I am the proxy';
+  }
+};
+
+var p = new Proxy(target, handler);
+
+p()
+// &quot;I am the proxy&quot;
+</code></pre>
+<pre><code class="language-js">var twice = {
+  apply (target, ctx, args) {
+    return Reflect.apply(...arguments) * 2;
+  }
+};
+function sum (left, right) {
+  return left + right;
+};
+var proxy = new Proxy(sum, twice);
+proxy(1, 2) // 6
+proxy.call(null, 5, 6) // 22
+proxy.apply(null, [7, 8]) // 30
+</code></pre>
+<br>
+<h2 id="reflect">Reflect</h2>
+<h3 id="概述-2">概述</h3>
+<p><code>Reflect</code>对象与<code>Proxy</code>对象一样，也是 ES6 为了操作对象而提供的新 API。</p>
+<br>
+<h3 id="静态方法">静态方法</h3>
+<p><code>Reflect</code>对象一共有 13 个静态方法。</p>
+<ul>
+<li>Reflect.apply(target, thisArg, args)</li>
+<li>Reflect.construct(target, args)</li>
+<li>Reflect.get(target, name, receiver)</li>
+<li>Reflect.set(target, name, value, receiver)</li>
+<li>Reflect.defineProperty(target, name, desc)</li>
+<li>Reflect.deleteProperty(target, name)</li>
+<li>Reflect.has(target, name)</li>
+<li>Reflect.ownKeys(target)</li>
+<li>Reflect.isExtensible(target)</li>
+<li>Reflect.preventExtensions(target)</li>
+<li>Reflect.getOwnPropertyDescriptor(target, name)</li>
+<li>Reflect.getPrototypeOf(target)</li>
+<li>Reflect.setPrototypeOf(target, prototype)</li>
+</ul>
+<br>
+<h3 id="reflectgettarget-name-receiver">Reflect.get(target, name, receiver)</h3>
+<p><code>Reflect.get</code>方法查找并返回<code>target</code>对象的<code>name</code>属性，如果没有该属性，则返回<code>undefined</code>。</p>
+<pre><code class="language-js">var myObject = {
+  foo: 1,
+  bar: 2,
+  get baz() {
+    return this.foo + this.bar;
+  },
+}
+
+Reflect.get(myObject, 'foo') // 1
+Reflect.get(myObject, 'bar') // 2
+Reflect.get(myObject, 'baz') // 3
+</code></pre>
+<p>如果<code>name</code>属性部署了读取函数（getter），则读取函数的<code>this</code>绑定<code>receiver</code>。</p>
+<pre><code class="language-js">var myObject = {
+  foo: 1,
+  bar: 2,
+  get baz() {
+    return this.foo + this.bar;
+  },
+};
+
+var myReceiverObject = {
+  foo: 4,
+  bar: 4,
+};
+
+Reflect.get(myObject, 'baz', myReceiverObject) // 8
+</code></pre>
+<br>
+<h3 id="reflectsettarget-name-value-receiver">Reflect.set(target, name, value, receiver)</h3>
+<p><code>Reflect.set</code>方法设置<code>target</code>对象的<code>name</code>属性等于<code>value</code>。</p>
+<pre><code class="language-js">var myObject = {
+  foo: 1,
+  set bar(value) {
+    return this.foo = value;
+  },
+}
+
+myObject.foo // 1
+
+Reflect.set(myObject, 'foo', 2);
+myObject.foo // 2
+
+Reflect.set(myObject, 'bar', 3)
+myObject.foo // 3
+</code></pre>
+<p>如果<code>name</code>属性设置了赋值函数，则赋值函数的<code>this</code>绑定<code>receiver</code>。</p>
+<pre><code class="language-js">var myObject = {
+  foo: 4,
+  set bar(value) {
+    return this.foo = value;
+  },
+};
+
+var myReceiverObject = {
+  foo: 0,
+};
+
+Reflect.set(myObject, 'bar', 1, myReceiverObject);
+myObject.foo // 4
+myReceiverObject.foo // 1
+</code></pre>
+
+            </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      fanfan
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://fanfankill.github.io/post/proxy/" title="Proxy">https://fanfankill.github.io/post/proxy/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/"># Javascript</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="BOM" href="https://fanfankill.github.io/post/bom/">BOM</a>
+        <a class="nav-mobile-next" title="BOM" href="https://fanfankill.github.io/post/bom/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
     </div>
   </div>
 </div>
-          </section>
+            
+            
+  
+
+          </div>
         </div>
       </div>
     </div>
@@ -957,6 +1191,223 @@
     aelem.appendChild(image);
     parent.insertBefore(aelem, next);
   })
+</script>
+
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip">打开微信扫一扫，即可进行扫码打赏哦</p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        jQuery.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        jQuery.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        jQuery.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        jQuery.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      jQuery.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      jQuery.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
 </script>
 
   </div>
@@ -7379,7 +7830,6 @@ sdsd&lt;br&gt;
 
 
 <script src="/media/js/cool.js"></script>
-
 
 
 

@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title> Vue文档4 插槽 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1628146477595">
+<link rel="shortcut icon" href="/favicon.ico?v=1628243528496">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">47</span>
+        <span class="site-item-stat-count">48</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1212,6 +1212,339 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/proxy/"" data-c="
+          &lt;h2 id=&#34;概述&#34;&gt;概述&lt;/h2&gt;
+&lt;p&gt;Proxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“元编程”（meta programming），即对编程语言进行编程&lt;/p&gt;
+&lt;p&gt;Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var obj = new Proxy({}, {
+  get: function (target, propKey, receiver) {
+    console.log(`getting ${propKey}!`);
+    return Reflect.get(target, propKey, receiver);
+  },
+  set: function (target, propKey, value, receiver) {
+    console.log(`setting ${propKey}!`);
+    return Reflect.set(target, propKey, value, receiver);
+  }
+});
+
+
+obj.count = 1
+//  setting count!
+++obj.count
+//  getting count!
+//  setting count!
+//  2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;ES6 原生提供 Proxy 构造函数，用来生成 Proxy 实例。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;var proxy = new Proxy(target, handler);&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Proxy 对象的所有用法，都是上面这种形式，不同的只是&lt;code&gt;handler&lt;/code&gt;参数的写法&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;target&lt;/code&gt;参数表示所要拦截的目标对象，&lt;code&gt;handler&lt;/code&gt;参数也是一个对象，用来定制拦截行为&lt;/p&gt;
+&lt;p&gt;Proxy 实例也可以作为其他对象的原型对象&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var proxy = new Proxy({}, {
+  get: function(target, propKey) {
+    return 35;
+  }
+});
+
+let obj = Object.create(proxy);
+obj.time // 35
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上面代码中，&lt;code&gt;proxy&lt;/code&gt;对象是&lt;code&gt;obj&lt;/code&gt;对象的原型，&lt;code&gt;obj&lt;/code&gt;对象本身并没有&lt;code&gt;time&lt;/code&gt;属性，所以根据原型链，会在&lt;code&gt;proxy&lt;/code&gt;对象上读取该属性，导致被拦截。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;下面是 Proxy 支持的拦截操作一览，一共 13 种。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;get(target, propKey, receiver)&lt;/strong&gt;：拦截对象属性的读取，比如&lt;code&gt;proxy.foo&lt;/code&gt;和&lt;code&gt;proxy[&#39;foo&#39;]&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;set(target, propKey, value, receiver)&lt;/strong&gt;：拦截对象属性的设置，比如&lt;code&gt;proxy.foo = v&lt;/code&gt;或&lt;code&gt;proxy[&#39;foo&#39;] = v&lt;/code&gt;，返回一个布尔值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;has(target, propKey)&lt;/strong&gt;：拦截&lt;code&gt;propKey in proxy&lt;/code&gt;的操作，返回一个布尔值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deleteProperty(target, propKey)&lt;/strong&gt;：拦截&lt;code&gt;delete proxy[propKey]&lt;/code&gt;的操作，返回一个布尔值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ownKeys(target)&lt;/strong&gt;：拦截&lt;code&gt;Object.getOwnPropertyNames(proxy)&lt;/code&gt;、&lt;code&gt;Object.getOwnPropertySymbols(proxy)&lt;/code&gt;、&lt;code&gt;Object.keys(proxy)&lt;/code&gt;、&lt;code&gt;for...in&lt;/code&gt;循环，返回一个数组。该方法返回目标对象所有自身的属性的属性名，而&lt;code&gt;Object.keys()&lt;/code&gt;的返回结果仅包括目标对象自身的可遍历属性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;getOwnPropertyDescriptor(target, propKey)&lt;/strong&gt;：拦截&lt;code&gt;Object.getOwnPropertyDescriptor(proxy, propKey)&lt;/code&gt;，返回属性的描述对象。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;defineProperty(target, propKey, propDesc)&lt;/strong&gt;：拦截&lt;code&gt;Object.defineProperty(proxy, propKey, propDesc）&lt;/code&gt;、&lt;code&gt;Object.defineProperties(proxy, propDescs)&lt;/code&gt;，返回一个布尔值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;preventExtensions(target)&lt;/strong&gt;：拦截&lt;code&gt;Object.preventExtensions(proxy)&lt;/code&gt;，返回一个布尔值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;getPrototypeOf(target)&lt;/strong&gt;：拦截&lt;code&gt;Object.getPrototypeOf(proxy)&lt;/code&gt;，返回一个对象。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;isExtensible(target)&lt;/strong&gt;：拦截&lt;code&gt;Object.isExtensible(proxy)&lt;/code&gt;，返回一个布尔值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;setPrototypeOf(target, proto)&lt;/strong&gt;：拦截&lt;code&gt;Object.setPrototypeOf(proxy, proto)&lt;/code&gt;，返回一个布尔值。如果目标对象是函数，那么还有两种额外操作可以拦截。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;apply(target, object, args)&lt;/strong&gt;：拦截 Proxy 实例作为函数调用的操作，比如&lt;code&gt;proxy(...args)&lt;/code&gt;、&lt;code&gt;proxy.call(object, ...args)&lt;/code&gt;、&lt;code&gt;proxy.apply(...)&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;construct(target, args)&lt;/strong&gt;：拦截 Proxy 实例作为构造函数调用的操作，比如&lt;code&gt;new proxy(...args)&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var handler = {
+  get: function(target, name) {
+    if (name === &#39;prototype&#39;) {
+      return Object.prototype;
+    }
+    return &#39;Hello, &#39; + name;
+  },
+
+  apply: function(target, thisBinding, args) {
+    return args[0];
+  },
+
+  construct: function(target, args) {
+    return {value: args[1]};
+  }
+};
+
+var fproxy = new Proxy(function(x, y) {
+  return x + y;
+}, handler);
+
+fproxy(1, 2) // 1     实例函数 拦截apply
+new fproxy(1, 2) // {value: 2}  构造函数constructor
+fproxy.prototype === Object.prototype // true
+fproxy.foo === &amp;quot;Hello, foo&amp;quot; // true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;proxy实例的方法&#34;&gt;Proxy实例的方法&lt;/h2&gt;
+&lt;h3 id=&#34;get&#34;&gt;get()&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;et&lt;/code&gt;方法用于拦截某个属性的读取操作，可以接受三个参数：&lt;strong&gt;目标对象&lt;/strong&gt;、&lt;strong&gt;属性名&lt;/strong&gt;和 &lt;strong&gt;proxy 实例本身&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var person = {
+  name: &amp;quot;张三&amp;quot;
+};
+
+var proxy = new Proxy(person, {
+  get: function(target, propKey) {
+    if (propKey in target) {
+      return target[propKey];
+    } else {
+      throw new ReferenceError(&amp;quot;Prop name \&amp;quot;&amp;quot; + propKey + &amp;quot;\&amp;quot; does not exist.&amp;quot;);
+    }
+  }
+});
+
+proxy.name // &amp;quot;张三&amp;quot;
+proxy.age // 抛出一个错误
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;get&lt;/code&gt;方法可以继承。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let proto = new Proxy({}, {
+  get(target, propertyKey, receiver) {
+    console.log(&#39;GET &#39; + propertyKey);
+    return target[propertyKey];
+  }
+});
+
+let obj = Object.create(proto);
+obj.foo // &amp;quot;GET foo&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;拦截操作定义在&lt;code&gt;Prototype&lt;/code&gt;对象上面，所以如果读取&lt;code&gt;obj&lt;/code&gt;对象继承的属性时，拦截会生效。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;利用&lt;code&gt;get&lt;/code&gt;拦截，实现一个生成各种 DOM 节点的通用函数&lt;code&gt;dom&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;const dom = new Proxy({}, {
+  get(target, property) {
+    return function(attrs = {}, ...children) {
+      const el = document.createElement(property);
+        //添加属性
+      for (let prop of Object.keys(attrs)) {
+        el.setAttribute(prop, attrs[prop]);
+      }
+      for (let child of children) {
+        if (typeof child === &#39;string&#39;) {
+          child = document.createTextNode(child);
+        }
+        el.appendChild(child);
+      }
+      return el;
+    }
+  }
+});
+
+const el = dom.div({},
+  &#39;Hello, my name is &#39;,
+  dom.a({href: &#39;//example.com&#39;}, &#39;Mark&#39;),
+  &#39;. I like:&#39;,
+  dom.ul({},
+    dom.li({}, &#39;The web&#39;),
+    dom.li({}, &#39;Food&#39;),
+    dom.li({}, &#39;…actually that\&#39;s it&#39;)
+  )
+);
+
+document.body.appendChild(el);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628237451351.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;set&#34;&gt;set()&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;set&lt;/code&gt;方法用来拦截某个属性的赋值操作，可以接受四个参数：&lt;strong&gt;目标对象&lt;/strong&gt;、&lt;strong&gt;属性名&lt;/strong&gt;、&lt;strong&gt;属性值&lt;/strong&gt;和 &lt;strong&gt;Proxy 实例本身&lt;/strong&gt;，其中最后一个参数可选&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let validator = {
+  set: function(obj, prop, value) {
+    if (prop === &#39;age&#39;) {
+      if (!Number.isInteger(value)) {
+        throw new TypeError(&#39;The age is not an integer&#39;);
+      }
+      if (value &amp;gt; 200) {
+        throw new RangeError(&#39;The age seems invalid&#39;);
+      }
+    }
+
+    // 对于满足条件的 age 属性以及其他属性，直接保存
+    obj[prop] = value;
+    return true;
+  }
+};
+
+let person = new Proxy({}, validator);
+
+person.age = 100;
+
+person.age // 100
+person.age = &#39;young&#39; // 报错
+person.age = 300 // 报错
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;如果目标对象自身的某个属性不可写，那么&lt;code&gt;set&lt;/code&gt;方法将不起作用&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;const obj = {};
+Object.defineProperty(obj, &#39;foo&#39;, {
+  value: &#39;bar&#39;,
+  writable: false
+});
+
+const handler = {
+  set: function(obj, prop, value, receiver) {
+    obj[prop] = &#39;baz&#39;;
+    return true;
+  }
+};
+
+const proxy = new Proxy(obj, handler);
+proxy.foo = &#39;baz&#39;;
+proxy.foo // &amp;quot;bar&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;注意，&lt;code&gt;set&lt;/code&gt;代理应当返回一个布尔值。严格模式下，&lt;code&gt;set&lt;/code&gt;代理如果没有返回&lt;code&gt;true&lt;/code&gt;，就会报错。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&#39;use strict&#39;;
+const handler = {
+  set: function(obj, prop, value, receiver) {
+    obj[prop] = receiver;
+    // 无论有没有下面这一行，都会报错
+    return false;
+  }
+};
+const proxy = new Proxy({}, handler);
+proxy.foo = &#39;bar&#39;;
+// TypeError: &#39;set&#39; on proxy: trap returned falsish for property &#39;foo&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;apply&#34;&gt;apply()&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;apply&lt;/code&gt;方法拦截函数的调用、&lt;code&gt;call&lt;/code&gt;和&lt;code&gt;apply&lt;/code&gt;操作&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;apply&lt;/code&gt;方法可以接受三个参数：分别是目标对象、目标对象的上下文对象（&lt;code&gt;this&lt;/code&gt;）和目标对象的参数数组&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var target = function () { return &#39;I am the target&#39;; };
+var handler = {
+  apply: function () {
+    return &#39;I am the proxy&#39;;
+  }
+};
+
+var p = new Proxy(target, handler);
+
+p()
+// &amp;quot;I am the proxy&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var twice = {
+  apply (target, ctx, args) {
+    return Reflect.apply(...arguments) * 2;
+  }
+};
+function sum (left, right) {
+  return left + right;
+};
+var proxy = new Proxy(sum, twice);
+proxy(1, 2) // 6
+proxy.call(null, 5, 6) // 22
+proxy.apply(null, [7, 8]) // 30
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;reflect&#34;&gt;Reflect&lt;/h2&gt;
+&lt;h3 id=&#34;概述-2&#34;&gt;概述&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;Reflect&lt;/code&gt;对象与&lt;code&gt;Proxy&lt;/code&gt;对象一样，也是 ES6 为了操作对象而提供的新 API。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;静态方法&#34;&gt;静态方法&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;Reflect&lt;/code&gt;对象一共有 13 个静态方法。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Reflect.apply(target, thisArg, args)&lt;/li&gt;
+&lt;li&gt;Reflect.construct(target, args)&lt;/li&gt;
+&lt;li&gt;Reflect.get(target, name, receiver)&lt;/li&gt;
+&lt;li&gt;Reflect.set(target, name, value, receiver)&lt;/li&gt;
+&lt;li&gt;Reflect.defineProperty(target, name, desc)&lt;/li&gt;
+&lt;li&gt;Reflect.deleteProperty(target, name)&lt;/li&gt;
+&lt;li&gt;Reflect.has(target, name)&lt;/li&gt;
+&lt;li&gt;Reflect.ownKeys(target)&lt;/li&gt;
+&lt;li&gt;Reflect.isExtensible(target)&lt;/li&gt;
+&lt;li&gt;Reflect.preventExtensions(target)&lt;/li&gt;
+&lt;li&gt;Reflect.getOwnPropertyDescriptor(target, name)&lt;/li&gt;
+&lt;li&gt;Reflect.getPrototypeOf(target)&lt;/li&gt;
+&lt;li&gt;Reflect.setPrototypeOf(target, prototype)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;reflectgettarget-name-receiver&#34;&gt;Reflect.get(target, name, receiver)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;Reflect.get&lt;/code&gt;方法查找并返回&lt;code&gt;target&lt;/code&gt;对象的&lt;code&gt;name&lt;/code&gt;属性，如果没有该属性，则返回&lt;code&gt;undefined&lt;/code&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var myObject = {
+  foo: 1,
+  bar: 2,
+  get baz() {
+    return this.foo + this.bar;
+  },
+}
+
+Reflect.get(myObject, &#39;foo&#39;) // 1
+Reflect.get(myObject, &#39;bar&#39;) // 2
+Reflect.get(myObject, &#39;baz&#39;) // 3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果&lt;code&gt;name&lt;/code&gt;属性部署了读取函数（getter），则读取函数的&lt;code&gt;this&lt;/code&gt;绑定&lt;code&gt;receiver&lt;/code&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var myObject = {
+  foo: 1,
+  bar: 2,
+  get baz() {
+    return this.foo + this.bar;
+  },
+};
+
+var myReceiverObject = {
+  foo: 4,
+  bar: 4,
+};
+
+Reflect.get(myObject, &#39;baz&#39;, myReceiverObject) // 8
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;reflectsettarget-name-value-receiver&#34;&gt;Reflect.set(target, name, value, receiver)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;Reflect.set&lt;/code&gt;方法设置&lt;code&gt;target&lt;/code&gt;对象的&lt;code&gt;name&lt;/code&gt;属性等于&lt;code&gt;value&lt;/code&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var myObject = {
+  foo: 1,
+  set bar(value) {
+    return this.foo = value;
+  },
+}
+
+myObject.foo // 1
+
+Reflect.set(myObject, &#39;foo&#39;, 2);
+myObject.foo // 2
+
+Reflect.set(myObject, &#39;bar&#39;, 3)
+myObject.foo // 3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果&lt;code&gt;name&lt;/code&gt;属性设置了赋值函数，则赋值函数的&lt;code&gt;this&lt;/code&gt;绑定&lt;code&gt;receiver&lt;/code&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var myObject = {
+  foo: 4,
+  set bar(value) {
+    return this.foo = value;
+  },
+};
+
+var myReceiverObject = {
+  foo: 0,
+};
+
+Reflect.set(myObject, &#39;bar&#39;, 1, myReceiverObject);
+myObject.foo // 4
+myReceiverObject.foo // 1
+&lt;/code&gt;&lt;/pre&gt;
+">Proxy</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/bom/"" data-c="
