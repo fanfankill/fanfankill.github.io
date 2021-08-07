@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1628256884234">
+<link rel="shortcut icon" href="/favicon.ico?v=1628341918524">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -213,7 +213,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">49</span>
+        <span class="site-item-stat-count">51</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -284,6 +284,14 @@
           <small class="language" data-lan="tag">标签</small>
         </h2>
       </div>
+      
+      
+      
+      
+      
+      
+      
+      
       
       
       
@@ -749,6 +757,222 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/var-que-xian-yi-ji-wei-shi-me-yao-yin-let-he-const/"" data-c="
+          &lt;h2 id=&#34;作用域scope&#34;&gt;作⽤域（scope）&lt;/h2&gt;
+&lt;p&gt;作⽤域是指在程序中定义变量的区域，该位置决定了变量的⽣命周期。&lt;/p&gt;
+&lt;p&gt;作⽤域就是变量与函数 的可访问范围，即作⽤域控制着变量和函数的可⻅性和⽣命周期。&lt;/p&gt;
+&lt;p&gt;ES6之前，ES的作⽤域只有两种：&lt;strong&gt;全局作⽤域和函数作⽤域&lt;/strong&gt;，是不⽀持块级作⽤域的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;全局作⽤域&lt;/strong&gt;中的对象在代码中的任何地⽅都能访问，其⽣命周期伴随着⻚⾯的⽣命周期。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;函数作⽤域&lt;/strong&gt;就是在函数内部定义的变量或者函数，并且定义的变量或者函数只能在函数内部被访问。函数 执⾏结束之后，函数内部定义的变量会被销毁。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;变量提升带来的问题&#34;&gt;变量提升带来的问题&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function foo(){
+for (var i = 0; i &amp;lt; 7; i++) {
+}
+console.log(i);
+}
+foo()
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;因为&lt;code&gt;for&lt;/code&gt;循环对于var声明的变量是全局的，所以会一直存在，最后打印出7&lt;/p&gt;
+&lt;p&gt;而&lt;code&gt;let&lt;/code&gt;和&lt;code&gt;const&lt;/code&gt;可以避免这样的问题&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;javascript是如何支持块级作用域的&#34;&gt;JavaScript是如何⽀持块级作⽤域的&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function foo(){
+var a = 1
+let b = 2
+{
+let b = 3
+var c = 4
+let d = 5
+console.log(a)
+console.log(b)
+}
+console.log(b)
+console.log(c)
+console.log(d)
+}
+foo()
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;let关键字是如何影响执⾏上下⽂的呢？&lt;/p&gt;
+&lt;p&gt;第⼀步是编译并创建执⾏上下⽂&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628341839271.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;当进⼊函数的作⽤域块时，作⽤域块中通过let声明的变量，会被存放在词法环境的⼀个 单独的区域中，这个区域中的变量并不影响作⽤域块外⾯的变量，⽐如在作⽤域外⾯声明了变量b，在该作 ⽤域块内部也声明了变量b，当执⾏到作⽤域内部时，它们都是独⽴的存在。&lt;/p&gt;
+&lt;p&gt;在词法环境内部，维护了⼀个⼩型栈结构，栈底是函数最外层的变量，进⼊⼀个作⽤域块后，就会把 该作⽤域块内部的变量压到栈顶；&lt;/p&gt;
+&lt;p&gt;当作⽤域执⾏完成之后，该作⽤域的信息就会从栈顶弹出，这就是词法环 境的结构。&lt;/p&gt;
+&lt;p&gt;当执⾏到作⽤域块中的console.log(a)这⾏代码时，就需要在&lt;strong&gt;词法环境&lt;/strong&gt;和&lt;strong&gt;变量环境&lt;/strong&gt;中查找变 量a的值了&lt;/p&gt;
+&lt;p&gt;沿着词法环境的栈顶向下查询，如果在&lt;strong&gt;词法环境&lt;/strong&gt;中的某个块中查找到了，就 直接返回给JavaScript引擎，如果没有查找到，那么继续在&lt;strong&gt;变量环境&lt;/strong&gt;中查找。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628341844493.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;思考题&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let myname= &#39;极客时间&#39;
+{
+console.log(myname)
+let myname= &#39;极客邦&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;当不在块级作用域声明变量的时候，代码会正常执行&lt;/p&gt;
+&lt;p&gt;当在块级作用域里面声明的时候，会因为let声明的变量在编译阶段会被加⼊执⾏上下⽂的词法环境，⽽且不会被提升到作⽤域的顶部而报错&lt;/p&gt;
+">var缺陷以及为什么要引⼊let和const？</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/dom-new/"" data-c="
+          &lt;p&gt;DOM（文档对象模型）是针对 HTML 和 XML 文档的一个 API&lt;/p&gt;
+&lt;h2 id=&#34;节点层次&#34;&gt;节点层次&lt;/h2&gt;
+&lt;p&gt;DOM 可以将任何 HTML 或 XML 文档描绘成一个由多层节点构成的结构。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;html&amp;gt;&lt;/code&gt;元素 称之为&lt;strong&gt;文档元素&lt;/strong&gt;，文档元素是文档的最外层元素&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;node类型&#34;&gt;Node类型&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;DOM1 级定义了一个 Node 接口，该接口将由 DOM 中的所有节点类型实现&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;JavaScript 中的所有节点类型都继承自 Node 类型，因此所有节点类型都共享着相同的基本属性和方法。&lt;/p&gt;
+&lt;p&gt;每个节点都有一个 nodeType 属性，用于表明节点的类型。会以数值的方式打印出来&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Node.ELEMENT_NODE；&lt;/li&gt;
+&lt;li&gt;Node.ATTRIBUTE_NODE；&lt;/li&gt;
+&lt;li&gt;Node.TEXT_NODE；&lt;/li&gt;
+&lt;li&gt;Node.CDATA_SECTION_NODE；&lt;/li&gt;
+&lt;li&gt;Node.ENTITY_REFERENCE_NODE；&lt;/li&gt;
+&lt;li&gt;Node.ENTITY_NODE；&lt;/li&gt;
+&lt;li&gt;Node.PROCESSING_INSTRUCTION_NODE；&lt;/li&gt;
+&lt;li&gt;Node.COMMENT_NODE；&lt;/li&gt;
+&lt;li&gt;Node.DOCUMENT_NODE；&lt;/li&gt;
+&lt;li&gt;Node.DOCUMENT_TYPE_NODE；&lt;/li&gt;
+&lt;li&gt;Node.DOCUMENT_FRAGMENT_NODE；&lt;/li&gt;
+&lt;li&gt;Node.NOTATION_NODE。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;nodename和-nodevalue属性&#34;&gt;&lt;code&gt;nodeName&lt;/code&gt;和 &lt;code&gt;nodeValue&lt;/code&gt;属性&lt;/h3&gt;
+&lt;p&gt;对于元素节点，nodeName 中保存的始终都是元素的标签名，而 nodeValue 的值则始终为 null&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;节点关系&#34;&gt;节点关系&lt;/h3&gt;
+&lt;p&gt;每个节点都有一个 &lt;strong&gt;&lt;code&gt;childNodes&lt;/code&gt;&lt;/strong&gt; 属性，其中保存着一个 NodeList 对象。&lt;/p&gt;
+&lt;p&gt;NodeList 是一种类数组 对象，用于保存一组有序的节点，可以通过位置来访问这些节点。NodeList 是动态的，随节点变化变化。&lt;/p&gt;
+&lt;p&gt;访问NodeList 对象可以通过方括号，也可以使用 item() 方法。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var firstChild = someNode.childNodes[0]; 
+var secondChild = someNode.childNodes.item(1); 
+var count = someNode.childNodes.length; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;对 arguments 对象使用 Array.prototype.slice()方法可以 将其转换为数组&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var arrayOfNodes = Array.prototype.slice.call(someNode.childNodes,0);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;每个节点都有一个 &lt;strong&gt;&lt;code&gt;parentNode&lt;/code&gt;&lt;/strong&gt; 属性，该属性指向文档树中的父节点。&lt;/p&gt;
+&lt;p&gt;通过使用列表中每个节点的 &lt;strong&gt;&lt;code&gt;previousSibling&lt;/code&gt;&lt;/strong&gt; 和 &lt;strong&gt;&lt;code&gt;nextSibling&lt;/code&gt;&lt;/strong&gt; 属性，可以访问同一列表中的其他节点&lt;/p&gt;
+&lt;p&gt;列表中第一个节点的 previousSibling 属性 值为 null，而列表中最后一个节点的 nextSibling 属性的值同样也为 null&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;hasChildNodes()&lt;/code&gt;这个方法在节点包含一或多个子节点的情况下返回 true&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;操作节点&#34;&gt;操作节点&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;appendChild()&lt;/code&gt;用于向 childNodes 列表的末尾添加一个节点，更新完成后，appendChild() 返回新增的节点&lt;/p&gt;
+&lt;p&gt;如果传入到 &lt;code&gt;appendChild()&lt;/code&gt;中的节点已经是文档的一部分了，那结果就是将该节点从原来的位置 转移到新位置。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;insertBefore()&lt;/code&gt;接受两个参数：&lt;strong&gt;要插入的节点&lt;/strong&gt;和&lt;strong&gt;作为参照的节点&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;插入节点后，被插 入的节点会变成参照节点的前一个同胞节点（previousSibling），同时被方法返回。&lt;/p&gt;
+&lt;p&gt;如果参照节点是 null，则 insertBefore()与 appendChild()执行相同的操作&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//插入后成为最后一个子节点
+returnedNode = someNode.insertBefore(newNode, null); 
+alert(newNode == someNode.lastChild); //true 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;replaceChild()&lt;/code&gt;接受的两个参数：&lt;strong&gt;要插入的节点&lt;/strong&gt;和&lt;strong&gt;要替换的节点&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;要替换的节点将由这个 方法返回并从文档树中被移除，同时由要插入的节点占据其位置。&lt;strong&gt;被替换的节点仍然还在文档中，但它在文档中已经没有了自己的位置。&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//替换第一个子节点
+var returnedNode = someNode.replaceChild(newNode, someNode.firstChild); 
+
+//替换最后一个子节点
+returnedNode = someNode.replaceChild(newNode, someNode.lastChild); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;removeChild()&lt;/code&gt;接受一个参数：&lt;strong&gt;要移除的节点&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//移除第一个子节点
+var formerFirstChild = someNode.removeChild(someNode.firstChild); 
+
+//移除最后一个子节点
+var formerLastChild = someNode.removeChild(someNode.lastChild);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;通过 removeChild()移除的节点仍然为文档所有，只不过在 文档中已经没有了自己的位置&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;其他方法&#34;&gt;其他方法&lt;/h3&gt;
+&lt;p&gt;有两个方法是所有类型的节点都有的&lt;/p&gt;
+&lt;p&gt;第一个就是 &lt;strong&gt;&lt;code&gt;cloneNode()&lt;/code&gt;&lt;/strong&gt;，用于创建调用这个方法的节点 的一个完全相同的副本。&lt;/p&gt;
+&lt;p&gt;cloneNode()方法接受一个布尔值参数，表示是否执行深复制。&lt;/p&gt;
+&lt;p&gt;在参数为 true 的情况下，执行深复制，也就是&lt;strong&gt;复制节点及其整个子节点树&lt;/strong&gt;；&lt;/p&gt;
+&lt;p&gt;在参数为 false 的情况下，执行浅复制， 即&lt;strong&gt;只复制节点本身&lt;/strong&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;ul&amp;gt; 
+ &amp;lt;li&amp;gt;item 1&amp;lt;/li&amp;gt; 
+ &amp;lt;li&amp;gt;item 2&amp;lt;/li&amp;gt; 
+ &amp;lt;li&amp;gt;item 3&amp;lt;/li&amp;gt; 
+&amp;lt;/ul&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var myList=document.getElementsByTagName(&#39;ul&#39;)[0]
+
+//深复制 复制了ul自己下面的所有子节点
+var deepList = myList.cloneNode(true); 
+alert(deepList.childNodes.length);
+
+//浅复制 只复制ul一个本身元素 子节点没有复制
+var shallowList = myList.cloneNode(false); 
+alert(shallowList.childNodes.length); //0 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;第二个方法是**&lt;code&gt;normalize()&lt;/code&gt;**，这个方法唯一的作用就是处理文档树中的文本节点&lt;/p&gt;
+&lt;p&gt;如果找到了 空文本节点，则删除它；如果找到相邻的文本节点，则将它们合并为一个文本节点。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;document类型&#34;&gt;Document类型&lt;/h3&gt;
+&lt;p&gt;document 对象是 HTMLDocument（继承 自 Document 类型）的一个实例，表示整个 HTML 页面。&lt;/p&gt;
+&lt;p&gt;document 对象是 window 对象的一个 属性，因此可以将其作为全局对象来访问。&lt;/p&gt;
+&lt;h3 id=&#34;文档的子节点&#34;&gt;文档的子节点&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;document.documentElement&lt;/code&gt;  取得对&lt;code&gt;&amp;lt;html&amp;gt;&lt;/code&gt;的引用&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;document.body&lt;/code&gt; 取得对&lt;code&gt;&amp;lt;body&amp;gt;&lt;/code&gt;的引用&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;文档信息&#34;&gt;文档信息&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;title&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//取得文档标题
+var originalTitle = document.title; 
+
+//设置文档标题
+document.title = &amp;quot;New page title&amp;quot;; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;URL&lt;/code&gt;、&lt;code&gt;domain&lt;/code&gt;和 &lt;code&gt;referrer&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;URL&lt;/code&gt;属性 中包含页面完整的 URL&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;domain&lt;/code&gt; 属性中只包含页面的域名&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;referrer&lt;/code&gt;属性中则保存着链接到当前页面的那个页面的 URL。&lt;/p&gt;
+&lt;p&gt;在没有来源页面的情况下，referrer 属性中可能 会包含空字符串。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//取得完整的 URLvar url = document.URL; //取得域名var domain = document.domain; //取得来源页面的 URLvar referrer = document.referrer; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;查找元素&#34;&gt;查找元素&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;getElementById()&lt;/code&gt;  ID属性&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;getElementsByTagName()&lt;/code&gt;   标签名字  NodeName&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;getElementsByName()&lt;/code&gt;   name属性&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;ul&amp;gt;  &amp;lt;li&amp;gt;&amp;lt;input type=&amp;quot;radio&amp;quot; value=&amp;quot;red&amp;quot; name=&amp;quot;color&amp;quot; id=&amp;quot;colorRed&amp;quot;&amp;gt;  &amp;lt;label for=&amp;quot;colorRed&amp;quot;&amp;gt;Red&amp;lt;/label&amp;gt;&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;&amp;lt;input type=&amp;quot;radio&amp;quot; value=&amp;quot;green&amp;quot; name=&amp;quot;color&amp;quot; id=&amp;quot;colorGreen&amp;quot;&amp;gt;  &amp;lt;label for=&amp;quot;colorGreen&amp;quot;&amp;gt;Green&amp;lt;/label&amp;gt;&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;&amp;lt;input type=&amp;quot;radio&amp;quot; value=&amp;quot;blue&amp;quot; name=&amp;quot;color&amp;quot; id=&amp;quot;colorBlue&amp;quot;&amp;gt;  &amp;lt;label for=&amp;quot;colorBlue&amp;quot;&amp;gt;Blue&amp;lt;/label&amp;gt;&amp;lt;/li&amp;gt;  &amp;lt;/ul&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;ID 的 作用在于将元素应用到每个单选按钮，&lt;strong&gt;而 name 特性则用以确保三个值中只有一个被发送给浏览器&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;特殊集合&#34;&gt;特殊集合&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;document.anchors，包含文档中所有带 name 特性的元素；&lt;/li&gt;
+&lt;li&gt;document.applets，包含文档中所有的元素，因为不再推荐使用元素， 所以这个集合已经不建议使用了；&lt;/li&gt;
+&lt;li&gt;document.forms，包含文档中所有的元素，与 document.getElementsByTagName(&amp;quot;form&amp;quot;) 得到的结果相同；&lt;/li&gt;
+&lt;li&gt;document.images，包含文档中所有的&lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt;元素，与 document.getElementsByTagName  (&amp;quot;img&amp;quot;)得到的结果相同&lt;/li&gt;
+&lt;li&gt;document.links，包含文档中所有带 href 特性的元素&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;文档写入&#34;&gt;文档写入&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;write()&lt;/code&gt;、&lt;code&gt;writeln()&lt;/code&gt;、&lt;code&gt;open()&lt;/code&gt;和 &lt;code&gt;close()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;write()会原样写入，而 writeln()则会 在字符串的末尾添加一个换行符（\n）&lt;/p&gt;
+&lt;p&gt;open()和 close()分别用于打开和关闭网页的输出流。&lt;/p&gt;
+&lt;br&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;element类型&#34;&gt;Element类型&lt;/h2&gt;
+&lt;p&gt;Element 类型就要算是 Web 编程中最常用的类型了。&lt;/p&gt;
+">DOM new</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/wei-shi-me-javascript-dai-ma-hui-chu-xian-zhan-yi-chu/"" data-c="

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-08-06T13:34:48.510Z</updated>
+    <updated>2021-08-07T13:12:19.628Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[var缺陷以及为什么要引⼊let和const？]]></title>
+        <id>https://fanfankill.github.io/post/var-que-xian-yi-ji-wei-shi-me-yao-yin-let-he-const/</id>
+        <link href="https://fanfankill.github.io/post/var-que-xian-yi-ji-wei-shi-me-yao-yin-let-he-const/">
+        </link>
+        <updated>2021-08-07T13:10:24.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[DOM new]]></title>
+        <id>https://fanfankill.github.io/post/dom-new/</id>
+        <link href="https://fanfankill.github.io/post/dom-new/">
+        </link>
+        <updated>2021-08-07T05:56:11.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[为什么JavaScript代码会出现栈溢出？]]></title>
         <id>https://fanfankill.github.io/post/wei-shi-me-javascript-dai-ma-hui-chu-xian-zhan-yi-chu/</id>
@@ -65,19 +79,5 @@
         <link href="https://fanfankill.github.io/post/zuo-yong-yu/">
         </link>
         <updated>2021-08-01T05:06:30.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[TCP协议：如何保证⻚⾯⽂件能被完整送达浏览器？]]></title>
-        <id>https://fanfankill.github.io/post/tcp-xie-yi-ru-he-bao-zheng-jian-neng-bei-wan-zheng-song-da-liu-lan-qi/</id>
-        <link href="https://fanfankill.github.io/post/tcp-xie-yi-ru-he-bao-zheng-jian-neng-bei-wan-zheng-song-da-liu-lan-qi/">
-        </link>
-        <updated>2021-07-31T07:47:15.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ 函数表达式]]></title>
-        <id>https://fanfankill.github.io/post/han-shu-biao-da-shi/</id>
-        <link href="https://fanfankill.github.io/post/han-shu-biao-da-shi/">
-        </link>
-        <updated>2021-07-31T04:57:13.000Z</updated>
     </entry>
 </feed>
