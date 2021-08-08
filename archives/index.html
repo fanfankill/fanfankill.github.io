@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1628415669996">
+<link rel="shortcut icon" href="/favicon.ico?v=1628416967233">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -1222,13 +1222,13 @@ var myName = &amp;quot;极客时间&amp;quot;
 foo()
 
 &lt;/code&gt;&lt;/pre&gt;
-&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808154326942.png&#34; alt=&#34;image-20210808154326942&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628416965516.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;p&gt;​	&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&#34;作用域链&#34;&gt;作⽤域链&lt;/h2&gt;
 &lt;p&gt;在每个执⾏上下⽂的变量环境中，都包含了⼀个外部引⽤，⽤来指向外部的执⾏上下⽂，我们把这个外 部引⽤称为outer。&lt;/p&gt;
 &lt;p&gt;当⼀段代码使⽤了⼀个变量时，JavaScript引擎⾸先会在“当前的执⾏上下⽂”中查找该变量&lt;/p&gt;
 &lt;p&gt;如果在当前的变量环境中没有查找到，那么JavaScript引擎会继 续在outer所指向的执⾏上下⽂中查找。&lt;/p&gt;
-&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808154812481.png&#34; alt=&#34;image-20210808154812481&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628416960694.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;p&gt;bar函数和foo函数的outer都是指向全局上下⽂的&lt;/p&gt;
 &lt;p&gt;JavaScript引擎会去全局执⾏上下⽂中查找。我们把这个查找的链条就称为&lt;strong&gt;作⽤域链&lt;/strong&gt;。&lt;/p&gt;
 &lt;br&gt;
@@ -1238,7 +1238,7 @@ foo()
 &lt;br&gt;
 &lt;h2 id=&#34;词法作用域&#34;&gt;词法作⽤域&lt;/h2&gt;
 &lt;p&gt;词法作⽤域就是指作⽤域是由代码中函数声明的位置来决定的，所以词法作⽤域是静态的作⽤域，通过它就 能够预测代码在执⾏过程中如何查找标识符。&lt;/p&gt;
-&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808155536685.png&#34; alt=&#34;image-20210808155536685&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628416955034.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;p&gt;词法作⽤域就是根据代码的位置来决定的，其中main函数包含了bar函数，bar函数中包 含了foo函数&lt;/p&gt;
 &lt;p&gt;因为JavaScript作⽤域链是由词法作⽤域决定的，所以整个词法作⽤域链的顺序是：foo函数 作⽤域—&amp;gt;bar函数作⽤域—&amp;gt;main函数作⽤域—&amp;gt;全局作⽤域。&lt;/p&gt;
 &lt;br&gt;
@@ -1265,10 +1265,10 @@ foo()
   console.log(bar.getName())
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;当执⾏到foo函数内部的return innerBar这⾏代码时调⽤栈的情况&lt;/p&gt;
-&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808161411671.png&#34; alt=&#34;image-20210808161411671&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628416949439.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;strong&gt;根据词法作⽤域的规则，内部函数getName和setName总是可以访问它们的外部函数foo中的变量&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;虽然foo函数已经执⾏结束，但是getName和setName函数依然可 以使⽤foo函数中的变量myName和test1&lt;/p&gt;
-&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808161833520.png&#34; alt=&#34;image-20210808161833520&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628416943836.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;p&gt;foo函数执⾏完成之后，其执⾏上下⽂从栈顶弹出了，但是由于返回的setName和 getName⽅法中使⽤了foo函数内部的变量myName和test1，所以这两个变量依然保存在内存中。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;内部函数 总是可以访问其外部函数中声明的变量，即使该外部函数已 经执⾏结束了，但是内部函数引⽤外部函数的变量依然保存在内存中，我们就把这些变量的集合称为闭包。&lt;/strong&gt;&lt;/p&gt;
 &lt;br&gt;
