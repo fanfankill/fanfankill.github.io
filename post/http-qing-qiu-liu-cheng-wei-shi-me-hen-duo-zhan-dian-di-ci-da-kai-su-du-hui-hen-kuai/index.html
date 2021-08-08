@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>HTTP请求流程：为什么很多站点第⼆次打开速度会很快？ | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1628341918524">
+<link rel="shortcut icon" href="/favicon.ico?v=1628415669996">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">51</span>
+        <span class="site-item-stat-count">52</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1217,6 +1217,102 @@
     <div class="result" id="result">
       
       <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/shen-ru-zuo-yong-yu-lian/"" data-c="
+          &lt;p&gt;&lt;strong&gt;什么是作⽤域链？&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function bar() {
+console.log(myName)
+}
+function foo() {
+var myName = &amp;quot;极客邦&amp;quot;
+bar()
+}
+var myName = &amp;quot;极客时间&amp;quot;
+foo()
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808154326942.png&#34; alt=&#34;image-20210808154326942&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;​	&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;作用域链&#34;&gt;作⽤域链&lt;/h2&gt;
+&lt;p&gt;在每个执⾏上下⽂的变量环境中，都包含了⼀个外部引⽤，⽤来指向外部的执⾏上下⽂，我们把这个外 部引⽤称为outer。&lt;/p&gt;
+&lt;p&gt;当⼀段代码使⽤了⼀个变量时，JavaScript引擎⾸先会在“当前的执⾏上下⽂”中查找该变量&lt;/p&gt;
+&lt;p&gt;如果在当前的变量环境中没有查找到，那么JavaScript引擎会继 续在outer所指向的执⾏上下⽂中查找。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808154812481.png&#34; alt=&#34;image-20210808154812481&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;bar函数和foo函数的outer都是指向全局上下⽂的&lt;/p&gt;
+&lt;p&gt;JavaScript引擎会去全局执⾏上下⽂中查找。我们把这个查找的链条就称为&lt;strong&gt;作⽤域链&lt;/strong&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;foo函数调⽤的bar函数，那为什 么bar函数的外部引⽤是全局执⾏上下⽂，⽽不是foo函数的执⾏上下⽂？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;foo和bar的上级作⽤域都是全局作⽤域（&lt;strong&gt;定义为函数的时候绝对，如果把bar定义在foo里面，那么bar的上级作用域就指向foo&lt;/strong&gt;），所以如果foo或者bar函数使⽤了⼀个它 们没有定义的变量，那么它们会到全局作⽤域去查找&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;词法作⽤域是代码阶段就决定好的，和函数是怎么调⽤的没有关系。&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;词法作用域&#34;&gt;词法作⽤域&lt;/h2&gt;
+&lt;p&gt;词法作⽤域就是指作⽤域是由代码中函数声明的位置来决定的，所以词法作⽤域是静态的作⽤域，通过它就 能够预测代码在执⾏过程中如何查找标识符。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808155536685.png&#34; alt=&#34;image-20210808155536685&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;词法作⽤域就是根据代码的位置来决定的，其中main函数包含了bar函数，bar函数中包 含了foo函数&lt;/p&gt;
+&lt;p&gt;因为JavaScript作⽤域链是由词法作⽤域决定的，所以整个词法作⽤域链的顺序是：foo函数 作⽤域—&amp;gt;bar函数作⽤域—&amp;gt;main函数作⽤域—&amp;gt;全局作⽤域。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;闭包&#34;&gt;闭包&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;	  function foo() {
+    var myName = &amp;quot;极客时间&amp;quot;
+    let test1 = 1
+    const test2 = 2
+    var innerBar = {
+      getName: function () {
+        console.log(test1)
+        return myName
+      },
+      setName: function (newName) {
+        myName = newName
+      }
+    }
+    return innerBar
+  }
+
+  var bar = foo()
+  bar.setName(&amp;quot;极客邦&amp;quot;)
+  bar.getName()
+  console.log(bar.getName())
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;当执⾏到foo函数内部的return innerBar这⾏代码时调⽤栈的情况&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808161411671.png&#34; alt=&#34;image-20210808161411671&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;根据词法作⽤域的规则，内部函数getName和setName总是可以访问它们的外部函数foo中的变量&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;虽然foo函数已经执⾏结束，但是getName和setName函数依然可 以使⽤foo函数中的变量myName和test1&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808161833520.png&#34; alt=&#34;image-20210808161833520&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;foo函数执⾏完成之后，其执⾏上下⽂从栈顶弹出了，但是由于返回的setName和 getName⽅法中使⽤了foo函数内部的变量myName和test1，所以这两个变量依然保存在内存中。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;内部函数 总是可以访问其外部函数中声明的变量，即使该外部函数已 经执⾏结束了，但是内部函数引⽤外部函数的变量依然保存在内存中，我们就把这些变量的集合称为闭包。&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;闭包是怎么回收的&#34;&gt;闭包是怎么回收的&lt;/h2&gt;
+&lt;p&gt;因为如果闭包使⽤不正确，会很容易造成&lt;strong&gt;内存泄漏&lt;/strong&gt;的&lt;/p&gt;
+&lt;p&gt;如果引⽤闭包的函数是个局部变量，等函数销毁后，在下次JavaScript引擎执⾏垃圾回收时，判断闭包这块 内容如果已经不再被使⽤了，那么JavaScript引擎的垃圾回收器就会回收这块内存。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;思考题&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var bar = {
+myName:&amp;quot;time.geekbang.com&amp;quot;,
+printName: function () {
+console.log(myName)
+}
+}
+
+function foo() {
+let myName = &amp;quot;极客时间&amp;quot;
+return bar.printName
+}
+
+let myName = &amp;quot;极客邦&amp;quot;
+let _printName = foo()
+_printName()
+bar.printName()
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;打印两次 &lt;strong&gt;极客邦&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;bar 不是⼀个函数，因此 bar 当中的 &lt;strong&gt;printName 其实是⼀个全局声明的函数&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;bar 当中的 myName 只 是对象的⼀个属性，也和 printName 没有联系，如果要产⽣联系，需要使⽤ this 关键字&lt;/p&gt;
+&lt;p&gt;printName函数定义时的执⾏上下⽂是全局，所以会在全局词法环境和变量环境下找myName。&lt;/p&gt;
+&lt;p&gt;foo 函数返回的 printName 是全局声明的函数，因此和 foo 当中定义的变量也没有任何联系，这个时 候 foo 函数返回 printName 并不会产⽣闭包&lt;/p&gt;
+&lt;p&gt;​&lt;/p&gt;
+">深入作用域链</a>
+      </div>
+      
+      <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/var-que-xian-yi-ji-wei-shi-me-yao-yin-let-he-const/"" data-c="
           &lt;h2 id=&#34;作用域scope&#34;&gt;作⽤域（scope）&lt;/h2&gt;
 &lt;p&gt;作⽤域是指在程序中定义变量的区域，该位置决定了变量的⽣命周期。&lt;/p&gt;
@@ -1281,10 +1377,8 @@ let myname= &#39;极客邦&#39;
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/dom-new/"" data-c="
           &lt;p&gt;DOM（文档对象模型）是针对 HTML 和 XML 文档的一个 API&lt;/p&gt;
-&lt;h2 id=&#34;节点层次&#34;&gt;节点层次&lt;/h2&gt;
 &lt;p&gt;DOM 可以将任何 HTML 或 XML 文档描绘成一个由多层节点构成的结构。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;&amp;lt;html&amp;gt;&lt;/code&gt;元素 称之为&lt;strong&gt;文档元素&lt;/strong&gt;，文档元素是文档的最外层元素&lt;/p&gt;
-&lt;br&gt;
 &lt;h2 id=&#34;node类型&#34;&gt;Node类型&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;DOM1 级定义了一个 Node 接口，该接口将由 DOM 中的所有节点类型实现&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;JavaScript 中的所有节点类型都继承自 Node 类型，因此所有节点类型都共享着相同的基本属性和方法。&lt;/p&gt;
@@ -1400,7 +1494,14 @@ document.title = &amp;quot;New page title&amp;quot;;
 &lt;p&gt;&lt;code&gt;domain&lt;/code&gt; 属性中只包含页面的域名&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;referrer&lt;/code&gt;属性中则保存着链接到当前页面的那个页面的 URL。&lt;/p&gt;
 &lt;p&gt;在没有来源页面的情况下，referrer 属性中可能 会包含空字符串。&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//取得完整的 URLvar url = document.URL; //取得域名var domain = document.domain; //取得来源页面的 URLvar referrer = document.referrer; 
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//取得完整的 URL
+var url = document.URL; 
+
+//取得域名
+var domain = document.domain; 
+
+//取得来源页面的 URL
+var referrer = document.referrer; 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;br&gt;
 &lt;hr&gt;
@@ -1408,7 +1509,14 @@ document.title = &amp;quot;New page title&amp;quot;;
 &lt;p&gt;&lt;code&gt;getElementById()&lt;/code&gt;  ID属性&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;getElementsByTagName()&lt;/code&gt;   标签名字  NodeName&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;getElementsByName()&lt;/code&gt;   name属性&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;ul&amp;gt;  &amp;lt;li&amp;gt;&amp;lt;input type=&amp;quot;radio&amp;quot; value=&amp;quot;red&amp;quot; name=&amp;quot;color&amp;quot; id=&amp;quot;colorRed&amp;quot;&amp;gt;  &amp;lt;label for=&amp;quot;colorRed&amp;quot;&amp;gt;Red&amp;lt;/label&amp;gt;&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;&amp;lt;input type=&amp;quot;radio&amp;quot; value=&amp;quot;green&amp;quot; name=&amp;quot;color&amp;quot; id=&amp;quot;colorGreen&amp;quot;&amp;gt;  &amp;lt;label for=&amp;quot;colorGreen&amp;quot;&amp;gt;Green&amp;lt;/label&amp;gt;&amp;lt;/li&amp;gt;  &amp;lt;li&amp;gt;&amp;lt;input type=&amp;quot;radio&amp;quot; value=&amp;quot;blue&amp;quot; name=&amp;quot;color&amp;quot; id=&amp;quot;colorBlue&amp;quot;&amp;gt;  &amp;lt;label for=&amp;quot;colorBlue&amp;quot;&amp;gt;Blue&amp;lt;/label&amp;gt;&amp;lt;/li&amp;gt;  &amp;lt;/ul&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;ul&amp;gt; 
+ &amp;lt;li&amp;gt;&amp;lt;input type=&amp;quot;radio&amp;quot; value=&amp;quot;red&amp;quot; name=&amp;quot;color&amp;quot; id=&amp;quot;colorRed&amp;quot;&amp;gt; 
+ &amp;lt;label for=&amp;quot;colorRed&amp;quot;&amp;gt;Red&amp;lt;/label&amp;gt;&amp;lt;/li&amp;gt; 
+ &amp;lt;li&amp;gt;&amp;lt;input type=&amp;quot;radio&amp;quot; value=&amp;quot;green&amp;quot; name=&amp;quot;color&amp;quot; id=&amp;quot;colorGreen&amp;quot;&amp;gt; 
+ &amp;lt;label for=&amp;quot;colorGreen&amp;quot;&amp;gt;Green&amp;lt;/label&amp;gt;&amp;lt;/li&amp;gt; 
+ &amp;lt;li&amp;gt;&amp;lt;input type=&amp;quot;radio&amp;quot; value=&amp;quot;blue&amp;quot; name=&amp;quot;color&amp;quot; id=&amp;quot;colorBlue&amp;quot;&amp;gt; 
+ &amp;lt;label for=&amp;quot;colorBlue&amp;quot;&amp;gt;Blue&amp;lt;/label&amp;gt;&amp;lt;/li&amp;gt; 
+ &amp;lt;/ul&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;ID 的 作用在于将元素应用到每个单选按钮，&lt;strong&gt;而 name 特性则用以确保三个值中只有一个被发送给浏览器&lt;/strong&gt;&lt;/p&gt;
 &lt;br&gt;
@@ -1429,7 +1537,183 @@ document.title = &amp;quot;New page title&amp;quot;;
 &lt;hr&gt;
 &lt;h2 id=&#34;element类型&#34;&gt;Element类型&lt;/h2&gt;
 &lt;p&gt;Element 类型就要算是 Web 编程中最常用的类型了。&lt;/p&gt;
-">DOM new</a>
+&lt;p&gt;Element 类型用 于表现 XML 或 HTML元素，提供了对元素标签名、子节点及特性的访问。&lt;/p&gt;
+&lt;p&gt;也可以用tagName来获取标签名称&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;div id=&amp;quot;myDiv&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var div = document.getElementById(&amp;quot;myDiv&amp;quot;); 
+alert(div.tagName); //&amp;quot;DIV&amp;quot; 
+alert(div.tagName == div.nodeName); //true 
+
+
+if (element.tagName == &amp;quot;div&amp;quot;){ //不能这样比较，很容易出错！
+ //在此执行某些操作
+} 
+
+if (element.tagName.toLowerCase() == &amp;quot;div&amp;quot;){ //这样最好（适用于任何文档）
+ //在此执行某些操作
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;html元素&#34;&gt;HTML元素&lt;/h3&gt;
+&lt;p&gt;这些属性分别对应于每个 HTML 元素中都存在的下列标准特性。、&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;id，元素在文档中的唯一标识符。&lt;/li&gt;
+&lt;li&gt;title，有关元素的附加说明信息，一般通过工具提示条显示出来。&lt;/li&gt;
+&lt;li&gt;lang，元素内容的语言代码，很少使用。&lt;/li&gt;
+&lt;li&gt;dir，语言的方向，值为&amp;quot;ltr&amp;quot;（left-to-right，从左至右）或&amp;quot;rtl&amp;quot;（right-to-left，从右至左）， 也很少使用。&lt;/li&gt;
+&lt;li&gt;className，与元素的class 特性对应，即为元素指定的CSS类。没有将这个属性命名为class， 是因为 class 是 ECMAScript 的保留字&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;div id=&amp;quot;myDiv&amp;quot; class=&amp;quot;bd&amp;quot; title=&amp;quot;Body text&amp;quot; lang=&amp;quot;en&amp;quot; dir=&amp;quot;ltr&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;获取上面元素的信息&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var div = document.getElementById(&amp;quot;myDiv&amp;quot;); 
+
+//获取值
+alert(div.id); //&amp;quot;myDiv&amp;quot;&amp;quot; 
+alert(div.className); //&amp;quot;bd&amp;quot; 
+alert(div.title); //&amp;quot;Body text&amp;quot; 
+alert(div.lang); //&amp;quot;en&amp;quot; 
+alert(div.dir); //&amp;quot;ltr&amp;quot; 
+
+//设置值
+div.id = &amp;quot;someOtherId&amp;quot;; 
+div.className = &amp;quot;ft&amp;quot;; 
+div.title = &amp;quot;Some other text&amp;quot;; 
+div.lang = &amp;quot;fr&amp;quot;; 
+div.dir =&amp;quot;rtl&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;获取特征&#34;&gt;获取特征&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;getAttribute()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;因为 id 和 align 在 HTML 中是的公认特性&lt;/p&gt;
+&lt;p&gt;自定义特性无法直接通过对象身上属性获取&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;div id=&amp;quot;myDiv&amp;quot; align=&amp;quot;left&amp;quot; my_special_attribute=&amp;quot;hello!&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;alert(div.id); //&amp;quot;myDiv&amp;quot; 
+alert(div.my_special_attribute); //undefined
+alert(div.align); //&amp;quot;left&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;也不能这样为DOM元素添加一个自定义属性&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;div.mycolor = &amp;quot;red&amp;quot;; 
+alert(div.getAttribute(&amp;quot;mycolor&amp;quot;)); //null
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var div = document.getElementById(&amp;quot;myDiv&amp;quot;); 
+
+//getAttribute 
+alert(div.getAttribute(&amp;quot;id&amp;quot;)); //&amp;quot;myDiv&amp;quot; 
+alert(div.getAttribute(&amp;quot;class&amp;quot;)); //&amp;quot;bd&amp;quot;
+alert(div.getAttribute(&amp;quot;my_special_attribute&amp;quot;)) //&amp;quot;hello
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;设置特性&#34;&gt;设置特性&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;setAttribute()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;这个方法接受两个参数：&lt;strong&gt;要设置的特性名&lt;/strong&gt;和 &lt;strong&gt;值&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果特性已经存在，setAttribute()会以指定的值替换现有的值&lt;/p&gt;
+&lt;p&gt;如果特性不存在，setAttribute() 则创建该属性并设置相应的值&lt;/p&gt;
+&lt;p&gt;通过这个方法设置的 特性名会被统一转换为小写形式&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;div.setAttribute(&amp;quot;id&amp;quot;, &amp;quot;someOtherId&amp;quot;); 
+div.setAttribute(&amp;quot;class&amp;quot;, &amp;quot;ft&amp;quot;); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;移除特性&#34;&gt;移除特性&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;removeAttribute()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;这个方法用于彻底删除元素的特性。调用这个方 法不仅会清除特性的值，而且也会&lt;strong&gt;从元素中完全删除特性&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;div.removeAttribute(&amp;quot;class&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;attributes属性&#34;&gt;attributes属性&lt;/h3&gt;
+&lt;p&gt;Element 类型是使用 attributes 属性的唯一一个 DOM 节点类型。&lt;/p&gt;
+&lt;p&gt;元素的每一个特性都由一个 Attr 节 点表示，每个节点都保存在 NamedNodeMap 对象中。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;getNamedItem(name)：返回 nodeName 属性等于 name 的节点；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;removeNamedItem(name)：从列表中移除 nodeName 属性等于 name 的节点；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;setNamedItem(node)：向列表中添加节点，以节点的 nodeName 属性为索引；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;item(pos)：返回位于数字 pos 位置处的节点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;创建元素&#34;&gt;创建元素&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;document.createElement()&lt;/code&gt;可以创建新元素&lt;/p&gt;
+&lt;p&gt;这个方法只接受一个参数：&lt;strong&gt;这个方法只接受一个参数&lt;/strong&gt;，这个方法只接受一个参数&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;元素的子节点&#34;&gt;元素的子节点&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var ul = document.getElementById(&amp;quot;myList&amp;quot;); 
+var items = ul.getElementsByTagName(&amp;quot;li&amp;quot;); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这里&lt;code&gt;&amp;lt;ul&amp;gt;&lt;/code&gt;的后代中只包含直接子元素。不过，&lt;strong&gt;如果它包含更多层次的后代元素，那 么各个层次中包含的&lt;code&gt;&amp;lt;li&amp;gt;&lt;/code&gt;元素也都会返回&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;text类型&#34;&gt;Text类型&lt;/h2&gt;
+&lt;p&gt;可以通过 nodeValue 属性或 data 属性访问 Text 节点中包含的文本，这两个属性中包含的值相同。&lt;/p&gt;
+&lt;h3 id=&#34;创建文本节点&#34;&gt;创建文本节点&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;document.createTextNode()&lt;/code&gt;创建新文本节点&lt;/p&gt;
+&lt;p&gt;接受一个参数：&lt;strong&gt;要插入节点 中的文本&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;document.createTextNode(&amp;quot;Hello world!&amp;quot;);&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;规范化文本节点&#34;&gt;规范化文本节点&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;normalize()&lt;/code&gt; 能够将相邻文本节点合并的方法&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var element = document.createElement(&amp;quot;div&amp;quot;); 
+
+var textNode = document.createTextNode(&amp;quot;Hello world!&amp;quot;); 
+element.appendChild(textNode); 
+
+var anotherTextNode = document.createTextNode(&amp;quot;Yippee!&amp;quot;); 
+element.appendChild(anotherTextNode); 
+
+document.body.appendChild(element); 
+
+//两个文本节点
+alert(element.childNodes.length); //2 
+
+element.normalize(); 
+
+//合成为一个文本节点
+alert(element.childNodes.length); //1 
+alert(element.firstChild.nodeValue); // &amp;quot;Hello world!Yippee!&amp;quot; 
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;分割文本节点&#34;&gt;分割文本节点&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;splitText()&lt;/code&gt;按照指定的位置分割 nodeValue 值&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var element = document.createElement(&amp;quot;div&amp;quot;); 
+element.className = &amp;quot;message&amp;quot;; 
+
+var textNode = document.createTextNode(&amp;quot;Hello world!&amp;quot;); 
+element.appendChild(textNode); 
+
+document.body.appendChild(element); 
+
+var newNode = element.firstChild.splitText(5); 
+
+alert(element.firstChild.nodeValue); //&amp;quot;Hello&amp;quot; 
+alert(newNode.nodeValue); //&amp;quot; world!&amp;quot; 
+alert(element.childNodes.length); //2 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;comment类型&#34;&gt;Comment类型&lt;/h2&gt;
+&lt;p&gt;用于代码块加注释&lt;/p&gt;
+&lt;p&gt;Comment 类型与 Text 类型继承自相同的基类，因此它拥有除 splitText()之外的所有字符串操 作方法。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;document.createComment()&lt;/code&gt;为其传递注释文本也可以创建注释节点&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;attr类型&#34;&gt;Attr类型&lt;/h2&gt;
+&lt;p&gt;最常使用的是 &lt;code&gt;getAttribute()&lt;/code&gt;、&lt;code&gt;setAttribute()&lt;/code&gt;、&lt;code&gt;remveAttribute()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Attr 对象有 3 个属性：name、value 和 specified&lt;/p&gt;
+&lt;p&gt;name 是特性名称（与 nodeName 的 值相同），value 是特性的值（与 nodeValue 的值相同），而 specified 是一个布尔值，用以区别特 性是在代码中指定的，还是默认的。&lt;/p&gt;
+&lt;p&gt;使用 &lt;code&gt;document.createAttribute()&lt;/code&gt;并传入特性的名称可以创建新的特性节点&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var attr = document.createAttribute(&amp;quot;align&amp;quot;); 
+attr.value = &amp;quot;left&amp;quot;; 
+
+element.setAttributeNode(attr); 
+
+alert(element.attributes[&amp;quot;align&amp;quot;].value); //&amp;quot;left&amp;quot; 
+alert(element.getAttributeNode(&amp;quot;align&amp;quot;).value); //&amp;quot;left&amp;quot; 
+alert(element.getAttribute(&amp;quot;align&amp;quot;)); //&amp;quot;left&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+">DOM 节点层次</a>
       </div>
       
       <div class="item">

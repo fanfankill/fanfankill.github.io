@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title> 微信小程序开发记录 | fanfan</title>
+<title>深入作用域链 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1628415669996">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content=" 微信小程序开发记录" />
-  <meta name="keywords" content="" />
+  <meta name="description" content="深入作用域链" />
+  <meta name="keywords" content="Javascript" />
 </head>
 
 <body>
@@ -284,12 +284,10 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#es6-map%E5%87%BD%E6%95%B0-%E9%80%89%E6%8B%A9%E4%BD%9C%E7%94%A8">ES6 map()函数 (选择作用)</a></li>
-<li><a href="#%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%9C%AC%E5%9C%B0%E5%82%A8%E5%AD%98">小程序本地储存</a></li>
-<li><a href="#onloadoption">onload(option)</a></li>
-<li><a href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E5%AD%90%E4%BC%A0%E7%88%B6-%E7%88%B6%E4%BC%A0%E5%AD%90">组件的子传父 父传子</a></li>
-<li><a href="#%E5%AF%B9%E4%BA%8E%E4%B8%8B%E6%8B%89%E5%8A%A0%E8%BD%BD%E6%96%B0%E6%95%B0%E6%8D%AE%E7%9A%84%E6%96%B9%E6%B3%95">对于下拉加载新数据的方法</a></li>
-<li><a href="#%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AF%B9%E4%BA%8E%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E8%B0%83%E7%94%A8%E4%BB%A5%E5%8F%8A%E8%8E%B7%E5%8F%96">小程序对于用户权限调用以及获取</a></li>
+<li><a href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE">作⽤域链</a></li>
+<li><a href="#%E8%AF%8D%E6%B3%95%E4%BD%9C%E7%94%A8%E5%9F%9F">词法作⽤域</a></li>
+<li><a href="#%E9%97%AD%E5%8C%85">闭包</a></li>
+<li><a href="#%E9%97%AD%E5%8C%85%E6%98%AF%E6%80%8E%E4%B9%88%E5%9B%9E%E6%94%B6%E7%9A%84">闭包是怎么回收的</a></li>
 </ul>
 </li>
 </ul>
@@ -557,8 +555,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/xiao-cheng-xu-kai-fa-ji-lu/">
-       微信小程序开发记录
+    <a class="post-title-link" href="https://fanfankill.github.io/post/shen-ru-zuo-yong-yu-lian/">
+      深入作用域链
     </a>
   </h1>
   <div class="post-meta">
@@ -566,9 +564,22 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-06-20 15:51:34">2021-06-20</span>
+      <span class="publish-time" data-t="2021-08-08 17:40:31">2021-08-08</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show language" data-lan="category-in">分类于</span>
+      
+      
+      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/">
+        <span>Javascript</span>
+      </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
@@ -577,195 +588,103 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>801<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1010<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h2 id="es6-map函数-选择作用">ES6 map()函数 (选择作用)</h2>
-<pre><code>var users = [
-{name: &quot;张含韵&quot;, &quot;email&quot;: &quot;zhang@email.com&quot;},
-{name: &quot;江一燕&quot;, &quot;email&quot;: &quot;jiang@email.com&quot;},
-{name: &quot;李小璐&quot;, &quot;email&quot;: &quot;li@email.com&quot;}
-];
+              <p><strong>什么是作⽤域链？</strong></p>
+<pre><code class="language-js">function bar() {
+console.log(myName)
+}
+function foo() {
+var myName = &quot;极客邦&quot;
+bar()
+}
+var myName = &quot;极客时间&quot;
+foo()
 
-var emails = users.map(function (user) { return user.email; });
-
-console.log(emails.join(&quot;, &quot;)); 
-
-// zhang@email.com, jiang@email.com, li@email.com
 </code></pre>
-<p>此方法用于我对于获取总数据中选择data里面的数组去选择我需要的部分<br>
-<br></p>
-<h2 id="小程序本地储存">小程序本地储存</h2>
-<p>wx.setStorageSync('key','value);</p>
-<p>wx.getStorageSync( 'key');</p>
-<p>web中存数据会先调用toString() 把数据变为字符串 再进行储存</p>
-<p>小程序存的数据什么类型 获取的就是什么类型</p>
+<figure data-type="image" tabindex="1"><img src="C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808154326942.png" alt="image-20210808154326942" loading="lazy"></figure>
+<p>​	<br></p>
+<h2 id="作用域链">作⽤域链</h2>
+<p>在每个执⾏上下⽂的变量环境中，都包含了⼀个外部引⽤，⽤来指向外部的执⾏上下⽂，我们把这个外 部引⽤称为outer。</p>
+<p>当⼀段代码使⽤了⼀个变量时，JavaScript引擎⾸先会在“当前的执⾏上下⽂”中查找该变量</p>
+<p>如果在当前的变量环境中没有查找到，那么JavaScript引擎会继 续在outer所指向的执⾏上下⽂中查找。</p>
+<figure data-type="image" tabindex="2"><img src="C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808154812481.png" alt="image-20210808154812481" loading="lazy"></figure>
+<p>bar函数和foo函数的outer都是指向全局上下⽂的</p>
+<p>JavaScript引擎会去全局执⾏上下⽂中查找。我们把这个查找的链条就称为<strong>作⽤域链</strong>。</p>
 <br>
-<h2 id="onloadoption">onload(option)</h2>
-<p>{</p>
-<p>​	//option里面包含我从其他页面跳转url带参的参数</p>
-<p>}<br>
-<br></p>
-<h2 id="组件的子传父-父传子">组件的子传父 父传子</h2>
-<pre><code class="language-html">&lt;!-- 监听自定义事件 bindtabsitemchange是子组件向父组件传值加bind --&gt;
-&lt;tab tabs=&quot;{{tabs}}&quot; bindtabsitemchange=&quot;handitemchange&quot;&gt;&lt;/tab&gt;
-</code></pre>
-<p>子组件接受参数</p>
-<pre><code class="language-js"> properties: {
-    tabs:{
-      type:Array,
-      value:[]
-    }
-  },
-</code></pre>
-<p>子组件向父组件传值</p>
-<pre><code class="language-js">  methods: {
-      //点击事件
-      handleitemtap(e)
-      {
-        const {index}=e.currentTarget.dataset
-        this.triggerEvent(&quot;tabsitemchange&quot;,{index} )
-      }
-  }
-</code></pre>
-<p>父组件对传值的处理</p>
-<pre><code class="language-js">//tab子组件点击事件
-handitemchange(e)
-{
-  console.log(e);
-  //获取被点击的标题索引
-  const {index}=e.detail;
-  let {tabs}=this.data
-  tabs.forEach((value,i)=&gt;i==index?value.isactive=true:value.isactive=false)
-  this.setData({
-      //更新父组件的内容
-    tabs
-  })
-  
-},
-</code></pre>
+<p><strong>foo函数调⽤的bar函数，那为什 么bar函数的外部引⽤是全局执⾏上下⽂，⽽不是foo函数的执⾏上下⽂？</strong></p>
+<p>foo和bar的上级作⽤域都是全局作⽤域（<strong>定义为函数的时候绝对，如果把bar定义在foo里面，那么bar的上级作用域就指向foo</strong>），所以如果foo或者bar函数使⽤了⼀个它 们没有定义的变量，那么它们会到全局作⽤域去查找</p>
+<p><strong>词法作⽤域是代码阶段就决定好的，和函数是怎么调⽤的没有关系。</strong></p>
 <br>
-## 用到的周期函数
-<pre><code class="language-js">//只用加载该页面才调用  
-  onLoad: function (options) {
-      console.log(options);
-      this.qureyparams.cid=options.cid
-      console.log(this.qureyparams);
-      this.getgoodslist()
-  },
-
-       //每次回到该页面就会调用
-     onShow(){
-         ...
-     },
-      
-//页面滚动条触底事件 要判断是否有下一页数据 总页数 页码   页码*获取条数&gt;=总数据 没有下一页
-  onReachBottom()
-  {
-      //判断是否还有下一页
-      if(this.qureyparams.pagenum&gt;=this.totalpagesize)
-      {
-        //给个提示
-        wx.showToast({
-          title:'',
-          icon:'none',
-          duration:1500,
-         
-        })
-      }
-      else{
-     
-         this.qureyparams.pagenum++
-        console.log(this.qureyparams.pagenum);
-        this.getgoodslist()
-      }
-  },
-	
-//下拉刷新触发函数 
-  onPullDownRefresh(){
-      //1 重置数组
-      this.setData({
-        goodslist:[]
-      })
-      //重置页数
-      this.qureyparams.pagenum=1
-      //重新发请求
-      this.getgoodslist()
-      //在方法里面手动关闭下拉刷新等待效果
-      //（ wx.stopPullDownRefresh()）
-  },
-      
-      
-</code></pre>
-<p>对于下拉刷新可以在需要的文件下加<code>&quot;enablePullDownRefresh&quot;: true</code></p>
-<p>也可以在app.json全局加刷新效果 包括下拉刷新的样式也是可以添加的</p>
-<pre><code class="language-js">  &quot;window&quot;:{
-    &quot;backgroundTextStyle&quot;:&quot;light&quot;,
-    &quot;navigationBarBackgroundColor&quot;: &quot;#eb4450&quot;,
-    &quot;navigationBarTitleText&quot;: &quot;fanfan&quot;,
-    &quot;navigationBarTextStyle&quot;:&quot;white&quot;,
-
-    &quot;backgroundColor&quot;: &quot;#0094ff&quot;
-
-  },
-</code></pre>
+<h2 id="词法作用域">词法作⽤域</h2>
+<p>词法作⽤域就是指作⽤域是由代码中函数声明的位置来决定的，所以词法作⽤域是静态的作⽤域，通过它就 能够预测代码在执⾏过程中如何查找标识符。</p>
+<figure data-type="image" tabindex="3"><img src="C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808155536685.png" alt="image-20210808155536685" loading="lazy"></figure>
+<p>词法作⽤域就是根据代码的位置来决定的，其中main函数包含了bar函数，bar函数中包 含了foo函数</p>
+<p>因为JavaScript作⽤域链是由词法作⽤域决定的，所以整个词法作⽤域链的顺序是：foo函数 作⽤域—&gt;bar函数作⽤域—&gt;main函数作⽤域—&gt;全局作⽤域。</p>
 <br>
-<h2 id="对于下拉加载新数据的方法">对于下拉加载新数据的方法</h2>
-<p>先对原先数据进行解构后，把新数据加进去，而不是刷新数组</p>
-<pre><code class="language-js"> this.setData({
-      goodslist:[...this.data.goodslist,...res.data.message.goods]
-    })
-</code></pre>
-<br>
-<br>
-<h2 id="小程序对于用户权限调用以及获取">小程序对于用户权限调用以及获取</h2>
-<pre><code class="language-js">//权限给与设置  ***
-  //调用小程序内置api 获取用户的收货地址 追踪授权状态 SCOPE
-  //增加收货地址
-  handleaddress() {
-
-    //打印授权的状态
-    wx.getSetting({
-      success: (res) =&gt; { 
-        console.log(res);
-        //判断用户是否给权限
-        const scopeaddress = res.authSetting[&quot;scope.address&quot;]
-        //用户同意权限 直接调用
-        if (scopeaddress || scopeaddress == undefined) {
-          wx.chooseAddress({
-            success: (result) =&gt; {
-              //存地址到缓存
-              wx.setStorageSync('address', result);
-              console.log(result);
-            },
-          });
-        }
-        //如果没给 调用接口让用户同意  打开授权页面
-        else {
-          wx.openSetting({
-            success: (result) =&gt; {
-              console.log(result);
-              //调用用户同意权限接口
-              wx.chooseAddress({
-                success: (res) =&gt; {
-                  wx.setStorageSync('address', res);
-                  console.log(res);
-
-                },
-
-              });
-            },
-
-          });
-        }
+<h2 id="闭包">闭包</h2>
+<pre><code class="language-js">	  function foo() {
+    var myName = &quot;极客时间&quot;
+    let test1 = 1
+    const test2 = 2
+    var innerBar = {
+      getName: function () {
+        console.log(test1)
+        return myName
       },
-    });
-  },
+      setName: function (newName) {
+        myName = newName
+      }
+    }
+    return innerBar
+  }
+
+  var bar = foo()
+  bar.setName(&quot;极客邦&quot;)
+  bar.getName()
+  console.log(bar.getName())
+</code></pre>
+<p>当执⾏到foo函数内部的return innerBar这⾏代码时调⽤栈的情况</p>
+<figure data-type="image" tabindex="4"><img src="C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808161411671.png" alt="image-20210808161411671" loading="lazy"></figure>
+<p><strong>根据词法作⽤域的规则，内部函数getName和setName总是可以访问它们的外部函数foo中的变量</strong></p>
+<p>虽然foo函数已经执⾏结束，但是getName和setName函数依然可 以使⽤foo函数中的变量myName和test1</p>
+<figure data-type="image" tabindex="5"><img src="C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210808161833520.png" alt="image-20210808161833520" loading="lazy"></figure>
+<p>foo函数执⾏完成之后，其执⾏上下⽂从栈顶弹出了，但是由于返回的setName和 getName⽅法中使⽤了foo函数内部的变量myName和test1，所以这两个变量依然保存在内存中。</p>
+<p><strong>内部函数 总是可以访问其外部函数中声明的变量，即使该外部函数已 经执⾏结束了，但是内部函数引⽤外部函数的变量依然保存在内存中，我们就把这些变量的集合称为闭包。</strong></p>
+<br>
+<h2 id="闭包是怎么回收的">闭包是怎么回收的</h2>
+<p>因为如果闭包使⽤不正确，会很容易造成<strong>内存泄漏</strong>的</p>
+<p>如果引⽤闭包的函数是个局部变量，等函数销毁后，在下次JavaScript引擎执⾏垃圾回收时，判断闭包这块 内容如果已经不再被使⽤了，那么JavaScript引擎的垃圾回收器就会回收这块内存。</p>
+<br>
+<p>思考题</p>
+<pre><code class="language-js">var bar = {
+myName:&quot;time.geekbang.com&quot;,
+printName: function () {
+console.log(myName)
+}
+}
+
+function foo() {
+let myName = &quot;极客时间&quot;
+return bar.printName
+}
+
+let myName = &quot;极客邦&quot;
+let _printName = foo()
+_printName()
+bar.printName()
 
 </code></pre>
+<p>打印两次 <strong>极客邦</strong></p>
+<p>bar 不是⼀个函数，因此 bar 当中的 <strong>printName 其实是⼀个全局声明的函数</strong></p>
+<p>bar 当中的 myName 只 是对象的⼀个属性，也和 printName 没有联系，如果要产⽣联系，需要使⽤ this 关键字</p>
+<p>printName函数定义时的执⾏上下⽂是全局，所以会在全局词法环境和变量环境下找myName。</p>
+<p>foo 函数返回的 printName 是全局声明的函数，因此和 foo 当中定义的变量也没有任何联系，这个时 候 foo 函数返回 printName 并不会产⽣闭包</p>
+<p>​</p>
 
             </div>
             
@@ -778,7 +697,7 @@ handitemchange(e)
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/xiao-cheng-xu-kai-fa-ji-lu/" title=" 微信小程序开发记录">https://fanfankill.github.io/post/xiao-cheng-xu-kai-fa-ji-lu/</a>
+      <a href="https://fanfankill.github.io/post/shen-ru-zuo-yong-yu-lian/" title="深入作用域链">https://fanfankill.github.io/post/shen-ru-zuo-yong-yu-lian/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -787,19 +706,17 @@ handitemchange(e)
   </ul>
   <div class="tags">
     
+      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/"># Javascript</a>
+    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="mustache" href="https://fanfankill.github.io/post/mustache/">mustache</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="mustache" href="https://fanfankill.github.io/post/mustache/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="socket.io实现实时聊天室" href="https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/">socket.io实现实时聊天室</a>
-        <a class="nav-mobile-next" title="socket.io实现实时聊天室" href="https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/">下一篇</a>
+        <a class="nav-pc-next" title="var缺陷以及为什么要引⼊let和const？" href="https://fanfankill.github.io/post/var-que-xian-yi-ji-wei-shi-me-yao-yin-let-he-const/">var缺陷以及为什么要引⼊let和const？</a>
+        <a class="nav-mobile-next" title="var缺陷以及为什么要引⼊let和const？" href="https://fanfankill.github.io/post/var-que-xian-yi-ji-wei-shi-me-yao-yin-let-he-const/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
