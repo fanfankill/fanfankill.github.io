@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>事件循环 | fanfan</title>
+<title>DOM拓展 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1628501293760">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,7 +41,7 @@
 
 
 
-  <meta name="description" content="事件循环" />
+  <meta name="description" content="DOM拓展" />
   <meta name="keywords" content="Javascript" />
 </head>
 
@@ -284,7 +284,44 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#async%E5%92%8Cawait">async和await</a></li>
+<li><a href="#%E9%80%89%E6%8B%A9%E7%AC%A6api">选择符API</a>
+<ul>
+<li><a href="#queryselector"><code>querySelector()</code></a></li>
+<li><a href="#queryselectorall"><code>querySelectorAll()</code></a></li>
+<li><a href="#matchesselector"><code>matchesSelector()</code></a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%83%E7%B4%A0%E9%81%8D%E5%8E%86">元素遍历</a></li>
+<li><a href="#html5">HTML5</a>
+<ul>
+<li><a href="#%E4%B8%8E%E7%B1%BB%E7%9B%B8%E5%85%B3%E7%9A%84%E6%89%A9%E5%85%85">与类相关的扩充</a></li>
+<li><a href="#classlist-%E5%B1%9E%E6%80%A7">classList 属性</a></li>
+<li><a href="#%E7%84%A6%E7%82%B9%E7%AE%A1%E7%90%86">焦点管理</a></li>
+<li><a href="#htmldocument%E7%9A%84%E5%8F%98%E5%8C%96">HTMLDocument的变化</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E5%B1%9E%E6%80%A7">自定义数据属性</a></li>
+<li><a href="#%E6%8F%92%E5%85%A5%E6%A0%87%E8%AE%B0">插入标记</a>
+<ul>
+<li><a href="#innerhtml"><strong><code>innerHTML</code></strong></a></li>
+<li><a href="#outerhtml"><code>outerHTML</code></a></li>
+<li><a href="#insertadjacenthtml"><code>insertAdjacentHTML()</code></a></li>
+<li><a href="#scrollintoview"><code>scrollIntoView()</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E6%8B%93%E5%B1%95">拓展</a>
+<ul>
+<li><a href="#children%E5%B1%9E%E6%80%A7">children属性</a></li>
+<li><a href="#contains%E6%96%B9%E6%B3%95">contains()方法</a></li>
+<li><a href="#%E6%8F%92%E5%85%A5%E6%96%87%E6%9C%AC">插入文本</a>
+<ul>
+<li><a href="#innertext"><code>innerText</code></a></li>
+<li><a href="#outertext"><code>outerText</code></a></li>
+</ul>
+</li>
+<li><a href="#%E6%BB%9A%E5%8A%A8">滚动</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -552,8 +589,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/shi-jian-xun-huan/">
-      事件循环
+    <a class="post-title-link" href="https://fanfankill.github.io/post/dom-tuo-zhan/">
+      DOM拓展
     </a>
   </h1>
   <div class="post-meta">
@@ -561,7 +598,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-06-10 00:10:14">2021-06-10</span>
+      <span class="publish-time" data-t="2021-08-09 15:32:23">2021-08-09</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -580,120 +617,230 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>3<span class="language" data-lan="minute">分钟</span></span>
+      <span>9<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>583<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>2087<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p>JS为单线程<br>
-宏任务主要包含：script( 整体代码)、setTimeout、setInterval、I/O、UI 交互事件、setImmediate(Node.js 环境)</p>
-<p>微任务主要包含：Promise、MutaionObserver、process.nextTick(Node.js 环境)<br>
-<img src="https://fanfankill.github.io/post-images/1623256115003.webp" alt="" loading="lazy"></p>
-<p>例子1</p>
-<pre><code class="language-js">console.log('script start');
+              <h2 id="选择符api">选择符API</h2>
+<h3 id="queryselector"><code>querySelector()</code></h3>
+<p><code>querySelector()</code>方法接收一个 CSS 选择符，返回与该模式匹配的第一个元素，如果没有找到匹 配的元素，返回 null。</p>
+<pre><code class="language-js">//取得 body 元素
+var body = document.querySelector(&quot;body&quot;); 
 
-setTimeout(function() {
-  console.log('timeout1');
-}, 10);
+//取得 ID 为&quot;myDiv&quot;的元素
+var myDiv = document.querySelector(&quot;#myDiv&quot;); 
 
-new Promise(resolve =&gt; {
-    console.log('promise1');
-    resolve();
-    setTimeout(() =&gt; console.log('timeout2'), 10);
-}).then(function() {
-    console.log('then1')
-})
+//取得类为&quot;selected&quot;的第一个元素
+var selected = document.querySelector(&quot;.selected&quot;); 
 
-console.log('script end');
+//取得类为&quot;button&quot;的第一个图像元素
+var img = document.body.querySelector(&quot;img.button&quot;); 
 </code></pre>
-<p><img src="https://fanfankill.github.io/post-images/1623255042505.png" alt="" loading="lazy"><br>
-先执行第一个log</p>
-<p>setTimeout推入宏队列hong1</p>
-<p>遇到promise马上执行打印然后将它所有的then推入微队列后把setTimeout推入宏队列hong2</p>
-<p>先执行微队列，所以先打印then里面的。然后宏队列再打印<br>
-<br><br>
-<br><br>
-<br><br>
-例子2</p>
-<pre><code class="language-js">  console.log('1');
-
-setTimeout(function() {
-    console.log('2');
-  
-    new Promise(function(resolve) {
-        console.log('4');
-        resolve();
-    }).then(function() {
-        console.log('5')
-    })
-})
-
-new Promise(function(resolve) {
-    console.log('7');
-    resolve();
-}).then(function() {
-    console.log('8')
-})
-
-setTimeout(function() {
-    console.log('9');
-   
-    new Promise(function(resolve) {
-        console.log('11');
-        resolve();
-    }).then(function() {
-        console.log('12')
-    })
-})
-</code></pre>
-<p><img src="https://fanfankill.github.io/post-images/1623255137440.png" alt="" loading="lazy"><br>
-当在只剩两个宏任务的setTimeout时候执行第一个时，Promise压入了then的微任务，让第二个宏任务又排到微任务后等待</p>
 <br>
-<h2 id="async和await">async和await</h2>
-<ol>
-<li>await后面接一个会return new promise的函数并执行它</li>
-<li>await只能放在async函数里</li>
-</ol>
-<pre><code class="language-js">function 摇色子(){
-    return new Promise((resolve, reject)=&gt;{
-        let sino = parseInt(Math.random() * 6 +1)
-        setTimeout(()=&gt;{
-            resolve(sino)
-        },3000)
-    })
-}
-async function test(){
-    let n =await 摇色子()
-    console.log(n)
-}
-test()
+<h3 id="queryselectorall"><code>querySelectorAll()</code></h3>
+<p>这个方法返回的是一个 NodeList 的实例。</p>
+<pre><code class="language-js">//取得某&lt;div&gt;中的所有&lt;em&gt;元素（类似于 getElementsByTagName(&quot;em&quot;)）
+var ems = document.getElementById(&quot;myDiv&quot;).querySelectorAll(&quot;em&quot;); 
+
+//取得class为&quot;selected&quot;的所有元素
+var selecteds = document.querySelectorAll(&quot;.selected&quot;); 
+
+//取得所有&lt;p&gt;元素中的所有&lt;strong&gt;元素
+var strongs = document.querySelectorAll(&quot;p strong&quot;); 
 </code></pre>
+<br>
+<h3 id="matchesselector"><code>matchesSelector()</code></h3>
+<p>为 Element 类型新增的一个方法</p>
+<p>这个方法接收 一个参数，即 CSS 选择符</p>
+<p>如果调用元素与该选择符匹配，返回 true；否则，返回 false</p>
+<pre><code class="language-js">if (document.body.matchesSelector(&quot;body.page1&quot;)){ 
+ //true 
+} 
+</code></pre>
+<br>
+<h2 id="元素遍历">元素遍历</h2>
+<p>Element Traversal API 为 DOM 元素添加了以下 5 个属性。</p>
 <ul>
-<li>async函数会返回一个promise，并且Promise对象的状态值是resolved（成功的）
+<li>childElementCount：返回子元素（不包括文本节点和注释）的个数。</li>
+<li>firstElementChild：指向第一个子元素；firstChild 的元素版。</li>
+<li>lastElementChild：指向最后一个子元素；lastChild 的元素版。</li>
+<li>previousElementSibling：指向前一个同辈元素；previousSibling 的元素版。</li>
+<li>nextElementSibling：指向后一个同辈元素；nextSibling 的元素版。</li>
+</ul>
+<br>
+<h2 id="html5">HTML5</h2>
+<h3 id="与类相关的扩充">与类相关的扩充</h3>
+<p><code>getElementsByClassName()</code>接收一个参数：<strong>即一个包含一或多个类名的字符串</strong>，返回带有 指定类的所有元素的 NodeList。</p>
+<pre><code class="language-js">//取得所有类中包含&quot;username&quot;和&quot;current&quot;的元素，类名的先后顺序无所谓
+var allCurrentUsernames = document.getElementsByClassName(&quot;username current&quot;); 
+</code></pre>
+<br>
+<h3 id="classlist-属性">classList 属性</h3>
+<p>定义如下方法：</p>
 <ul>
-<li>如果你没有在async函数中写return，那么Promise对象resolve的值就是是undefined</li>
-<li>如果你写了return，那么return的值就会作为你成功的时候传入的值</li>
+<li>add(value)：将给定的字符串值添加到列表中。如果值已经存在，就不添加了。</li>
+<li>contains(value)：表示列表中是否存在给定的值，如果存在则返回 true，否则返回 false。</li>
+<li>remove(value)：从列表中删除给定的字符串。</li>
+<li>toggle(value)：如果列表中已经存在给定的值，删除它；如果列表中没有给定的值，添加它。</li>
 </ul>
-</li>
-</ul>
-<p><strong>await 等到之后，做了一件什么事情？</strong></p>
+<pre><code class="language-js">//删除&quot;disabled&quot;类
+div.classList.remove(&quot;disabled&quot;); 
+
+//添加&quot;current&quot;类
+div.classList.add(&quot;current&quot;); 
+
+//切换&quot;user&quot;类
+div.classList.toggle(&quot;user&quot;);
+
+//确定元素中是否包含既定的类名
+if (div.classList.contains(&quot;bd&quot;) &amp;&amp; !div.classList.contains(&quot;disabled&quot;)){ 
+ //执行操作
+) 
+
+//迭代类名
+for (var i=0, len=div.classList.length; i &lt; len; i++){ 
+ doSomething(div.classList[i]); 
+}
+</code></pre>
+<br>
+<h3 id="焦点管理">焦点管理</h3>
+<p>HTML5 也添加了辅助管理 DOM 焦点的功能。</p>
+<p><code>document.activeElement</code>	这个属性始终会引用 DOM 中当前获得了焦点的元素。</p>
+<p>元素获得焦点的方式有页面加载、用户输入（通常是 通过按 Tab 键）和在代码中调用 focus()方法。</p>
+<pre><code class="language-js">var button = document.getElementById(&quot;myButton&quot;); 
+button.focus(); 
+alert(document.activeElement === button); //true 
+</code></pre>
+<p><code>document.hasFocus()</code>用于确定文档是否获得了焦点。</p>
+<br>
+<h3 id="htmldocument的变化">HTMLDocument的变化</h3>
+<p><code>readyState</code> 通过它来实现一个指示文档已经加载完成的指示器</p>
+<p>Document 的 readyState 属性有两个可能的值：</p>
 <ul>
-<li>不是promise对象</li>
-<li>是promise对象</li>
+<li>loading，正在加载文档；</li>
+<li>complete，已经加载完文档</li>
 </ul>
-<p>如果不是 promise , await会阻塞后面的代码，先执行async外面的同步代码，同步代码执行完，再回到async内部，把这个非promise的东西，作为 await表达式的结果。<br>
-如果它等到的是一个 promise 对象，await 也会暂停async后面的代码，先执行async外面的同步代码，等着 Promise 对象 fulfilled，然后把 resolve 的参数作为 await 表达式的运算结果。</p>
+<pre><code class="language-js">//如果加载完成了 类似onload
+if (document.readyState == &quot;complete&quot;){ 
+ //执行操作
+}
+</code></pre>
+<br>
+<h3 id="自定义数据属性">自定义数据属性</h3>
+<p>HTML5 规定可以为元素添加非标准的属性，但要添加前缀 data-，目的是为元素提供与渲染无关的 信息，或者提供语义信息。</p>
+<p>可以通过元素的 <code>dataset</code>属性来访问自定义属性的值</p>
+<pre><code class="language-js">//取得自定义属性的值
+var appId = div.dataset.appId; 
+var myName = div.dataset.myname;
+
+//设置自定义值
+div.dataset.appId = 23456; 
+div.dataset.myname = &quot;Michael&quot;;
+</code></pre>
+<br>
+<h3 id="插入标记">插入标记</h3>
+<h4 id="innerhtml"><strong><code>innerHTML</code></strong></h4>
+<p>在读模式下，innerHTML 属性返回与调用元素的所有子节点（包括元素、注释和文本节点）对应 的 HTML 标记。</p>
+<p>在写模式下，innerHTML 会根据指定的值<strong>创建新的 DOM 树</strong>，然后用这个 DOM 树完全 <strong>替换调用元素原先的所有子节点</strong>。</p>
+<br>
+<h4 id="outerhtml"><code>outerHTML</code></h4>
+<p>在读模式下，outerHTML 返回调用<strong>它的元素</strong>及所有子节点的 HTML 标签。</p>
+<p>在写模式下，outerHTML 会根据指定的 HTML 字符串创建新的 DOM 子树，然后用这个 DOM 子树完全<strong>替换调用元素</strong>。</p>
+<br>
+<h4 id="insertadjacenthtml"><code>insertAdjacentHTML()</code></h4>
+<p>它接收两个参数：<strong>插入位置</strong>和要<strong>插入的 HTML 文本</strong></p>
+<p>第一个参数必须是下列值之一：</p>
 <ul>
-<li>如果asycn里的代码都是同步的，那么这个函数被调用就会同步执行</li>
-<li>如果在await后面接的这个promsie都是同步的，后面的promise会同步执行</li>
-<li>如果await里面的promise没有resolve()的成功函数就不会执行await下面的线程了</li>
+<li>&quot;beforebegin&quot;，在当前元素之前插入一个紧邻的同辈元素；</li>
+<li>&quot;afterbegin&quot;，在当前元素之下插入一个新的子元素或在第一个子元素之前再插入新的子元素；</li>
+<li>&quot;beforeend&quot;，在当前元素之下插入一个新的子元素或在最后一个子元素之后再插入新的子元素；</li>
+<li>&quot;afterend&quot;，在当前元素之后插入一个紧邻的同辈元素。</li>
 </ul>
+<pre><code class="language-js">//作为前一个同辈元素插入
+element.insertAdjacentHTML(&quot;beforebegin&quot;, &quot;&lt;p&gt;Hello world!&lt;/p&gt;&quot;); 
+
+//作为第一个子元素插入
+element.insertAdjacentHTML(&quot;afterbegin&quot;, &quot;&lt;p&gt;Hello world!&lt;/p&gt;&quot;); 
+
+//作为最后一个子元素插入
+element.insertAdjacentHTML(&quot;beforeend&quot;, &quot;&lt;p&gt;Hello world!&lt;/p&gt;&quot;); 
+
+//作为后一个同辈元素插入
+element.insertAdjacentHTML(&quot;afterend&quot;, &quot;&lt;p&gt;Hello world!&lt;/p&gt;&quot;); 
+</code></pre>
+<br>
+<h4 id="scrollintoview"><code>scrollIntoView()</code></h4>
+<p>通过滚动浏览器窗口或某个容器元素，调用 元素就可以出现在视口中</p>
+<p>如果给这个方法传入 true 作为参数，或者不传入任何参数，那么窗口滚动 之后会让调用元素的顶部与视口顶部尽可能平齐。</p>
+<p>如果传入 false 作为参数，调用元素会尽可能全部 出现在视口中</p>
+<pre><code class="language-js">//让元素可见
+document.forms[0].scrollIntoView();
+</code></pre>
+<br>
+<h2 id="拓展">拓展</h2>
+<h3 id="children属性">children属性</h3>
+<p>children 属性与 childNodes 没有什么区别，即在元素只包含元素子节点时，这两个属性的值相同。</p>
+<pre><code class="language-js">var childCount = element.children.length; 
+var firstChild = element.children[0]; 
+</code></pre>
+<br>
+<h3 id="contains方法">contains()方法</h3>
+<p>检测某个节点是不是另一个节点的后代</p>
+<p>调用 contains()方法的应该是祖先节点，这个方法接收一个参数，即要检测的后代节点。</p>
+<p>如果被检测的节点是后代节点， 该方法返回 true；否则，返回 false。</p>
+<p><code>alert(document.documentElement.contains(document.body)); //true</code></p>
+<br>
+<h3 id="插入文本">插入文本</h3>
+<h4 id="innertext"><code>innerText</code></h4>
+<p>在通过 innerText 读取值时，它会按照由浅入深的顺序，将子文档树中的所有文本拼接起来。</p>
+<p>在通过 innerText 写入值时，结果会删除元素的所有子节点，插入包含相应文本值的文本节点。</p>
+<pre><code class="language-html">&lt;div id=&quot;content&quot;&gt; 
+ &lt;p&gt;This is a &lt;strong&gt;paragraph&lt;/strong&gt; with a list following it.&lt;/p&gt; 
+ &lt;ul&gt; 
+ &lt;li&gt;Item 1&lt;/li&gt; 
+ &lt;li&gt;Item 2&lt;/li&gt; 
+ &lt;li&gt;Item 3&lt;/li&gt; 
+ &lt;/ul&gt; 
+&lt;/div&gt;
+</code></pre>
+<p>其 innerText 属性会返回下列字符串：</p>
+<pre><code class="language-txt">This is a paragraph with a list following it. 
+Item 1 
+Item 2 
+Item 3
+</code></pre>
+<p>再设置内容后</p>
+<p><code>div.innerText = &quot;Hello world!&quot;;</code></p>
+<p>页面的 HTML 代码就会变成如下所示，子节点全被移除了</p>
+<p><code>&lt;div id=&quot;content&quot;&gt;Hello world!&lt;/div&gt;</code></p>
+<br>
+<h4 id="outertext"><code>outerText</code></h4>
+<p>除了作用范围扩大到了包含调用它的节点之外，outerText 与 innerText 基本上没有多大区别。</p>
+<p>多了的就是替代当前调用节点</p>
+<br>
+<h3 id="滚动">滚动</h3>
+<p>下面列出 的几个方法都是对 HTMLElement 类型的扩展</p>
+<ul>
+<li>scrollIntoViewIfNeeded(alignCenter)：只在当前元素在视口中不可见的情况下，才滚 动浏览器窗口或容器元素，最终让它可见。如果当前元素在视口中可见，这个方法什么也不做。 如果将可选的 alignCenter 参数设置为 true，则表示尽量将元素显示在视口中部（垂直方向）。 Safari 和 Chrome 实现了这个方法。</li>
+<li>scrollByLines(lineCount)：将元素的内容滚动指定的行高，lineCount 值可以是正值， 也可以是负值。Safari 和 Chrome 实现了这个方法。</li>
+<li>scrollByPages(pageCount)：将元素的内容滚动指定的页面高度，具体高度由元素的高度决 定。Safari 和 Chrome 实现了这个方法。</li>
+</ul>
+<pre><code class="language-js">//将页面主体滚动 5 行
+document.body.scrollByLines(5); 
+
+//在当前元素不可见的时候，让它进入浏览器的视口
+document.images[0].scrollIntoViewIfNeeded(); 
+
+//将页面主体往回滚动 1 页
+document.body.scrollByPages(-1); 
+</code></pre>
 
             </div>
             
@@ -706,7 +853,7 @@ test()
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/shi-jian-xun-huan/" title="事件循环">https://fanfankill.github.io/post/shi-jian-xun-huan/</a>
+      <a href="https://fanfankill.github.io/post/dom-tuo-zhan/" title="DOM拓展">https://fanfankill.github.io/post/dom-tuo-zhan/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -721,15 +868,11 @@ test()
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="socket.io实现实时聊天室" href="https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/">socket.io实现实时聊天室</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="socket.io实现实时聊天室" href="https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="JS 节流和防抖 判断数组" href="https://fanfankill.github.io/post/js-zhi-shi-dian/">JS 节流和防抖 判断数组</a>
-        <a class="nav-mobile-next" title="JS 节流和防抖 判断数组" href="https://fanfankill.github.io/post/js-zhi-shi-dian/">下一篇</a>
+        <a class="nav-pc-next" title="深入作用域链" href="https://fanfankill.github.io/post/shen-ru-zuo-yong-yu-lian/">深入作用域链</a>
+        <a class="nav-mobile-next" title="深入作用域链" href="https://fanfankill.github.io/post/shen-ru-zuo-yong-yu-lian/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

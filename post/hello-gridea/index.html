@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>Hello Gridea | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1628422144141">
+<link rel="shortcut icon" href="/favicon.ico?v=1628501293760">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">52</span>
+        <span class="site-item-stat-count">53</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1115,6 +1115,224 @@ sdsd<br>
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/dom-tuo-zhan/"" data-c="
+          &lt;h2 id=&#34;选择符api&#34;&gt;选择符API&lt;/h2&gt;
+&lt;h3 id=&#34;queryselector&#34;&gt;&lt;code&gt;querySelector()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;querySelector()&lt;/code&gt;方法接收一个 CSS 选择符，返回与该模式匹配的第一个元素，如果没有找到匹 配的元素，返回 null。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//取得 body 元素
+var body = document.querySelector(&amp;quot;body&amp;quot;); 
+
+//取得 ID 为&amp;quot;myDiv&amp;quot;的元素
+var myDiv = document.querySelector(&amp;quot;#myDiv&amp;quot;); 
+
+//取得类为&amp;quot;selected&amp;quot;的第一个元素
+var selected = document.querySelector(&amp;quot;.selected&amp;quot;); 
+
+//取得类为&amp;quot;button&amp;quot;的第一个图像元素
+var img = document.body.querySelector(&amp;quot;img.button&amp;quot;); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;queryselectorall&#34;&gt;&lt;code&gt;querySelectorAll()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;这个方法返回的是一个 NodeList 的实例。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//取得某&amp;lt;div&amp;gt;中的所有&amp;lt;em&amp;gt;元素（类似于 getElementsByTagName(&amp;quot;em&amp;quot;)）
+var ems = document.getElementById(&amp;quot;myDiv&amp;quot;).querySelectorAll(&amp;quot;em&amp;quot;); 
+
+//取得class为&amp;quot;selected&amp;quot;的所有元素
+var selecteds = document.querySelectorAll(&amp;quot;.selected&amp;quot;); 
+
+//取得所有&amp;lt;p&amp;gt;元素中的所有&amp;lt;strong&amp;gt;元素
+var strongs = document.querySelectorAll(&amp;quot;p strong&amp;quot;); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;matchesselector&#34;&gt;&lt;code&gt;matchesSelector()&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;为 Element 类型新增的一个方法&lt;/p&gt;
+&lt;p&gt;这个方法接收 一个参数，即 CSS 选择符&lt;/p&gt;
+&lt;p&gt;如果调用元素与该选择符匹配，返回 true；否则，返回 false&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;if (document.body.matchesSelector(&amp;quot;body.page1&amp;quot;)){ 
+ //true 
+} 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;元素遍历&#34;&gt;元素遍历&lt;/h2&gt;
+&lt;p&gt;Element Traversal API 为 DOM 元素添加了以下 5 个属性。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;childElementCount：返回子元素（不包括文本节点和注释）的个数。&lt;/li&gt;
+&lt;li&gt;firstElementChild：指向第一个子元素；firstChild 的元素版。&lt;/li&gt;
+&lt;li&gt;lastElementChild：指向最后一个子元素；lastChild 的元素版。&lt;/li&gt;
+&lt;li&gt;previousElementSibling：指向前一个同辈元素；previousSibling 的元素版。&lt;/li&gt;
+&lt;li&gt;nextElementSibling：指向后一个同辈元素；nextSibling 的元素版。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;html5&#34;&gt;HTML5&lt;/h2&gt;
+&lt;h3 id=&#34;与类相关的扩充&#34;&gt;与类相关的扩充&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;getElementsByClassName()&lt;/code&gt;接收一个参数：&lt;strong&gt;即一个包含一或多个类名的字符串&lt;/strong&gt;，返回带有 指定类的所有元素的 NodeList。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//取得所有类中包含&amp;quot;username&amp;quot;和&amp;quot;current&amp;quot;的元素，类名的先后顺序无所谓
+var allCurrentUsernames = document.getElementsByClassName(&amp;quot;username current&amp;quot;); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;classlist-属性&#34;&gt;classList 属性&lt;/h3&gt;
+&lt;p&gt;定义如下方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add(value)：将给定的字符串值添加到列表中。如果值已经存在，就不添加了。&lt;/li&gt;
+&lt;li&gt;contains(value)：表示列表中是否存在给定的值，如果存在则返回 true，否则返回 false。&lt;/li&gt;
+&lt;li&gt;remove(value)：从列表中删除给定的字符串。&lt;/li&gt;
+&lt;li&gt;toggle(value)：如果列表中已经存在给定的值，删除它；如果列表中没有给定的值，添加它。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//删除&amp;quot;disabled&amp;quot;类
+div.classList.remove(&amp;quot;disabled&amp;quot;); 
+
+//添加&amp;quot;current&amp;quot;类
+div.classList.add(&amp;quot;current&amp;quot;); 
+
+//切换&amp;quot;user&amp;quot;类
+div.classList.toggle(&amp;quot;user&amp;quot;);
+
+//确定元素中是否包含既定的类名
+if (div.classList.contains(&amp;quot;bd&amp;quot;) &amp;amp;&amp;amp; !div.classList.contains(&amp;quot;disabled&amp;quot;)){ 
+ //执行操作
+) 
+
+//迭代类名
+for (var i=0, len=div.classList.length; i &amp;lt; len; i++){ 
+ doSomething(div.classList[i]); 
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;焦点管理&#34;&gt;焦点管理&lt;/h3&gt;
+&lt;p&gt;HTML5 也添加了辅助管理 DOM 焦点的功能。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;document.activeElement&lt;/code&gt;	这个属性始终会引用 DOM 中当前获得了焦点的元素。&lt;/p&gt;
+&lt;p&gt;元素获得焦点的方式有页面加载、用户输入（通常是 通过按 Tab 键）和在代码中调用 focus()方法。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var button = document.getElementById(&amp;quot;myButton&amp;quot;); 
+button.focus(); 
+alert(document.activeElement === button); //true 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;document.hasFocus()&lt;/code&gt;用于确定文档是否获得了焦点。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;htmldocument的变化&#34;&gt;HTMLDocument的变化&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;readyState&lt;/code&gt; 通过它来实现一个指示文档已经加载完成的指示器&lt;/p&gt;
+&lt;p&gt;Document 的 readyState 属性有两个可能的值：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;loading，正在加载文档；&lt;/li&gt;
+&lt;li&gt;complete，已经加载完文档&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//如果加载完成了 类似onload
+if (document.readyState == &amp;quot;complete&amp;quot;){ 
+ //执行操作
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;自定义数据属性&#34;&gt;自定义数据属性&lt;/h3&gt;
+&lt;p&gt;HTML5 规定可以为元素添加非标准的属性，但要添加前缀 data-，目的是为元素提供与渲染无关的 信息，或者提供语义信息。&lt;/p&gt;
+&lt;p&gt;可以通过元素的 &lt;code&gt;dataset&lt;/code&gt;属性来访问自定义属性的值&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//取得自定义属性的值
+var appId = div.dataset.appId; 
+var myName = div.dataset.myname;
+
+//设置自定义值
+div.dataset.appId = 23456; 
+div.dataset.myname = &amp;quot;Michael&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;插入标记&#34;&gt;插入标记&lt;/h3&gt;
+&lt;h4 id=&#34;innerhtml&#34;&gt;&lt;strong&gt;&lt;code&gt;innerHTML&lt;/code&gt;&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;在读模式下，innerHTML 属性返回与调用元素的所有子节点（包括元素、注释和文本节点）对应 的 HTML 标记。&lt;/p&gt;
+&lt;p&gt;在写模式下，innerHTML 会根据指定的值&lt;strong&gt;创建新的 DOM 树&lt;/strong&gt;，然后用这个 DOM 树完全 &lt;strong&gt;替换调用元素原先的所有子节点&lt;/strong&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;outerhtml&#34;&gt;&lt;code&gt;outerHTML&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;在读模式下，outerHTML 返回调用&lt;strong&gt;它的元素&lt;/strong&gt;及所有子节点的 HTML 标签。&lt;/p&gt;
+&lt;p&gt;在写模式下，outerHTML 会根据指定的 HTML 字符串创建新的 DOM 子树，然后用这个 DOM 子树完全&lt;strong&gt;替换调用元素&lt;/strong&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;insertadjacenthtml&#34;&gt;&lt;code&gt;insertAdjacentHTML()&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;它接收两个参数：&lt;strong&gt;插入位置&lt;/strong&gt;和要&lt;strong&gt;插入的 HTML 文本&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;第一个参数必须是下列值之一：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;quot;beforebegin&amp;quot;，在当前元素之前插入一个紧邻的同辈元素；&lt;/li&gt;
+&lt;li&gt;&amp;quot;afterbegin&amp;quot;，在当前元素之下插入一个新的子元素或在第一个子元素之前再插入新的子元素；&lt;/li&gt;
+&lt;li&gt;&amp;quot;beforeend&amp;quot;，在当前元素之下插入一个新的子元素或在最后一个子元素之后再插入新的子元素；&lt;/li&gt;
+&lt;li&gt;&amp;quot;afterend&amp;quot;，在当前元素之后插入一个紧邻的同辈元素。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//作为前一个同辈元素插入
+element.insertAdjacentHTML(&amp;quot;beforebegin&amp;quot;, &amp;quot;&amp;lt;p&amp;gt;Hello world!&amp;lt;/p&amp;gt;&amp;quot;); 
+
+//作为第一个子元素插入
+element.insertAdjacentHTML(&amp;quot;afterbegin&amp;quot;, &amp;quot;&amp;lt;p&amp;gt;Hello world!&amp;lt;/p&amp;gt;&amp;quot;); 
+
+//作为最后一个子元素插入
+element.insertAdjacentHTML(&amp;quot;beforeend&amp;quot;, &amp;quot;&amp;lt;p&amp;gt;Hello world!&amp;lt;/p&amp;gt;&amp;quot;); 
+
+//作为后一个同辈元素插入
+element.insertAdjacentHTML(&amp;quot;afterend&amp;quot;, &amp;quot;&amp;lt;p&amp;gt;Hello world!&amp;lt;/p&amp;gt;&amp;quot;); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;scrollintoview&#34;&gt;&lt;code&gt;scrollIntoView()&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;通过滚动浏览器窗口或某个容器元素，调用 元素就可以出现在视口中&lt;/p&gt;
+&lt;p&gt;如果给这个方法传入 true 作为参数，或者不传入任何参数，那么窗口滚动 之后会让调用元素的顶部与视口顶部尽可能平齐。&lt;/p&gt;
+&lt;p&gt;如果传入 false 作为参数，调用元素会尽可能全部 出现在视口中&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//让元素可见
+document.forms[0].scrollIntoView();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;拓展&#34;&gt;拓展&lt;/h2&gt;
+&lt;h3 id=&#34;children属性&#34;&gt;children属性&lt;/h3&gt;
+&lt;p&gt;children 属性与 childNodes 没有什么区别，即在元素只包含元素子节点时，这两个属性的值相同。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var childCount = element.children.length; 
+var firstChild = element.children[0]; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;contains方法&#34;&gt;contains()方法&lt;/h3&gt;
+&lt;p&gt;检测某个节点是不是另一个节点的后代&lt;/p&gt;
+&lt;p&gt;调用 contains()方法的应该是祖先节点，这个方法接收一个参数，即要检测的后代节点。&lt;/p&gt;
+&lt;p&gt;如果被检测的节点是后代节点， 该方法返回 true；否则，返回 false。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;alert(document.documentElement.contains(document.body)); //true&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;插入文本&#34;&gt;插入文本&lt;/h3&gt;
+&lt;h4 id=&#34;innertext&#34;&gt;&lt;code&gt;innerText&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;在通过 innerText 读取值时，它会按照由浅入深的顺序，将子文档树中的所有文本拼接起来。&lt;/p&gt;
+&lt;p&gt;在通过 innerText 写入值时，结果会删除元素的所有子节点，插入包含相应文本值的文本节点。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div id=&amp;quot;content&amp;quot;&amp;gt; 
+ &amp;lt;p&amp;gt;This is a &amp;lt;strong&amp;gt;paragraph&amp;lt;/strong&amp;gt; with a list following it.&amp;lt;/p&amp;gt; 
+ &amp;lt;ul&amp;gt; 
+ &amp;lt;li&amp;gt;Item 1&amp;lt;/li&amp;gt; 
+ &amp;lt;li&amp;gt;Item 2&amp;lt;/li&amp;gt; 
+ &amp;lt;li&amp;gt;Item 3&amp;lt;/li&amp;gt; 
+ &amp;lt;/ul&amp;gt; 
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;其 innerText 属性会返回下列字符串：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;This is a paragraph with a list following it. 
+Item 1 
+Item 2 
+Item 3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再设置内容后&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;div.innerText = &amp;quot;Hello world!&amp;quot;;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;页面的 HTML 代码就会变成如下所示，子节点全被移除了&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;div id=&amp;quot;content&amp;quot;&amp;gt;Hello world!&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;outertext&#34;&gt;&lt;code&gt;outerText&lt;/code&gt;&lt;/h4&gt;
+&lt;p&gt;除了作用范围扩大到了包含调用它的节点之外，outerText 与 innerText 基本上没有多大区别。&lt;/p&gt;
+&lt;p&gt;多了的就是替代当前调用节点&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;滚动&#34;&gt;滚动&lt;/h3&gt;
+&lt;p&gt;下面列出 的几个方法都是对 HTMLElement 类型的扩展&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;scrollIntoViewIfNeeded(alignCenter)：只在当前元素在视口中不可见的情况下，才滚 动浏览器窗口或容器元素，最终让它可见。如果当前元素在视口中可见，这个方法什么也不做。 如果将可选的 alignCenter 参数设置为 true，则表示尽量将元素显示在视口中部（垂直方向）。 Safari 和 Chrome 实现了这个方法。&lt;/li&gt;
+&lt;li&gt;scrollByLines(lineCount)：将元素的内容滚动指定的行高，lineCount 值可以是正值， 也可以是负值。Safari 和 Chrome 实现了这个方法。&lt;/li&gt;
+&lt;li&gt;scrollByPages(pageCount)：将元素的内容滚动指定的页面高度，具体高度由元素的高度决 定。Safari 和 Chrome 实现了这个方法。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//将页面主体滚动 5 行
+document.body.scrollByLines(5); 
+
+//在当前元素不可见的时候，让它进入浏览器的视口
+document.images[0].scrollIntoViewIfNeeded(); 
+
+//将页面主体往回滚动 1 页
+document.body.scrollByPages(-1); 
+&lt;/code&gt;&lt;/pre&gt;
+">DOM拓展</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/shen-ru-zuo-yong-yu-lian/"" data-c="
