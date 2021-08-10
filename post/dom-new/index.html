@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>DOM 节点层次 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1628501293760">
+<link rel="shortcut icon" href="/favicon.ico?v=1628605369034">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">53</span>
+        <span class="site-item-stat-count">54</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1458,6 +1458,373 @@ alert(element.getAttribute(&quot;align&quot;)); //&quot;left&quot;
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi/"" data-c="
+          &lt;p&gt;&lt;a href=&#34;https://www.cnblogs.com/wsk1576025821/p/10912807.html&#34;&gt;参考源码&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;button组件&#34;&gt;button组件&lt;/h2&gt;
+&lt;p&gt;看部分源码仿照饿了吗组件开发&lt;/p&gt;
+&lt;h3 id=&#34;伪类顺序&#34;&gt;伪类顺序&lt;/h3&gt;
+&lt;p&gt;伪类的顺序会决定你写的伪类样式会不会生效&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;:link,:visited,:hover,:active&lt;/code&gt; 以这个顺序排列先后&lt;/p&gt;
+&lt;p&gt;写伪类不要打空格隔开&lt;/p&gt;
+&lt;p&gt;正确&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;.fan-button-success:hover&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;错误&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;.fan-button-success :hover&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;会产生奇怪的效果&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;icon图标插入注意点&#34;&gt;icon图标插入注意点&lt;/h3&gt;
+&lt;p&gt;当插入icon的时候，如果希望和span里面的字有margin&lt;/p&gt;
+&lt;p&gt;可以按如下写法匹配按钮下面的span标签&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;.fan-button [class*=el-icon-]+span {
+    margin-left: 5px;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;实现效果&#34;&gt;实现效果&lt;/h4&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628605347878.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;核心代码&#34;&gt;核心代码&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Btnindex.vue&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;template&amp;gt;
+  &amp;lt;div&amp;gt;
+      &amp;lt;button 
+       class=&amp;quot;fan-button&amp;quot;
+      :type=&amp;quot;nativetype&amp;quot; 
+      @click=&amp;quot;handleClick&amp;quot;
+      :disabled=&amp;quot;isdisabled||loading&amp;quot;
+      :class=&amp;quot;[
+      type?&#39;fan-button-&#39;+type:&#39;&#39;,
+      btnsize?&#39;fan-button-&#39;+btnsize:&#39;&#39;,
+      {
+        &#39;is-circle&#39;: circle,
+        &#39;is-round&#39;:round,
+        &#39;is-disabled&#39;:disabled,
+        &#39;is-plain&#39;:plain,
+      }]&amp;quot;
+      &amp;gt;
+
+      &amp;lt;i class=&amp;quot;el-icon-loading&amp;quot; v-if=&amp;quot;loading&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;
+      &amp;lt;i :class=&amp;quot;icon&amp;quot; v-if=&amp;quot;icon &amp;amp;&amp;amp; !loading&amp;quot; &amp;gt;&amp;lt;/i&amp;gt;
+          &amp;lt;span v-if=&amp;quot;$slots.default&amp;quot;&amp;gt;
+              &amp;lt;slot&amp;gt;&amp;lt;/slot&amp;gt;    
+            &amp;lt;/span&amp;gt; 
+    &amp;lt;/button&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/template&amp;gt;
+
+&amp;lt;script&amp;gt;
+export default {
+    name:&#39;FanBtn&#39;,
+     props:{
+        type:{
+            type:String,
+            default:&amp;quot;default&amp;quot;
+        },
+        nativetype:{
+             type:String,
+             default:&amp;quot;button&amp;quot;
+        },       
+        icon:{
+            type:String,
+            default:&#39;&#39;
+        },
+        size:String,
+        disabled:Boolean,
+         circle:Boolean,
+        loading: Boolean,
+        round:Boolean,
+        plain:Boolean
+    },
+   
+    data() {
+        return {
+            
+        }
+    },
+    computed:{
+        //返回是否禁用
+        isdisabled(){
+            return this.disabled
+        },
+        //计算属性
+        btnsize()
+        {
+            return this.size
+        }
+      
+    },
+    methods:{
+        handleClick(e)
+        {
+            //与@的名字相对应
+            this.$emit(&#39;click&#39;,e)
+        },
+        
+    }
+}
+&amp;lt;/script&amp;gt;
+
+&amp;lt;style &amp;gt;
+
+/**基础样式写最前面 */
+.fan-button{
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #dcdfe6;
+    color: #606266;
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    transition: .1s;
+    font-weight: 500;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 4px; 
+}
+.fan-button:hover{
+    color: #409eff;
+    border-color: #c6e2ff;
+    background-color: #ecf5ff;
+}
+.fan-button:active{
+        color: #3a8ee6;
+    border-color: #3a8ee6;
+    outline: none;
+}
+.fan-button.is-disabled{
+    color: #c0c4cc;
+    cursor: not-allowed;
+    background-image: none;
+    background-color: #fff;
+    border-color: #ebeef5;
+}
+
+    
+.fan-button [class*=el-icon-]+span {
+    margin-left: 5px;
+}
+/**dafault类型 */
+.fan-button-default{
+     background-color: #fff;;
+}
+
+/**primary 类型 */
+.fan-button-primary{
+    color:  #fff;
+    background-color:#409eff;
+    border-color: #409eff;
+}
+.fan-button-primary:hover{
+    color:  #fff;
+    background: #66b1ff;
+    border-color: #66b1ff;
+}
+.fan-button-primary:active{
+    color:  #fff;
+    background-color: #3a8ee6;
+    border-color: #3a8ee6;
+    
+}
+/**每一种type对应一种禁止颜色 */
+.fan-button-primary.is-disabled{
+    color: #fff;
+    background-color: #a0cfff;
+    border-color: #a0cfff;
+}
+.fan-button-primary.is-plain{
+    color: #409eff;
+    background: #ecf5ff;
+    border-color: #b3d8ff;
+}
+
+
+/**success类型 */
+.fan-button-success{
+    color: #fff;
+    background-color: #67c23a;
+    border-color: #67c23a;
+}
+.fan-button-success:hover{
+    color:  #fff;
+     background-color: #85ce61;
+    border-color: #85ce61;
+}
+.fan-button-success:active{
+    color:  #fff;
+    background-color: #5daf34;
+    border-color: #5daf34;
+    
+}
+.fan-button-success.is-disabled{
+        color: #fff;
+    background-color: #b3e19d;
+    border-color: #b3e19d;
+}
+.fan-button-success.is-plain{
+        color: #67c23a;
+    background: #f0f9eb;
+    border-color: #c2e7b0;
+}
+
+/**danger类型 */
+.fan-button-danger{
+    color:  #fff;
+    background-color:#f56c6c;
+    border: 1px solid #f56c6c;
+}
+.fan-button-danger:hover{
+    color:  #fff;
+    background: #f78989;
+    border-color: #f78989;
+}
+.fan-button-danger:active{
+    color:  #fff;
+    background: #dd6161;
+    border-color: #dd6161;
+}
+.fan-button-danger.is-disabled{
+    color: #fff;
+    background-color: #fab6b6;
+    border-color: #fab6b6;
+}
+.fan-button-danger.is-plain{
+          color: #f56c6c;
+    background: #fef0f0;
+    border-color: #fbc4c4;
+}
+
+/**info样式 */
+.fan-button-info{
+        color: #fff;
+    background-color: #909399;
+    border-color: #909399
+}
+.fan-button-info:hover{
+       background: #a6a9ad;
+    border-color: #a6a9ad;
+    color: #fff;
+}
+.fan-button-info:active{
+        background: #82848a;
+    border-color: #82848a;
+    color: #fff;
+}
+.fan-button-info.is-disabled{
+  color: #fff;
+    background-color: #c8c9cc;
+    border-color: #c8c9cc;
+}
+.fan-button-info.is-plain{
+         color: #909399;
+    background: #f4f4f5;
+    border-color: #d3d4d6;
+}
+
+
+/**warning样式 */
+.fan-button-warning{
+    color: #fff;
+    background-color: #e6a23c;
+    border-color: #e6a23c;
+}
+.fan-button-warning:hover{
+     background: #ebb563;
+    border-color: #ebb563;
+    color: #fff;
+}
+.fan-button-warning:active{
+     background: #cf9236;
+    border-color: #cf9236;
+    color: #fff;
+}
+.fan-button-warning.is-disabled{
+    color: #fff;
+    background-color: #f3d19e;
+    border-color: #f3d19e;
+}
+.fan-button-warning.is-plain{
+          color: #e6a23c;
+    background: #fdf6ec;
+    border-color: #f5dab1;
+}
+
+/**小圆角样式 */
+.is-round{
+    border-radius:20px ;
+}
+/**圆圈样式 */
+.is-circle{
+      border-radius: 50%;
+    padding: 12px;
+}
+/**被禁用 */
+.is-disabled:hover{  
+    cursor:not-allowed;
+}
+
+/**size样式 */
+.fan-button-meidum{
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.fan-button-small{
+        padding: 9px 15px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+.fan-button-mini{
+    padding: 7px 15px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+&amp;lt;/style&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;导出部分&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;import fanbtn from &#39;./button/index.vue&#39;
+
+
+// 组件列表
+const allcomponents=[
+    fanbtn
+]
+
+
+const install=function(Vue){
+     // 遍历并注册所有组件
+     allcomponents.map(component =&amp;gt;{
+        Vue.component(component.name, component);
+     })
+
+}
+
+// 检测是否为vue环境
+if (typeof window !== &#39;undefined&#39; &amp;amp;&amp;amp; window.Vue) {
+    install(window.Vue)
+}
+
+export default {
+    install
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在&lt;code&gt;main.js&lt;/code&gt;中引入并且注册该方法&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//引入手写组件
+import fanui from &#39;./components/fanfanui&#39;
+
+Vue.use(fanui)
+&lt;/code&gt;&lt;/pre&gt;
+">VUE开发UI组件日志</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/dom-tuo-zhan/"" data-c="

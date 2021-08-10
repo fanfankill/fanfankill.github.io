@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title> Vue文档2 components | fanfan</title>
+<title>VUE开发UI组件日志 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1628605369034">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content=" Vue文档2 components" />
-  <meta name="keywords" content="vue" />
+  <meta name="description" content="VUE开发UI组件日志" />
+  <meta name="keywords" content="vue,Javascript" />
 </head>
 
 <body>
@@ -284,22 +284,17 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E8%A1%A8%E5%8D%95%E8%BE%93%E5%85%A5%E7%BB%91%E5%AE%9A">表单输入绑定</a></li>
-<li><a href="#%E7%BB%84%E4%BB%B6%E5%9F%BA%E7%A1%80">组件基础</a></li>
-<li><a href="#data-%E5%BF%85%E9%A1%BB%E6%98%AF%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0"><code>data</code> 必须是一个函数</a></li>
-<li><a href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E7%BB%84%E7%BB%87">组件的组织</a></li>
-<li><a href="#prop%E5%90%91%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE">prop向子组件传递数据</a></li>
-<li><a href="#%E5%8D%95%E4%B8%AA%E6%A0%B9%E5%85%83%E7%B4%A0">单个根元素</a></li>
-<li><a href="#%E7%9B%91%E5%90%AC%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BA%8B%E4%BB%B6">监听子组件事件</a>
+<li><a href="#button%E7%BB%84%E4%BB%B6">button组件</a>
 <ul>
-<li><a href="#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BD%BF%E7%94%A8-v-model">在组件上使用 <code>v-model</code></a></li>
+<li><a href="#%E4%BC%AA%E7%B1%BB%E9%A1%BA%E5%BA%8F">伪类顺序</a></li>
+<li><a href="#icon%E5%9B%BE%E6%A0%87%E6%8F%92%E5%85%A5%E6%B3%A8%E6%84%8F%E7%82%B9">icon图标插入注意点</a>
+<ul>
+<li><a href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C">实现效果</a></li>
 </ul>
 </li>
-<li><a href="#%E9%80%9A%E8%BF%87%E6%8F%92%E6%A7%BD%E5%88%86%E5%8F%91%E5%86%85%E5%AE%B9">通过插槽分发内容</a></li>
-<li><a href="#%E5%8A%A8%E6%80%81%E7%BB%84%E4%BB%B6">动态组件</a></li>
-<li><a href="#%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C">全局注册</a></li>
-<li><a href="#%E5%B1%80%E9%83%A8%E6%B3%A8%E5%86%8C">局部注册</a></li>
-<li><a href="#%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C">基础组件的自动化全局注册</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81">核心代码</a></li>
 </ul>
 </li>
 </ul>
@@ -567,8 +562,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/vue-wen-dang-2/">
-       Vue文档2 components
+    <a class="post-title-link" href="https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi/">
+      VUE开发UI组件日志
     </a>
   </h1>
   <div class="post-meta">
@@ -576,7 +571,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-07-16 22:18:52">2021-07-16</span>
+      <span class="publish-time" data-t="2021-08-10 22:21:57">2021-08-10</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -587,6 +582,12 @@
       
       <a href="https://fanfankill.github.io/tag/YjLqWgkox/">
         <span>vue</span>
+      </a>、
+      
+      
+      
+      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/">
+        <span>Javascript</span>
       </a>
       
       
@@ -595,137 +596,379 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>4<span class="language" data-lan="minute">分钟</span></span>
+      <span>6<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>937<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>948<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h2 id="表单输入绑定">表单输入绑定</h2>
-<p><code>v-model</code> 指令在表单 <code>&lt;input&gt;</code>、<code>&lt;textarea&gt;</code> 及 <code>&lt;select&gt;</code> 元素上创建双向数据绑定</p>
-<p><code>v-model</code> 会忽略所有表单元素的 <code>value</code>、<code>checked</code>、<code>selected</code> attribute 的初始值而总是将 Vue 实例的数据作为数据来源</p>
-<p><code>.lazy</code>    转为在 <code>change</code> 事件_之后_进行同步</p>
-<p><code>&lt;input v-model.lazy=&quot;msg&quot;&gt;</code></p>
+              <p><a href="https://www.cnblogs.com/wsk1576025821/p/10912807.html">参考源码</a></p>
+<h2 id="button组件">button组件</h2>
+<p>看部分源码仿照饿了吗组件开发</p>
+<h3 id="伪类顺序">伪类顺序</h3>
+<p>伪类的顺序会决定你写的伪类样式会不会生效</p>
+<p><code>:link,:visited,:hover,:active</code> 以这个顺序排列先后</p>
+<p>写伪类不要打空格隔开</p>
+<p>正确</p>
+<p><code>.fan-button-success:hover</code></p>
+<p>错误</p>
+<p><code>.fan-button-success :hover</code></p>
+<p>会产生奇怪的效果</p>
 <br>
-<p><code>.number</code>  自动将用户的输入值转为数值类型</p>
-<p><code>.trim</code>   过滤用户输入的首尾空白字符</p>
-<br>
-<h2 id="组件基础">组件基础</h2>
-<pre><code class="language-vue">// 定义一个名为 button-counter 的新组件
-Vue.component('button-counter', {
-  data: function () {
-    return {
-      count: 0
-    }
-  },
-  template: '&lt;button v-on:click=&quot;count++&quot;&gt;You clicked me {{ count }} times.&lt;/button&gt;'
-})
-</code></pre>
-<pre><code class="language-vue">&lt;div id=&quot;components-demo&quot;&gt;
-  &lt;button-counter&gt;&lt;/button-counter&gt;
-&lt;/div&gt;
-</code></pre>
-<p><code>new Vue({ el: '#components-demo' })</code></p>
-<br>
-<h2 id="data-必须是一个函数"><code>data</code> 必须是一个函数</h2>
-<p><strong>一个组件的 <code>data</code> 选项必须是一个函数</strong>，因此每个实例可以维护一份被返回对象的独立的拷贝：</p>
-<h2 id="组件的组织">组件的组织</h2>
-<p>两种组件的注册类型：<strong>全局注册</strong>和<strong>局部注册</strong></p>
-<p>通过 <code>Vue.component</code> 全局注册</p>
-<br>
-<h2 id="prop向子组件传递数据">prop向子组件传递数据</h2>
-<p>用<code>v-bind</code>来动态传递prop</p>
-<h2 id="单个根元素">单个根元素</h2>
-<p>将模板的内容包裹在一个父元素内(就是最外面的div)</p>
-<h2 id="监听子组件事件">监听子组件事件</h2>
-<p>通过 <code>v-on</code> 监听子组件实例的任意事件</p>
-<p>同时子组件可以通过调用内建的 <strong><code>$emit</code></strong> 方法并传入事件名称来触发一个事件</p>
-<h3 id="在组件上使用-v-model">在组件上使用 <code>v-model</code></h3>
-<p><code>&lt;input v-model=&quot;searchText&quot;&gt;</code></p>
-<p>等价于</p>
-<pre><code class="language-js">&lt;input
-  v-bind:value=&quot;searchText&quot;
-  v-on:input=&quot;searchText = $event.target.value&quot;
-&gt;
-</code></pre>
-<p>为了让它正常工作，这个组件内的 <code>&lt;input&gt;</code> 必须：</p>
-<ul>
-<li>将其 **<code>value</code> **attribute 绑定到一个名叫 <code>value</code> 的 prop 上</li>
-<li>在其 <code>input</code> 事件被触发时，将新的值通过自定义的 <code>input</code> 事件抛出</li>
-</ul>
-<pre><code class="language-vue">Vue.component('custom-input', {
-  props: ['value'],
-  template: `
-    &lt;input
-      v-bind:value=&quot;value&quot;
-      v-on:input=&quot;$emit('input', $event.target.value)&quot;
-    &gt;
-  `
-})
-</code></pre>
-<p>现在 <code>v-model</code> 就应该可以在这个组件上完美地工作起来了：</p>
-<p><code>&lt;custom-input v-model=&quot;searchText&quot;&gt;&lt;/custom-input&gt;</code></p>
-<h2 id="通过插槽分发内容">通过插槽分发内容</h2>
-<p>和 HTML 元素一样，我们经常需要向一个组件传递内容，像这样：</p>
-<pre><code class="language-vue">&lt;alert-box&gt;
-  Something bad happened.
-&lt;/alert-box&gt;
-</code></pre>
-<pre><code class="language-vue">Vue.component('alert-box', {
-  template: `
-    &lt;div class=&quot;demo-alert-box&quot;&gt;
-      &lt;strong&gt;Error!&lt;/strong&gt;
-      &lt;slot&gt;&lt;/slot&gt;
-    &lt;/div&gt;
-  `
-})
-</code></pre>
-<h2 id="动态组件">动态组件</h2>
-<p>上述内容可以通过 Vue 的 <code>&lt;component&gt;</code> 元素加一个特殊的 <code>is</code> attribute 来实现：</p>
-<pre><code class="language-js">&lt;!-- 组件会在 `currentTabComponent` 改变时改变 --&gt;
-&lt;component v-bind:is=&quot;currentTabComponent&quot;&gt;&lt;/component&gt;
-</code></pre>
-<p><code>currentTabComponent</code> 可以包括</p>
-<ul>
-<li>已注册组件的名字，或</li>
-<li>一个组件的选项对象</li>
-</ul>
-<h2 id="全局注册">全局注册</h2>
-<pre><code class="language-js">Vue.component('my-component-name', {
-  // ... 选项 ...
-})
-</code></pre>
-<h2 id="局部注册">局部注册</h2>
-<p>全局注册往往是不够理想的。比如，如果你使用一个像 webpack 这样的构建系统，全局注册所有的组件意味着即便你已经不再使用一个组件了，它仍然会被包含在你最终的构建结果中。这造成了用户下载的 JavaScript 的无谓的增加。</p>
-<pre><code class="language-js">var ComponentA = { /* ... */ }
-</code></pre>
-<p>然后在 <code>components</code> 选项中定义你想要使用的组件：</p>
-<pre><code class="language-js">new Vue({
-  el: '#app',
-  components: {
-    'component-a': ComponentA,
-  }
-})
-</code></pre>
-<p>如果通过 Babel 和 webpack 使用 ES2015 模块，那么代码看起来更像：</p>
-<pre><code class="language-js">import ComponentA from './ComponentA.vue'
-
-export default {
-  components: {
-    ComponentA
-  },
-  // ...
+<h3 id="icon图标插入注意点">icon图标插入注意点</h3>
+<p>当插入icon的时候，如果希望和span里面的字有margin</p>
+<p>可以按如下写法匹配按钮下面的span标签</p>
+<pre><code class="language-css">.fan-button [class*=el-icon-]+span {
+    margin-left: 5px;
 }
 </code></pre>
-<p>使用了诸如 Babel 和 webpack 的模块系统。在这些情况下我们推荐创建一个 <code>components</code> 目录，并将每个组件放置在其各自的文件中。</p>
-<h2 id="基础组件的自动化全局注册">基础组件的自动化全局注册</h2>
-<p>可以使用 <code>require.context</code> 只全局注册这些非常通用的基础组件</p>
-<p><strong>全局注册的行为必须在根 Vue 实例 (通过 <code>new Vue</code>) 创建之前发生</strong></p>
+<br>
+<h4 id="实现效果">实现效果</h4>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1628605347878.png" alt="" loading="lazy"></figure>
+<br>
+<h2 id="核心代码">核心代码</h2>
+<p><code>Btnindex.vue</code></p>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div&gt;
+      &lt;button 
+       class=&quot;fan-button&quot;
+      :type=&quot;nativetype&quot; 
+      @click=&quot;handleClick&quot;
+      :disabled=&quot;isdisabled||loading&quot;
+      :class=&quot;[
+      type?'fan-button-'+type:'',
+      btnsize?'fan-button-'+btnsize:'',
+      {
+        'is-circle': circle,
+        'is-round':round,
+        'is-disabled':disabled,
+        'is-plain':plain,
+      }]&quot;
+      &gt;
+
+      &lt;i class=&quot;el-icon-loading&quot; v-if=&quot;loading&quot;&gt;&lt;/i&gt;
+      &lt;i :class=&quot;icon&quot; v-if=&quot;icon &amp;&amp; !loading&quot; &gt;&lt;/i&gt;
+          &lt;span v-if=&quot;$slots.default&quot;&gt;
+              &lt;slot&gt;&lt;/slot&gt;    
+            &lt;/span&gt; 
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+    name:'FanBtn',
+     props:{
+        type:{
+            type:String,
+            default:&quot;default&quot;
+        },
+        nativetype:{
+             type:String,
+             default:&quot;button&quot;
+        },       
+        icon:{
+            type:String,
+            default:''
+        },
+        size:String,
+        disabled:Boolean,
+         circle:Boolean,
+        loading: Boolean,
+        round:Boolean,
+        plain:Boolean
+    },
+   
+    data() {
+        return {
+            
+        }
+    },
+    computed:{
+        //返回是否禁用
+        isdisabled(){
+            return this.disabled
+        },
+        //计算属性
+        btnsize()
+        {
+            return this.size
+        }
+      
+    },
+    methods:{
+        handleClick(e)
+        {
+            //与@的名字相对应
+            this.$emit('click',e)
+        },
+        
+    }
+}
+&lt;/script&gt;
+
+&lt;style &gt;
+
+/**基础样式写最前面 */
+.fan-button{
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #dcdfe6;
+    color: #606266;
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    transition: .1s;
+    font-weight: 500;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 4px; 
+}
+.fan-button:hover{
+    color: #409eff;
+    border-color: #c6e2ff;
+    background-color: #ecf5ff;
+}
+.fan-button:active{
+        color: #3a8ee6;
+    border-color: #3a8ee6;
+    outline: none;
+}
+.fan-button.is-disabled{
+    color: #c0c4cc;
+    cursor: not-allowed;
+    background-image: none;
+    background-color: #fff;
+    border-color: #ebeef5;
+}
+
+    
+.fan-button [class*=el-icon-]+span {
+    margin-left: 5px;
+}
+/**dafault类型 */
+.fan-button-default{
+     background-color: #fff;;
+}
+
+/**primary 类型 */
+.fan-button-primary{
+    color:  #fff;
+    background-color:#409eff;
+    border-color: #409eff;
+}
+.fan-button-primary:hover{
+    color:  #fff;
+    background: #66b1ff;
+    border-color: #66b1ff;
+}
+.fan-button-primary:active{
+    color:  #fff;
+    background-color: #3a8ee6;
+    border-color: #3a8ee6;
+    
+}
+/**每一种type对应一种禁止颜色 */
+.fan-button-primary.is-disabled{
+    color: #fff;
+    background-color: #a0cfff;
+    border-color: #a0cfff;
+}
+.fan-button-primary.is-plain{
+    color: #409eff;
+    background: #ecf5ff;
+    border-color: #b3d8ff;
+}
+
+
+/**success类型 */
+.fan-button-success{
+    color: #fff;
+    background-color: #67c23a;
+    border-color: #67c23a;
+}
+.fan-button-success:hover{
+    color:  #fff;
+     background-color: #85ce61;
+    border-color: #85ce61;
+}
+.fan-button-success:active{
+    color:  #fff;
+    background-color: #5daf34;
+    border-color: #5daf34;
+    
+}
+.fan-button-success.is-disabled{
+        color: #fff;
+    background-color: #b3e19d;
+    border-color: #b3e19d;
+}
+.fan-button-success.is-plain{
+        color: #67c23a;
+    background: #f0f9eb;
+    border-color: #c2e7b0;
+}
+
+/**danger类型 */
+.fan-button-danger{
+    color:  #fff;
+    background-color:#f56c6c;
+    border: 1px solid #f56c6c;
+}
+.fan-button-danger:hover{
+    color:  #fff;
+    background: #f78989;
+    border-color: #f78989;
+}
+.fan-button-danger:active{
+    color:  #fff;
+    background: #dd6161;
+    border-color: #dd6161;
+}
+.fan-button-danger.is-disabled{
+    color: #fff;
+    background-color: #fab6b6;
+    border-color: #fab6b6;
+}
+.fan-button-danger.is-plain{
+          color: #f56c6c;
+    background: #fef0f0;
+    border-color: #fbc4c4;
+}
+
+/**info样式 */
+.fan-button-info{
+        color: #fff;
+    background-color: #909399;
+    border-color: #909399
+}
+.fan-button-info:hover{
+       background: #a6a9ad;
+    border-color: #a6a9ad;
+    color: #fff;
+}
+.fan-button-info:active{
+        background: #82848a;
+    border-color: #82848a;
+    color: #fff;
+}
+.fan-button-info.is-disabled{
+  color: #fff;
+    background-color: #c8c9cc;
+    border-color: #c8c9cc;
+}
+.fan-button-info.is-plain{
+         color: #909399;
+    background: #f4f4f5;
+    border-color: #d3d4d6;
+}
+
+
+/**warning样式 */
+.fan-button-warning{
+    color: #fff;
+    background-color: #e6a23c;
+    border-color: #e6a23c;
+}
+.fan-button-warning:hover{
+     background: #ebb563;
+    border-color: #ebb563;
+    color: #fff;
+}
+.fan-button-warning:active{
+     background: #cf9236;
+    border-color: #cf9236;
+    color: #fff;
+}
+.fan-button-warning.is-disabled{
+    color: #fff;
+    background-color: #f3d19e;
+    border-color: #f3d19e;
+}
+.fan-button-warning.is-plain{
+          color: #e6a23c;
+    background: #fdf6ec;
+    border-color: #f5dab1;
+}
+
+/**小圆角样式 */
+.is-round{
+    border-radius:20px ;
+}
+/**圆圈样式 */
+.is-circle{
+      border-radius: 50%;
+    padding: 12px;
+}
+/**被禁用 */
+.is-disabled:hover{  
+    cursor:not-allowed;
+}
+
+/**size样式 */
+.fan-button-meidum{
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.fan-button-small{
+        padding: 9px 15px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+.fan-button-mini{
+    padding: 7px 15px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+&lt;/style&gt;
+</code></pre>
+<p>导出部分</p>
+<pre><code class="language-js">import fanbtn from './button/index.vue'
+
+
+// 组件列表
+const allcomponents=[
+    fanbtn
+]
+
+
+const install=function(Vue){
+     // 遍历并注册所有组件
+     allcomponents.map(component =&gt;{
+        Vue.component(component.name, component);
+     })
+
+}
+
+// 检测是否为vue环境
+if (typeof window !== 'undefined' &amp;&amp; window.Vue) {
+    install(window.Vue)
+}
+
+export default {
+    install
+}
+</code></pre>
+<p>在<code>main.js</code>中引入并且注册该方法</p>
+<pre><code class="language-js">//引入手写组件
+import fanui from './components/fanfanui'
+
+Vue.use(fanui)
+</code></pre>
 
             </div>
             
@@ -738,7 +981,7 @@ export default {
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/vue-wen-dang-2/" title=" Vue文档2 components">https://fanfankill.github.io/post/vue-wen-dang-2/</a>
+      <a href="https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi/" title="VUE开发UI组件日志">https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -749,19 +992,17 @@ export default {
     
       <a href="https://fanfankill.github.io/tag/YjLqWgkox/"># vue</a>
     
+      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/"># Javascript</a>
+    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title=" Vue文档3 Prop" href="https://fanfankill.github.io/post/vue-wen-dang-3/"> Vue文档3 Prop</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title=" Vue文档3 Prop" href="https://fanfankill.github.io/post/vue-wen-dang-3/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="手写Promise" href="https://fanfankill.github.io/post/shou-xie-promise/">手写Promise</a>
-        <a class="nav-mobile-next" title="手写Promise" href="https://fanfankill.github.io/post/shou-xie-promise/">下一篇</a>
+        <a class="nav-pc-next" title="DOM拓展" href="https://fanfankill.github.io/post/dom-tuo-zhan/">DOM拓展</a>
+        <a class="nav-mobile-next" title="DOM拓展" href="https://fanfankill.github.io/post/dom-tuo-zhan/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
