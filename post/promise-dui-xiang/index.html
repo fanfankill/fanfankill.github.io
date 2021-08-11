@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>关于 | fanfan</title>
+<title>Promise 对象 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1628689124115">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="关于" />
-  <meta name="keywords" content="" />
+  <meta name="description" content="Promise 对象" />
+  <meta name="keywords" content="Javascript" />
 </head>
 
 <body>
@@ -284,10 +284,23 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99">🏠 关于本站</a></li>
-<li><a href="#%E5%8D%9A%E4%B8%BB%E6%98%AF%E8%B0%81">👨‍💻 博主是谁</a></li>
-<li><a href="#%E5%85%B4%E8%B6%A3%E7%88%B1%E5%A5%BD">⛹ 兴趣爱好</a></li>
-<li><a href="#%E8%81%94%E7%B3%BB%E6%88%91%E5%91%80">📬 联系我呀</a></li>
+<li><a href="#%E5%AE%9A%E4%B9%89">定义</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">基本用法</a></li>
+<li><a href="#promiseprototypethen"><code>Promise.prototype.then()</code></a></li>
+<li><a href="#promiseprototypecatch"><code>Promise.prototype.catch()</code></a></li>
+<li><a href="#promiseprototypefinally"><code>Promise.prototype.finally()</code></a></li>
+<li><a href="#promiseall"><code>Promise.all()</code></a></li>
+<li><a href="#promiserace"><code>Promise.race()</code></a></li>
+<li><a href="#promiseallsettled"><code>Promise.allSettled()</code></a></li>
+<li><a href="#promiseany"><code>Promise.any()</code></a></li>
+<li><a href="#promiseresolve"><code>Promise.resolve()</code></a></li>
+<li><a href="#promisereject"><code>Promise.reject()</code></a></li>
+<li><a href="#promisetry"><code>Promise.try()</code></a></li>
+<li><a href="#%E5%BA%94%E7%94%A8">应用</a>
+<ul>
+<li><a href="#%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87">加载图片</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -555,8 +568,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/about/">
-      关于
+    <a class="post-title-link" href="https://fanfankill.github.io/post/promise-dui-xiang/">
+      Promise 对象
     </a>
   </h1>
   <div class="post-meta">
@@ -564,33 +577,415 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2019-01-25 19:09:48">2019-01-25</span>
+      <span class="publish-time" data-t="2021-08-11 21:38:18">2021-08-11</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show language" data-lan="category-in">分类于</span>
+      
+      
+      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/">
+        <span>Javascript</span>
+      </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>1<span class="language" data-lan="minute">分钟</span></span>
+      <span>11<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>31<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>2572<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<h2 id="联系我呀">📬 联系我呀</h2>
+              <h2 id="定义">定义</h2>
+<p>Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。</p>
+<p><code>Promise</code>对象有以下两个特点。</p>
+<p>（1）对象的状态不受外界影响。<code>Promise</code>对象代表一个异步操作，有三种状态：<code>pending</code>（进行中）、<code>fulfilled</code>（已成功）和<code>rejected</code>（已失败）。只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。</p>
+<p>（2）一旦状态改变，就不会再变，任何时候都可以得到这个结果。</p>
+<br>
+<p><code>Promise</code>也有一些缺点</p>
+<p>首先，无法取消<code>Promise</code>，一旦新建它就会立即执行，无法中途取消。</p>
+<p>其次，如果不设置回调函数，<code>Promise</code>内部抛出的错误，不会反应到外部</p>
+<p>第三，当处于<code>pending</code>状态时，无法得知目前进展到哪一个阶段</p>
+<br>
+<h2 id="基本用法">基本用法</h2>
+<p><code>Promise</code>对象是一个构造函数，用来生成<code>Promise</code>实例</p>
+<pre><code class="language-javascript">const promise = new Promise(function(resolve, reject) {
+  // ... some code
+
+  if (/* 异步操作成功 */){
+    resolve(value);
+  } else {
+    reject(error);
+  }
+});
+</code></pre>
+<br>
+<p><code>Promise</code>对象实现的 Ajax 操作</p>
+<pre><code class="language-javascript">const getJSON = function(url) {
+  const promise = new Promise(function(resolve, reject){
+    const handler = function() {
+      if (this.readyState !== 4) {
+        return;
+      }
+      if (this.status === 200) {
+        resolve(this.response);
+      } else {
+        reject(new Error(this.statusText));
+      }
+    };
+    const client = new XMLHttpRequest();
+    client.open(&quot;GET&quot;, url);
+    client.onreadystatechange = handler;
+    client.responseType = &quot;json&quot;;
+    client.setRequestHeader(&quot;Accept&quot;, &quot;application/json&quot;);
+    client.send();
+
+  });
+
+  return promise;
+};
+
+getJSON(&quot;/posts.json&quot;).then(function(json) {
+  console.log('Contents: ' + json);
+}, function(error) {
+  console.error('出错了', error);
+});
+</code></pre>
+<br>
+<p>Promise 的使命就完成了，后继操作应该放到<code>then</code>方法里面，而不应该直接写在<code>resolve</code>或<code>reject</code>的后面。所以，最好在它们前面加上<code>return</code>语句，这样就不会有意外。</p>
+<pre><code class="language-javascript">new Promise((resolve, reject) =&gt; {
+  return resolve(1);
+  // 后面的语句不会执行
+  console.log(2);
+})
+</code></pre>
+<br>
+<h2 id="promiseprototypethen"><code>Promise.prototype.then()</code></h2>
+<p><code>then</code>的作用是为 Promise 实例添加状态改变时的回调函数。</p>
+<p><code>then</code>方法返回的是一个新的<code>Promise</code>实例（注意，不是原来那个<code>Promise</code>实例）。因此可以采用链式写法，即<code>then</code>方法后面再调用另一个<code>then</code>方法。</p>
+<pre><code class="language-javascript">getJSON(&quot;/posts.json&quot;).then(function(json) {
+  return json.post;
+}).then(function(post) {
+  // ...
+});
+</code></pre>
+<br>
+<h2 id="promiseprototypecatch"><code>Promise.prototype.catch()</code></h2>
+<p>用于指定发生错误时的回调函数</p>
+<pre><code class="language-javascript">const promise = new Promise(function(resolve, reject) {
+  throw new Error('test');
+});
+promise.catch(function(error) {
+  console.log(error);
+});
+// Error: test
+</code></pre>
+<p>Promise 对象的错误具有“冒泡”性质，会一直向后传递，直到被捕获为止。也就是说，错误总是会被下一个<code>catch</code>语句捕获。</p>
+<pre><code class="language-javascript">getJSON('/post/1.json').then(function(post) {
+  return getJSON(post.commentURL);
+}).then(function(comments) {
+  // some code
+}).catch(function(error) {
+  // 处理前面三个Promise产生的错误
+});
+</code></pre>
+<p>一共有三个 Promise 对象：一个由<code>getJSON()</code>产生，两个由<code>then()</code>产生。它们之中任何一个抛出的错误，都会被最后一个<code>catch()</code>捕获。</p>
+<br>
+<p>不要在<code>then()</code>方法里面定义 Reject 状态的回调函数（即<code>then</code>的第二个参数），总是使用<code>catch</code>方法。</p>
+<pre><code class="language-javascript">// bad
+promise
+  .then(function(data) {
+    // success
+  }, function(err) {
+    // error
+  });
+
+// good
+promise
+  .then(function(data) { //cb
+    // success
+  })
+  .catch(function(err) {
+    // error
+  });
+</code></pre>
+<p>第二种写法要好于第一种写法，理由是第二种写法可以捕获前面<code>then</code>方法执行中的错误，也更接近同步的写法（<code>try/catch</code>）。因此，建议总是使用<code>catch()</code>方法，而不使用<code>then()</code>方法的第二个参数。</p>
+<br>
+<p>跟传统的<code>try/catch</code>代码块不同的是，如果没有使用<code>catch()</code>方法指定错误处理的回调函数，Promise 对象抛出的错误不会传递到外层代码，即不会有任何反应。</p>
+<pre><code class="language-javascript">const someAsyncThing = function() {
+  return new Promise(function(resolve, reject) {
+    // 下面一行会报错，因为x没有声明
+    resolve(x + 2);
+  });
+};
+
+someAsyncThing().then(function() {
+  console.log('everything is great');
+});
+
+setTimeout(() =&gt; { console.log(123) }, 2000);
+// Uncaught (in promise) ReferenceError: x is not defined
+// 123
+</code></pre>
+<p>Promise 对象内部有语法错误，但是不会退出进程、终止脚本执行，2 秒之后还是会输出<code>123</code>。这就是说，Promise 内部的错误不会影响到 Promise 外部的代码，通俗的说法就是“Promise 会吃掉错误”</p>
+<br>
+<h2 id="promiseprototypefinally"><code>Promise.prototype.finally()</code></h2>
+<p><code>finally()</code>方法用于指定不管 Promise 对象最后状态如何，都会执行的操作</p>
+<pre><code class="language-javascript">promise
+.then(result =&gt; {···})
+.catch(error =&gt; {···})
+.finally(() =&gt; {···});
+</code></pre>
+<p><strong><code>finally</code>方法的回调函数不接受任何参数</strong>，这意味着没有办法知道，前面的 Promise 状态到底是<code>fulfilled</code>还是<code>rejected</code>。</p>
+<p><code>finally</code>方法里面的操作，应该是与状态无关的，不依赖于 Promise 的执行结果。</p>
+<p><code>finally</code>本质上是<code>then</code>方法的特例。</p>
+<pre><code class="language-javascript">promise
+.finally(() =&gt; {
+  // 语句
+});
+
+// 等同于
+promise
+.then(
+  result =&gt; {
+    // 语句
+    return result;
+  },
+  error =&gt; {
+    // 语句
+    throw error;
+  }
+);
+</code></pre>
+<br>
+<h2 id="promiseall"><code>Promise.all()</code></h2>
+<p><code>Promise.all()</code>方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。</p>
+<pre><code class="language-javascript">const p = Promise.all([p1, p2, p3]);
+</code></pre>
+<p><code>Promise.all()</code>方法接受一个数组作为参数，<code>p1</code>、<code>p2</code>、<code>p3</code>都是 Promise 实例，如果不是，就会先调用下面讲到的<code>Promise.resolve</code>方法，将参数转为 Promise 实例，再进一步处理</p>
+<p><code>Promise.all()</code>方法的参数可以不是数组，但必须具有 Iterator 接口，且返回的每个成员都是 Promise 实例。</p>
+<p><code>p</code>的状态由<code>p1</code>、<code>p2</code>、<code>p3</code>决定，分成两种情况。</p>
+<p>（1）只有<code>p1</code>、<code>p2</code>、<code>p3</code>的状态都变成<code>fulfilled</code>，<code>p</code>的状态才会变成<code>fulfilled</code>，此时<code>p1</code>、<code>p2</code>、<code>p3</code>的返回值组成一个数组，传递给<code>p</code>的回调函数。</p>
+<p>（2）只要<code>p1</code>、<code>p2</code>、<code>p3</code>之中有一个被<code>rejected</code>，<code>p</code>的状态就变成<code>rejected</code>，此时第一个被<code>reject</code>的实例的返回值，会传递给<code>p</code>的回调函数。</p>
+<pre><code class="language-javascript">// 生成一个Promise对象的数组
+const promises = [2, 3, 5, 7, 11, 13].map(function (id) {
+  return getJSON('/post/' + id + &quot;.json&quot;);
+});
+
+Promise.all(promises).then(function (posts) {
+  // ...
+}).catch(function(reason){
+  // ...
+});
+</code></pre>
+<p><code>promises</code>是包含 6 个 Promise 实例的数组，只有这 6 个实例的状态都变成<code>fulfilled</code>，或者其中有一个变为<code>rejected</code>，才会调用<code>Promise.all</code>方法后面的回调函数。</p>
+<br>
+<p>如果作为参数的 Promise 实例，自己定义了<code>catch</code>方法，那么它一旦被<code>rejected</code>，并不会触发<code>Promise.all()</code>的<code>catch</code>方法。</p>
+<pre><code class="language-javascript">const p1 = new Promise((resolve, reject) =&gt; {
+  resolve('hello');
+})
+.then(result =&gt; result)
+.catch(e =&gt; e);
+
+const p2 = new Promise((resolve, reject) =&gt; {
+  throw new Error('报错了');
+})
+.then(result =&gt; result)
+.catch(e =&gt; e);
+
+Promise.all([p1, p2])
+.then(result =&gt; console.log(result))
+.catch(e =&gt; console.log(e));
+// [&quot;hello&quot;, Error: 报错了]
+</code></pre>
+<p><code>p2</code>有自己的<code>catch</code>方法，该方法返回的是一个新的 Promise 实例，<code>p2</code>指向的实际上是这个实例。该实例执行完<code>catch</code>方法后，也会变成<code>resolved</code>，导致<code>Promise.all()</code>方法参数里面的两个实例都会<code>resolved</code>，因此会调用<code>then</code>方法指定的回调函数，而不会调用<code>catch</code>方法指定的回调函数。</p>
+<br>
+<h2 id="promiserace"><code>Promise.race()</code></h2>
+<p><code>Promise.race()</code>方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。</p>
+<pre><code class="language-javascript">const p = Promise.race([p1, p2, p3]);
+</code></pre>
+<p>只要<code>p1</code>、<code>p2</code>、<code>p3</code>之中有一个实例率先改变状态，<code>p</code>的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给<code>p</code>的回调函数，不管是最先返回的是什么状态。</p>
+<br>
+<h2 id="promiseallsettled"><code>Promise.allSettled()</code></h2>
+<p><code>Promise.allSettled()</code>方法用来确定一组异步操作是否都结束了（不管成功或失败）</p>
+<p><code>Promise.allSettled()</code>方法接受一个数组作为参数，数组的每个成员都是一个 Promise 对象，并返回一个新的 Promise 对象。</p>
+<pre><code class="language-javascript">const promises = [
+  fetch('/api-1'),
+  fetch('/api-2'),
+  fetch('/api-3'),
+];
+
+await Promise.allSettled(promises);
+removeLoadingIndicator();
+</code></pre>
+<p>数组<code>promises</code>包含了三个请求，只有等到这三个请求都结束了（不管请求成功还是失败），<code>removeLoadingIndicator()</code>才会执行。</p>
+<br>
+<h2 id="promiseany"><code>Promise.any()</code></h2>
+<p>该方法接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例返回。</p>
+<p>只要参数实例有一个变成<code>fulfilled</code>状态，包装实例就会变成<code>fulfilled</code>状态</p>
+<p>如果所有参数实例都变成<code>rejected</code>状态，包装实例就会变成<code>rejected</code>状态</p>
+<pre><code class="language-javascript">const promises = [
+  fetch('/endpoint-a').then(() =&gt; 'a'),
+  fetch('/endpoint-b').then(() =&gt; 'b'),
+  fetch('/endpoint-c').then(() =&gt; 'c'),
+];
+
+try {
+  const first = await Promise.any(promises);
+  console.log(first);
+} catch (error) {
+  console.log(error);
+}
+</code></pre>
+<p><code>Promise.any()</code>抛出的错误，不是一个一般的 Error 错误对象，而是一个 AggregateError 实例。它相当于一个数组，每个成员对应一个被<code>rejected</code>的操作所抛出的错误。</p>
+<br>
+<h2 id="promiseresolve"><code>Promise.resolve()</code></h2>
+<p>有时需要将现有对象转为 Promise 对象，<code>Promise.resolve()</code>方法就起到这个作用。</p>
+<pre><code class="language-javascript">const jsPromise = Promise.resolve($.ajax('/whatever.json'));
+</code></pre>
+<p><code>Promise.resolve()</code>方法的参数分成四种情况。</p>
+<p><strong>（1）参数是一个 Promise 实例</strong></p>
+<p>如果参数是 Promise 实例，那么<code>Promise.resolve</code>将不做任何修改、原封不动地返回这个实例。</p>
+<br>
+<p><strong>（2）参数是一个<code>thenable</code>对象</strong></p>
+<p><code>thenable</code>对象指的是具有<code>then</code>方法的对象，比如下面这个对象。</p>
+<pre><code class="language-javascript">let thenable = {
+  then: function(resolve, reject) {
+    resolve(42);
+  }
+};
+</code></pre>
+<p><code>Promise.resolve()</code>方法会将这个对象转为 Promise 对象，然后就立即执行<code>thenable</code>对象的<code>then()</code>方法。</p>
+<pre><code class="language-javascript">let thenable = {
+  then: function(resolve, reject) {
+    resolve(42);
+  }
+};
+
+let p1 = Promise.resolve(thenable);
+p1.then(function (value) {
+  console.log(value);  // 42
+});
+</code></pre>
+<p><code>thenable</code>对象的<code>then()</code>方法执行后，对象<code>p1</code>的状态就变为<code>resolved</code>，从而立即执行最后那个<code>then()</code>方法指定的回调函数</p>
+<br>
+<p><strong>（3）参数不是具有<code>then()</code>方法的对象，或根本就不是对象</strong></p>
+<p>如果参数是一个原始值，或者是一个不具有<code>then()</code>方法的对象，则<code>Promise.resolve()</code>方法返回一个新的 Promise 对象，状态为<code>resolved</code>。</p>
+<pre><code class="language-javascript">const p = Promise.resolve('Hello');
+
+p.then(function (s) {
+  console.log(s)
+});
+// Hello
+</code></pre>
+<br>
+<p><strong>（4）不带有任何参数</strong></p>
+<p><code>Promise.resolve()</code>方法允许调用时不带参数，直接返回一个<code>resolved</code>状态的 Promise 对象。</p>
+<pre><code class="language-javascript">const p = Promise.resolve();
+
+p.then(function () {
+  // ...
+});
+</code></pre>
+<br>
+<h2 id="promisereject"><code>Promise.reject()</code></h2>
+<p><code>Promise.reject(reason)</code>方法也会返回一个新的 Promise 实例，该实例的状态为`rejected</p>
+<p><code>Promise.reject()</code>方法的参数，会原封不动地作为<code>reject</code>的理由，变成后续方法的参数。</p>
+<pre><code class="language-javascript">Promise.reject('出错了')
+.catch(e =&gt; {
+  console.log(e === '出错了')
+})
+// true
+</code></pre>
+<br>
+<h2 id="promisetry"><code>Promise.try()</code></h2>
+<p>那么有没有一种方法，让同步函数同步执行，异步函数异步执行，并且让它们具有统一的 API 呢？</p>
+<p>第一种写法是用<code>async</code>函数来写。</p>
+<pre><code class="language-javascript">const f = () =&gt; console.log('now');
+(async () =&gt; f())();
+console.log('next');
+// now
+// next
+</code></pre>
+<p>第二种写法是使用<code>new Promise()</code>。</p>
+<pre><code class="language-javascript">const f = () =&gt; console.log('now');
+(
+  () =&gt; new Promise(
+    resolve =&gt; resolve(f())
+  )
+)();
+console.log('next');
+// now
+// next
+</code></pre>
+<p><code>Promise.try</code>方法替代上面的写法。</p>
+<pre><code class="language-javascript">const f = () =&gt; console.log('now');
+Promise.try(f);
+console.log('next');
+// now
+// next
+</code></pre>
+<h2 id="应用">应用</h2>
+<hr>
+<h3 id="加载图片">加载图片</h3>
+<p>我们可以将图片的加载写成一个<code>Promise</code>，一旦加载完成，<code>Promise</code>的状态就发生变化。</p>
+<pre><code class="language-javascript">const preloadImage = function (path) {
+  return new Promise(function (resolve, reject) {
+    const image = new Image();
+    image.onload  = resolve;
+    image.onerror = reject;
+    image.src = path;
+  });
+};
+</code></pre>
 
             </div>
             
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      fanfan
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://fanfankill.github.io/post/promise-dui-xiang/" title="Promise 对象">https://fanfankill.github.io/post/promise-dui-xiang/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/"># Javascript</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="VUE开发UI组件日志" href="https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi/">VUE开发UI组件日志</a>
+        <a class="nav-mobile-next" title="VUE开发UI组件日志" href="https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
             
             
   

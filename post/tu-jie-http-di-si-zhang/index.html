@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>图解HTTP第四章 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1628605369034">
+<link rel="shortcut icon" href="/favicon.ico?v=1628689124115">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">54</span>
+        <span class="site-item-stat-count">55</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1202,6 +1202,353 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/promise-dui-xiang/"" data-c="
+          &lt;h2 id=&#34;定义&#34;&gt;定义&lt;/h2&gt;
+&lt;p&gt;Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Promise&lt;/code&gt;对象有以下两个特点。&lt;/p&gt;
+&lt;p&gt;（1）对象的状态不受外界影响。&lt;code&gt;Promise&lt;/code&gt;对象代表一个异步操作，有三种状态：&lt;code&gt;pending&lt;/code&gt;（进行中）、&lt;code&gt;fulfilled&lt;/code&gt;（已成功）和&lt;code&gt;rejected&lt;/code&gt;（已失败）。只有异步操作的结果，可以决定当前是哪一种状态，任何其他操作都无法改变这个状态。&lt;/p&gt;
+&lt;p&gt;（2）一旦状态改变，就不会再变，任何时候都可以得到这个结果。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;Promise&lt;/code&gt;也有一些缺点&lt;/p&gt;
+&lt;p&gt;首先，无法取消&lt;code&gt;Promise&lt;/code&gt;，一旦新建它就会立即执行，无法中途取消。&lt;/p&gt;
+&lt;p&gt;其次，如果不设置回调函数，&lt;code&gt;Promise&lt;/code&gt;内部抛出的错误，不会反应到外部&lt;/p&gt;
+&lt;p&gt;第三，当处于&lt;code&gt;pending&lt;/code&gt;状态时，无法得知目前进展到哪一个阶段&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;基本用法&#34;&gt;基本用法&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Promise&lt;/code&gt;对象是一个构造函数，用来生成&lt;code&gt;Promise&lt;/code&gt;实例&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const promise = new Promise(function(resolve, reject) {
+  // ... some code
+
+  if (/* 异步操作成功 */){
+    resolve(value);
+  } else {
+    reject(error);
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;Promise&lt;/code&gt;对象实现的 Ajax 操作&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const getJSON = function(url) {
+  const promise = new Promise(function(resolve, reject){
+    const handler = function() {
+      if (this.readyState !== 4) {
+        return;
+      }
+      if (this.status === 200) {
+        resolve(this.response);
+      } else {
+        reject(new Error(this.statusText));
+      }
+    };
+    const client = new XMLHttpRequest();
+    client.open(&amp;quot;GET&amp;quot;, url);
+    client.onreadystatechange = handler;
+    client.responseType = &amp;quot;json&amp;quot;;
+    client.setRequestHeader(&amp;quot;Accept&amp;quot;, &amp;quot;application/json&amp;quot;);
+    client.send();
+
+  });
+
+  return promise;
+};
+
+getJSON(&amp;quot;/posts.json&amp;quot;).then(function(json) {
+  console.log(&#39;Contents: &#39; + json);
+}, function(error) {
+  console.error(&#39;出错了&#39;, error);
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;Promise 的使命就完成了，后继操作应该放到&lt;code&gt;then&lt;/code&gt;方法里面，而不应该直接写在&lt;code&gt;resolve&lt;/code&gt;或&lt;code&gt;reject&lt;/code&gt;的后面。所以，最好在它们前面加上&lt;code&gt;return&lt;/code&gt;语句，这样就不会有意外。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;new Promise((resolve, reject) =&amp;gt; {
+  return resolve(1);
+  // 后面的语句不会执行
+  console.log(2);
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promiseprototypethen&#34;&gt;&lt;code&gt;Promise.prototype.then()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;then&lt;/code&gt;的作用是为 Promise 实例添加状态改变时的回调函数。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;then&lt;/code&gt;方法返回的是一个新的&lt;code&gt;Promise&lt;/code&gt;实例（注意，不是原来那个&lt;code&gt;Promise&lt;/code&gt;实例）。因此可以采用链式写法，即&lt;code&gt;then&lt;/code&gt;方法后面再调用另一个&lt;code&gt;then&lt;/code&gt;方法。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;getJSON(&amp;quot;/posts.json&amp;quot;).then(function(json) {
+  return json.post;
+}).then(function(post) {
+  // ...
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promiseprototypecatch&#34;&gt;&lt;code&gt;Promise.prototype.catch()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;用于指定发生错误时的回调函数&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const promise = new Promise(function(resolve, reject) {
+  throw new Error(&#39;test&#39;);
+});
+promise.catch(function(error) {
+  console.log(error);
+});
+// Error: test
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Promise 对象的错误具有“冒泡”性质，会一直向后传递，直到被捕获为止。也就是说，错误总是会被下一个&lt;code&gt;catch&lt;/code&gt;语句捕获。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;getJSON(&#39;/post/1.json&#39;).then(function(post) {
+  return getJSON(post.commentURL);
+}).then(function(comments) {
+  // some code
+}).catch(function(error) {
+  // 处理前面三个Promise产生的错误
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;一共有三个 Promise 对象：一个由&lt;code&gt;getJSON()&lt;/code&gt;产生，两个由&lt;code&gt;then()&lt;/code&gt;产生。它们之中任何一个抛出的错误，都会被最后一个&lt;code&gt;catch()&lt;/code&gt;捕获。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;不要在&lt;code&gt;then()&lt;/code&gt;方法里面定义 Reject 状态的回调函数（即&lt;code&gt;then&lt;/code&gt;的第二个参数），总是使用&lt;code&gt;catch&lt;/code&gt;方法。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// bad
+promise
+  .then(function(data) {
+    // success
+  }, function(err) {
+    // error
+  });
+
+// good
+promise
+  .then(function(data) { //cb
+    // success
+  })
+  .catch(function(err) {
+    // error
+  });
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;第二种写法要好于第一种写法，理由是第二种写法可以捕获前面&lt;code&gt;then&lt;/code&gt;方法执行中的错误，也更接近同步的写法（&lt;code&gt;try/catch&lt;/code&gt;）。因此，建议总是使用&lt;code&gt;catch()&lt;/code&gt;方法，而不使用&lt;code&gt;then()&lt;/code&gt;方法的第二个参数。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;跟传统的&lt;code&gt;try/catch&lt;/code&gt;代码块不同的是，如果没有使用&lt;code&gt;catch()&lt;/code&gt;方法指定错误处理的回调函数，Promise 对象抛出的错误不会传递到外层代码，即不会有任何反应。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const someAsyncThing = function() {
+  return new Promise(function(resolve, reject) {
+    // 下面一行会报错，因为x没有声明
+    resolve(x + 2);
+  });
+};
+
+someAsyncThing().then(function() {
+  console.log(&#39;everything is great&#39;);
+});
+
+setTimeout(() =&amp;gt; { console.log(123) }, 2000);
+// Uncaught (in promise) ReferenceError: x is not defined
+// 123
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Promise 对象内部有语法错误，但是不会退出进程、终止脚本执行，2 秒之后还是会输出&lt;code&gt;123&lt;/code&gt;。这就是说，Promise 内部的错误不会影响到 Promise 外部的代码，通俗的说法就是“Promise 会吃掉错误”&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promiseprototypefinally&#34;&gt;&lt;code&gt;Promise.prototype.finally()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;finally()&lt;/code&gt;方法用于指定不管 Promise 对象最后状态如何，都会执行的操作&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;promise
+.then(result =&amp;gt; {···})
+.catch(error =&amp;gt; {···})
+.finally(() =&amp;gt; {···});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;finally&lt;/code&gt;方法的回调函数不接受任何参数&lt;/strong&gt;，这意味着没有办法知道，前面的 Promise 状态到底是&lt;code&gt;fulfilled&lt;/code&gt;还是&lt;code&gt;rejected&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;finally&lt;/code&gt;方法里面的操作，应该是与状态无关的，不依赖于 Promise 的执行结果。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;finally&lt;/code&gt;本质上是&lt;code&gt;then&lt;/code&gt;方法的特例。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;promise
+.finally(() =&amp;gt; {
+  // 语句
+});
+
+// 等同于
+promise
+.then(
+  result =&amp;gt; {
+    // 语句
+    return result;
+  },
+  error =&amp;gt; {
+    // 语句
+    throw error;
+  }
+);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promiseall&#34;&gt;&lt;code&gt;Promise.all()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Promise.all()&lt;/code&gt;方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const p = Promise.all([p1, p2, p3]);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;Promise.all()&lt;/code&gt;方法接受一个数组作为参数，&lt;code&gt;p1&lt;/code&gt;、&lt;code&gt;p2&lt;/code&gt;、&lt;code&gt;p3&lt;/code&gt;都是 Promise 实例，如果不是，就会先调用下面讲到的&lt;code&gt;Promise.resolve&lt;/code&gt;方法，将参数转为 Promise 实例，再进一步处理&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Promise.all()&lt;/code&gt;方法的参数可以不是数组，但必须具有 Iterator 接口，且返回的每个成员都是 Promise 实例。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;p&lt;/code&gt;的状态由&lt;code&gt;p1&lt;/code&gt;、&lt;code&gt;p2&lt;/code&gt;、&lt;code&gt;p3&lt;/code&gt;决定，分成两种情况。&lt;/p&gt;
+&lt;p&gt;（1）只有&lt;code&gt;p1&lt;/code&gt;、&lt;code&gt;p2&lt;/code&gt;、&lt;code&gt;p3&lt;/code&gt;的状态都变成&lt;code&gt;fulfilled&lt;/code&gt;，&lt;code&gt;p&lt;/code&gt;的状态才会变成&lt;code&gt;fulfilled&lt;/code&gt;，此时&lt;code&gt;p1&lt;/code&gt;、&lt;code&gt;p2&lt;/code&gt;、&lt;code&gt;p3&lt;/code&gt;的返回值组成一个数组，传递给&lt;code&gt;p&lt;/code&gt;的回调函数。&lt;/p&gt;
+&lt;p&gt;（2）只要&lt;code&gt;p1&lt;/code&gt;、&lt;code&gt;p2&lt;/code&gt;、&lt;code&gt;p3&lt;/code&gt;之中有一个被&lt;code&gt;rejected&lt;/code&gt;，&lt;code&gt;p&lt;/code&gt;的状态就变成&lt;code&gt;rejected&lt;/code&gt;，此时第一个被&lt;code&gt;reject&lt;/code&gt;的实例的返回值，会传递给&lt;code&gt;p&lt;/code&gt;的回调函数。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 生成一个Promise对象的数组
+const promises = [2, 3, 5, 7, 11, 13].map(function (id) {
+  return getJSON(&#39;/post/&#39; + id + &amp;quot;.json&amp;quot;);
+});
+
+Promise.all(promises).then(function (posts) {
+  // ...
+}).catch(function(reason){
+  // ...
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;promises&lt;/code&gt;是包含 6 个 Promise 实例的数组，只有这 6 个实例的状态都变成&lt;code&gt;fulfilled&lt;/code&gt;，或者其中有一个变为&lt;code&gt;rejected&lt;/code&gt;，才会调用&lt;code&gt;Promise.all&lt;/code&gt;方法后面的回调函数。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;如果作为参数的 Promise 实例，自己定义了&lt;code&gt;catch&lt;/code&gt;方法，那么它一旦被&lt;code&gt;rejected&lt;/code&gt;，并不会触发&lt;code&gt;Promise.all()&lt;/code&gt;的&lt;code&gt;catch&lt;/code&gt;方法。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const p1 = new Promise((resolve, reject) =&amp;gt; {
+  resolve(&#39;hello&#39;);
+})
+.then(result =&amp;gt; result)
+.catch(e =&amp;gt; e);
+
+const p2 = new Promise((resolve, reject) =&amp;gt; {
+  throw new Error(&#39;报错了&#39;);
+})
+.then(result =&amp;gt; result)
+.catch(e =&amp;gt; e);
+
+Promise.all([p1, p2])
+.then(result =&amp;gt; console.log(result))
+.catch(e =&amp;gt; console.log(e));
+// [&amp;quot;hello&amp;quot;, Error: 报错了]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;p2&lt;/code&gt;有自己的&lt;code&gt;catch&lt;/code&gt;方法，该方法返回的是一个新的 Promise 实例，&lt;code&gt;p2&lt;/code&gt;指向的实际上是这个实例。该实例执行完&lt;code&gt;catch&lt;/code&gt;方法后，也会变成&lt;code&gt;resolved&lt;/code&gt;，导致&lt;code&gt;Promise.all()&lt;/code&gt;方法参数里面的两个实例都会&lt;code&gt;resolved&lt;/code&gt;，因此会调用&lt;code&gt;then&lt;/code&gt;方法指定的回调函数，而不会调用&lt;code&gt;catch&lt;/code&gt;方法指定的回调函数。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promiserace&#34;&gt;&lt;code&gt;Promise.race()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Promise.race()&lt;/code&gt;方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const p = Promise.race([p1, p2, p3]);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;只要&lt;code&gt;p1&lt;/code&gt;、&lt;code&gt;p2&lt;/code&gt;、&lt;code&gt;p3&lt;/code&gt;之中有一个实例率先改变状态，&lt;code&gt;p&lt;/code&gt;的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给&lt;code&gt;p&lt;/code&gt;的回调函数，不管是最先返回的是什么状态。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promiseallsettled&#34;&gt;&lt;code&gt;Promise.allSettled()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Promise.allSettled()&lt;/code&gt;方法用来确定一组异步操作是否都结束了（不管成功或失败）&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Promise.allSettled()&lt;/code&gt;方法接受一个数组作为参数，数组的每个成员都是一个 Promise 对象，并返回一个新的 Promise 对象。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const promises = [
+  fetch(&#39;/api-1&#39;),
+  fetch(&#39;/api-2&#39;),
+  fetch(&#39;/api-3&#39;),
+];
+
+await Promise.allSettled(promises);
+removeLoadingIndicator();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;数组&lt;code&gt;promises&lt;/code&gt;包含了三个请求，只有等到这三个请求都结束了（不管请求成功还是失败），&lt;code&gt;removeLoadingIndicator()&lt;/code&gt;才会执行。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promiseany&#34;&gt;&lt;code&gt;Promise.any()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;该方法接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例返回。&lt;/p&gt;
+&lt;p&gt;只要参数实例有一个变成&lt;code&gt;fulfilled&lt;/code&gt;状态，包装实例就会变成&lt;code&gt;fulfilled&lt;/code&gt;状态&lt;/p&gt;
+&lt;p&gt;如果所有参数实例都变成&lt;code&gt;rejected&lt;/code&gt;状态，包装实例就会变成&lt;code&gt;rejected&lt;/code&gt;状态&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const promises = [
+  fetch(&#39;/endpoint-a&#39;).then(() =&amp;gt; &#39;a&#39;),
+  fetch(&#39;/endpoint-b&#39;).then(() =&amp;gt; &#39;b&#39;),
+  fetch(&#39;/endpoint-c&#39;).then(() =&amp;gt; &#39;c&#39;),
+];
+
+try {
+  const first = await Promise.any(promises);
+  console.log(first);
+} catch (error) {
+  console.log(error);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;Promise.any()&lt;/code&gt;抛出的错误，不是一个一般的 Error 错误对象，而是一个 AggregateError 实例。它相当于一个数组，每个成员对应一个被&lt;code&gt;rejected&lt;/code&gt;的操作所抛出的错误。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promiseresolve&#34;&gt;&lt;code&gt;Promise.resolve()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;有时需要将现有对象转为 Promise 对象，&lt;code&gt;Promise.resolve()&lt;/code&gt;方法就起到这个作用。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const jsPromise = Promise.resolve($.ajax(&#39;/whatever.json&#39;));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;Promise.resolve()&lt;/code&gt;方法的参数分成四种情况。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（1）参数是一个 Promise 实例&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果参数是 Promise 实例，那么&lt;code&gt;Promise.resolve&lt;/code&gt;将不做任何修改、原封不动地返回这个实例。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;（2）参数是一个&lt;code&gt;thenable&lt;/code&gt;对象&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;thenable&lt;/code&gt;对象指的是具有&lt;code&gt;then&lt;/code&gt;方法的对象，比如下面这个对象。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;let thenable = {
+  then: function(resolve, reject) {
+    resolve(42);
+  }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;Promise.resolve()&lt;/code&gt;方法会将这个对象转为 Promise 对象，然后就立即执行&lt;code&gt;thenable&lt;/code&gt;对象的&lt;code&gt;then()&lt;/code&gt;方法。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;let thenable = {
+  then: function(resolve, reject) {
+    resolve(42);
+  }
+};
+
+let p1 = Promise.resolve(thenable);
+p1.then(function (value) {
+  console.log(value);  // 42
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;thenable&lt;/code&gt;对象的&lt;code&gt;then()&lt;/code&gt;方法执行后，对象&lt;code&gt;p1&lt;/code&gt;的状态就变为&lt;code&gt;resolved&lt;/code&gt;，从而立即执行最后那个&lt;code&gt;then()&lt;/code&gt;方法指定的回调函数&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;（3）参数不是具有&lt;code&gt;then()&lt;/code&gt;方法的对象，或根本就不是对象&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果参数是一个原始值，或者是一个不具有&lt;code&gt;then()&lt;/code&gt;方法的对象，则&lt;code&gt;Promise.resolve()&lt;/code&gt;方法返回一个新的 Promise 对象，状态为&lt;code&gt;resolved&lt;/code&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const p = Promise.resolve(&#39;Hello&#39;);
+
+p.then(function (s) {
+  console.log(s)
+});
+// Hello
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;（4）不带有任何参数&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Promise.resolve()&lt;/code&gt;方法允许调用时不带参数，直接返回一个&lt;code&gt;resolved&lt;/code&gt;状态的 Promise 对象。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const p = Promise.resolve();
+
+p.then(function () {
+  // ...
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promisereject&#34;&gt;&lt;code&gt;Promise.reject()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Promise.reject(reason)&lt;/code&gt;方法也会返回一个新的 Promise 实例，该实例的状态为`rejected&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Promise.reject()&lt;/code&gt;方法的参数，会原封不动地作为&lt;code&gt;reject&lt;/code&gt;的理由，变成后续方法的参数。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Promise.reject(&#39;出错了&#39;)
+.catch(e =&amp;gt; {
+  console.log(e === &#39;出错了&#39;)
+})
+// true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promisetry&#34;&gt;&lt;code&gt;Promise.try()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;那么有没有一种方法，让同步函数同步执行，异步函数异步执行，并且让它们具有统一的 API 呢？&lt;/p&gt;
+&lt;p&gt;第一种写法是用&lt;code&gt;async&lt;/code&gt;函数来写。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const f = () =&amp;gt; console.log(&#39;now&#39;);
+(async () =&amp;gt; f())();
+console.log(&#39;next&#39;);
+// now
+// next
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;第二种写法是使用&lt;code&gt;new Promise()&lt;/code&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const f = () =&amp;gt; console.log(&#39;now&#39;);
+(
+  () =&amp;gt; new Promise(
+    resolve =&amp;gt; resolve(f())
+  )
+)();
+console.log(&#39;next&#39;);
+// now
+// next
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;Promise.try&lt;/code&gt;方法替代上面的写法。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const f = () =&amp;gt; console.log(&#39;now&#39;);
+Promise.try(f);
+console.log(&#39;next&#39;);
+// now
+// next
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;应用&#34;&gt;应用&lt;/h2&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;加载图片&#34;&gt;加载图片&lt;/h3&gt;
+&lt;p&gt;我们可以将图片的加载写成一个&lt;code&gt;Promise&lt;/code&gt;，一旦加载完成，&lt;code&gt;Promise&lt;/code&gt;的状态就发生变化。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const preloadImage = function (path) {
+  return new Promise(function (resolve, reject) {
+    const image = new Image();
+    image.onload  = resolve;
+    image.onerror = reject;
+    image.src = path;
+  });
+};
+&lt;/code&gt;&lt;/pre&gt;
+">Promise 对象</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi/"" data-c="
@@ -2765,14 +3112,17 @@ var newValue = window.oldValue;
 &lt;p&gt;&lt;code&gt;outerWidth&lt;/code&gt;、&lt;code&gt;outerHeight&lt;/code&gt;返回浏览器窗口本身的尺寸（无论是从最外层的 window 对象还是从 某个框架访问）&lt;/p&gt;
 &lt;br&gt;
 &lt;p&gt;&lt;code&gt;clientWidth&lt;/code&gt;、&lt;code&gt;clientHeight&lt;/code&gt; ：width+左右padding、height + 上下padding&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;clientTop&lt;/code&gt;：boder.top(上边框的宽度)&lt;/p&gt;
-&lt;br&gt;
+&lt;p&gt;&lt;code&gt;clientTop&lt;/code&gt;：boder.top(上边框的宽度)&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1628682665244.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;offsetWidth&lt;/code&gt; 、&lt;code&gt;offsetHeight&lt;/code&gt;：width + 左右padding + 左右boder、height + 上下padding +上下boder&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;offsetTop&lt;/code&gt; 当前元素 上边框 外边缘 到 最近的已定位父级（offsetParent） 上边框 内边缘的 距离&lt;/p&gt;
-&lt;br&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628682633591.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;scrollWidth&lt;/code&gt;、&lt;code&gt;scrollHeight&lt;/code&gt;：width&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;scrollTop&lt;/code&gt;：:内容层顶部 到 可视区域顶部的距离  (用的最多)&lt;/p&gt;
-&lt;br&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628682684757.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
 &lt;p&gt;resizeTo()和 resizeBy()方法可以调整浏览器窗口的大小&lt;/p&gt;
 &lt;p&gt;resizeTo()接收浏览器窗口的新宽度和新高度&lt;/p&gt;
 &lt;p&gt;resizeBy()接收新窗口与原窗口的宽 度和高度之差&lt;/p&gt;
