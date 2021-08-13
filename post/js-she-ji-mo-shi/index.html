@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1628689124115">
+<link rel="shortcut icon" href="/favicon.ico?v=1628835726693">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">55</span>
+        <span class="site-item-stat-count">56</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1156,6 +1156,397 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js-de-shi-jian/"" data-c="
+          &lt;h2 id=&#34;事件流&#34;&gt;事件流&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;事件流&lt;/strong&gt;描述的是从页面中接收事件的顺序&lt;/p&gt;
+&lt;p&gt;IE 的事件流是事件冒泡流，而 Netscape Communicator 的事件流是事 件捕获流&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;事件冒泡&#34;&gt;事件冒泡&lt;/h2&gt;
+&lt;p&gt;即事件开始时由最具体的元素（文档中嵌套层次最深 的那个节点）接收，然后逐级向上传播到较为不具体的节点（文档）&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628835679028.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;事件捕捉&#34;&gt;事件捕捉&lt;/h2&gt;
+&lt;p&gt;事件捕获的思想 是不太具体的节点应该更早接收到事件，而最具体的节点应该最后接收到事件。&lt;/p&gt;
+&lt;p&gt;事件捕获的用意在于在 事件到达预定目标之前捕获它。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628835697075.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;dom事件流&#34;&gt;DOM事件流&lt;/h2&gt;
+&lt;p&gt;“DOM2级事件”规定的事件流包括三个阶段：&lt;strong&gt;事件捕获阶段、处于目标阶段和事件冒泡阶段。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;事件捕获&lt;/strong&gt;为截获事件提供了机会&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;冒泡阶段&lt;/strong&gt;对事件做出响应&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628835710440.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;在 DOM 事件流中，实际的目标（&lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt;元素）在捕获阶段不会接收到事件。&lt;/p&gt;
+&lt;p&gt;这意味着在捕获阶段， 事件从 document 到再到后就停止了。下一个阶段是“处于目标”阶段，于是事件在&lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt;上发生，并在事件处理（后面将会讨论这个概念）中被看成冒泡阶段的一部分。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;事件处理程序&#34;&gt;事件处理程序&lt;/h2&gt;
+&lt;p&gt;响应某个事件的函数就叫做事件处理程序&lt;/p&gt;
+&lt;h3 id=&#34;html事件处理程序&#34;&gt;HTML事件处理程序&lt;/h3&gt;
+&lt;p&gt;某个元素支持的每种事件，都可以使用一个与相应事件处理程序同名的 HTML 特性来指定。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;Click Me&amp;quot; onclick=&amp;quot;alert(&#39;Clicked&#39;)&amp;quot; /&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;在 HTML 中定义的事件处理程序可以包含要执行的具体动作，也可以调用在页面其他地方定义的 脚本&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt; 
+ function showMessage(){ 
+ alert(&amp;quot;Hello world!&amp;quot;); 
+ } 
+&amp;lt;/script&amp;gt; 
+&amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;Click Me&amp;quot; onclick=&amp;quot;showMessage()&amp;quot; /&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;事件处理程序中的代码在执行时，有权访问全局作用 域中的任何代码&lt;/p&gt;
+&lt;p&gt;指定事件处理程序具有一些独到之处，这样会创建一个封装着元素属性值的函数。这个 函数中有一个局部变量 event，也就是事件对象&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;dom0-级事件处理程序&#34;&gt;DOM0 级事件处理程序&lt;/h3&gt;
+&lt;p&gt;通过 JavaScript 指定事件处理程序的传统方式，就是将一个函数赋值给一个事件处理程序属性。&lt;/p&gt;
+&lt;p&gt;原因一是简单，二是具有跨浏览器的优势。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+btn.onclick = function(){ 
+ alert(this.id); //&amp;quot;myBtn&amp;quot; 
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;可以在事件处理程序中通过 this 访问元素的任何属性和方法。以这种方式添加的事件处理程序会在事件流的冒泡阶段被处理。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;btn.onclick = null; //删除事件处理程序&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;dom2-级事件处理程序&#34;&gt;DOM2 级事件处理程序&lt;/h3&gt;
+&lt;p&gt;“DOM2级事件”定义了两个方法，用于处理指定和删除事件处理程序的操作：&lt;code&gt;addEventListener()&lt;/code&gt;和 &lt;code&gt;removeEventListener()&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;它们都接受 3 个参数：&lt;strong&gt;要处 理的事件名&lt;/strong&gt;、&lt;strong&gt;作为事件处理程序的函数&lt;/strong&gt;和一个&lt;strong&gt;布尔值&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;最后这个布尔值参数如果是 true，表示在捕获 阶段调用事件处理程序；如果是 false，表示在冒泡阶段调用事件处理程序。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+btn.addEventListener(&amp;quot;click&amp;quot;, function(){ 
+ alert(this.id); 
+}, false); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;为按钮添加了两个事件处理程序这两个事件处理程序会按照添加它们的顺序触发&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+btn.addEventListener(&amp;quot;click&amp;quot;, function(){ 
+ alert(this.id); 
+}, false); 
+
+btn.addEventListener(&amp;quot;click&amp;quot;, function(){ 
+ alert(&amp;quot;Hello world!&amp;quot;); 
+}, false);
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;通过 &lt;code&gt;addEventListener()&lt;/code&gt;添加的匿 名函数将无法移除&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+btn.addEventListener(&amp;quot;click&amp;quot;, function(){ 
+ alert(this.id); 
+ }, false); 
+ 
+ btn.removeEventListener(&amp;quot;click&amp;quot;, function(){ //没有用！
+ alert(this.id); 
+}, false);
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;传入 &lt;code&gt;removeEventListener()&lt;/code&gt;中的事件处理程序函数必须与传入 &lt;code&gt;addEventListener()&lt;/code&gt;中的相同&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+var handler = function(){ 
+ alert(this.id); 
+}; 
+
+btn.addEventListener(&amp;quot;click&amp;quot;, handler, false); 
+
+//这里省略了其他代码
+btn.removeEventListener(&amp;quot;click&amp;quot;, handler, false); //有效！
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;事件对象&#34;&gt;事件对象&lt;/h2&gt;
+&lt;p&gt;在触发 DOM 上的某个事件时，会产生一个事件对象 event&lt;/p&gt;
+&lt;p&gt;例如，鼠标操作导致的事件 对象中，会包含鼠标位置的信息，而键盘操作导致的事件对象中，会包含与按下的键有关的信息。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;dom中的事件对象&#34;&gt;DOM中的事件对象&lt;/h3&gt;
+&lt;p&gt;兼容 DOM 的浏览器会将一个 event 对象传入到事件处理程序中&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+btn.onclick = function(event){ 
+ alert(event.type); //&amp;quot;click&amp;quot; 
+}; 
+
+btn.addEventListener(&amp;quot;click&amp;quot;, function(event){ 
+ alert(event.type); //&amp;quot;click&amp;quot; 
+}, false); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;currentTarget Element 只读 其事件处理程序当前正在处理事件的那个元素&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;target Element 只读 事件的目标&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;在事件处理程序内部，对象 this 始终等于 currentTarget 的值，而 target 则只包含事件的实 际目标。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;要阻止特定事件的默认行为，可以使用 &lt;code&gt;preventDefault()&lt;/code&gt;方法&lt;/p&gt;
+&lt;p&gt;例如，链接的默认行为就是在 被单击时会导航到其 href 特性指定的 URL。&lt;/p&gt;
+&lt;p&gt;只有 cancelable 属性设置为 true 的事件，才可以使用 preventDefault()来取消其默认行为。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;stopPropagation()&lt;/code&gt;方法用于立即停止事件在 DOM 层次中的传播，即取消进一步的事件 捕获或冒泡。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+btn.onclick = function(event){ 
+ alert(&amp;quot;Clicked&amp;quot;); 
+ event.stopPropagation(); 
+}; 
+
+//冒泡的被阻止了
+document.body.onclick = function(event){ 
+ alert(&amp;quot;Body clicked&amp;quot;); 
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;事件对象的 &lt;code&gt;eventPhase&lt;/code&gt;属性用来确定事件当前正位于事件流的哪个阶段&lt;/p&gt;
+&lt;p&gt;在捕获阶 段调用的事件处理程序，在捕获阶 段调用的事件处理程序&lt;/p&gt;
+&lt;p&gt;事件处理程序处于目标对象上，eventPhase 等于 2&lt;/p&gt;
+&lt;p&gt;在冒泡阶段调用的事件处理程序，eventPhase 等于 3&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;只有在事件处理程序执行期间，event 对象才会存在；一旦事件处理程序执行完 成，event 对象就会被销毁。&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;事件类型&#34;&gt;事件类型&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;UI（User Interface，用户界面）事件，当用户与页面上的元素交互时触发&lt;/li&gt;
+&lt;li&gt;焦点事件，当元素获得或失去焦点时触发&lt;/li&gt;
+&lt;li&gt;鼠标事件，当用户通过鼠标在页面上执行操作时触发&lt;/li&gt;
+&lt;li&gt;滚轮事件，当使用鼠标滚轮（或类似设备）时触发&lt;/li&gt;
+&lt;li&gt;文本事件，当在文档中输入文本时触发&lt;/li&gt;
+&lt;li&gt;键盘事件，当用户通过键盘在页面上执行操作时触发&lt;/li&gt;
+&lt;li&gt;合成事件，当为 IME（Input Method Editor，输入法编辑器）输入字符时触发&lt;/li&gt;
+&lt;li&gt;变动（mutation）事件，当底层 DOM 结构发生变化时触发&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;ui事件&#34;&gt;UI事件&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;load&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当页面完全加载后在 window 上面触发&lt;/p&gt;
+&lt;p&gt;当所有框架都加载完毕时在框架集上面触发&lt;/p&gt;
+&lt;p&gt;当图像加载完毕时在&lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt;元素上面触发&lt;/p&gt;
+&lt;p&gt;当嵌入的内容加载完毕时在元素上面 触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;unload&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当页面完全卸载后在 window 上面触发&lt;/p&gt;
+&lt;p&gt;当所有框架都卸载后在框架集上面触发&lt;/p&gt;
+&lt;p&gt;当嵌入的内容卸载完毕后在元素上面触发&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;abort&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在用户停止下载过程时，如果嵌入的内容没有加载完，则在元素上面触发&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;error&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当发生 JavaScript 错误时在 window 上面触发&lt;/p&gt;
+&lt;p&gt;当无法加载图像时在&lt;code&gt;&amp;lt;img&amp;gt;&lt;/code&gt;元素上面触 发&lt;/p&gt;
+&lt;p&gt;当无法加载嵌入内容时在元素上面触发&lt;/p&gt;
+&lt;p&gt;或者当有一或多个框架无法加载时在框 架集上面触发&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;select&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当用户选择文本框（&lt;code&gt;&amp;lt;input&amp;gt;&lt;/code&gt;或&lt;code&gt;&amp;lt;texterea&amp;gt;&lt;/code&gt;）中的一或多个字符时触发&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;resize&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当窗口或框架的大小变化时在 window 或框架上面触发&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;scroll&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当用户滚动带滚动条的元素中的内容时，在该元素上面触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;load-事件&#34;&gt;load 事件&lt;/h4&gt;
+&lt;p&gt;window上的load&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;EventUtil.addHandler(window, &amp;quot;load&amp;quot;, function(event){ 
+ alert(&amp;quot;Loaded!&amp;quot;); 
+}); 
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;图像上的load&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var image = document.getElementById(&amp;quot;myImage&amp;quot;); 
+
+EventUtil.addHandler(image, &amp;quot;load&amp;quot;, function(event){ 
+ event = EventUtil.getEvent(event); 
+ alert(EventUtil.getTarget(event).src); 
+}); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;unload事件&#34;&gt;unload事件&lt;/h4&gt;
+&lt;p&gt;利用这个事件最多的情况是清除引用，以避免内存泄漏&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;EventUtil.addHandler(window, &amp;quot;unload&amp;quot;, function(event){ 
+ alert(&amp;quot;Unloaded&amp;quot;); 
+}); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;resize-事件&#34;&gt;resize 事件&lt;/h4&gt;
+&lt;p&gt;当浏览器窗口被调整到一个新的高度或宽度时，就会触发 resize 事件&lt;/p&gt;
+&lt;p&gt;这个事件在 window（窗 口）上面触发&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;EventUtil.addHandler(window, &amp;quot;resize&amp;quot;, function(event){ 
+ alert(&amp;quot;Resized&amp;quot;); 
+}); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;scroll-事件&#34;&gt;scroll 事件&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;EventUtil.addHandler(window, &amp;quot;scroll&amp;quot;, function(event){ 
+ if (document.compatMode == &amp;quot;CSS1Compat&amp;quot;){ 
+ alert(document.documentElement.scrollTop); 
+ } else { 
+ alert(document.body.scrollTop); 
+ } 
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;焦点事件&#34;&gt;焦点事件&lt;/h4&gt;
+&lt;p&gt;焦点事件会在页面元素获得或失去焦点时触发。利用这些事件并与 document.hasFocus()方法及 document.activeElement 属性配合&lt;/p&gt;
+&lt;p&gt;有以下 6 个焦点事件&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;blur：在元素失去焦点时触发。这个事件不会冒泡&lt;/li&gt;
+&lt;li&gt;focus：在元素获得焦点时触发。这个事件不会冒泡&lt;/li&gt;
+&lt;li&gt;focusin：在元素获得焦点时触发，但它冒泡&lt;/li&gt;
+&lt;li&gt;focusout：在元素失去焦点时触发，但它冒泡&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;鼠标与滚轮事件&#34;&gt;鼠标与滚轮事件&lt;/h4&gt;
+&lt;p&gt;DOM3 级事件中定 义了 9 个鼠标事件&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;click：在用户单击主鼠标按钮（一般是左边的按钮）或者按下回车键时触发。&lt;/li&gt;
+&lt;li&gt;dblclick：在用户双击主鼠标按钮（一般是左边的按钮）时触发。&lt;/li&gt;
+&lt;li&gt;mousedown：在用户按下了任意鼠标按钮时触发。不能通过键盘触发这个事件。&lt;/li&gt;
+&lt;li&gt;mouseenter：在鼠标光标从元素外部首次移动到元素范围之内时触发。这个事件不冒泡，而且 在光标移动到后代元素上不会触发。&lt;/li&gt;
+&lt;li&gt;mouseleave：在位于元素上方的鼠标光标移动到元素范围之外时触发。这个事件不冒泡，而且 在光标移动到后代元素上不会触发。&lt;/li&gt;
+&lt;li&gt;mousemove：当鼠标指针在元素内部移动时重复地触发。不能通过键盘触发这个事件。&lt;/li&gt;
+&lt;li&gt;mouseout：在鼠标指针位于一个元素上方，然后用户将其移入另一个元素时触发。&lt;/li&gt;
+&lt;li&gt;mouseover：在鼠标指针位于一个元素外部，然后用户将其首次移入另一个元素边界之内时触 发。不能通过键盘触发这个事件。&lt;/li&gt;
+&lt;li&gt;mouseup：在用户释放鼠标按钮时触发。不能通过键盘触发这个事件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;p&gt;除了 mouseenter 和 mouseleave，所有鼠标事件都会冒泡&lt;/p&gt;
+&lt;p&gt;只有在同一个元素上相继触发 mousedown 和 mouseup 事件，才会触发 click 事件；如果 mousedown 或 mouseup 中的一个被取消，就不会触发 click 事件。&lt;/p&gt;
+&lt;p&gt;(也就解释为什么网页按钮点击下去但不松开，移到别的地方松开不触发事件了 )&lt;/p&gt;
+&lt;p&gt;如果有代码阻止了连续两次触发 click 事件，那么就不会触发 dblclick 事件了。&lt;/p&gt;
+&lt;p&gt;这 4 个事件触发的顺序始终如下&lt;/p&gt;
+&lt;p&gt;(1) mousedown&lt;/p&gt;
+&lt;p&gt;(2) mouseup&lt;/p&gt;
+&lt;p&gt;(3) click&lt;/p&gt;
+&lt;p&gt;(4) mousedown&lt;/p&gt;
+&lt;p&gt;(5) mouseup&lt;/p&gt;
+&lt;p&gt;(6) click&lt;/p&gt;
+&lt;p&gt;(7) dblclick&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;mousewheel&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;当用 户通过鼠标滚轮与页面交互、在垂直方向上滚动页面时（无论向上还是向下），就会触发 mousewheel 事件。这个事件可以在任何元素上面触发，最终会冒泡到 document或 window&lt;/p&gt;
+&lt;p&gt;与 mousewheel 事件对应的 event 对象除包含鼠标事件的所有标准信息外， 还包含一个特殊的 wheelDelta 属性。&lt;/p&gt;
+&lt;p&gt;当用户向前滚动鼠标滚轮时，wheelDelta 是 120 的倍数&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;EventUtil.addHandler(document, &amp;quot;mousewheel&amp;quot;, function(event){ 
+ event = EventUtil.getEvent(event); 
+ alert(event.wheelDelta); 
+}); 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;键盘与文本事件&#34;&gt;键盘与文本事件&lt;/h4&gt;
+&lt;p&gt;有 3 个键盘事件&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;keydown：当用户按下键盘上的任意键时触发，而且如果按住不放的话，会重复触发此事件。&lt;/li&gt;
+&lt;li&gt;keypress：当用户按下键盘上的字符键时触发，而且如果按住不放的话，会重复触发此事件。&lt;/li&gt;
+&lt;li&gt;keyup：当用户释放键盘上的键时触发。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在文本插入文本框之前会触发 &lt;code&gt;textInput&lt;/code&gt;事件。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;textInput&lt;/code&gt;当用户在可编辑区域中 输入字符时，就会触发这个事件&lt;/p&gt;
+&lt;p&gt;这个用于替代 keypress 的 textInput 事件的行为稍有不同。&lt;/p&gt;
+&lt;p&gt;区别 之一就是任何可以获得焦点的元素都可以触发 keypress 事件，但只有可编辑区域才能触发 textInput 事件。&lt;/p&gt;
+&lt;p&gt;区别之二是 textInput 事件只会在用户按下能够输入实际字符的键时才会被触发，而 keypress 事件则在按下那些能够影响文本显示的键时也会触发（例如退格键）&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;在用户按了一下键盘上的字符键时，首先会触发 keydown 事件，然后紧跟着是 keypress 事件， 最后会触发 keyup 事件。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var textbox = document.getElementById(&amp;quot;myText&amp;quot;); 
+
+EventUtil.addHandler(textbox, &amp;quot;keyup&amp;quot;, function(event){ 
+ event = EventUtil.getEvent(event); 
+ alert(event.keyCode); 
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;通过keyCode来判断键码&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;事件委托&#34;&gt;事件委托&lt;/h2&gt;
+&lt;p&gt;事件委托利用了事件冒泡，只指定一个事 件处理程序，就可以管理某一类型的所有事件&lt;/p&gt;
+&lt;p&gt;例如，click 事件会一直冒泡到 document 层次。也就 是说，我们可以为整个页面指定一个 onclick 事件处理程序&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;ul id=&amp;quot;myLinks&amp;quot;&amp;gt; 
+ &amp;lt;li id=&amp;quot;goSomewhere&amp;quot;&amp;gt;Go somewhere&amp;lt;/li&amp;gt; 
+ &amp;lt;li id=&amp;quot;doSomething&amp;quot;&amp;gt;Do something&amp;lt;/li&amp;gt; 
+ &amp;lt;li id=&amp;quot;sayHi&amp;quot;&amp;gt;Say hi&amp;lt;/li&amp;gt; 
+&amp;lt;/ul&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;包含 3 个被单击后会执行操作的列表项，按照传统的做法，需要像下面这样为它们添加 3 个事 件处理程序。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var item1 = document.getElementById(&amp;quot;goSomewhere&amp;quot;); 
+var item2 = document.getElementById(&amp;quot;doSomething&amp;quot;); 
+var item3 = document.getElementById(&amp;quot;sayHi&amp;quot;); 
+
+EventUtil.addHandler(item1, &amp;quot;click&amp;quot;, function(event){ 
+ location.href = &amp;quot;http://www.wrox.com&amp;quot;; 
+}); 
+
+EventUtil.addHandler(item2, &amp;quot;click&amp;quot;, function(event){ 
+ document.title = &amp;quot;I changed the document&#39;s title&amp;quot;; 
+});
+
+EventUtil.addHandler(item3, &amp;quot;click&amp;quot;, function(event){ 
+ alert(&amp;quot;hi&amp;quot;); 
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;此时，可以利用事件委托技术解决这个问题。使用事件委托，只需在 DOM 树中尽量最高的层次上添加一个事件处理程序&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var list = document.getElementById(&amp;quot;myLinks&amp;quot;); 
+
+list.addEventListener(&amp;quot;click&amp;quot;, function(event){ 
+    
+let target =event.target
+
+ switch(target.id){ 
+ case &amp;quot;doSomething&amp;quot;: 
+ document.title = &amp;quot;I changed the document&#39;s title&amp;quot;; 
+ break; 
+         
+ case &amp;quot;goSomewhere&amp;quot;: 
+ location.href = &amp;quot;http://www.wrox.com&amp;quot;; 
+ break; 
+         
+ case &amp;quot;sayHi&amp;quot;: 
+ alert(&amp;quot;hi&amp;quot;); 
+ break; 
+         
+ } 
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;我们使用事件委托只为&lt;code&gt;&amp;lt;ul&amp;gt;&lt;/code&gt;元素添加了一个 onclick 事件处理程序。&lt;/p&gt;
+&lt;p&gt;由于所有列 表项都是这个元素的子节点，而且它们的事件会冒泡，所以单击事件最终会被这个函数处理。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;移除事件处理程序&#34;&gt;移除事件处理程序&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;div id=&amp;quot;myDiv&amp;quot;&amp;gt; 
+ &amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;Click Me&amp;quot; id=&amp;quot;myBtn&amp;quot;&amp;gt; 
+&amp;lt;/div&amp;gt; 
+
+&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt; 
+    
+ var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+ btn.onclick = function(){ 
+ //先执行某些操作
+ document.getElementById(&amp;quot;myDiv&amp;quot;).innerHTML = &amp;quot;Processing...&amp;quot;; //麻烦了！
+ }; 
+
+&amp;lt;/script&amp;gt; 
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在元素上设置 innerHTML 可以把按钮移走，但事件处理程序仍然与按钮保持 着引用关系，在这种情况下不会作出恰当地处理，它们很有可能会将对元素和 对事件处理程序的引用都保存在内存中。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;正确操作&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;div id=&amp;quot;myDiv&amp;quot;&amp;gt; 
+ &amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;Click Me&amp;quot; id=&amp;quot;myBtn&amp;quot;&amp;gt; 
+&amp;lt;/div&amp;gt; 
+
+&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt; 
+ var btn = document.getElementById(&amp;quot;myBtn&amp;quot;); 
+ btn.onclick = function(){ 
+     
+ //先执行某些操作
+ btn.onclick = null; //移除事件处理程序
+     
+ document.getElementById(&amp;quot;myDiv&amp;quot;).innerHTML = &amp;quot;Processing...&amp;quot;; 
+ }; 
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;&#34;&gt;&lt;/h2&gt;
+">JS的事件</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/promise-dui-xiang/"" data-c="
