@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>mustache | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1628867663865">
+<link rel="shortcut icon" href="/favicon.ico?v=1628948308579">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">56</span>
+        <span class="site-item-stat-count">57</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1178,6 +1178,63 @@ function likerender(template,data)
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/la-ji-hui-shou-la-ji-shu-ju-shi-ru-he-dong-hui-shou-de/"" data-c="
+          &lt;p&gt;JavaScript中的数据中&lt;strong&gt;原始数据类型是存储在 栈空间中的，引⽤类型的数据是存储在堆空间中的&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;不过有些数据被使⽤之后，可能就不再需要了，我们把这种数据称为垃圾数据。如果这些垃圾数据⼀直保存 在内存中，那么内存会越⽤越多，所以我们需要对这些垃圾数据进⾏回收，以释放有限的内存空间。&lt;/p&gt;
+&lt;p&gt;通常情况下，垃圾数据回收分为&lt;strong&gt;⼿动回收&lt;/strong&gt;和&lt;strong&gt;⾃动回收&lt;/strong&gt;两种策略。&lt;/p&gt;
+&lt;h2 id=&#34;调用栈中的数据是如何回收的&#34;&gt;调⽤栈中的数据是如何回收的&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function foo(){
+var a = 1
+var b = {name:&amp;quot;极客邦&amp;quot;}
+	function showName(){
+		var c = &amp;quot;极客时间&amp;quot;
+		var d = {name:&amp;quot;极客时间&amp;quot;}
+}
+	showName()
+}
+
+foo()
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628916722712.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;当foo函数执⾏结束之 后，foo函数的执⾏上下⽂会从堆中被销毁掉，那么它是怎么被销毁的呢？&lt;/p&gt;
+&lt;p&gt;如果执⾏到showName函数时，那么JavaScript引擎会创建 showName函数的执⾏上下⽂，并将showName函数的执⾏上下⽂压⼊到调⽤栈中&lt;/p&gt;
+&lt;p&gt;执⾏到 showName函数时，其调⽤栈就如上图所⽰。与此同时，还有⼀个&lt;strong&gt;记录当前执⾏状态的指针（称为 ESP）&lt;/strong&gt;，指向调⽤栈中showName函数的执⾏上下⽂，表⽰当前正在执⾏showName函数。&lt;/p&gt;
+&lt;p&gt;接着，当showName函数执⾏完成之后，函数执⾏流程就进⼊了foo函数，那这时就需要销毁showName函 数的执⾏上下⽂了。ESP这时候就帮上忙了，JavaScript会将ESP下移到foo函数的执⾏上下⽂，&lt;strong&gt;这个下移操 作就是销毁showName函数执⾏上下⽂的过程。&lt;/strong&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628916718322.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;当showName函数执⾏结束之后，ESP向下移动到foo函数的执⾏上下⽂中，上⾯ &lt;strong&gt;showName的执⾏上下⽂虽然保存在栈内存中，但是已经是⽆效内存了&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;当foo函数再次调⽤另外⼀个 函数时，这块内容会被直接覆盖掉，⽤来存放另外⼀个函数的执⾏上下⽂。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;堆中的数据是如何回收的&#34;&gt;堆中的数据是如何回收的&lt;/h2&gt;
+&lt;p&gt;当上⾯那段代码的foo函数执⾏结束之后，ESP应该是指向全 局执⾏上下⽂的，那这样的话，showName函数和foo函数的执⾏上下⽂就处于⽆效状态了，不过保存在堆 中的两个对象依然占⽤着空间&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628916713681.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;要回收堆中的垃圾数据，就需要⽤到JavaScript中 的垃圾回收器了。&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;垃圾回收器的工作流程&#34;&gt;垃圾回收器的⼯作流程&lt;/h2&gt;
+&lt;p&gt;第⼀步是&lt;strong&gt;标记&lt;/strong&gt;空间中活动对象和⾮活动对象。所谓活动对象就是还在使⽤的对象，⾮活动对象就是可以进⾏ 垃圾回收的对象。&lt;/p&gt;
+&lt;p&gt;第⼆步是回收⾮活动对象所占据的内存。其实就是在所有的标记完成之后，统⼀清理内存中所有被标记为可 回收的对象。&lt;/p&gt;
+&lt;p&gt;第三步是做内存整理。频繁回收对象后，内存中就会存在⼤量不连续空间，我们把这些不连续的 内存空间称为&lt;strong&gt;内存碎⽚&lt;/strong&gt;。当内存中出现了⼤量的内存碎⽚之后，如果需要分配较⼤连续内存的时候，就有可 能出现内存不⾜的情况。所以最后⼀步需要整理这些内存碎⽚。但这步其实是可选的，因为有的垃圾回收器 不会产⽣内存碎⽚，⽐如副垃圾回收器。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;副垃圾回收器&#34;&gt;副垃圾回收器&lt;/h2&gt;
+&lt;p&gt;副垃圾回收器主要负责新⽣区的垃圾回收。&lt;/p&gt;
+&lt;p&gt;在垃圾回收过程中，⾸先要对对象区域中的垃圾做标记；标记完成之后，就进⼊垃圾清理阶段&lt;/p&gt;
+&lt;p&gt;副垃圾回收 器会把这些存活的对象复制到空闲区域中，同时它还会把这些对象有序地排列起来，所以这个复制过程，也 就相当于完成了内存整理操作，复制后空闲区域就没有内存碎⽚了。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;主垃圾回收器&#34;&gt;主垃圾回收器&lt;/h2&gt;
+&lt;p&gt;主垃圾回收器是采⽤&lt;strong&gt;标记清除&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;标记阶段就是从⼀组根元素开始，递归遍历这组根元素，在这个遍历过程中，能到达的元素称为&lt;strong&gt;活动对象&lt;/strong&gt;，没有到达的元素就可以判断为&lt;strong&gt;垃圾数据&lt;/strong&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;全停顿&#34;&gt;全停顿&lt;/h2&gt;
+&lt;p&gt;V8是使⽤副垃圾回收器和主垃圾回收器处理垃圾回收的，不过由于JavaScript是运⾏在主线程 之上的，⼀旦执⾏垃圾回收算法，都需要将正在执⾏的JavaScript脚本暂停下来，待垃圾回收完毕后再恢复 脚本执⾏。我们把这种⾏为叫做全停顿（Stop-The-World）。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628916707034.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;若是这样的时间花销，那么应⽤的性能和响应能⼒都会直线下降。&lt;/p&gt;
+&lt;p&gt;为了降低⽼⽣代的垃圾回收⽽造成的卡顿，V8将标记过程分为⼀个个的⼦标记过程，同时让垃圾回收标记 和JavaScript应⽤逻辑交替进⾏，直到标记阶段完成，我们把这个算法称为增量标记（Incremental Marking）算法&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1628916701889.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;使⽤增量标记算法，可以把⼀个完整的垃圾回收任务拆分为很多⼩的任务，这些⼩的任务执⾏时间⽐较短， 可以穿插在其他的JavaScript任务中间执⾏，这样当执⾏上述动画效果时，就不会让⽤⼾因为垃圾回收任务 ⽽感受到⻚⾯的卡顿了。&lt;/p&gt;
+"> 垃圾回收：垃圾数据是如何⾃动回收的？</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js-de-shi-jian/"" data-c="

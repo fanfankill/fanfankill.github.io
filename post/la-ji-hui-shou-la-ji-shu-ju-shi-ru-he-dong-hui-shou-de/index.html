@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>HTML、CSS和JavaScript，是如何变成⻚⾯的？ | fanfan</title>
+<title> 垃圾回收：垃圾数据是如何⾃动回收的？ | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1628948308579">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="HTML、CSS和JavaScript，是如何变成⻚⾯的？" />
-  <meta name="keywords" content="HTML" />
+  <meta name="description" content=" 垃圾回收：垃圾数据是如何⾃动回收的？" />
+  <meta name="keywords" content="Javascript" />
 </head>
 
 <body>
@@ -284,31 +284,12 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E6%9E%84%E5%BB%BAdom%E6%A0%91">构建DOM树</a></li>
-<li><a href="#%E6%A0%B7%E5%BC%8F%E8%AE%A1%E7%AE%97">样式计算</a>
-<ul>
-<li><a href="#%E6%8A%8Acss%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%B5%8F%E8%A7%88%E5%99%A8%E8%83%BD%E5%A4%9F%E7%90%86%E8%A7%A3%E7%9A%84%E7%BB%93%E6%9E%84">把CSS转换为浏览器能够理解的结构</a></li>
-<li><a href="#%E8%BD%AC%E6%8D%A2%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7%E5%80%BC%E4%BD%BF%E5%85%B6%E6%A0%87%E5%87%86%E5%8C%96">转换样式表中的属性值，使其标准化</a></li>
-<li><a href="#%E8%AE%A1%E7%AE%97%E5%87%BAdom%E6%A0%91%E4%B8%AD%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E5%85%B7%E4%BD%93%E6%A0%B7%E5%BC%8F">计算出DOM树中每个节点的具体样式</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B8%83%E5%B1%80%E9%98%B6%E6%AE%B5">布局阶段</a>
-<ul>
-<li><a href="#%E5%88%9B%E5%BB%BA%E5%B8%83%E5%B1%80%E6%A0%91">创建布局树</a></li>
-<li><a href="#%E5%B8%83%E5%B1%80%E8%AE%A1%E7%AE%97">布局计算</a></li>
-</ul>
-</li>
-<li><a href="#%E5%88%86%E5%B1%82">分层</a></li>
-<li><a href="#%E5%9B%BE%E5%B1%82%E7%BB%98%E5%88%B6">图层绘制</a></li>
-<li><a href="#%E6%A0%85%E6%A0%BC%E5%8C%96raster%E6%93%8D%E4%BD%9C">栅格化（raster）操作</a></li>
-<li><a href="#%E5%90%88%E6%88%90%E5%92%8C%E6%98%BE%E7%A4%BA">合成和显⽰</a></li>
-<li><a href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5">相关概念</a>
-<ul>
-<li><a href="#%E6%9B%B4%E6%96%B0%E4%BA%86%E5%85%83%E7%B4%A0%E7%9A%84%E5%87%A0%E4%BD%95%E5%B1%9E%E6%80%A7%E9%87%8D%E6%8E%92">更新了元素的⼏何属性（重排）</a></li>
-<li><a href="#%E6%9B%B4%E6%96%B0%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%98%E5%88%B6%E5%B1%9E%E6%80%A7%E9%87%8D%E7%BB%98">更新元素的绘制属性（重绘）</a></li>
-<li><a href="#%E7%9B%B4%E6%8E%A5%E5%90%88%E6%88%90%E9%98%B6%E6%AE%B5">直接合成阶段</a></li>
-</ul>
-</li>
+<li><a href="#%E8%B0%83%E7%94%A8%E6%A0%88%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E6%98%AF%E5%A6%82%E4%BD%95%E5%9B%9E%E6%94%B6%E7%9A%84">调⽤栈中的数据是如何回收的</a></li>
+<li><a href="#%E5%A0%86%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E6%98%AF%E5%A6%82%E4%BD%95%E5%9B%9E%E6%94%B6%E7%9A%84">堆中的数据是如何回收的</a></li>
+<li><a href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B">垃圾回收器的⼯作流程</a></li>
+<li><a href="#%E5%89%AF%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8">副垃圾回收器</a></li>
+<li><a href="#%E4%B8%BB%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8">主垃圾回收器</a></li>
+<li><a href="#%E5%85%A8%E5%81%9C%E9%A1%BF">全停顿</a></li>
 </ul>
 </li>
 </ul>
@@ -576,8 +557,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/htmlcss-he-javascriptshi-ru-he-bian-cheng-de/">
-      HTML、CSS和JavaScript，是如何变成⻚⾯的？
+    <a class="post-title-link" href="https://fanfankill.github.io/post/la-ji-hui-shou-la-ji-shu-ju-shi-ru-he-dong-hui-shou-de/">
+       垃圾回收：垃圾数据是如何⾃动回收的？
     </a>
   </h1>
   <div class="post-meta">
@@ -585,7 +566,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-08-04 21:33:00">2021-08-04</span>
+      <span class="publish-time" data-t="2021-08-14 12:51:16">2021-08-14</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -594,8 +575,8 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://fanfankill.github.io/tag/nLcATaJe7/">
-        <span>HTML</span>
+      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/">
+        <span>Javascript</span>
       </a>
       
       
@@ -604,137 +585,69 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>8<span class="language" data-lan="minute">分钟</span></span>
+      <span>5<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>2008<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1291<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p>导航被提交后就进⼊了渲染阶段。</p>
-<h2 id="构建dom树">构建DOM树</h2>
-<p>为什么要构建DOM树呢？</p>
-<p>这是因为浏览器⽆法直接理解和使⽤HTML，所以需要将HTML转换为 浏览器能够理解的结构——<strong>DOM树</strong>。</p>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1628084109723.png" alt="" loading="lazy"></figure>
-<br>
-<h2 id="样式计算">样式计算</h2>
-<p>样式计算的⽬的是为了计算出DOM节点中每个元素的具体样式</p>
-<h3 id="把css转换为浏览器能够理解的结构">把CSS转换为浏览器能够理解的结构</h3>
-<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1628084117590.png" alt="" loading="lazy"></figure>
-<p>CSS样式来源主要有上面三种</p>
-<p>浏览器也是⽆法直接理解这些纯⽂本的CSS样式，所以当渲染引擎接收到 CSS⽂本时，会执⾏⼀个转换操作，<strong>将CSS⽂本转换为浏览器可以理解的结构—— styleSheets</strong>。</p>
-<p>只需要在控制台中输⼊ document.styleSheets，然后就看到如下图所⽰的结构：</p>
-<p><img src="https://fanfankill.github.io/post-images/1628084131779.png" alt="" loading="lazy">)</p>
-<br>
-<h3 id="转换样式表中的属性值使其标准化">转换样式表中的属性值，使其标准化</h3>
-<p>接下来就要对其进⾏属性值的标准化操作</p>
-<p>的CSS⽂本中有很多属性值，如2em、blue、bold，这些类型数值不容易被渲染引 擎理解，所以需要<strong>将所有值转换为渲染引擎容易理解的、标准化的计算值</strong></p>
-<figure data-type="image" tabindex="3"><img src="https://fanfankill.github.io/post-images/1628084154198.png" alt="" loading="lazy"></figure>
-<br>
-<h3 id="计算出dom树中每个节点的具体样式">计算出DOM树中每个节点的具体样式</h3>
-<p>样式计算过程中的第一个规则是CSS继承。</p>
-<p><strong>CSS继承就是每个DOM节点都包含有⽗节点的样式</strong></p>
-<p>样式计算过程中的第⼆个规则是样式层叠。</p>
-<p><strong>层叠是CSS的⼀个基本特征，它是⼀个定义了如何合 并来⾃多个源的属性值的算法。它在CSS处于核⼼地位，CSS的全称“层叠样式表”正是强调了这 ⼀点</strong>。</p>
-<p>这个阶段最终输出的内容是每个DOM节点的样式，并被保存 在ComputedStyle的结构内。</p>
-<br>
-<h2 id="布局阶段">布局阶段</h2>
-<p>接下来就需要<strong>计算出DOM树中可⻅元素的⼏何位置</strong>，我们把这个计 算过程叫做布局。</p>
-<h3 id="创建布局树">创建布局树</h3>
-<p>在显⽰之前，我们还要额外地构建⼀棵只包含可⻅元素布局树</p>
-<figure data-type="image" tabindex="4"><img src="https://fanfankill.github.io/post-images/1628084173184.png" alt="" loading="lazy"></figure>
-<p>从上图可以看出，DOM树中所有不可⻅的节点都没有包含到布局树中</p>
-<p>为了构建布局树，浏览器⼤体上完成了下⾯这些⼯作：</p>
-<p>为了构建布局树，浏览器⼤体上完成了下⾯这些⼯作：</p>
-<p>⽽不可⻅的节点会被布局树忽略掉，如head标签下⾯的全部内容，再⽐如body.p.span这个元 素，因为它的属性包含 dispaly:none，所以这个元素也没有被包进布局树。</p>
-<br>
-<h3 id="布局计算">布局计算</h3>
-<p>接下来，就计算布局树节点的坐标位置</p>
-<br>
-<h2 id="分层">分层</h2>
-<p>现在我们有了布局树，因为⻚⾯中有很多复杂的效果，如⼀些复杂的3D变换、⻚⾯滚动，或者使⽤z-indexing做z轴排序等，为了 更加⽅便地实现这些效果，<strong>渲染引擎还需要为特定的节点⽣成专⽤的图层，并⽣成⼀棵对应的图层树</strong></p>
-<p><strong>浏览器的⻚⾯实际上被分成了很多图层，这些图层叠加后合成了最终的⻚⾯</strong></p>
-<figure data-type="image" tabindex="5"><img src="https://fanfankill.github.io/post-images/1628084183718.png" alt="" loading="lazy"></figure>
-<p><strong>浏览器的⻚⾯实际上被分成了很多图层，这些图层叠加后合成了最终的⻚⾯</strong>。</p>
-<p>但并不是布局树的每个节点都包含⼀个图层，如果⼀个节点没有对应的层，那么这个节点就从属 于⽗节点的图层。</p>
-<br>
-<p>那么需要满⾜什么条件，渲染引擎才会为特定的节点创建新的层呢？</p>
-<p><strong>第⼀点，拥有层叠上下⽂属性的元素会被提升为单独的⼀层。</strong></p>
-<figure data-type="image" tabindex="6"><img src="https://fanfankill.github.io/post-images/1628084191361.png" alt="" loading="lazy"></figure>
-<br>
-<p><strong>第⼆点，需要剪裁（clip）的地⽅也会被创建为图层。</strong></p>
-<pre><code class="language-html">&lt;style&gt;
-div {
-width: 200;
-height: 200;
-overflow:auto;
-background: gray;
+              <p>JavaScript中的数据中<strong>原始数据类型是存储在 栈空间中的，引⽤类型的数据是存储在堆空间中的</strong></p>
+<p>不过有些数据被使⽤之后，可能就不再需要了，我们把这种数据称为垃圾数据。如果这些垃圾数据⼀直保存 在内存中，那么内存会越⽤越多，所以我们需要对这些垃圾数据进⾏回收，以释放有限的内存空间。</p>
+<p>通常情况下，垃圾数据回收分为<strong>⼿动回收</strong>和<strong>⾃动回收</strong>两种策略。</p>
+<h2 id="调用栈中的数据是如何回收的">调⽤栈中的数据是如何回收的</h2>
+<pre><code class="language-js">function foo(){
+var a = 1
+var b = {name:&quot;极客邦&quot;}
+	function showName(){
+		var c = &quot;极客时间&quot;
+		var d = {name:&quot;极客时间&quot;}
 }
-&lt;/style&gt;
-&lt;body&gt;
-&lt;div &gt;
-&lt;p&gt;所以元素有了层叠上下⽂的属性或者需要被剪裁，那么就会被提升成为单独⼀层，你可以参看下图：&lt;/p&gt;
-&lt;p&gt;从上图我们可以看到，document层上有A和B层，⽽B层之上⼜有两个图层。这些图层组织在⼀起也是⼀颗树状结构。&lt;/p&gt;
-&lt;p&gt;图层树是基于布局树来创建的，为了找出哪些元素需要在哪些层中，渲染引擎会遍历布局树来创建层树（Update LayerTree）。&lt;/p&gt;
-&lt;/div&gt;
-&lt;/body&gt;
+	showName()
+}
+
+foo()
 
 </code></pre>
-<p>在这⾥我们把div的⼤⼩限定为200 * 200像素，⽽div⾥⾯的⽂字内容⽐较多，⽂字所显⽰的区域肯定会超出 200 * 200的⾯积，这时候就产⽣了剪裁</p>
-<p>出现这种裁剪情况的时候，渲染引擎会为⽂字部分单独创建⼀个层，如果出现滚动条，滚动条也会被提升为 单独的层。</p>
-<figure data-type="image" tabindex="7"><img src="https://fanfankill.github.io/post-images/1628084201544.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1628916722712.png" alt="" loading="lazy"></figure>
+<p>当foo函数执⾏结束之 后，foo函数的执⾏上下⽂会从堆中被销毁掉，那么它是怎么被销毁的呢？</p>
+<p>如果执⾏到showName函数时，那么JavaScript引擎会创建 showName函数的执⾏上下⽂，并将showName函数的执⾏上下⽂压⼊到调⽤栈中</p>
+<p>执⾏到 showName函数时，其调⽤栈就如上图所⽰。与此同时，还有⼀个<strong>记录当前执⾏状态的指针（称为 ESP）</strong>，指向调⽤栈中showName函数的执⾏上下⽂，表⽰当前正在执⾏showName函数。</p>
+<p>接着，当showName函数执⾏完成之后，函数执⾏流程就进⼊了foo函数，那这时就需要销毁showName函 数的执⾏上下⽂了。ESP这时候就帮上忙了，JavaScript会将ESP下移到foo函数的执⾏上下⽂，<strong>这个下移操 作就是销毁showName函数执⾏上下⽂的过程。</strong></p>
+<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1628916718322.png" alt="" loading="lazy"></figure>
+<p>当showName函数执⾏结束之后，ESP向下移动到foo函数的执⾏上下⽂中，上⾯ <strong>showName的执⾏上下⽂虽然保存在栈内存中，但是已经是⽆效内存了</strong>。</p>
+<p>当foo函数再次调⽤另外⼀个 函数时，这块内容会被直接覆盖掉，⽤来存放另外⼀个函数的执⾏上下⽂。</p>
 <br>
-<h2 id="图层绘制">图层绘制</h2>
-<p>在完成图层树的构建之后，渲染引擎会对图层树中的每个图层进⾏绘制</p>
-<p>渲染引擎实现图层的绘制与之类似，会把⼀个图层的绘制拆分成很多⼩的绘制指令，然后再把这些指令按照 顺序组成⼀个待绘制列表，如下图所⽰：</p>
-<figure data-type="image" tabindex="8"><img src="https://fanfankill.github.io/post-images/1628084215184.png" alt="" loading="lazy"></figure>
+<h2 id="堆中的数据是如何回收的">堆中的数据是如何回收的</h2>
+<p>当上⾯那段代码的foo函数执⾏结束之后，ESP应该是指向全 局执⾏上下⽂的，那这样的话，showName函数和foo函数的执⾏上下⽂就处于⽆效状态了，不过保存在堆 中的两个对象依然占⽤着空间</p>
+<figure data-type="image" tabindex="3"><img src="https://fanfankill.github.io/post-images/1628916713681.png" alt="" loading="lazy"></figure>
+<p><strong>要回收堆中的垃圾数据，就需要⽤到JavaScript中 的垃圾回收器了。</strong></p>
 <br>
-<h2 id="栅格化raster操作">栅格化（raster）操作</h2>
-<figure data-type="image" tabindex="9"><img src="https://fanfankill.github.io/post-images/1628084222127.png" alt="" loading="lazy"></figure>
-<p>当图层的绘制列表准备好之后，主线程会把该绘制列表提交（commit）给合成线程</p>
-<p>我们把⽤⼾可以看到的这个部分叫做<strong>视⼝</strong> （viewport）。</p>
-<p>有的图层可以很⼤，⽐如有的⻚⾯你使⽤滚动条要滚动好久才能滚动到底部，但是通过视 ⼝，⽤⼾只能看到⻚⾯的很⼩⼀部分，所以在这种情况下，要绘制出所有图层内容的话，就会产⽣太⼤的开 销，⽽且也没有必要。</p>
-<p>基于这个原因，<strong>合成线程会将图层划分为图块</strong>（tile）</p>
-<p>合成线程会按照视⼝附近的图块来优先⽣成位图，实际⽣成位图的操作是由栅格化来执⾏的。所谓栅格 化，是指将图块转换为位图。</p>
+<h2 id="垃圾回收器的工作流程">垃圾回收器的⼯作流程</h2>
+<p>第⼀步是<strong>标记</strong>空间中活动对象和⾮活动对象。所谓活动对象就是还在使⽤的对象，⾮活动对象就是可以进⾏ 垃圾回收的对象。</p>
+<p>第⼆步是回收⾮活动对象所占据的内存。其实就是在所有的标记完成之后，统⼀清理内存中所有被标记为可 回收的对象。</p>
+<p>第三步是做内存整理。频繁回收对象后，内存中就会存在⼤量不连续空间，我们把这些不连续的 内存空间称为<strong>内存碎⽚</strong>。当内存中出现了⼤量的内存碎⽚之后，如果需要分配较⼤连续内存的时候，就有可 能出现内存不⾜的情况。所以最后⼀步需要整理这些内存碎⽚。但这步其实是可选的，因为有的垃圾回收器 不会产⽣内存碎⽚，⽐如副垃圾回收器。</p>
 <br>
-<h2 id="合成和显示">合成和显⽰</h2>
-<p>⼀旦所有图块都被光栅化，合成线程就会⽣成⼀个绘制图块的命令⸺“DrawQuad”，然后将该命令提交 给浏览器进程。</p>
-<p>到这⾥，经过这⼀系列的阶段，编写好的HTML、CSS、JavaScript等⽂件，经过浏览器就会显⽰出漂亮的 ⻚⾯了。</p>
-<p>整个渲染流程：</p>
-<figure data-type="image" tabindex="10"><img src="https://fanfankill.github.io/post-images/1628084239640.png" alt="" loading="lazy"></figure>
+<h2 id="副垃圾回收器">副垃圾回收器</h2>
+<p>副垃圾回收器主要负责新⽣区的垃圾回收。</p>
+<p>在垃圾回收过程中，⾸先要对对象区域中的垃圾做标记；标记完成之后，就进⼊垃圾清理阶段</p>
+<p>副垃圾回收 器会把这些存活的对象复制到空闲区域中，同时它还会把这些对象有序地排列起来，所以这个复制过程，也 就相当于完成了内存整理操作，复制后空闲区域就没有内存碎⽚了。</p>
 <br>
-<p>⼀个完整的渲染流程⼤致可总结为如下：</p>
-<ol>
-<li>渲染进程将HTML内容转换为能够读懂的DOM树结构。</li>
-<li>渲染引擎将CSS样式表转化为浏览器可以理解的styleSheets，计算出DOM节点的样式。</li>
-<li>创建布局树，并计算元素的布局信息。</li>
-<li>对布局树进⾏分层，并⽣成分层树。</li>
-<li>为每个图层⽣成绘制列表，并将其提交到合成线程。</li>
-<li>合成线程将图层分成图块，并在光栅化线程池中将图块转换成位图。</li>
-<li>合成线程发送绘制图块命令DrawQuad给浏览器进程。</li>
-<li>浏览器进程根据DrawQuad消息⽣成⻚⾯，并显⽰到显⽰器上。</li>
-</ol>
+<h2 id="主垃圾回收器">主垃圾回收器</h2>
+<p>主垃圾回收器是采⽤<strong>标记清除</strong></p>
+<p>标记阶段就是从⼀组根元素开始，递归遍历这组根元素，在这个遍历过程中，能到达的元素称为<strong>活动对象</strong>，没有到达的元素就可以判断为<strong>垃圾数据</strong>。</p>
 <br>
-<h2 id="相关概念">相关概念</h2>
-<h3 id="更新了元素的几何属性重排">更新了元素的⼏何属性（重排）</h3>
-<figure data-type="image" tabindex="11"><img src="https://fanfankill.github.io/post-images/1628084287094.png" alt="" loading="lazy"></figure>
-<p>如果你通过JavaScript或者CSS修改元素的⼏何位置属性，例如改变元素的宽度、⾼度 等，那么浏览器会触发重新布局，解析之后的⼀系列⼦阶段，这个过程就叫<strong>重排</strong>。</p>
-<p>重排需要更新完整 的渲染流⽔线，所以开销也是最⼤的。</p>
-<br>
-<h3 id="更新元素的绘制属性重绘">更新元素的绘制属性（重绘）</h3>
-<p>⽐如通过JavaScript更改某些元素的背景颜⾊</p>
-<figure data-type="image" tabindex="12"><img src="https://fanfankill.github.io/post-images/1628084293505.png" alt="" loading="lazy"></figure>
-<p>如果修改了元素的背景颜⾊，那么布局阶段将不会被执⾏，因为并没有引起⼏何位置的变 换，所以就直接进⼊了绘制阶段，然后执⾏之后的⼀系列⼦阶段，这个过程就叫<strong>重绘</strong></p>
-<p>重绘省去了布局和分层阶段，所以执⾏效率会⽐重排操作要⾼⼀些。</p>
-<br>
-<h3 id="直接合成阶段">直接合成阶段</h3>
-<p>如果你更改⼀个既不要布局也不要绘制的属性，渲染引擎将跳过布局和绘制，只执⾏ 后续的合成操作，我们把这个过程叫做<strong>合成</strong></p>
-<figure data-type="image" tabindex="13"><img src="https://fanfankill.github.io/post-images/1628084297971.png" alt="" loading="lazy"></figure>
-<p>因为是在⾮主线程上合成，并没有占⽤主线程的资源，另外也避 开了布局和绘制两个⼦阶段，所以相对于重绘和重排，<strong>合成能⼤⼤提升绘制效率</strong>。</p>
+<h2 id="全停顿">全停顿</h2>
+<p>V8是使⽤副垃圾回收器和主垃圾回收器处理垃圾回收的，不过由于JavaScript是运⾏在主线程 之上的，⼀旦执⾏垃圾回收算法，都需要将正在执⾏的JavaScript脚本暂停下来，待垃圾回收完毕后再恢复 脚本执⾏。我们把这种⾏为叫做全停顿（Stop-The-World）。</p>
+<figure data-type="image" tabindex="4"><img src="https://fanfankill.github.io/post-images/1628916707034.png" alt="" loading="lazy"></figure>
+<p>若是这样的时间花销，那么应⽤的性能和响应能⼒都会直线下降。</p>
+<p>为了降低⽼⽣代的垃圾回收⽽造成的卡顿，V8将标记过程分为⼀个个的⼦标记过程，同时让垃圾回收标记 和JavaScript应⽤逻辑交替进⾏，直到标记阶段完成，我们把这个算法称为增量标记（Incremental Marking）算法</p>
+<figure data-type="image" tabindex="5"><img src="https://fanfankill.github.io/post-images/1628916701889.png" alt="" loading="lazy"></figure>
+<p>使⽤增量标记算法，可以把⼀个完整的垃圾回收任务拆分为很多⼩的任务，这些⼩的任务执⾏时间⽐较短， 可以穿插在其他的JavaScript任务中间执⾏，这样当执⾏上述动画效果时，就不会让⽤⼾因为垃圾回收任务 ⽽感受到⻚⾯的卡顿了。</p>
 
             </div>
             
@@ -747,7 +660,7 @@ background: gray;
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/htmlcss-he-javascriptshi-ru-he-bian-cheng-de/" title="HTML、CSS和JavaScript，是如何变成⻚⾯的？">https://fanfankill.github.io/post/htmlcss-he-javascriptshi-ru-he-bian-cheng-de/</a>
+      <a href="https://fanfankill.github.io/post/la-ji-hui-shou-la-ji-shu-ju-shi-ru-he-dong-hui-shou-de/" title=" 垃圾回收：垃圾数据是如何⾃动回收的？">https://fanfankill.github.io/post/la-ji-hui-shou-la-ji-shu-ju-shi-ru-he-dong-hui-shou-de/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -756,21 +669,17 @@ background: gray;
   </ul>
   <div class="tags">
     
-      <a href="https://fanfankill.github.io/tag/nLcATaJe7/"># HTML</a>
+      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/"># Javascript</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="BOM" href="https://fanfankill.github.io/post/bom/">BOM</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="BOM" href="https://fanfankill.github.io/post/bom/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title=" 面向对象的程序设计" href="https://fanfankill.github.io/post/mian-xiang-dui-xiang-de-cheng-xu-she-ji/"> 面向对象的程序设计</a>
-        <a class="nav-mobile-next" title=" 面向对象的程序设计" href="https://fanfankill.github.io/post/mian-xiang-dui-xiang-de-cheng-xu-she-ji/">下一篇</a>
+        <a class="nav-pc-next" title="JS的事件" href="https://fanfankill.github.io/post/js-de-shi-jian/">JS的事件</a>
+        <a class="nav-mobile-next" title="JS的事件" href="https://fanfankill.github.io/post/js-de-shi-jian/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
