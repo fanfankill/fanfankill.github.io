@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>算法 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1628948308579">
+<link rel="shortcut icon" href="/favicon.ico?v=1629128380773">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">57</span>
+        <span class="site-item-stat-count">61</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1187,6 +1187,725 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi-2/"" data-c="
+          &lt;h1 id=&#34;vue开发ui组件日志2&#34;&gt;Vue开发ui组件日志2&lt;/h1&gt;
+&lt;h2 id=&#34;总体&#34;&gt;总体&lt;/h2&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629128372556.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;同时也实现了比较普通的响应式布局，配合媒体查询和flex实现。&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1629128364504.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;弹出框&#34;&gt;弹出框&lt;/h2&gt;
+&lt;p&gt;这个弹出框的遮罩实现有问题，看源代码感觉是插入body里面，而我是直接插入到这个fixed的盒子上面，样式直接照搬element-ui的，vue的动画效果也直接搬运源代码，自己写的动画有点烂。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt; &amp;lt;template&amp;gt;
+  &amp;lt;transition name=&amp;quot;dialog-fade&amp;quot;&amp;gt;
+ 
+      &amp;lt;div
+      class=&amp;quot;el-dialog__wrapper&amp;quot;
+      v-show=&amp;quot;visible&amp;quot;
+      
+    &amp;gt;
+      &amp;lt;div
+        ref=&amp;quot;dialog&amp;quot;
+        class=&amp;quot;el-dialog&amp;quot;
+        :class=&amp;quot;[{ &#39;is-fullscreen&#39;: fullscreen, &#39;el-dialog--center&#39;: center }]&amp;quot;
+        :style=&amp;quot;style&amp;quot;
+      &amp;gt;
+       &amp;lt;div class=&amp;quot;el-dialog__header&amp;quot;&amp;gt;
+            &amp;lt;slot name=&amp;quot;title&amp;quot;&amp;gt;
+            &amp;lt;span class=&amp;quot;el-dialog__title&amp;quot;&amp;gt;{{ title }}&amp;lt;/span&amp;gt;
+          &amp;lt;/slot&amp;gt;
+
+          &amp;lt;button
+            type=&amp;quot;button&amp;quot;
+            class=&amp;quot;el-dialog__headerbtn&amp;quot;
+            aria-label=&amp;quot;Close&amp;quot;
+            v-if=&amp;quot;showClose&amp;quot;
+            @click=&amp;quot;handleClose&amp;quot;&amp;gt;
+            &amp;lt;i class=&amp;quot;el-dialog__close el-icon el-icon-close&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;
+          &amp;lt;/button&amp;gt;
+       &amp;lt;/div&amp;gt;
+        &amp;lt;div class=&amp;quot;el-dialog__body&amp;quot;&amp;gt;&amp;lt;slot&amp;gt;&amp;lt;/slot&amp;gt;&amp;lt;/div&amp;gt;
+          &amp;lt;div class=&amp;quot;el-dialog__footer&amp;quot;&amp;gt;&amp;lt;slot name=&amp;quot;footer&amp;quot;&amp;gt;&amp;lt;/slot&amp;gt;&amp;lt;/div&amp;gt;
+      &amp;lt;/div&amp;gt;
+      &amp;lt;!-- 暂时把点击事件移到遮罩上面 --&amp;gt;
+      &amp;lt;div class=&amp;quot;v-modal&amp;quot;   @click.self=&amp;quot;handleWrapperClick&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+    
+  &amp;lt;/transition&amp;gt;
+&amp;lt;/template&amp;gt;
+
+&amp;lt;script &amp;gt;
+export default {
+  name: &amp;quot;FanDialog&amp;quot;,
+
+  props: {
+    title: {
+      type: String,
+      default: &amp;quot;&amp;quot;,
+    },
+
+    // modal    是否需要遮罩层
+    modal: {
+      type: Boolean,
+      default: true,
+    },
+
+    // close-on-press-escape    是否可以通过按下 ESC 关闭 Dialog    
+      closeOnPressEscape: {
+        type: Boolean,
+        default: true
+      },
+
+    // close-on-click-modal    是否可以通过点击 modal 关闭 Dialog
+    closeOnClickModal: {
+      type: Boolean,
+      default: true,
+    },
+
+    // fullscreen    是否为全屏 Dialog
+    fullscreen: Boolean,
+
+    //是否居中
+    center: {
+      type: Boolean,
+      default: false,
+    },
+     //关闭前的回调，会暂停 Dialog 的关闭
+      beforeClose: Function,
+
+    // show-close    是否显示关闭按钮
+    showClose: {
+      type: Boolean,
+      default: true,
+    },
+
+    // width    Dialog 的宽度
+    width: {
+        type:String,
+    },
+    //双向绑定
+    visible: {
+      type: Boolean,
+      default: true,
+    },
+
+    // top    Dialog CSS 中的 margin-top 值
+    top: {
+      type: String,
+      default: &amp;quot;15vh&amp;quot;,
+    },
+  },
+    
+  data() {
+      return {
+          closed: false
+      }
+  },
+ 
+  watch:{
+      visible(val){
+          this.closed=val
+          console.log(val);
+  
+      } 
+  },
+
+  computed: {
+      style() {
+        let style = {};
+        if (!this.fullscreen) {
+          style.marginTop = this.top;
+          if (this.width) {
+            style.width = this.width;
+          }
+        }
+        return style;
+      }
+    },
+
+
+  methods: {
+    // 点击dialog自身
+    handleWrapperClick() {
+      //是否开启可以点击外界区域关闭
+      if (!this.closeOnClickModal) return;
+      this.handleClose();
+    },
+
+    // 关闭dialog
+    handleClose() {
+      //如果有回调函数 先执行回调函数
+      if(typeof this.beforeClose==&#39;function&#39;)
+      {
+        this.beforeClose(this.hide())
+        
+      }else{
+        this.hide();
+      }
+    },
+    // 隐藏dialog
+    hide() {
+      
+      this.$emit(&amp;quot;update:visible&amp;quot;, false);
+    },
+  },
+  destroyed(){
+      console.log(&#39;我被摧毁了&#39;);
+  }
+};
+&amp;lt;/script &amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629128352897.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;输入框&#34;&gt;输入框&lt;/h2&gt;
+&lt;p&gt;挺多功能没实现，写的时候把理解且自己能够完全实现的功能先完成了&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;v-model&lt;/code&gt;的组件就是&lt;code&gt;@input&lt;/code&gt;事件实现双向绑定，键入值就会触发。&lt;/p&gt;
+&lt;p&gt;这个组件主要自己要知道输入框的原生事件&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;template&amp;gt;
+  &amp;lt;div 
+  class=&amp;quot;fan_input&amp;quot;
+   
+  &amp;gt;
+    &amp;lt;template&amp;gt;
+
+           &amp;lt;input
+       class=&amp;quot;input_defalut&amp;quot;
+       ref=&amp;quot;input&amp;quot;
+       :class=&amp;quot;[
+       {
+         &#39;is-disabled&#39;:disabled
+       }
+       ]&amp;quot;
+       :disabled=&amp;quot;inputdisabled&amp;quot;
+        v-bind=&amp;quot;$attrs&amp;quot;
+        v-bind:value=&amp;quot;value&amp;quot;
+        :readonly=&amp;quot;readonly&amp;quot;
+        @input=&amp;quot;handleInput&amp;quot;
+        @focus=&amp;quot;handleFocus&amp;quot;
+        @blur=&amp;quot;handleFBlur&amp;quot;
+  
+      &amp;gt;
+
+
+    &amp;lt;/template&amp;gt;
+  
+  &amp;lt;/div&amp;gt;
+&amp;lt;/template&amp;gt;
+
+&amp;lt;script&amp;gt;
+export default {
+  name:&#39;FanInput&#39;,
+
+     props: {
+      // value / v-model    绑定值    string / number    —
+      value: [String, Number],
+      disabled:Boolean,
+      focused:Boolean,
+      readonly:Boolean
+     },
+
+      methods: {
+         // 聚焦
+      focus() {
+        this.getInput().focus();
+      },
+      // 失焦
+      blur() {
+        this.getInput().blur();
+      },
+        //双向绑定
+        handleInput(e)
+        {
+          this.$emit(&#39;input&#39;,e.target.value)
+        },
+         
+         //聚焦事件
+         handleFocus(e){
+           this.$emit(&#39;focus&#39;, e);
+         },
+          //失焦事件
+         handleFBlur(e){
+           this.$emit(&#39;blur&#39;, e);
+         },
+
+
+        //获取ref
+        getInput()
+        {
+          return this.$refs.input
+        }
+      },
+
+     computed:{
+         // 监听原生值
+      nativeInputValue() {
+        return this.value === null || this.value === undefined ? &#39;&#39; : String(this.value);
+      },
+      //是否被禁用
+      inputdisabled(){
+        
+        return this.disabled
+      },
+   
+    
+    }
+}
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629128337680.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;标记&#34;&gt;标记&lt;/h2&gt;
+&lt;p&gt;主要认识&lt;sup&gt;上标&lt;/sup&gt;&lt;code&gt;sub&lt;/code&gt;和&lt;sup&gt;下标&lt;/sup&gt;&lt;code&gt;sup&lt;/code&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629128325988.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;图片&#34;&gt;图片&lt;/h2&gt;
+&lt;p&gt;第一次了解到css的&lt;code&gt;object-fit&lt;/code&gt;属性，对图片进行处理剪切&lt;/p&gt;
+&lt;p&gt;在图片加载的时候自己定义了loading的样式&lt;/p&gt;
+&lt;p&gt;对插槽理解运用也更加熟练。&lt;/p&gt;
+&lt;p&gt;（侧边栏刷新没有记忆下来index值，导致没有到指定位置，本地储存可以实现，不知道有没有更好的方法）&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;template&amp;gt;
+&amp;lt;div class=&amp;quot;fan-image&amp;quot;&amp;gt;
+
+     &amp;lt;slot v-if=&amp;quot;loading&amp;quot; name=&amp;quot;placeholder&amp;quot;&amp;gt;
+      &amp;lt;i class=&amp;quot;el-icon-loading fan-loading-img&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;
+    &amp;lt;/slot&amp;gt;
+
+    &amp;lt;slot v-else-if=&amp;quot;error&amp;quot; name=&#39;error&#39;&amp;gt;
+        &amp;lt;div class=&amp;quot;fan-image__error&amp;quot;&amp;gt;加载失败&amp;lt;/div&amp;gt;
+    &amp;lt;/slot&amp;gt;
+      &amp;lt;img
+  v-else
+  class=&amp;quot;fan-image__inner&amp;quot;
+  :src=&amp;quot;src&amp;quot;
+  :alt=&amp;quot;alt&amp;quot;
+  :style=&amp;quot;{ &#39;object-fit&#39;: fit }&amp;quot;&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;/template&amp;gt;
+
+&amp;lt;script&amp;gt;
+export default {
+    name:&#39;FanImage&#39;,
+
+    props:{
+
+        src:String,
+        alt:String,
+        fit:String,
+      
+},
+
+//监听src变化
+    watch:{
+        src:{
+            handler(val){
+                this.loadImage(val);
+        },
+            immediate:true
+    }
+},
+
+    data() {
+        return {
+            error:false,
+            loading:false
+        }
+},
+
+    methods: {
+         // 加载图片
+      loadImage(val) {
+        // reset status
+        this.loading=true
+       setTimeout(()=&amp;gt;{
+            this.error = false;
+
+        const img = new Image();
+        img.onload = this.handleLoad.bind(this);
+        img.onerror = this.handleError.bind(this);
+        img.src = val;
+       },500)
+      },
+      // load    图片加载成功触发   
+      handleLoad(e) {
+        this.loading=false
+        this.$emit(&#39;load&#39;, e);
+      },
+       // error    图片加载失败触发    
+      handleError(e) {
+        this.loading=false
+        this.error = true;
+        this.$emit(&#39;error&#39;, e);
+      },
+    },
+
+
+   
+}
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629128284362.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;6&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629128278993.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;看源码自己去写组件还是有很大的收获的，以前看vue文档会很迷糊，但现在配合组件开发会有很大的收获。&lt;/p&gt;
+&lt;p&gt;现在要结合vue文档和实例一起使用，才能高效性学习。&lt;/p&gt;
+">Vue开发ui组件日志2</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/xiao-xi-dui-lie-he-shi-jian-xun-huan-shi-zen-me-huo-qi-lai-de/"" data-c="
+          &lt;p&gt;消息队列&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1629094248592.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;p&gt;事件循环和消息队列&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629094243431.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;宏任务&#34;&gt;宏任务&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;渲染事件（如解析DOM、计算布局、绘制）&lt;/li&gt;
+&lt;li&gt;⽤⼾交互事件（如⿏标点击、滚动⻚⾯、放⼤缩⼩等）&lt;/li&gt;
+&lt;li&gt;JavaScript脚本执⾏事件&lt;/li&gt;
+&lt;li&gt;⽹络请求完成、⽂件读写完成事件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;p&gt;消息队列中宏任务⼤致流程：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先从多个消息队列中选出⼀个最⽼的任务，这个任务称为oldestTask；&lt;/li&gt;
+&lt;li&gt;然后循环系统记录任务开始执⾏的时间，并把这个oldestTask设置为当前正在执⾏的任务；&lt;/li&gt;
+&lt;li&gt;当任务执⾏完成之后，删除当前正在执⾏的任务，并从对应的消息队列中删除掉这个oldestTask&lt;/li&gt;
+&lt;li&gt;最后统计执⾏完成的时⻓等信息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;微任务&#34;&gt;微任务&lt;/h2&gt;
+&lt;p&gt;第⼀种是把异步回调函数封装成⼀个宏任务，添加到消息队列尾部，当循环系统执⾏到该任务的时候执⾏回 调函数&lt;/p&gt;
+&lt;p&gt;第⼆种⽅式的执⾏时机是在主函数执⾏结束之后、当前宏任务结束之前执⾏回调函数，这通常都是以微任务 形式体现的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;微任务就是⼀个需要异步执⾏的函数，执⾏时机是在主函数执⾏结束之后、当前宏任务结束之前。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当JavaScript执⾏⼀段脚本的时候，V8会为其创建⼀个全局执⾏上下⽂，在创建全局执⾏上下⽂的 同时，V8引擎也会在内部创建⼀个&lt;strong&gt;微任务队列&lt;/strong&gt;，微任务队列就是⽤来存放微任务的&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;微任务是怎么产生的&#34;&gt;微任务是怎么产⽣的？&lt;/h3&gt;
+&lt;p&gt;第⼀种⽅式是使⽤MutationObserver监控某个DOM节点，然后再通过JavaScript来修改这个节点，或者为 这个节点添加、删除部分⼦节点，当DOM节点发⽣变化时，就会产⽣DOM变化记录的微任务。&lt;/p&gt;
+&lt;p&gt;第⼆种⽅式是使⽤Promise，当调⽤Promise.resolve()或者Promise.reject()的时候，也会产⽣微任务。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;微任务队列是何时被执行&#34;&gt;微任务队列是何时被执⾏&lt;/h3&gt;
+&lt;p&gt;在当前宏任务中的JavaScript快执⾏完成时，JavaScript引擎会检查全局执⾏上下⽂中的微任务队列，然后按照顺序执⾏队列中的 微任务&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;结论：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;微任务和宏任务是绑定的，每个宏任务在执⾏时，会创建⾃⼰的微任务队列&lt;/li&gt;
+&lt;li&gt;微任务的执⾏时⻓会影响到当前宏任务的时⻓。&lt;/li&gt;
+&lt;li&gt;在⼀个宏任务中，分别创建⼀个⽤于回调的宏任务和微任务，⽆论什么情况下，微任务都早于宏任务执 ⾏。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;监听dom变化方法演变&#34;&gt;监听DOM变化⽅法演变&lt;/h2&gt;
+&lt;p&gt;最开始使用setTimeout或者setInterval来定时检测DOM是否有改变。这种⽅ 式简单粗暴，但是会遇到两个问题：如果时间间隔设置过⻓，DOM 变化响应不够及时；反过来如果时间间 隔设置过短，⼜会浪费很多⽆⽤的⼯作量去检查DOM，会让⻚⾯变得低效。&lt;/p&gt;
+&lt;p&gt;后来采用&lt;strong&gt;观察者的设计模式&lt;/strong&gt;，当DOM 有变动时就 会⽴刻触发相应的事件，这种⽅式属于同步回调。&lt;/p&gt;
+&lt;p&gt;再后来使⽤ MutationObserver，将响应函数改成异步调⽤，可以不⽤在每次DOM变化都触发异步调⽤，⽽是等多 次DOM变化后，⼀次触发异步调⽤&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过异步操作解决了同步操作的性能问题；&lt;/li&gt;
+&lt;li&gt;通过微任务解决了实时性的问题。&lt;/li&gt;
+&lt;/ul&gt;
+">消息队列和事件循环：⻚⾯是怎么“活”起来的？</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/bian-yi-qi-he-jie-shi-qi-v8-shi-ru-he-zhi-duan-javascript-dai-ma-de/"" data-c="
+          &lt;h2 id=&#34;编译器和解释器&#34;&gt;编译器和解释器&lt;/h2&gt;
+&lt;p&gt;机器不能直接理解我们所写的代码，所以在执⾏程序之前，需要将我们 所写的代码“翻译”成机器能读懂的机器语⾔。按语⾔的执⾏流程，可以把语⾔划分为编译型语⾔和解释型 语⾔。&lt;/p&gt;
+&lt;p&gt;编译型语⾔在程序执⾏之前，需要经过编译器的编译过程，并且编译之后会直接保留机器能读懂的⼆进制⽂件（c、c++）&lt;/p&gt;
+&lt;p&gt;解释型语⾔编写的程序，在每次运⾏时都需要通过解释器对程序进⾏动态解释和执⾏（js,py）&lt;/p&gt;
+&lt;p&gt;编译器和解释器是如何“翻译”代码流程&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629010215188.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;v8是如何执行一段javascript代码的&#34;&gt;V8是如何执⾏⼀段JavaScript代码的&lt;/h2&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629010210576.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;V8在执⾏过程中既有解释器Ignition，⼜有编译器TurboFan&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;生成抽象语法树ast和执行上下文&#34;&gt;⽣成抽象语法树（AST）和执⾏上下⽂&lt;/h3&gt;
+&lt;p&gt;将源代码转换为抽象语法树，并⽣成&lt;strong&gt;执⾏上下⽂&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;什么是AST？&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var myName = &amp;quot;极客时间&amp;quot;
+function foo(){
+return 23;
+}
+myName = &amp;quot;geektime&amp;quot;
+foo()
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;⽣成的AST结构如下&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629010203992.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;AST是⾮常重要的⼀种数据结构，在很多项⽬中有着⼴泛的应⽤。其中最著名的⼀个项⽬是Babel。Babel是 ⼀个被⼴泛使⽤的代码转码器，可以将ES6代码转为ES5代码&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;⽣成AST需 要经过两个阶段。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第⼀阶段是分词（tokenize），⼜称为词法分析&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629010198758.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;第⼆阶段是解析（parse），⼜称为&lt;strong&gt;语法分析&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;将上⼀步⽣成的数据，根据语法规则转为 AST。如果源码符合语法规则，这⼀步就会顺利完成。但如果源码存在语法错误，这⼀步就会终⽌，并抛出 ⼀个“语法错误”。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;生成字节码&#34;&gt;⽣成字节码&lt;/h3&gt;
+&lt;p&gt;有了AST和执⾏上下⽂后，那接下来的第⼆步，解释器Ignition就登场了，它会根据AST⽣成字节码，并解释 执⾏字节码。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;字节码是介于AST和机器码之间的⼀种代码。但是与特定类型的机器码⽆关，字节码需要通过解释器将其 转换为机器码后才能执⾏。&lt;/strong&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629010190956.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;执行代码&#34;&gt;执⾏代码&lt;/h3&gt;
+&lt;p&gt;⽣成字节码之后，接下来就要进⼊执⾏阶段了&lt;/p&gt;
+&lt;p&gt;在执⾏字节码的过程中，如果发 现有热点代码（HotSpot），⽐如⼀段代码被重复执⾏多次，这种就称为&lt;strong&gt;热点代码&lt;/strong&gt;，那么后台的编译器 TurboFan就会把该段热点的字节码编译为⾼效的机器码，然后当再次执⾏这段被优化的代码时，只需要执 ⾏编译后的机器码就可以了，这样就⼤⼤提升了代码的执⾏效率。&lt;/p&gt;
+">编译器和解释器：V8是如何执⾏⼀段JavaScript代码的？</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/generator-han-shu-de-yu-fa/"" data-c="
+          &lt;h2 id=&#34;基本概念&#34;&gt;基本概念&lt;/h2&gt;
+&lt;p&gt;Generator 函数是 ES6 提供的一种异步编程解决方案&lt;/p&gt;
+&lt;p&gt;Generator 函数是一个状态机，封装了多个内部状态。&lt;/p&gt;
+&lt;p&gt;执行 Generator 函数会返回一个遍历器对象，也就是说，Generator 函数除了状态机，还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。&lt;/p&gt;
+&lt;p&gt;Generator 函数有两个特征&lt;/p&gt;
+&lt;p&gt;一是&lt;code&gt;function&lt;/code&gt;关键字与函数名之间有一个星号；&lt;/p&gt;
+&lt;p&gt;二是函数体内部使用&lt;code&gt;yield&lt;/code&gt;表达式&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function* helloWorldGenerator() {
+  yield &#39;hello&#39;;
+  yield &#39;world&#39;;
+  return &#39;ending&#39;;
+}
+
+var hw = helloWorldGenerator();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;该函数有三个状态：hello，world 和 return 语句&lt;/p&gt;
+&lt;p&gt;该函数是一个指向内部状态的指针对象&lt;/p&gt;
+&lt;p&gt;调用遍历器对象的&lt;code&gt;next&lt;/code&gt;方法，使得指针移向下一个状态。也就是说，每次调用&lt;code&gt;next&lt;/code&gt;方法，内部指针就从函数头部或上一次停下来的地方开始执行，直到遇到下一个&lt;code&gt;yield&lt;/code&gt;表达式（或&lt;code&gt;return&lt;/code&gt;语句）为止。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;yield&lt;/code&gt;表达式是暂停执行的标记，而&lt;code&gt;next&lt;/code&gt;方法可以恢复执行。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;hw.next()
+// { value: &#39;hello&#39;, done: false }
+
+hw.next()
+// { value: &#39;world&#39;, done: false }
+
+hw.next()
+// { value: &#39;ending&#39;, done: true }
+
+hw.next()
+// { value: undefined, done: true }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;最后一次调用&lt;code&gt;next&lt;/code&gt;的时候，Generator函数已经执行完毕，&lt;code&gt;next&lt;/code&gt;方法返回对象的&lt;code&gt;value&lt;/code&gt;属性为&lt;code&gt;undefined&lt;/code&gt;，&lt;code&gt;done&lt;/code&gt;属性的值&lt;code&gt;true&lt;/code&gt;，表示遍历已经结束。&lt;/p&gt;
+&lt;p&gt;每次调用遍历器对象的&lt;code&gt;next&lt;/code&gt;方法，就会返回一个有着&lt;code&gt;value&lt;/code&gt;和&lt;code&gt;done&lt;/code&gt;两个属性的对象。&lt;code&gt;value&lt;/code&gt;属性表示当前的内部状态的值，是&lt;code&gt;yield&lt;/code&gt;表达式后面那个表达式的值；&lt;code&gt;done&lt;/code&gt;属性是一个布尔值，表示是否遍历结束。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;yield-表达式&#34;&gt;yield 表达式&lt;/h2&gt;
+&lt;p&gt;由于 Generator 函数返回的遍历器对象，只有调用&lt;code&gt;next&lt;/code&gt;方法才会遍历下一个内部状态，所以其实提供了一种可以暂停执行的函数。&lt;code&gt;yield&lt;/code&gt;表达式就是暂停标志。&lt;/p&gt;
+&lt;p&gt;遍历器对象的&lt;code&gt;next&lt;/code&gt;方法的运行逻辑如下。&lt;/p&gt;
+&lt;p&gt;（1）遇到&lt;code&gt;yield&lt;/code&gt;表达式，就暂停执行后面的操作，并将紧跟在&lt;code&gt;yield&lt;/code&gt;后面的那个表达式的值，作为返回的对象的&lt;code&gt;value&lt;/code&gt;属性值。&lt;/p&gt;
+&lt;p&gt;（2）下一次调用&lt;code&gt;next&lt;/code&gt;方法时，再继续往下执行，直到遇到下一个&lt;code&gt;yield&lt;/code&gt;表达式。&lt;/p&gt;
+&lt;p&gt;（3）如果没有再遇到新的&lt;code&gt;yield&lt;/code&gt;表达式，就一直运行到函数结束，直到&lt;code&gt;return&lt;/code&gt;语句为止，并将&lt;code&gt;return&lt;/code&gt;语句后面的表达式的值，作为返回的对象的&lt;code&gt;value&lt;/code&gt;属性值。&lt;/p&gt;
+&lt;p&gt;（4）如果该函数没有&lt;code&gt;return&lt;/code&gt;语句，则返回的对象的&lt;code&gt;value&lt;/code&gt;属性值为&lt;code&gt;undefined&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;yield&lt;/code&gt;表达式后面的表达式，只有当调用&lt;code&gt;next&lt;/code&gt;方法、内部指针指向该语句时&lt;strong&gt;才会执行&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function* gen() {
+  yield  123 + 456;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;yield&lt;/code&gt;后面的表达式&lt;code&gt;123 + 456&lt;/code&gt;，不会立即求值，只会在&lt;code&gt;next&lt;/code&gt;方法将指针移到这一句时，才会求值。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Generator 函数可以不用&lt;code&gt;yield&lt;/code&gt;表达式，这时就变成了一个单纯的暂缓执行函数。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function* f() {
+  console.log(&#39;执行了！&#39;)
+}
+
+var generator = f();
+
+setTimeout(function () {
+  generator.next()
+}, 2000);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;函数&lt;code&gt;f&lt;/code&gt;是一个 Generator 函数，就变成只有调用&lt;code&gt;next&lt;/code&gt;方法时，函数&lt;code&gt;f&lt;/code&gt;才会执行。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;yield&lt;/code&gt;表达式如果用在另一个表达式之中，必须放在圆括号里面&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function* demo() {
+  console.log(&#39;Hello&#39; + yield); // SyntaxError
+  console.log(&#39;Hello&#39; + yield 123); // SyntaxError
+
+  console.log(&#39;Hello&#39; + (yield)); // OK
+  console.log(&#39;Hello&#39; + (yield 123)); // OK
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;next-方法的参数&#34;&gt;next 方法的参数&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;next&lt;/code&gt;方法可以带一个参数，该参数就会被当作&lt;strong&gt;上一个&lt;code&gt;yield&lt;/code&gt;表达式的返回值&lt;/strong&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function* f() {
+  for(var i = 0; true; i++) {
+    var reset = yield i;
+    if(reset) { i = -1; }
+  }
+}
+
+var g = f();
+
+g.next() // { value: 0, done: false }
+g.next() // { value: 1, done: false }
+g.next(true) // { value: 0, done: false }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function* foo(x) {
+  var y = 2 * (yield (x + 1));
+  var z = yield (y / 3);
+  return (x + y + z);
+}
+
+var a = foo(5);
+a.next() // Object{value:6, done:false}
+a.next() // Object{value:NaN, done:false}
+a.next() // Object{value:NaN, done:true}
+
+var b = foo(5);
+b.next() // { value:6, done:false }
+b.next(12) // { value:8, done:false }
+b.next(13) // { value:42, done:true }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;第二次运行&lt;code&gt;next&lt;/code&gt;方法的时候不带参数，导致 y 的值等于&lt;code&gt;2 * undefined&lt;/code&gt;（即&lt;code&gt;NaN&lt;/code&gt;），除以 3 以后还是&lt;code&gt;NaN&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;第三次运行&lt;code&gt;Next&lt;/code&gt;方法的时候不带参数，所以&lt;code&gt;z&lt;/code&gt;等于&lt;code&gt;undefined&lt;/code&gt;，返回对象的&lt;code&gt;value&lt;/code&gt;属性等于&lt;code&gt;5 + NaN + undefined&lt;/code&gt;，即&lt;code&gt;NaN&lt;/code&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;调用&lt;code&gt;b&lt;/code&gt;的&lt;code&gt;next&lt;/code&gt;方法时，返回&lt;code&gt;x+1&lt;/code&gt;的值&lt;code&gt;6&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;二次调用&lt;code&gt;next&lt;/code&gt;方法，将上一次&lt;code&gt;yield&lt;/code&gt;表达式的值设为&lt;code&gt;12&lt;/code&gt;，因此&lt;code&gt;y&lt;/code&gt;等于&lt;code&gt;24&lt;/code&gt;，返回&lt;code&gt;y / 3&lt;/code&gt;的值&lt;code&gt;8&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;第三次调用&lt;code&gt;next&lt;/code&gt;方法，将上一次&lt;code&gt;yield&lt;/code&gt;表达式的值设为&lt;code&gt;13&lt;/code&gt;，因此&lt;code&gt;z&lt;/code&gt;等于&lt;code&gt;13&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;这时&lt;code&gt;x&lt;/code&gt;等于&lt;code&gt;5&lt;/code&gt;，&lt;code&gt;y&lt;/code&gt;等于&lt;code&gt;24&lt;/code&gt;，所以&lt;code&gt;return&lt;/code&gt;语句的值等于&lt;code&gt;42&lt;/code&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;forof-循环&#34;&gt;for...of 循环&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;for...of&lt;/code&gt;循环可以自动遍历 Generator 函数运行时生成的&lt;code&gt;Iterator&lt;/code&gt;对象，且此时不再需要调用&lt;code&gt;next&lt;/code&gt;方法。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function* foo() {
+  yield 1;
+  yield 2;
+  yield 3;
+  yield 4;
+  yield 5;
+  return 6;
+}
+
+for (let v of foo()) {
+  console.log(v);
+}
+// 1 2 3 4 5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;一旦&lt;code&gt;next&lt;/code&gt;方法的返回对象的&lt;code&gt;done&lt;/code&gt;属性为&lt;code&gt;true&lt;/code&gt;，&lt;code&gt;for...of&lt;/code&gt;循环就会中止，且不包含该返回对象，所以上面代码的&lt;code&gt;return&lt;/code&gt;语句返回的&lt;code&gt;6&lt;/code&gt;，不包括在&lt;code&gt;for...of&lt;/code&gt;循环之中&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;generatorprototypethrow&#34;&gt;&lt;code&gt;Generator.prototype.throw()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Generator 函数返回的遍历器对象，都有一个&lt;code&gt;throw&lt;/code&gt;方法，可以在函数体外抛出错误，然后在 Generator 函数体内捕获。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var g = function* () {
+  try {
+    yield;
+  } catch (e) {
+    console.log(&#39;内部捕获&#39;, e);
+  }
+};
+
+var i = g();
+i.next();
+
+try {
+  i.throw(&#39;a&#39;);
+  i.throw(&#39;b&#39;);
+} catch (e) {
+  console.log(&#39;外部捕获&#39;, e);
+}
+// 内部捕获 a
+// 外部捕获 b
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;第一个错误被 Generator 函数体内的&lt;code&gt;catch&lt;/code&gt;语句捕获。&lt;code&gt;i&lt;/code&gt;第二次抛出错误，由于 Generator 函数内部的&lt;code&gt;catch&lt;/code&gt;语句已经执行过了，不会再捕捉到这个错误了，所以这个错误就被抛出了 Generator 函数体，被函数体外的&lt;code&gt;catch&lt;/code&gt;语句捕获。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;throw&lt;/code&gt;方法可以接受一个参数，该参数会被&lt;code&gt;catch&lt;/code&gt;语句接收&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;generatorprototypereturn&#34;&gt;&lt;code&gt;Generator.prototype.return()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;return()&lt;/code&gt;方法可以返回给定的值，并且终结遍历 Generator 函数。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function* gen() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+var g = gen();
+
+g.next()        // { value: 1, done: false }
+g.return(&#39;foo&#39;) // { value: &amp;quot;foo&amp;quot;, done: true }
+g.next()        // { value: undefined, done: true }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;yield-表达式-2&#34;&gt;yield* 表达式&lt;/h2&gt;
+&lt;p&gt;用来在一个 Generator 函数里面执行另一个 Generator 函数&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function* foo() {
+  yield &#39;a&#39;;
+  yield &#39;b&#39;;
+}
+
+function* bar() {
+  yield &#39;x&#39;;
+  yield* foo();
+  yield &#39;y&#39;;
+}
+
+// 等同于
+function* bar() {
+  yield &#39;x&#39;;
+  yield &#39;a&#39;;
+  yield &#39;b&#39;;
+  yield &#39;y&#39;;
+}
+
+// 等同于
+function* bar() {
+  yield &#39;x&#39;;
+  for (let v of foo()) {
+    yield v;
+  }
+  yield &#39;y&#39;;
+}
+
+for (let v of bar()){
+  console.log(v);
+}
+// &amp;quot;x&amp;quot;
+// &amp;quot;a&amp;quot;
+// &amp;quot;b&amp;quot;
+// &amp;quot;y&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;意义&#34;&gt;意义&lt;/h2&gt;
+&lt;p&gt;Generator 函数的暂停执行的效果，意味着可以把异步操作写在&lt;code&gt;yield&lt;/code&gt;表达式里面，等到调用&lt;code&gt;next&lt;/code&gt;方法时再往后执行。这实际上等同于不需要写回调函数了，因为异步操作的后续操作可以放在&lt;code&gt;yield&lt;/code&gt;表达式下面，反正要等到调用&lt;code&gt;next&lt;/code&gt;方法时再执行&lt;/p&gt;
+&lt;p&gt;Generator 函数的一个重要实际意义就是用来处理异步操作，改写回调函数&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function* loadUI() {
+  showLoadingScreen();
+  yield loadUIDataAsynchronously();
+  hideLoadingScreen();
+}
+var loader = loadUI();
+// 加载UI
+loader.next()
+
+// 卸载UI
+loader.next()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Promise.resolve(step1)
+  .then(step2)
+  .then(step3)
+  .then(step4)
+  .then(function (value4) {
+    // Do something with value4
+  }, function (error) {
+    // Handle any error from step1 through step4
+  })
+  .done();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Generator 函数可以进一步改善代码运行流程&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function* longRunningTask(value1) {
+  try {
+    var value2 = yield step1(value1);
+    var value3 = yield step2(value2);
+    var value4 = yield step3(value3);
+    var value5 = yield step4(value4);
+    // Do something with value4
+  } catch (e) {
+    // Handle any error from step1 through step4
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+"> Generator 函数的语法</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/la-ji-hui-shou-la-ji-shu-ju-shi-ru-he-dong-hui-shou-de/"" data-c="
