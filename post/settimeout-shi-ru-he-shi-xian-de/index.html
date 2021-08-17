@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>作用域 | fanfan</title>
+<title> setTimeout是如何实现的？ | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1629192135287">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,7 +41,7 @@
 
 
 
-  <meta name="description" content="作用域" />
+  <meta name="description" content=" setTimeout是如何实现的？" />
   <meta name="keywords" content="Javascript" />
 </head>
 
@@ -284,24 +284,15 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E7%B1%BB%E5%9E%8B">类型</a>
+<li><a href="#%E4%BB%8B%E7%BB%8D">介绍</a></li>
+<li><a href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0settimeout">浏览器怎么实现setTimeout</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8settimeout%E7%9A%84%E4%B8%80%E4%BA%9B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">使⽤setTimeout的⼀些注意事项</a>
 <ul>
-<li><a href="#%E5%8A%A8%E6%80%81%E5%B1%9E%E6%80%A7">动态属性</a></li>
-<li><a href="#%E5%A4%8D%E5%88%B6%E5%8F%98%E9%87%8F%E5%80%BC">复制变量值</a></li>
-<li><a href="#%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0">传递参数</a></li>
-<li><a href="#%E6%A3%80%E6%9F%A5%E7%B1%BB%E5%9E%8B">检查类型</a></li>
-</ul>
-</li>
-<li><a href="#%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83%E5%8F%8A%E4%BD%9C%E7%94%A8%E5%9F%9F">执行环境及作用域</a>
-<ul>
-<li><a href="#%E5%BB%B6%E9%95%BF%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE">延长作用域链</a></li>
-<li><a href="#%E6%B2%A1%E6%9C%89%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F">没有块级作用域</a></li>
-</ul>
-</li>
-<li><a href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86">垃圾收集</a>
-<ul>
-<li><a href="#%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4">标记清除</a></li>
-<li><a href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0">引用计数</a></li>
+<li><a href="#%E5%A6%82%E6%9E%9C%E5%BD%93%E5%89%8D%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E8%BF%87%E4%B9%85%E4%BC%9A%E5%BD%B1%E5%BB%B6%E8%BF%9F%E5%88%B0%E6%9C%9F%E5%AE%9A%E6%97%B6%E5%99%A8%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%89%A7%E8%A1%8C">如果当前任务执⾏时间过久，会影延迟到期定时器任务的执⾏</a></li>
+<li><a href="#%E5%A6%82%E6%9E%9Csettimeout%E5%AD%98%E5%9C%A8%E5%B5%8C%E5%A5%97%E8%B0%83%E7%94%A8%E9%82%A3%E4%B9%88%E7%B3%BB%E7%BB%9F%E4%BC%9A%E8%AE%BE%E7%BD%AE%E6%9C%80%E7%9F%AD%E6%97%B6%E9%97%B4%E9%97%B4%E9%9A%94%E4%B8%BA4%E6%AF%AB%E7%A7%92">如果setTimeout存在嵌套调⽤，那么系统会设置最短时间间隔为4毫秒</a></li>
+<li><a href="#%E6%9C%AA%E6%BF%80%E6%B4%BB%E7%9A%84%E9%9D%A2settimeout%E6%89%A7%E8%A1%8C%E6%9C%80%E5%B0%8F%E9%97%B4%E9%9A%94%E6%98%AF1000%E6%AF%AB%E7%A7%92">未激活的⻚⾯，setTimeout执⾏最⼩间隔是1000毫秒</a></li>
+<li><a href="#%E5%BB%B6%E6%97%B6%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E6%9C%89%E6%9C%80%E5%A4%A7%E5%80%BC">延时执⾏时间有最⼤值</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8settimeout%E8%AE%BE%E7%BD%AE%E7%9A%84%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E4%B8%AD%E7%9A%84this%E4%B8%8D%E7%AC%A6%E5%90%88%E7%9B%B4%E8%A7%89">使⽤setTimeout设置的回调函数中的this不符合直觉</a></li>
 </ul>
 </li>
 </ul>
@@ -571,8 +562,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/zuo-yong-yu/">
-      作用域
+    <a class="post-title-link" href="https://fanfankill.github.io/post/settimeout-shi-ru-he-shi-xian-de/">
+       setTimeout是如何实现的？
     </a>
   </h1>
   <div class="post-meta">
@@ -580,7 +571,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-08-01 13:06:30">2021-08-01</span>
+      <span class="publish-time" data-t="2021-08-17 12:52:47">2021-08-17</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -604,116 +595,110 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1281<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1199<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h2 id="类型">类型</h2>
-<p>ECMAScript 变量包含：基本类型值和引用类型值</p>
-<p><strong>基本类型值</strong>指的是 简单的数据段，而<strong>引用类型值</strong>指那些可能由多个值构成的对象。</p>
-<p>基本数据类型：Undefined、Null、Boolean、Number 和 String</p>
-<br>
-<h3 id="动态属性">动态属性</h3>
-<p>我们不能给基本类型的值添加属性</p>
-<pre><code class="language-js">var name = &quot;Nicholas&quot;; 
-name.age = 27; 
-alert(name.age); //undefined
+              <h2 id="介绍">介绍</h2>
+<p><code>setTimeout</code>它就是 ⼀个定时器，⽤来指定某个函数在多少毫秒之后执⾏</p>
+<p>它会返回⼀个整数，表⽰定时器的编号，同时你还可 以通过该编号来取消这个定时器。</p>
+<p>示例：</p>
+<pre><code class="language-js">function showName(){
+console.log(&quot;极客时间&quot;)
+}
+var timerID = setTimeout(showName,200);
+
 </code></pre>
 <br>
-<h3 id="复制变量值">复制变量值</h3>
-<p>基本类型就是值复制</p>
-<p>当从一个变量向另一个变量复制引用类型的值时，同样也会将存储在变量对象中的值复制一份放到 为新变量分配的空间中。不同的是，这个值的副本实际上是一个指针，而这个指针指向存储在堆中的一 个对象。</p>
-<br>
-<h3 id="传递参数">传递参数</h3>
-<p>为了证明对象是按<strong>值传递</strong>的</p>
-<pre><code class="language-js">function setName(obj) { 
- obj.name = &quot;Nicholas&quot;; 
- obj = new Object(); 
- obj.name = &quot;Greg&quot;; 
-} 
-var person = new Object(); 
-setName(person); 
-alert(person.name); //&quot;Nicholas&quot; 
-</code></pre>
-<p>当在函数内部重写 obj 时，这 个变量引用的就是一个局部对象了。而这个局部对象会在函数执行完毕后立即被销毁。</p>
-<br>
-<h3 id="检查类型">检查类型</h3>
-<p><code>typeof</code></p>
-<pre><code class="language-js">var s = &quot;Nicholas&quot;; 
-var b = true; 
-var i = 22; 
-var u; 
-var n = null; 
-var o = new Object(); 
-alert(typeof s); //string 
-alert(typeof i); //number 
-alert(typeof b); //boolean 
-alert(typeof u); //undefined 
-alert(typeof n); //object 
-alert(typeof o); //object
-</code></pre>
-<br>
-<p><code>instanceof</code></p>
-<pre><code class="language-js">alert(person instanceof Object); // 变量 person 是 Object 吗？
-alert(colors instanceof Array); // 变量 colors 是 Array 吗？
-alert(pattern instanceof RegExp); // 变量 pattern 是 RegExp 吗？
-</code></pre>
-<p>所有引用类型的值都是 Object 的实例。因此，在检测一个引用类型值和 Object 构造 函数时，instanceof 操作符始终会返回 true</p>
-<br>
-<h2 id="执行环境及作用域">执行环境及作用域</h2>
-<p>在 Web 浏览器中，全局执行环境被认为是 window 对象，因 此所有全局变量和函数都是作为 window 对象的属性和方法创建的。</p>
-<p>全局执行环境直到应用程序退 出——例如关闭网页或浏览器——时才会被销毁</p>
-<p>每个函数都有自己的<strong>执行环境</strong>。</p>
-<p>当代码在一个环境中执行时，会创建变量对象的一个<strong>作用域链</strong>（scope chain）。作用域链的用途，是 保证对执行环境有权访问的所有变量和函数的有序访问。</p>
-<p>内部环境可以通过作用域链访问所有的外部环境，但 外部环境不能访问内部环境中的任何变量和函数</p>
-<br>
-<h3 id="延长作用域链">延长作用域链</h3>
-<p>然执行环境的类型总共只有两种——全局和局部（函数）</p>
+<h2 id="浏览器怎么实现settimeout">浏览器怎么实现setTimeout</h2>
+<p>我们知道渲染进程中所有运⾏在主线程 上的任务都需要先添加到消息队列，我们知道渲染进程中所有运⾏在主线程 上的任务都需要先添加到消息队列，例如：</p>
 <ul>
-<li>try-catch 语句的 catch 块</li>
-<li>with 语句</li>
+<li>当接收到HTML⽂档数据，渲染引擎就会将“解析DOM”事件添加到消息队列中</li>
+<li>当⽤⼾改变了Web⻚⾯的窗⼝⼤⼩，渲染引擎就会将“重新布局”的事件添加到消息队列中。</li>
+<li>当触发了JavaScript引擎垃圾回收机制，渲染引擎会将“垃圾回收”任务添加到消息队列中。</li>
+<li>同样，如果要执⾏⼀段异步JavaScript代码，也是需要将执⾏任务添加到消息队列中。</li>
 </ul>
-<pre><code class="language-js">function buildUrl() { 
- var qs = &quot;?debug=true&quot;; 
- with(location){ 
- var url = location.href + qs; 
- } 
- return url; 
-} 
+<p>在Chrome中除了正常使⽤的消息队列之外，还有另外⼀个消息队列，这个队列中<strong>维护了需要延迟执⾏的任务列表</strong>，包括了定时器和Chromium内部⼀些需要延迟执⾏的任务。所以当通过JavaScript创建⼀个定时器 时，<strong>渲染进程会将该定时器的回调任务添加到延迟队列中</strong>。</p>
+<p>当通过JavaScript调⽤setTimeout设置回调函数的时候，渲染进程将会创建⼀个<strong>回调任务</strong>，包含了回调函 数showName、当前发起时间、延迟执⾏时间</p>
+<p>创建好回调任务之后，再将该任务添加到延迟执⾏队列中</p>
+<p>浏览器会根据发起时间和延迟时间计算出到期的任务，然后依次 执⾏这些到期的任务</p>
+<br>
+<h2 id="使用settimeout的一些注意事项">使⽤setTimeout的⼀些注意事项</h2>
+<h3 id="如果当前任务执行时间过久会影延迟到期定时器任务的执行">如果当前任务执⾏时间过久，会影延迟到期定时器任务的执⾏</h3>
+<p>在使⽤setTimeout的时候，有很多因素会导致回调函数执⾏⽐设定的预期值要久，其中⼀个就是当前任务 执⾏时间过久从⽽导致定时器设置的任务被延后执⾏</p>
+<pre><code class="language-js">function bar() {
+console.log('bar')
+}
+
+function foo() {
+setTimeout(bar, 0);
+for (let i = 0; i &lt; 5000; i++) {
+let i = 5+8+8+8
+console.log(i)
+	}
+}
+
+foo()
+
 </code></pre>
-<p>with 语句接收的是 location 对象，因此其变量对象中就包含了 location 对象的所有属 性和方法，而这个变量对象被添加到了作用域链的前端</p>
+<p>在执⾏foo函数的时候使⽤setTimeout设置了⼀个0延时的回调任务，设置好回调任务后，foo 函数会继续执⾏5000次for循环。</p>
+<p>通过setTimeout设置的回调任务被放⼊了消息队列中并且等待下⼀次执⾏，这⾥并不是⽴即执⾏的；要执 ⾏消息队列中的下个任务，需要等待当前的任务执⾏完成，由于当前这段代码要执⾏5000次的for循环，所 以当前这个任务的执⾏时间会⽐较久⼀点。这势必会影响到下个任务的执⾏时间。</p>
 <br>
-<h3 id="没有块级作用域">没有块级作用域</h3>
-<p>由 for 语句创建的变量 i 即使在 for 循环执行结束后，也依旧会存在 于循环外部的执行环境中。</p>
-<ul>
-<li>声明变量</li>
-</ul>
-<p>使用 var 声明的变量会自动被添加到最接近的环境中</p>
-<ul>
-<li>
-<p>查询标识符</p>
-<p>当在某个环境中为了读取或写入而引用一个标识符时，搜索过程从作用域链的前端开始，向上逐级查询与给定名字匹配的标识符。找到 了该标识符，搜索过程停止</p>
-</li>
-</ul>
+<h3 id="如果settimeout存在嵌套调用那么系统会设置最短时间间隔为4毫秒">如果setTimeout存在嵌套调⽤，那么系统会设置最短时间间隔为4毫秒</h3>
+<p>也就是说在定时器函数⾥⾯嵌套调⽤定时器，也会延⻓定时器的执⾏时间</p>
+<pre><code class="language-js">function cb() { 
+setTimeout(cb, 0); }
+
+setTimeout(cb, 0);
+
+</code></pre>
+<p>在Chrome中，定时 器被嵌套调⽤5次以上，系统会判断该函数⽅法被阻塞了，如果定时器的调⽤时间间隔⼩于4毫秒，那么浏览 器会将每次调⽤的时间间隔设置为4毫秒。</p>
 <br>
-<h2 id="垃圾收集">垃圾收集</h2>
-<p>JavaScript 具有自动垃圾收集机制</p>
-<p>这种垃圾收集机制的原理其实很简单：找<strong>出那些不再继续使用的变 量，然后释放其占用的内存</strong></p>
-<p>为此，垃圾收集器会按照固定的时间间隔， 周期性地执行这一操作</p>
+<h3 id="未激活的面settimeout执行最小间隔是1000毫秒">未激活的⻚⾯，setTimeout执⾏最⼩间隔是1000毫秒</h3>
+<p>未被激活的⻚⾯中定时器最⼩值⼤于1000毫 秒，也就是说，如如果标签不是当前的激活标签，那么定时器最⼩的时间间隔是1000毫秒，⽬的是为了优化 后台⻚⾯的加载损耗以及降低耗电量。</p>
 <br>
-<h3 id="标记清除">标记清除</h3>
-<p>JavaScript 中最常用的垃圾收集方式是<strong>标记清除</strong></p>
-<p>当变量进入环境时，就将这个变量标记为“进入环境”。</p>
-<p>而当变量离开环境时，则将其 标记为“离开环境”</p>
-<p>垃圾收集器在运行的时候会给存储在内存中的所有变量都加上标记。然后，它会去掉环境中的变量以及被环境中的变量引用的变量的标记。而在此之后再被加上标记 的变量将被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。</p>
+<h3 id="延时执行时间有最大值">延时执⾏时间有最⼤值</h3>
+<p>Chrome、 Safari、Firefox都是以32个bit来存储延时值的，32bit最⼤只能存放的数字是2147483647毫秒，这就意味 着，如果setTimeout设置的延迟值⼤于 2147483647毫秒（⼤约24.8天）时就会溢出，这导致定时器会被⽴ 即执⾏。</p>
+<pre><code class="language-js">function showName(){
+console.log(&quot;极客时间&quot;)
+}
+
+var timerID = setTimeout(showName,2147483648);//会被理解调⽤执⾏
+</code></pre>
+<p>这段代码是会⽴即被执⾏的</p>
 <br>
-<h3 id="引用计数">引用计数</h3>
-<p>不太常见的垃圾收集策略</p>
-<p><strong>引用计数</strong>的含义是跟踪记录每 个值被引用的次数</p>
-<p>当声明了一个变量并将一个引用类型值赋给该变量时，则这个值的引用次数就是 1，如果同一个值又被赋给另一个变量，则该值的引用次数加 1。相反，如果包含对这个值引用的变量又取 得了另外一个值，则这个值的引用次数减 1。当这个值的引用次数变成 0 时，则说明没有办法再访问这 个值了，因而就可以将其占用的内存空间回收回来。</p>
+<h3 id="使用settimeout设置的回调函数中的this不符合直觉">使⽤setTimeout设置的回调函数中的this不符合直觉</h3>
+<p>如果被setTimeout推迟执⾏的回调函数是某个对象的⽅法，那么该⽅法中的this关键字将指向全局环境，⽽ 不是定义时所在的那个对象。</p>
+<pre><code class="language-js">var name= 1;
+
+var MyObj = {
+name: 2,
+showName: function(){
+console.log(this.name);
+	}    
+}
+
+setTimeout(MyObj.showName,1000)
+
+</code></pre>
+<p>这⾥输出的是1，因为这段代码在编译的时候，执⾏上下⽂中的this会被设置为全局window</p>
+<p>解决方法</p>
+<p>第⼀种是将MyObj.showName放在匿名函数中执⾏</p>
+<pre><code class="language-js">//箭头函数
+setTimeout(() =&gt; {
+MyObj.showName()
+}, 1000);
+
+//或者function函数
+setTimeout(function() {
+MyObj.showName();
+}, 1000
+</code></pre>
 <br>
+<p>第⼆种是使⽤bind⽅法，将showName绑定在MyObj上⾯</p>
+<p><code>setTimeout(MyObj.showName.bind(MyObj), 1000)</code></p>
 
             </div>
             
@@ -726,7 +711,7 @@ alert(pattern instanceof RegExp); // 变量 pattern 是 RegExp 吗？
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/zuo-yong-yu/" title="作用域">https://fanfankill.github.io/post/zuo-yong-yu/</a>
+      <a href="https://fanfankill.github.io/post/settimeout-shi-ru-he-shi-xian-de/" title=" setTimeout是如何实现的？">https://fanfankill.github.io/post/settimeout-shi-ru-he-shi-xian-de/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -742,14 +727,14 @@ alert(pattern instanceof RegExp); // 变量 pattern 是 RegExp 吗？
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="HTTP请求流程：为什么很多站点第⼆次打开速度会很快？" href="https://fanfankill.github.io/post/http-qing-qiu-liu-cheng-wei-shi-me-hen-duo-zhan-dian-di-ci-da-kai-su-du-hui-hen-kuai/">HTTP请求流程：为什么很多站点第⼆次打开速度会很快？</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="HTTP请求流程：为什么很多站点第⼆次打开速度会很快？" href="https://fanfankill.github.io/post/http-qing-qiu-liu-cheng-wei-shi-me-hen-duo-zhan-dian-di-ci-da-kai-su-du-hui-hen-kuai/">上一篇</a>
+        <a class="nav-pc-next" title="XMLHttpRequest是怎么实现的？" href="https://fanfankill.github.io/post/xmlhttprequest-shi-zen-me-shi-xian-de/">XMLHttpRequest是怎么实现的？</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="XMLHttpRequest是怎么实现的？" href="https://fanfankill.github.io/post/xmlhttprequest-shi-zen-me-shi-xian-de/">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="TCP协议：如何保证⻚⾯⽂件能被完整送达浏览器？" href="https://fanfankill.github.io/post/tcp-xie-yi-ru-he-bao-zheng-jian-neng-bei-wan-zheng-song-da-liu-lan-qi/">TCP协议：如何保证⻚⾯⽂件能被完整送达浏览器？</a>
-        <a class="nav-mobile-next" title="TCP协议：如何保证⻚⾯⽂件能被完整送达浏览器？" href="https://fanfankill.github.io/post/tcp-xie-yi-ru-he-bao-zheng-jian-neng-bei-wan-zheng-song-da-liu-lan-qi/">下一篇</a>
+        <a class="nav-pc-next" title="Vue开发ui组件日志2" href="https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi-2/">Vue开发ui组件日志2</a>
+        <a class="nav-mobile-next" title="Vue开发ui组件日志2" href="https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi-2/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

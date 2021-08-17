@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1629128634447">
+<link rel="shortcut icon" href="/favicon.ico?v=1629192135287">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">61</span>
+        <span class="site-item-stat-count">63</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1156,6 +1156,232 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/xmlhttprequest-shi-zen-me-shi-xian-de/"" data-c="
+          &lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
+&lt;p&gt;在XMLHttpRequest出现之前，如果服务器数据有更新，依然需要重新刷新整个⻚⾯。⽽ XMLHttpRequest提供了从Web服务器获取数据的能⼒，如果你想要更新某条数据，只需要通过 XMLHttpRequest请求服务器提供的接⼝，就可以获取到服务器的数据，然后再操作DOM来更新⻚⾯内容， 整个过程只需要更新⽹⻚的⼀部分就可以了，⽽不⽤像之前那样还得刷新整个⻚⾯，这样既有效率⼜不会打 扰到⽤⼾。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;回调函数-vs-系统调用栈&#34;&gt;回调函数 VS 系统调⽤栈&lt;/h2&gt;
+&lt;p&gt;将⼀个函数作为参数传递给另外⼀个函数，那作为参数的这个函数就是&lt;strong&gt;回调函数&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let callback = function(){
+console.log(&#39;i am do homework&#39;)
+}
+
+function doWork(cb) {
+console.log(&#39;start do work&#39;)
+cb()
+console.log(&#39;end do work&#39;)
+}
+
+doWork(callback)
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;将⼀个匿名函数赋值给变量callback，同时将callback作为参数传递给了doWork() 函数，这时在函数&lt;strong&gt;doWork()&lt;strong&gt;中callback就是&lt;/strong&gt;回调函数&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;⾯的回调⽅法有个特点，就是回调函数callback是在主函数doWork返回之前执⾏的，我们把这个回调过 程称为&lt;strong&gt;同步回调&lt;/strong&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let callback = function(){
+console.log(&#39;i am do homework&#39;)
+}
+
+function doWork(cb) {
+console.log(&#39;start do work&#39;)
+setTimeout(cb,0)
+console.log(&#39;end do work&#39;)
+}
+
+doWork(callback)
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;使⽤了setTimeout函数让callback在doWork函数执⾏结束后执行，这次callback并没有在主函数doWork内部被调⽤，我们把这种回调函数在主函数外部执⾏的过程称为&lt;strong&gt;异步 回调&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;异步回调是指回调函数在主函数之外执⾏，⼀般有两 种⽅式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第⼀种是把异步函数做成⼀个任务，添加到信息队列尾部；&lt;/li&gt;
+&lt;li&gt;第⼀种是把异步函数做成⼀个任务，添加到信息队列尾部；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;xmlhttprequest运作机制&#34;&gt;XMLHttpRequest运作机制&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  function GetWebData(URL) {
+      /**
+      * 1:新建XMLHttpRequest请求对象
+      */
+      let xhr = new XMLHttpRequest()
+      /**
+      * 2:注册相关事件回调处理函数
+      */
+      xhr.onreadystatechange = function () {
+        switch (xhr.readyState) {
+          case 0: //请求未初始化
+            console.log(&amp;quot;请求未初始化&amp;quot;)
+            break;
+          case 1://OPENED
+            console.log(&amp;quot;OPENED&amp;quot;)
+            break;
+          case 2://HEADERS_RECEIVED
+            console.log(&amp;quot;HEADERS_RECEIVED&amp;quot;)
+            break;
+          case 3://LOADING
+            console.log(&amp;quot;LOADING&amp;quot;)
+            break;
+          case 4://DONE
+            if (this.status == 200 || this.status == 304) {
+              console.log(this.responseText);
+            }
+            console.log(&amp;quot;DONE&amp;quot;)
+            break;
+        }
+      }
+      xhr.ontimeout = function (e) { console.log(&#39;ontimeout&#39;) }
+      xhr.onerror = function (e) { console.log(&#39;onerror&#39;) }
+      /**
+      * 3:打开请求
+      */
+      xhr.open(&#39;Get&#39;, URL, true);//创建⼀个Get请求,采⽤异步
+      /**
+      * 4:配置参数
+      */
+      xhr.timeout = 3000 //设置xhr请求的超时时间
+      xhr.responseType = &amp;quot;text&amp;quot; //设置响应返回的数据格式
+      xhr.setRequestHeader(&amp;quot;X_TEST&amp;quot;, &amp;quot;time.geekbang&amp;quot;)
+      /**
+      * 5:发送请求
+      */
+      xhr.send();
+    }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;第一步创建xmlhttprequest对象&#34;&gt;第⼀步：创建XMLHttpRequest对象。&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;let xhr = new XMLHttpRequest()&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;第二步为xhr对象注册回调函数&#34;&gt;第⼆步：为xhr对象注册回调函数。&lt;/h3&gt;
+&lt;p&gt;因为⽹络请求⽐较耗时，所以要注册回调函数，这样后台任务执⾏完成之后就会通过调⽤回调函数来告诉其 执⾏结果。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;XMLHttpRequest&lt;/code&gt;的回调函数主要有下⾯⼏种：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ontimeout，⽤来监控超时请求，如果后台请求超时了，该函数会被调⽤；&lt;/li&gt;
+&lt;li&gt;onerror，⽤来监控出错信息，如果后台请求出错了，该函数会被调⽤；&lt;/li&gt;
+&lt;li&gt;onreadystatechange，⽤来监控后台请求过程中的状态，⽐如可以监控到HTTP头加载完成的消息、 HTTP响应体消息以及数据加载完成的消息等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;第三步配置基础的请求信息&#34;&gt;第三步：配置基础的请求信息。&lt;/h3&gt;
+&lt;p&gt;通过open接⼝配置⼀些基础的请求信 息，包括请求的地址、请求⽅法（是get还是post）和请求⽅式（同步还是异步请求）。&lt;/p&gt;
+&lt;p&gt;还可以通过xhr.responseType = &amp;quot;text&amp;quot;来配置服务器返回的格式&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629187727468.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;可以通过&lt;code&gt;xhr.setRequestHeader&lt;/code&gt;来添加⾃⼰专⽤的请求头属性&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;第四步发起请求&#34;&gt;第四步：发起请求。&lt;/h3&gt;
+&lt;p&gt;⼀切准备就绪之后，就可以调⽤&lt;code&gt;xhr.send&lt;/code&gt;来发起⽹络请求了&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;xmlhttprequest注意点&#34;&gt;XMLHttpRequest注意点&lt;/h2&gt;
+&lt;p&gt;1.跨域问题&lt;/p&gt;
+&lt;p&gt;不是同⼀个源的情况下就涉及到了跨域 （在A站点中去访问不同源的B站点的内容）。默认情况下，跨域请求是不被允许的&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;2.HTTPS混合内容的问题&lt;/p&gt;
+&lt;p&gt;HTTPS混合内容是HTTPS⻚⾯中包含了不符合 HTTPS安全要求的内容，⽐如包含了HTTP资源，通过HTTP加载的图像、视频、样式表、脚本等，都属于 混合内容。&lt;/p&gt;
+&lt;p&gt;如果HTTPS请求⻚⾯中使⽤混合内容，浏览器会针对HTTPS混合内容显⽰警告，⽤来向⽤⼾表明此 HTTPS⻚⾯包含不安全的资源。⽐如打开站点 https://www.iteye.com/groups ，可以通过控制台看到混合 内容的警告，参考下图：&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629187721971.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+">XMLHttpRequest是怎么实现的？</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/settimeout-shi-ru-he-shi-xian-de/"" data-c="
+          &lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;setTimeout&lt;/code&gt;它就是 ⼀个定时器，⽤来指定某个函数在多少毫秒之后执⾏&lt;/p&gt;
+&lt;p&gt;它会返回⼀个整数，表⽰定时器的编号，同时你还可 以通过该编号来取消这个定时器。&lt;/p&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function showName(){
+console.log(&amp;quot;极客时间&amp;quot;)
+}
+var timerID = setTimeout(showName,200);
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;浏览器怎么实现settimeout&#34;&gt;浏览器怎么实现setTimeout&lt;/h2&gt;
+&lt;p&gt;我们知道渲染进程中所有运⾏在主线程 上的任务都需要先添加到消息队列，我们知道渲染进程中所有运⾏在主线程 上的任务都需要先添加到消息队列，例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当接收到HTML⽂档数据，渲染引擎就会将“解析DOM”事件添加到消息队列中&lt;/li&gt;
+&lt;li&gt;当⽤⼾改变了Web⻚⾯的窗⼝⼤⼩，渲染引擎就会将“重新布局”的事件添加到消息队列中。&lt;/li&gt;
+&lt;li&gt;当触发了JavaScript引擎垃圾回收机制，渲染引擎会将“垃圾回收”任务添加到消息队列中。&lt;/li&gt;
+&lt;li&gt;同样，如果要执⾏⼀段异步JavaScript代码，也是需要将执⾏任务添加到消息队列中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在Chrome中除了正常使⽤的消息队列之外，还有另外⼀个消息队列，这个队列中&lt;strong&gt;维护了需要延迟执⾏的任务列表&lt;/strong&gt;，包括了定时器和Chromium内部⼀些需要延迟执⾏的任务。所以当通过JavaScript创建⼀个定时器 时，&lt;strong&gt;渲染进程会将该定时器的回调任务添加到延迟队列中&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;当通过JavaScript调⽤setTimeout设置回调函数的时候，渲染进程将会创建⼀个&lt;strong&gt;回调任务&lt;/strong&gt;，包含了回调函 数showName、当前发起时间、延迟执⾏时间&lt;/p&gt;
+&lt;p&gt;创建好回调任务之后，再将该任务添加到延迟执⾏队列中&lt;/p&gt;
+&lt;p&gt;浏览器会根据发起时间和延迟时间计算出到期的任务，然后依次 执⾏这些到期的任务&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;使用settimeout的一些注意事项&#34;&gt;使⽤setTimeout的⼀些注意事项&lt;/h2&gt;
+&lt;h3 id=&#34;如果当前任务执行时间过久会影延迟到期定时器任务的执行&#34;&gt;如果当前任务执⾏时间过久，会影延迟到期定时器任务的执⾏&lt;/h3&gt;
+&lt;p&gt;在使⽤setTimeout的时候，有很多因素会导致回调函数执⾏⽐设定的预期值要久，其中⼀个就是当前任务 执⾏时间过久从⽽导致定时器设置的任务被延后执⾏&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function bar() {
+console.log(&#39;bar&#39;)
+}
+
+function foo() {
+setTimeout(bar, 0);
+for (let i = 0; i &amp;lt; 5000; i++) {
+let i = 5+8+8+8
+console.log(i)
+	}
+}
+
+foo()
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在执⾏foo函数的时候使⽤setTimeout设置了⼀个0延时的回调任务，设置好回调任务后，foo 函数会继续执⾏5000次for循环。&lt;/p&gt;
+&lt;p&gt;通过setTimeout设置的回调任务被放⼊了消息队列中并且等待下⼀次执⾏，这⾥并不是⽴即执⾏的；要执 ⾏消息队列中的下个任务，需要等待当前的任务执⾏完成，由于当前这段代码要执⾏5000次的for循环，所 以当前这个任务的执⾏时间会⽐较久⼀点。这势必会影响到下个任务的执⾏时间。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;如果settimeout存在嵌套调用那么系统会设置最短时间间隔为4毫秒&#34;&gt;如果setTimeout存在嵌套调⽤，那么系统会设置最短时间间隔为4毫秒&lt;/h3&gt;
+&lt;p&gt;也就是说在定时器函数⾥⾯嵌套调⽤定时器，也会延⻓定时器的执⾏时间&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function cb() { 
+setTimeout(cb, 0); }
+
+setTimeout(cb, 0);
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在Chrome中，定时 器被嵌套调⽤5次以上，系统会判断该函数⽅法被阻塞了，如果定时器的调⽤时间间隔⼩于4毫秒，那么浏览 器会将每次调⽤的时间间隔设置为4毫秒。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;未激活的面settimeout执行最小间隔是1000毫秒&#34;&gt;未激活的⻚⾯，setTimeout执⾏最⼩间隔是1000毫秒&lt;/h3&gt;
+&lt;p&gt;未被激活的⻚⾯中定时器最⼩值⼤于1000毫 秒，也就是说，如如果标签不是当前的激活标签，那么定时器最⼩的时间间隔是1000毫秒，⽬的是为了优化 后台⻚⾯的加载损耗以及降低耗电量。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;延时执行时间有最大值&#34;&gt;延时执⾏时间有最⼤值&lt;/h3&gt;
+&lt;p&gt;Chrome、 Safari、Firefox都是以32个bit来存储延时值的，32bit最⼤只能存放的数字是2147483647毫秒，这就意味 着，如果setTimeout设置的延迟值⼤于 2147483647毫秒（⼤约24.8天）时就会溢出，这导致定时器会被⽴ 即执⾏。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function showName(){
+console.log(&amp;quot;极客时间&amp;quot;)
+}
+
+var timerID = setTimeout(showName,2147483648);//会被理解调⽤执⾏
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这段代码是会⽴即被执⾏的&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;使用settimeout设置的回调函数中的this不符合直觉&#34;&gt;使⽤setTimeout设置的回调函数中的this不符合直觉&lt;/h3&gt;
+&lt;p&gt;如果被setTimeout推迟执⾏的回调函数是某个对象的⽅法，那么该⽅法中的this关键字将指向全局环境，⽽ 不是定义时所在的那个对象。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var name= 1;
+
+var MyObj = {
+name: 2,
+showName: function(){
+console.log(this.name);
+	}    
+}
+
+setTimeout(MyObj.showName,1000)
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这⾥输出的是1，因为这段代码在编译的时候，执⾏上下⽂中的this会被设置为全局window&lt;/p&gt;
+&lt;p&gt;解决方法&lt;/p&gt;
+&lt;p&gt;第⼀种是将MyObj.showName放在匿名函数中执⾏&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//箭头函数
+setTimeout(() =&amp;gt; {
+MyObj.showName()
+}, 1000);
+
+//或者function函数
+setTimeout(function() {
+MyObj.showName();
+}, 1000
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;第⼆种是使⽤bind⽅法，将showName绑定在MyObj上⾯&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;setTimeout(MyObj.showName.bind(MyObj), 1000)&lt;/code&gt;&lt;/p&gt;
+"> setTimeout是如何实现的？</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi-2/"" data-c="

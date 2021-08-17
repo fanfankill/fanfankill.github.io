@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>作用域 | fanfan</title>
+<title>XMLHttpRequest是怎么实现的？ | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1629192135287">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,7 +41,7 @@
 
 
 
-  <meta name="description" content="作用域" />
+  <meta name="description" content="XMLHttpRequest是怎么实现的？" />
   <meta name="keywords" content="Javascript" />
 </head>
 
@@ -284,26 +284,17 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E7%B1%BB%E5%9E%8B">类型</a>
+<li><a href="#%E4%BB%8B%E7%BB%8D">介绍</a></li>
+<li><a href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0-vs-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%A0%88">回调函数 VS 系统调⽤栈</a></li>
+<li><a href="#xmlhttprequest%E8%BF%90%E4%BD%9C%E6%9C%BA%E5%88%B6">XMLHttpRequest运作机制</a>
 <ul>
-<li><a href="#%E5%8A%A8%E6%80%81%E5%B1%9E%E6%80%A7">动态属性</a></li>
-<li><a href="#%E5%A4%8D%E5%88%B6%E5%8F%98%E9%87%8F%E5%80%BC">复制变量值</a></li>
-<li><a href="#%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0">传递参数</a></li>
-<li><a href="#%E6%A3%80%E6%9F%A5%E7%B1%BB%E5%9E%8B">检查类型</a></li>
+<li><a href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%E5%88%9B%E5%BB%BAxmlhttprequest%E5%AF%B9%E8%B1%A1">第⼀步：创建XMLHttpRequest对象。</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%E4%B8%BAxhr%E5%AF%B9%E8%B1%A1%E6%B3%A8%E5%86%8C%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0">第⼆步：为xhr对象注册回调函数。</a></li>
+<li><a href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%E9%85%8D%E7%BD%AE%E5%9F%BA%E7%A1%80%E7%9A%84%E8%AF%B7%E6%B1%82%E4%BF%A1%E6%81%AF">第三步：配置基础的请求信息。</a></li>
+<li><a href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%E5%8F%91%E8%B5%B7%E8%AF%B7%E6%B1%82">第四步：发起请求。</a></li>
 </ul>
 </li>
-<li><a href="#%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83%E5%8F%8A%E4%BD%9C%E7%94%A8%E5%9F%9F">执行环境及作用域</a>
-<ul>
-<li><a href="#%E5%BB%B6%E9%95%BF%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE">延长作用域链</a></li>
-<li><a href="#%E6%B2%A1%E6%9C%89%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F">没有块级作用域</a></li>
-</ul>
-</li>
-<li><a href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86">垃圾收集</a>
-<ul>
-<li><a href="#%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4">标记清除</a></li>
-<li><a href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0">引用计数</a></li>
-</ul>
-</li>
+<li><a href="#xmlhttprequest%E6%B3%A8%E6%84%8F%E7%82%B9">XMLHttpRequest注意点</a></li>
 </ul>
 </li>
 </ul>
@@ -571,8 +562,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/zuo-yong-yu/">
-      作用域
+    <a class="post-title-link" href="https://fanfankill.github.io/post/xmlhttprequest-shi-zen-me-shi-xian-de/">
+      XMLHttpRequest是怎么实现的？
     </a>
   </h1>
   <div class="post-meta">
@@ -580,7 +571,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-08-01 13:06:30">2021-08-01</span>
+      <span class="publish-time" data-t="2021-08-17 16:08:19">2021-08-17</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -604,116 +595,130 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1281<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1085<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h2 id="类型">类型</h2>
-<p>ECMAScript 变量包含：基本类型值和引用类型值</p>
-<p><strong>基本类型值</strong>指的是 简单的数据段，而<strong>引用类型值</strong>指那些可能由多个值构成的对象。</p>
-<p>基本数据类型：Undefined、Null、Boolean、Number 和 String</p>
+              <h2 id="介绍">介绍</h2>
+<p>在XMLHttpRequest出现之前，如果服务器数据有更新，依然需要重新刷新整个⻚⾯。⽽ XMLHttpRequest提供了从Web服务器获取数据的能⼒，如果你想要更新某条数据，只需要通过 XMLHttpRequest请求服务器提供的接⼝，就可以获取到服务器的数据，然后再操作DOM来更新⻚⾯内容， 整个过程只需要更新⽹⻚的⼀部分就可以了，⽽不⽤像之前那样还得刷新整个⻚⾯，这样既有效率⼜不会打 扰到⽤⼾。</p>
 <br>
-<h3 id="动态属性">动态属性</h3>
-<p>我们不能给基本类型的值添加属性</p>
-<pre><code class="language-js">var name = &quot;Nicholas&quot;; 
-name.age = 27; 
-alert(name.age); //undefined
+<h2 id="回调函数-vs-系统调用栈">回调函数 VS 系统调⽤栈</h2>
+<p>将⼀个函数作为参数传递给另外⼀个函数，那作为参数的这个函数就是<strong>回调函数</strong></p>
+<pre><code class="language-js">let callback = function(){
+console.log('i am do homework')
+}
+
+function doWork(cb) {
+console.log('start do work')
+cb()
+console.log('end do work')
+}
+
+doWork(callback)
+
 </code></pre>
+<p>将⼀个匿名函数赋值给变量callback，同时将callback作为参数传递给了doWork() 函数，这时在函数<strong>doWork()<strong>中callback就是</strong>回调函数</strong>。</p>
+<p>⾯的回调⽅法有个特点，就是回调函数callback是在主函数doWork返回之前执⾏的，我们把这个回调过 程称为<strong>同步回调</strong>。</p>
 <br>
-<h3 id="复制变量值">复制变量值</h3>
-<p>基本类型就是值复制</p>
-<p>当从一个变量向另一个变量复制引用类型的值时，同样也会将存储在变量对象中的值复制一份放到 为新变量分配的空间中。不同的是，这个值的副本实际上是一个指针，而这个指针指向存储在堆中的一 个对象。</p>
-<br>
-<h3 id="传递参数">传递参数</h3>
-<p>为了证明对象是按<strong>值传递</strong>的</p>
-<pre><code class="language-js">function setName(obj) { 
- obj.name = &quot;Nicholas&quot;; 
- obj = new Object(); 
- obj.name = &quot;Greg&quot;; 
-} 
-var person = new Object(); 
-setName(person); 
-alert(person.name); //&quot;Nicholas&quot; 
+<pre><code class="language-js">let callback = function(){
+console.log('i am do homework')
+}
+
+function doWork(cb) {
+console.log('start do work')
+setTimeout(cb,0)
+console.log('end do work')
+}
+
+doWork(callback)
+
 </code></pre>
-<p>当在函数内部重写 obj 时，这 个变量引用的就是一个局部对象了。而这个局部对象会在函数执行完毕后立即被销毁。</p>
-<br>
-<h3 id="检查类型">检查类型</h3>
-<p><code>typeof</code></p>
-<pre><code class="language-js">var s = &quot;Nicholas&quot;; 
-var b = true; 
-var i = 22; 
-var u; 
-var n = null; 
-var o = new Object(); 
-alert(typeof s); //string 
-alert(typeof i); //number 
-alert(typeof b); //boolean 
-alert(typeof u); //undefined 
-alert(typeof n); //object 
-alert(typeof o); //object
-</code></pre>
-<br>
-<p><code>instanceof</code></p>
-<pre><code class="language-js">alert(person instanceof Object); // 变量 person 是 Object 吗？
-alert(colors instanceof Array); // 变量 colors 是 Array 吗？
-alert(pattern instanceof RegExp); // 变量 pattern 是 RegExp 吗？
-</code></pre>
-<p>所有引用类型的值都是 Object 的实例。因此，在检测一个引用类型值和 Object 构造 函数时，instanceof 操作符始终会返回 true</p>
-<br>
-<h2 id="执行环境及作用域">执行环境及作用域</h2>
-<p>在 Web 浏览器中，全局执行环境被认为是 window 对象，因 此所有全局变量和函数都是作为 window 对象的属性和方法创建的。</p>
-<p>全局执行环境直到应用程序退 出——例如关闭网页或浏览器——时才会被销毁</p>
-<p>每个函数都有自己的<strong>执行环境</strong>。</p>
-<p>当代码在一个环境中执行时，会创建变量对象的一个<strong>作用域链</strong>（scope chain）。作用域链的用途，是 保证对执行环境有权访问的所有变量和函数的有序访问。</p>
-<p>内部环境可以通过作用域链访问所有的外部环境，但 外部环境不能访问内部环境中的任何变量和函数</p>
-<br>
-<h3 id="延长作用域链">延长作用域链</h3>
-<p>然执行环境的类型总共只有两种——全局和局部（函数）</p>
+<p>使⽤了setTimeout函数让callback在doWork函数执⾏结束后执行，这次callback并没有在主函数doWork内部被调⽤，我们把这种回调函数在主函数外部执⾏的过程称为<strong>异步 回调</strong>。</p>
+<p>异步回调是指回调函数在主函数之外执⾏，⼀般有两 种⽅式：</p>
 <ul>
-<li>try-catch 语句的 catch 块</li>
-<li>with 语句</li>
-</ul>
-<pre><code class="language-js">function buildUrl() { 
- var qs = &quot;?debug=true&quot;; 
- with(location){ 
- var url = location.href + qs; 
- } 
- return url; 
-} 
-</code></pre>
-<p>with 语句接收的是 location 对象，因此其变量对象中就包含了 location 对象的所有属 性和方法，而这个变量对象被添加到了作用域链的前端</p>
-<br>
-<h3 id="没有块级作用域">没有块级作用域</h3>
-<p>由 for 语句创建的变量 i 即使在 for 循环执行结束后，也依旧会存在 于循环外部的执行环境中。</p>
-<ul>
-<li>声明变量</li>
-</ul>
-<p>使用 var 声明的变量会自动被添加到最接近的环境中</p>
-<ul>
-<li>
-<p>查询标识符</p>
-<p>当在某个环境中为了读取或写入而引用一个标识符时，搜索过程从作用域链的前端开始，向上逐级查询与给定名字匹配的标识符。找到 了该标识符，搜索过程停止</p>
-</li>
+<li>第⼀种是把异步函数做成⼀个任务，添加到信息队列尾部；</li>
+<li>第⼀种是把异步函数做成⼀个任务，添加到信息队列尾部；</li>
 </ul>
 <br>
-<h2 id="垃圾收集">垃圾收集</h2>
-<p>JavaScript 具有自动垃圾收集机制</p>
-<p>这种垃圾收集机制的原理其实很简单：找<strong>出那些不再继续使用的变 量，然后释放其占用的内存</strong></p>
-<p>为此，垃圾收集器会按照固定的时间间隔， 周期性地执行这一操作</p>
+<h2 id="xmlhttprequest运作机制">XMLHttpRequest运作机制</h2>
+<pre><code class="language-js">  function GetWebData(URL) {
+      /**
+      * 1:新建XMLHttpRequest请求对象
+      */
+      let xhr = new XMLHttpRequest()
+      /**
+      * 2:注册相关事件回调处理函数
+      */
+      xhr.onreadystatechange = function () {
+        switch (xhr.readyState) {
+          case 0: //请求未初始化
+            console.log(&quot;请求未初始化&quot;)
+            break;
+          case 1://OPENED
+            console.log(&quot;OPENED&quot;)
+            break;
+          case 2://HEADERS_RECEIVED
+            console.log(&quot;HEADERS_RECEIVED&quot;)
+            break;
+          case 3://LOADING
+            console.log(&quot;LOADING&quot;)
+            break;
+          case 4://DONE
+            if (this.status == 200 || this.status == 304) {
+              console.log(this.responseText);
+            }
+            console.log(&quot;DONE&quot;)
+            break;
+        }
+      }
+      xhr.ontimeout = function (e) { console.log('ontimeout') }
+      xhr.onerror = function (e) { console.log('onerror') }
+      /**
+      * 3:打开请求
+      */
+      xhr.open('Get', URL, true);//创建⼀个Get请求,采⽤异步
+      /**
+      * 4:配置参数
+      */
+      xhr.timeout = 3000 //设置xhr请求的超时时间
+      xhr.responseType = &quot;text&quot; //设置响应返回的数据格式
+      xhr.setRequestHeader(&quot;X_TEST&quot;, &quot;time.geekbang&quot;)
+      /**
+      * 5:发送请求
+      */
+      xhr.send();
+    }
+</code></pre>
+<h3 id="第一步创建xmlhttprequest对象">第⼀步：创建XMLHttpRequest对象。</h3>
+<p><code>let xhr = new XMLHttpRequest()</code></p>
+<h3 id="第二步为xhr对象注册回调函数">第⼆步：为xhr对象注册回调函数。</h3>
+<p>因为⽹络请求⽐较耗时，所以要注册回调函数，这样后台任务执⾏完成之后就会通过调⽤回调函数来告诉其 执⾏结果。</p>
+<p><code>XMLHttpRequest</code>的回调函数主要有下⾯⼏种：</p>
+<ul>
+<li>ontimeout，⽤来监控超时请求，如果后台请求超时了，该函数会被调⽤；</li>
+<li>onerror，⽤来监控出错信息，如果后台请求出错了，该函数会被调⽤；</li>
+<li>onreadystatechange，⽤来监控后台请求过程中的状态，⽐如可以监控到HTTP头加载完成的消息、 HTTP响应体消息以及数据加载完成的消息等。</li>
+</ul>
 <br>
-<h3 id="标记清除">标记清除</h3>
-<p>JavaScript 中最常用的垃圾收集方式是<strong>标记清除</strong></p>
-<p>当变量进入环境时，就将这个变量标记为“进入环境”。</p>
-<p>而当变量离开环境时，则将其 标记为“离开环境”</p>
-<p>垃圾收集器在运行的时候会给存储在内存中的所有变量都加上标记。然后，它会去掉环境中的变量以及被环境中的变量引用的变量的标记。而在此之后再被加上标记 的变量将被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。</p>
+<h3 id="第三步配置基础的请求信息">第三步：配置基础的请求信息。</h3>
+<p>通过open接⼝配置⼀些基础的请求信 息，包括请求的地址、请求⽅法（是get还是post）和请求⽅式（同步还是异步请求）。</p>
+<p>还可以通过xhr.responseType = &quot;text&quot;来配置服务器返回的格式</p>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1629187727468.png" alt="" loading="lazy"></figure>
+<p>可以通过<code>xhr.setRequestHeader</code>来添加⾃⼰专⽤的请求头属性</p>
 <br>
-<h3 id="引用计数">引用计数</h3>
-<p>不太常见的垃圾收集策略</p>
-<p><strong>引用计数</strong>的含义是跟踪记录每 个值被引用的次数</p>
-<p>当声明了一个变量并将一个引用类型值赋给该变量时，则这个值的引用次数就是 1，如果同一个值又被赋给另一个变量，则该值的引用次数加 1。相反，如果包含对这个值引用的变量又取 得了另外一个值，则这个值的引用次数减 1。当这个值的引用次数变成 0 时，则说明没有办法再访问这 个值了，因而就可以将其占用的内存空间回收回来。</p>
+<h3 id="第四步发起请求">第四步：发起请求。</h3>
+<p>⼀切准备就绪之后，就可以调⽤<code>xhr.send</code>来发起⽹络请求了</p>
 <br>
+<h2 id="xmlhttprequest注意点">XMLHttpRequest注意点</h2>
+<p>1.跨域问题</p>
+<p>不是同⼀个源的情况下就涉及到了跨域 （在A站点中去访问不同源的B站点的内容）。默认情况下，跨域请求是不被允许的</p>
+<br>
+<p>2.HTTPS混合内容的问题</p>
+<p>HTTPS混合内容是HTTPS⻚⾯中包含了不符合 HTTPS安全要求的内容，⽐如包含了HTTP资源，通过HTTP加载的图像、视频、样式表、脚本等，都属于 混合内容。</p>
+<p>如果HTTPS请求⻚⾯中使⽤混合内容，浏览器会针对HTTPS混合内容显⽰警告，⽤来向⽤⼾表明此 HTTPS⻚⾯包含不安全的资源。⽐如打开站点 https://www.iteye.com/groups ，可以通过控制台看到混合 内容的警告，参考下图：</p>
+<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1629187721971.png" alt="" loading="lazy"></figure>
 
             </div>
             
@@ -726,7 +731,7 @@ alert(pattern instanceof RegExp); // 变量 pattern 是 RegExp 吗？
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/zuo-yong-yu/" title="作用域">https://fanfankill.github.io/post/zuo-yong-yu/</a>
+      <a href="https://fanfankill.github.io/post/xmlhttprequest-shi-zen-me-shi-xian-de/" title="XMLHttpRequest是怎么实现的？">https://fanfankill.github.io/post/xmlhttprequest-shi-zen-me-shi-xian-de/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -741,15 +746,11 @@ alert(pattern instanceof RegExp); // 变量 pattern 是 RegExp 吗？
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="HTTP请求流程：为什么很多站点第⼆次打开速度会很快？" href="https://fanfankill.github.io/post/http-qing-qiu-liu-cheng-wei-shi-me-hen-duo-zhan-dian-di-ci-da-kai-su-du-hui-hen-kuai/">HTTP请求流程：为什么很多站点第⼆次打开速度会很快？</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="HTTP请求流程：为什么很多站点第⼆次打开速度会很快？" href="https://fanfankill.github.io/post/http-qing-qiu-liu-cheng-wei-shi-me-hen-duo-zhan-dian-di-ci-da-kai-su-du-hui-hen-kuai/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="TCP协议：如何保证⻚⾯⽂件能被完整送达浏览器？" href="https://fanfankill.github.io/post/tcp-xie-yi-ru-he-bao-zheng-jian-neng-bei-wan-zheng-song-da-liu-lan-qi/">TCP协议：如何保证⻚⾯⽂件能被完整送达浏览器？</a>
-        <a class="nav-mobile-next" title="TCP协议：如何保证⻚⾯⽂件能被完整送达浏览器？" href="https://fanfankill.github.io/post/tcp-xie-yi-ru-he-bao-zheng-jian-neng-bei-wan-zheng-song-da-liu-lan-qi/">下一篇</a>
+        <a class="nav-pc-next" title=" setTimeout是如何实现的？" href="https://fanfankill.github.io/post/settimeout-shi-ru-he-shi-xian-de/"> setTimeout是如何实现的？</a>
+        <a class="nav-mobile-next" title=" setTimeout是如何实现的？" href="https://fanfankill.github.io/post/settimeout-shi-ru-he-shi-xian-de/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
