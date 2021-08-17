@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1629192135287">
+<link rel="shortcut icon" href="/favicon.ico?v=1629206236790">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">63</span>
+        <span class="site-item-stat-count">64</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1156,6 +1156,306 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/async-han-shu/"" data-c="
+          &lt;p&gt;async 函数就是 Generator 函数的语法糖&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;async&lt;/code&gt;函数就是将 Generator 函数的星号（&lt;code&gt;*&lt;/code&gt;）替换成&lt;code&gt;async&lt;/code&gt;，将&lt;code&gt;yield&lt;/code&gt;替换成&lt;code&gt;await&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;async&lt;/code&gt;函数对 Generator 函数的改进，体现在以下四点&lt;/p&gt;
+&lt;p&gt;（1）内置执行器。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;async&lt;/code&gt;函数的执行，与普通函数一模一样，只要一行。不像 Generator 函数，需要调用&lt;code&gt;next&lt;/code&gt;方法，或者用&lt;code&gt;co&lt;/code&gt;模块，才能真正执行&lt;/p&gt;
+&lt;p&gt;（2）更好的语义。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;async&lt;/code&gt;和&lt;code&gt;await&lt;/code&gt;，比起星号和&lt;code&gt;yield&lt;/code&gt;，语义更清楚了。&lt;code&gt;async&lt;/code&gt;表示函数里有异步操作，&lt;code&gt;await&lt;/code&gt;表示紧跟在后面的表达式需要等待结果。&lt;/p&gt;
+&lt;p&gt;（3）更广的适用性。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;co&lt;/code&gt;模块约定，&lt;code&gt;yield&lt;/code&gt;命令后面只能是 Thunk 函数或 Promise 对象，而&lt;code&gt;async&lt;/code&gt;函数的&lt;code&gt;await&lt;/code&gt;命令后面，可以是 Promise 对象和原始类型的值（数值、字符串和布尔值，但这时会自动转成立即 resolved 的 Promise 对象）。&lt;/p&gt;
+&lt;p&gt;（4）返回值是 Promise。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;async&lt;/code&gt;函数的返回值是 Promise 对象，这比 Generator 函数的返回值是 Iterator 对象方便多了。你可以用&lt;code&gt;then&lt;/code&gt;方法指定下一步的操作。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;async&lt;/code&gt;函数完全可以看作多个异步操作，包装成的一个 Promise 对象，而&lt;code&gt;await&lt;/code&gt;命令就是内部&lt;code&gt;then&lt;/code&gt;命令的语法糖。&lt;/p&gt;
+&lt;h2 id=&#34;基本用法&#34;&gt;基本用法&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;async&lt;/code&gt;函数返回一个 Promise 对象，可以使用&lt;code&gt;then&lt;/code&gt;方法添加回调函数。当函数执行的时候，一旦遇到&lt;code&gt;await&lt;/code&gt;就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function getStockPriceByName(name) {
+  const symbol = await getStockSymbol(name);
+  const stockPrice = await getStockPrice(symbol);
+  return stockPrice;
+}
+
+getStockPriceByName(&#39;goog&#39;).then(function (result) {
+  console.log(result);
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;函数前面的&lt;code&gt;async&lt;/code&gt;关键字，表明该函数内部有异步操作。调用该函数时，会立即返回一个&lt;code&gt;Promise&lt;/code&gt;对象。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;语法&#34;&gt;语法&lt;/h2&gt;
+&lt;h3 id=&#34;返回-promise-对象&#34;&gt;返回 Promise 对象&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;async&lt;/code&gt;函数返回一个 Promise 对象。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;async&lt;/code&gt;函数内部&lt;code&gt;return&lt;/code&gt;语句返回的值，会成为&lt;code&gt;then&lt;/code&gt;方法回调函数的参数。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function f() {
+  return &#39;hello world&#39;;
+}
+
+f().then(v =&amp;gt; console.log(v))
+// &amp;quot;hello world&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;函数&lt;code&gt;f&lt;/code&gt;内部&lt;code&gt;return&lt;/code&gt;命令返回的值，会被&lt;code&gt;then&lt;/code&gt;方法回调函数接收到。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;async&lt;/code&gt;函数内部抛出错误，会导致返回的 Promise 对象变为&lt;code&gt;reject&lt;/code&gt;状态。抛出的错误对象会被&lt;code&gt;catch&lt;/code&gt;方法回调函数接收到。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function f() {
+  throw new Error(&#39;出错了&#39;);
+}
+
+f().then(
+  v =&amp;gt; console.log(&#39;resolve&#39;, v),
+  e =&amp;gt; console.log(&#39;reject&#39;, e)
+)
+//reject Error: 出错了
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;promise-对象的状态变化&#34;&gt;Promise 对象的状态变化&lt;/h3&gt;
+&lt;p&gt;只有&lt;code&gt;async&lt;/code&gt;函数内部的异步操作执行完，才会执行&lt;code&gt;then&lt;/code&gt;方法指定的回调函数。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function getTitle(url) {
+  let response = await fetch(url);
+  let html = await response.text();
+  return html.match(/&amp;lt;title&amp;gt;([\s\S]+)&amp;lt;\/title&amp;gt;/i)[1];
+}
+getTitle(&#39;https://tc39.github.io/ecma262/&#39;).then(console.log)
+// &amp;quot;ECMAScript 2017 Language Specification&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;函数&lt;code&gt;getTitle&lt;/code&gt;内部有三个操作：抓取网页、取出文本、匹配页面标题。只有这三个操作全部完成，才会执行&lt;code&gt;then&lt;/code&gt;方法里面的&lt;code&gt;console.log&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;await-命令&#34;&gt;await 命令&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;await&lt;/code&gt;命令后面是一个应该是一个 Promise 对象，返回该对象的结果。如果不是 Promise 对象，就直接返回对应的值。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function f() {
+  // 等同于
+  // return 123;
+  return await 123;
+}
+
+f().then(v =&amp;gt; console.log(v))
+// 123
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上面代码中，&lt;code&gt;await&lt;/code&gt;命令的参数是数值&lt;code&gt;123&lt;/code&gt;，这时等同于&lt;code&gt;return 123&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;另一种情况是，&lt;code&gt;await&lt;/code&gt;命令后面是一个&lt;code&gt;thenable&lt;/code&gt;对象（即定义了&lt;code&gt;then&lt;/code&gt;方法的对象），那么&lt;code&gt;await&lt;/code&gt;会将其等同于 Promise 对象。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class Sleep {
+  constructor(timeout) {
+    this.timeout = timeout;
+  }
+  then(resolve, reject) {
+    const startTime = Date.now();
+    setTimeout(
+      () =&amp;gt; resolve(Date.now() - startTime),
+      this.timeout
+    );
+  }
+}
+
+(async () =&amp;gt; {
+  const sleepTime = await new Sleep(1000);
+  console.log(sleepTime);
+})();
+// 1000
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;await&lt;/code&gt;命令后面是一个&lt;code&gt;Sleep&lt;/code&gt;对象的实例。这个实例不是 Promise 对象，但是因为定义了&lt;code&gt;then&lt;/code&gt;方法，&lt;code&gt;await&lt;/code&gt;会将其视为&lt;code&gt;Promise&lt;/code&gt;处理。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;code&gt;await&lt;/code&gt;命令后面的 Promise 对象如果变为&lt;code&gt;reject&lt;/code&gt;状态，则&lt;code&gt;reject&lt;/code&gt;的参数会被&lt;code&gt;catch&lt;/code&gt;方法的回调函数接收到&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function f() {
+  await Promise.reject(&#39;出错了&#39;);
+}
+
+f()
+.then(v =&amp;gt; console.log(v))
+.catch(e =&amp;gt; console.log(e))
+// 出错了
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;任何一个&lt;code&gt;await&lt;/code&gt;语句后面的 Promise 对象变为&lt;code&gt;reject&lt;/code&gt;状态，那么整个&lt;code&gt;async&lt;/code&gt;函数都会中断执行。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function f() {
+  await Promise.reject(&#39;出错了&#39;);
+  await Promise.resolve(&#39;hello world&#39;); // 不会执行
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;有时，我们希望即使前一个异步操作失败，也不要中断后面的异步操作。这时可以将第一个&lt;code&gt;await&lt;/code&gt;放在&lt;code&gt;try...catch&lt;/code&gt;结构里面，这样不管这个异步操作是否成功，第二个&lt;code&gt;await&lt;/code&gt;都会执行。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function f() {
+  try {
+    await Promise.reject(&#39;出错了&#39;);
+  } catch(e) {
+  }
+  return await Promise.resolve(&#39;hello world&#39;);
+}
+
+f()
+.then(v =&amp;gt; console.log(v))
+// hello world
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;另一种方法是&lt;code&gt;await&lt;/code&gt;后面的 Promise 对象再跟一个&lt;code&gt;catch&lt;/code&gt;方法，处理前面可能出现的错误。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function f() {
+  await Promise.reject(&#39;出错了&#39;)
+    .catch(e =&amp;gt; console.log(e));
+  return await Promise.resolve(&#39;hello world&#39;);
+}
+
+f()
+.then(v =&amp;gt; console.log(v))
+// 出错了
+// hello world
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;错误处理&#34;&gt;错误处理&lt;/h3&gt;
+&lt;p&gt;如果&lt;code&gt;await&lt;/code&gt;后面的异步操作出错，那么等同于&lt;code&gt;async&lt;/code&gt;函数返回的 Promise 对象被&lt;code&gt;reject&lt;/code&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function f() {
+  await new Promise(function (resolve, reject) {
+    throw new Error(&#39;出错了&#39;);
+  });
+}
+
+f()
+.then(v =&amp;gt; console.log(v))
+.catch(e =&amp;gt; console.log(e))
+// Error：出错了
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;防止出错的方法，也是将其放在&lt;code&gt;try...catch&lt;/code&gt;代码块之中&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function f() {
+  try {
+    await new Promise(function (resolve, reject) {
+      throw new Error(&#39;出错了&#39;);
+    });
+  } catch(e) {
+  }
+  return await(&#39;hello world&#39;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;使用注意点&#34;&gt;使用注意点&lt;/h3&gt;
+&lt;p&gt;第一点，&lt;code&gt;await&lt;/code&gt;命令后面的&lt;code&gt;Promise&lt;/code&gt;对象，运行结果可能是&lt;code&gt;rejected&lt;/code&gt;，所以最好把&lt;code&gt;await&lt;/code&gt;命令放在&lt;code&gt;try...catch&lt;/code&gt;代码块中。&lt;/p&gt;
+&lt;p&gt;第二点，多个&lt;code&gt;await&lt;/code&gt;命令后面的异步操作，如果不存在继发关系，最好让它们同时触发。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;let foo = await getFoo();
+let bar = await getBar();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;etFoo&lt;/code&gt;和&lt;code&gt;getBar&lt;/code&gt;是两个独立的异步操作（即互不依赖），被写成继发关系。这样比较耗时，因为只有&lt;code&gt;getFoo&lt;/code&gt;完成以后，才会执行&lt;code&gt;getBar&lt;/code&gt;，完全可以让它们同时触发。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 写法一
+let [foo, bar] = await Promise.all([getFoo(), getBar()]);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// 写法二
+let fooPromise = getFoo();
+let barPromise = getBar();
+let foo = await fooPromise;
+let bar = await barPromise;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;第三点，&lt;code&gt;await&lt;/code&gt;命令只能用在&lt;code&gt;async&lt;/code&gt;函数之中，如果用在普通函数，就会报错&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function dbFuc(db) {
+  let docs = [{}, {}, {}];
+
+  // 报错
+  docs.forEach(function (doc) {
+    await db.post(doc);
+  });
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果将&lt;code&gt;forEach&lt;/code&gt;方法的参数改成&lt;code&gt;async&lt;/code&gt;函数，也有问题。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function dbFuc(db) { //这里不需要 async
+  let docs = [{}, {}, {}];
+
+  // 可能得到错误结果
+  docs.forEach(async function (doc) {
+    await db.post(doc);
+  });
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上面代码可能不会正常工作，原因是这时三个&lt;code&gt;db.post()&lt;/code&gt;操作将是并发执行，也就是同时执行，而不是继发执行。正确的写法是采用&lt;code&gt;for&lt;/code&gt;循环。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function dbFuc(db) {
+  let docs = [{}, {}, {}];
+
+  for (let doc of docs) {
+    await db.post(doc);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;另一种方法是使用数组的&lt;code&gt;reduce()&lt;/code&gt;方法&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function dbFuc(db) {
+  let docs = [{}, {}, {}];
+
+  await docs.reduce(async (_, doc) =&amp;gt; {
+    await _;
+    await db.post(doc);
+  }, undefined);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;reduce()&lt;/code&gt;方法的第一个参数是&lt;code&gt;async&lt;/code&gt;函数，导致该函数的第一个参数是前一步操作返回的 Promise 对象，所以必须使用&lt;code&gt;await&lt;/code&gt;等待它操作结束。&lt;/p&gt;
+&lt;p&gt;如果确实希望多个请求并发执行，可以使用&lt;code&gt;Promise.all&lt;/code&gt;方法&lt;/p&gt;
+&lt;p&gt;第四点，async 函数可以保留运行堆栈&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const a = () =&amp;gt; {
+  b().then(() =&amp;gt; c());
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;函数&lt;code&gt;a&lt;/code&gt;内部运行了一个异步任务&lt;code&gt;b()&lt;/code&gt;。当&lt;code&gt;b()&lt;/code&gt;运行的时候，函数&lt;code&gt;a()&lt;/code&gt;不会中断，而是继续执行。等到&lt;code&gt;b()&lt;/code&gt;运行结束，可能&lt;code&gt;a()&lt;/code&gt;早就运行结束了，&lt;code&gt;b()&lt;/code&gt;所在的上下文环境已经消失了。如果&lt;code&gt;b()&lt;/code&gt;或&lt;code&gt;c()&lt;/code&gt;报错，错误堆栈将不包括&lt;code&gt;a()&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;将这个例子改成&lt;code&gt;async&lt;/code&gt;函数&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const a = async () =&amp;gt; {
+  await b();
+  c();
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;b()&lt;/code&gt;运行的时候，&lt;code&gt;a()&lt;/code&gt;是暂停执行，上下文环境都保存着。一旦&lt;code&gt;b()&lt;/code&gt;或&lt;code&gt;c()&lt;/code&gt;报错，错误堆栈将包括&lt;code&gt;a()&lt;/code&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;async-函数的实现原理&#34;&gt;async 函数的实现原理&lt;/h2&gt;
+&lt;p&gt;async 函数的实现原理，就是将 Generator 函数和自动执行器，包装在一个函数里。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function fn(args) {
+  // ...
+}
+
+// 等同于
+
+function fn(args) {
+  return spawn(function* () {
+    // ...
+  });
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;所有的&lt;code&gt;async&lt;/code&gt;函数都可以写成上面的第二种形式，&lt;code&gt;spawn&lt;/code&gt;函数就是自动执行器&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;spawn&lt;/code&gt;函数的实现&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function spawn(genF) {
+  return new Promise(function(resolve, reject) {
+    const gen = genF();
+    function step(nextF) {
+      let next;
+      try {
+        next = nextF();
+      } catch(e) {
+        return reject(e);
+      }
+      if(next.done) {
+        return resolve(next.value);
+      }
+      Promise.resolve(next.value).then(function(v) {
+        step(function() { return gen.next(v); });
+      }, function(e) {
+        step(function() { return gen.throw(e); });
+      });
+    }
+    step(function() { return gen.next(undefined); });
+  });
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;实例按顺序完成异步操作&#34;&gt;实例：按顺序完成异步操作&lt;/h2&gt;
+&lt;p&gt;实际开发中，经常遇到一组异步操作，需要按照顺序完成。比如，依次远程读取一组 URL，然后按照读取的顺序输出结果。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function logInOrder(urls) {
+  // 远程读取所有URL
+  const textPromises = urls.map(url =&amp;gt; {
+    return fetch(url).then(response =&amp;gt; response.text());
+  });
+
+  // 按次序输出
+  textPromises.reduce((chain, textPromise) =&amp;gt; {
+    return chain.then(() =&amp;gt; textPromise)
+      .then(text =&amp;gt; console.log(text));
+  }, Promise.resolve());
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上面代码使用&lt;code&gt;fetch&lt;/code&gt;方法，同时远程读取一组 URL。每个&lt;code&gt;fetch&lt;/code&gt;操作都返回一个 Promise 对象，放入&lt;code&gt;textPromises&lt;/code&gt;数组。然后，&lt;code&gt;reduce&lt;/code&gt;方法依次处理每个 Promise 对象，然后使用&lt;code&gt;then&lt;/code&gt;，将所有 Promise 对象连起来，因此就可以依次输出结果。&lt;/p&gt;
+&lt;p&gt;async 函数实现。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;async function logInOrder(urls) {
+  for (const url of urls) {
+    const response = await fetch(url);
+    console.log(await response.text());
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+">async 函数</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/xmlhttprequest-shi-zen-me-shi-xian-de/"" data-c="
@@ -6436,7 +6736,7 @@ Fibonacci2(1000) // 7.0330367711422765e+208
 Fibonacci2(10000) // Infinity
 &lt;/code&gt;&lt;/pre&gt;
 &lt;br&gt;
-&lt;h3 id=&#34;数组拓展&#34;&gt;数组拓展&lt;/h3&gt;
+&lt;h2 id=&#34;数组拓展&#34;&gt;数组拓展&lt;/h2&gt;
 &lt;p&gt;数组克隆&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const a1 = [1, 2];
 // 写法一
