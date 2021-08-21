@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-08-18T05:34:06.243Z</updated>
+    <updated>2021-08-21T07:10:40.726Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[Class 的基本语法]]></title>
+        <id>https://fanfankill.github.io/post/class-de-ji-ben-yu-fa/</id>
+        <link href="https://fanfankill.github.io/post/class-de-ji-ben-yu-fa/">
+        </link>
+        <updated>2021-08-21T07:10:18.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[使⽤Promise，告别回调函数]]></title>
+        <id>https://fanfankill.github.io/post/shi-promisegao-bie-hui-diao-han-shu/</id>
+        <link href="https://fanfankill.github.io/post/shi-promisegao-bie-hui-diao-han-shu/">
+        </link>
+        <updated>2021-08-19T07:30:33.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[async 函数]]></title>
         <id>https://fanfankill.github.io/post/async-han-shu/</id>
@@ -65,19 +79,5 @@
         <link href="https://fanfankill.github.io/post/la-ji-hui-shou-la-ji-shu-ju-shi-ru-he-dong-hui-shou-de/">
         </link>
         <updated>2021-08-14T04:51:16.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[JS的事件]]></title>
-        <id>https://fanfankill.github.io/post/js-de-shi-jian/</id>
-        <link href="https://fanfankill.github.io/post/js-de-shi-jian/">
-        </link>
-        <updated>2021-08-13T06:20:30.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Promise 对象]]></title>
-        <id>https://fanfankill.github.io/post/promise-dui-xiang/</id>
-        <link href="https://fanfankill.github.io/post/promise-dui-xiang/">
-        </link>
-        <updated>2021-08-11T13:38:18.000Z</updated>
     </entry>
 </feed>

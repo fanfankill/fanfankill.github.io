@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>ES6 day2 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1629264775941">
+<link rel="shortcut icon" href="/favicon.ico?v=1629529834937">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -231,7 +231,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">64</span>
+        <span class="site-item-stat-count">66</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1291,6 +1291,456 @@ Object.assign(target, source)
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/class-de-ji-ben-yu-fa/"" data-c="
+          &lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
+&lt;p&gt;js中，生成实例对象的传统方法是通过构造函数。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function Point(x, y) {
+  this.x = x;
+  this.y = y;
+}
+
+Point.prototype.toString = function () {
+  return &#39;(&#39; + this.x + &#39;, &#39; + this.y + &#39;)&#39;;
+};
+
+var p = new Point(1, 2);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;基本上，ES6 的&lt;code&gt;class&lt;/code&gt;可以看作只是一个语法糖，它的绝大部分功能，ES5 都可以做到，新的&lt;code&gt;class&lt;/code&gt;写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。上面的代码用 ES6 的&lt;code&gt;class&lt;/code&gt;改写，就是下面这样。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  toString() {
+    return &#39;(&#39; + this.x + &#39;, &#39; + this.y + &#39;)&#39;;
+  }
+}
+
+typeof Point // &amp;quot;function&amp;quot;
+
+Point === Point.prototype.constructor // true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;类的数据类型就是函数，类本身就指向构造函数。&lt;/p&gt;
+&lt;p&gt;使用的时候，也是直接对类使用&lt;code&gt;new&lt;/code&gt;命令，跟构造函数的用法完全一致。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class Bar {
+  doStuff() {
+    console.log(&#39;stuff&#39;);
+  }
+}
+
+const b = new Bar();
+b.doStuff() // &amp;quot;stuff&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;构造函数的&lt;code&gt;prototype&lt;/code&gt;属性，在 ES6 的“类”上面继续存在。事实上，&lt;strong&gt;类的所有方法都定义在类的&lt;code&gt;prototype&lt;/code&gt;属性上面。&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class Point {
+  constructor() {
+    // ...
+  }
+
+  toString() {
+    // ...
+  }
+
+  toValue() {
+    // ...
+  }
+}
+
+// 等同于
+
+Point.prototype = {
+  constructor() {},
+  toString() {},
+  toValue() {},
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;因此，在类的实例上面调用方法，其实就是调用原型上的方法。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class B {}
+const b = new B();
+
+b.constructor === B.prototype.constructor // true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;b&lt;/code&gt;是&lt;code&gt;B&lt;/code&gt;类的实例，它的&lt;code&gt;constructor()&lt;/code&gt;方法就是&lt;code&gt;B&lt;/code&gt;类原型的&lt;code&gt;constructor()&lt;/code&gt;方法。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;prototype&lt;/code&gt;对象的&lt;code&gt;constructor()&lt;/code&gt;属性，直接指向“类”的本身，这与 ES5 的行为是一致的。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;由于类的方法都定义在&lt;code&gt;prototype&lt;/code&gt;对象上面，所以类的新方法可以添加在&lt;code&gt;prototype&lt;/code&gt;对象上面。&lt;code&gt;Object.assign()&lt;/code&gt;方法可以很方便地一次向类添加多个方法。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class Point {
+  constructor(){
+    // ...
+  }
+}
+
+Object.assign(Point.prototype, {
+  toString(){},
+  toValue(){}
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;类的内部所有定义的方法，都是不可枚举的（non-enumerable）。&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class Point {
+  constructor(x, y) {
+    // ...
+  }
+
+  toString() {
+    // ...
+  }
+}
+
+Object.keys(Point.prototype)  //可以获取自己（不含原生链）的可枚举属性
+// []
+Object.getOwnPropertyNames(Point.prototype)//可以获取所有属性 包括不可枚举
+// [&amp;quot;constructor&amp;quot;,&amp;quot;toString&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;constructor-方法&#34;&gt;constructor 方法&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;constructor()&lt;/code&gt;方法是类的默认方法，通过&lt;code&gt;new&lt;/code&gt;命令生成对象实例时，自动调用该方法。如果没有显式定义，一个空的&lt;code&gt;constructor()&lt;/code&gt;方法会被默认添加。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;constructor()&lt;/code&gt;方法默认返回实例对象（即&lt;code&gt;this&lt;/code&gt;），完全可以指定返回另外一个对象。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class Foo {
+  constructor() {
+    return Object.create(null);
+  }
+}
+
+new Foo() instanceof Foo
+// false
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上面代码中，&lt;code&gt;constructor()&lt;/code&gt;函数返回一个全新的对象，结果导致实例对象不是&lt;code&gt;Foo&lt;/code&gt;类的实例。&lt;/p&gt;
+&lt;p&gt;类必须使用&lt;code&gt;new&lt;/code&gt;调用，否则会报错。这是它跟普通构造函数的一个主要区别，后者不用&lt;code&gt;new&lt;/code&gt;也可以执行。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class Foo {
+  constructor() {
+    return Object.create(null);
+  }
+}
+
+Foo()
+// TypeError: Class constructor Foo cannot be invoked without &#39;new&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;类的实例&#34;&gt;类的实例&lt;/h2&gt;
+&lt;p&gt;与 ES5 一样，实例的属性除非显式定义在其本身（即定义在&lt;code&gt;this&lt;/code&gt;对象上），否则都是定义在原型上（即定义在&lt;code&gt;class&lt;/code&gt;上）。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;//定义类
+class Point {
+
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  toString() {
+    return &#39;(&#39; + this.x + &#39;, &#39; + this.y + &#39;)&#39;;
+  }
+
+}
+
+var point = new Point(2, 3);
+
+point.toString() // (2, 3)
+
+point.hasOwnProperty(&#39;x&#39;) // true
+point.hasOwnProperty(&#39;y&#39;) // true
+point.hasOwnProperty(&#39;toString&#39;) // false
+point.__proto__.hasOwnProperty(&#39;toString&#39;) // true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上面代码中，&lt;code&gt;x&lt;/code&gt;和&lt;code&gt;y&lt;/code&gt;都是实例对象&lt;code&gt;point&lt;/code&gt;自身的属性（因为定义在&lt;code&gt;this&lt;/code&gt;对象上），所以&lt;code&gt;hasOwnProperty()&lt;/code&gt;方法返回&lt;code&gt;true&lt;/code&gt;，而&lt;code&gt;toString()&lt;/code&gt;是原型对象的属性（因为定义在&lt;code&gt;Point&lt;/code&gt;类上），所以&lt;code&gt;hasOwnProperty()&lt;/code&gt;方法返回&lt;code&gt;false&lt;/code&gt;。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var p1 = new Point(2,3);
+var p2 = new Point(3,2);
+
+p1.__proto__.printName = function () { return &#39;Oops&#39; };
+
+p1.printName() // &amp;quot;Oops&amp;quot;
+p2.printName() // &amp;quot;Oops&amp;quot;
+
+var p3 = new Point(4,2);
+p3.printName() // &amp;quot;Oops&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;p1&lt;/code&gt;的原型上添加了一个&lt;code&gt;printName()&lt;/code&gt;方法，由于&lt;code&gt;p1&lt;/code&gt;的原型就是&lt;code&gt;p2&lt;/code&gt;的原型，因此&lt;code&gt;p2&lt;/code&gt;也可以调用这个方法。而且，此后新建的实例&lt;code&gt;p3&lt;/code&gt;也可以调用这个方法。这意味着，使用实例的&lt;code&gt;__proto__&lt;/code&gt;属性改写原型&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;取值函数getter和存值函数setter&#34;&gt;取值函数（getter）和存值函数（setter）&lt;/h2&gt;
+&lt;p&gt;与 ES5 一样，在“类”的内部可以使用&lt;code&gt;get&lt;/code&gt;和&lt;code&gt;set&lt;/code&gt;关键字，对某个属性设置存值函数和取值函数，拦截该属性的存取行为。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class MyClass {
+  constructor() {
+    // ...
+  }
+  get prop() {
+    return &#39;getter&#39;;
+  }
+  set prop(value) {
+    console.log(&#39;setter: &#39;+value);
+  }
+}
+
+let inst = new MyClass();
+
+inst.prop = 123;
+// setter: 123
+
+inst.prop
+// &#39;getter&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;注意点&#34;&gt;注意点&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;（1）严格模式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;类和模块的内部，默认就是严格模式，所以不需要使用&lt;code&gt;use strict&lt;/code&gt;指定运行模式。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（2）不存在提升&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;类不存在变量提升（hoist），这一点与 ES5 完全不同。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;new Foo(); // ReferenceError
+class Foo {}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;（3）name 属性&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;由于本质上，ES6 的类只是 ES5 的构造函数的一层包装，所以函数的许多特性都被&lt;code&gt;Class&lt;/code&gt;继承，包括&lt;code&gt;name&lt;/code&gt;属性。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class Point {}
+Point.name // &amp;quot;Point&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;name&lt;/code&gt;属性总是返回紧跟在&lt;code&gt;class&lt;/code&gt;关键字后面的类名。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（4）Generator 方法&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果某个方法之前加上星号（&lt;code&gt;*&lt;/code&gt;），就表示该方法是一个 Generator 函数。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class Foo {
+  constructor(...args) {
+    this.args = args;
+  }
+  * [Symbol.iterator]() {
+    for (let arg of this.args) {
+      yield arg;
+    }
+  }
+}
+
+for (let x of new Foo(&#39;hello&#39;, &#39;world&#39;)) {
+  console.log(x);
+}
+// hello
+// wo
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;Symbol.iterator&lt;/code&gt;方法返回一个&lt;code&gt;Foo&lt;/code&gt;类的默认遍历器，&lt;code&gt;for...of&lt;/code&gt;循环会自动调用这个遍历器。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（5）this 的指向&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;类的方法内部如果含有&lt;code&gt;this&lt;/code&gt;，它默认指向类的实例。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;静态方法&#34;&gt;静态方法&lt;/h2&gt;
+&lt;p&gt;如果在一个方法前，加上&lt;code&gt;static&lt;/code&gt;关键字，就表示该方法不会被实例继承，而是直接通过类来调用&lt;/p&gt;
+&lt;p&gt;如果静态方法包含&lt;code&gt;this&lt;/code&gt;关键字，这个&lt;code&gt;this&lt;/code&gt;指的是类，而不是实例。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class Foo {
+  static classMethod() {
+    return &#39;hello&#39;;
+  }
+    
+   static bar() {
+    this.baz();
+  }
+    
+  static baz() {
+    console.log(&#39;hello&#39;);
+  }
+    
+  baz() {
+    console.log(&#39;world&#39;);
+  }
+}
+
+Foo.classMethod() // &#39;hello&#39;
+
+Foo.bar() // hello
+
+var foo = new Foo();
+foo.classMethod()
+// TypeError: foo.classMethod is not a function
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;父类的静态方法，可以被子类继承&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class Foo {
+  static classMethod() {
+    return &#39;hello&#39;;
+  }
+}
+
+class Bar extends Foo {
+}
+
+Bar.classMethod() // &#39;hello&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;静态方法也是可以从&lt;code&gt;super&lt;/code&gt;对象上调用的&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;class Foo {
+  static classMethod() {
+    return &#39;hello&#39;;
+  }
+}
+
+class Bar extends Foo {
+  static classMethod() {
+    return super.classMethod() + &#39;, too&#39;;
+  }
+}
+
+Bar.classMethod() // &amp;quot;hello, too&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+">Class 的基本语法</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/shi-promisegao-bie-hui-diao-han-shu/"" data-c="
+          &lt;h2 id=&#34;异步编程的问题代码逻辑不连续&#34;&gt;异步编程的问题：代码逻辑不连续&lt;/h2&gt;
+&lt;p&gt;⻚⾯中任务都是执⾏在主线程之上的，相对于⻚⾯来说，主线程就是它整个的世界，所以在执⾏⼀项耗时的任务 时，⽐如下载⽹络⽂件任务、获取摄像头等设备信息任务，这些任务都会放到⻚⾯主线程之外的进程或者线 程中去执⾏，这样就避免了耗时任务“霸占”⻚⾯主线程的情况。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629358284385.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;⻚⾯主线程发起了⼀个耗时的任务，并将任务交给另外⼀个进程去处理，这时⻚⾯主线程会继续执⾏消息队列中的任务。&lt;/p&gt;
+&lt;p&gt;等该进程处理完这个任务后，会将该任务添加到渲染 进程的消息队列中，并排队等待循环系统的处理。&lt;/p&gt;
+&lt;p&gt;排队结束之后，循环系统会取出消息队列中的任务进⾏处 理，并触发相关的回调操作。&lt;/p&gt;
+&lt;p&gt;这就是⻚⾯编程的⼀⼤特点：&lt;strong&gt;异步回调&lt;/strong&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;封装异步代码让处理流程变得线性&#34;&gt;封装异步代码，让处理流程变得线性&lt;/h2&gt;
+&lt;p&gt;重点关注的是&lt;strong&gt;输⼊内容（请求信息）&lt;strong&gt;和&lt;/strong&gt;输出内容（回复信息）&lt;/strong&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629358275680.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;将XMLHttpRequest请求过程的代码封装起来了，重点关注输⼊数据和输出结果。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//makeRequest⽤来构造request对象
+function makeRequest(request_url) {
+let request = {
+	method: &#39;Get&#39;,
+	url: request_url,
+	headers: &#39;&#39;,
+	body: &#39;&#39;,
+	credentials: false,
+	sync: true,
+	responseType: &#39;text&#39;,
+	referrer: &#39;&#39;
+	}
+	return request
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;将所有的请求细节封装进XFetch函数&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//[in] request，请求信息，请求头，延时值，返回类型等
+//[out] resolve, 执⾏成功，回调该函数
+//[out] reject 执⾏失败，回调该函数
+function XFetch(request, resolve, reject) {
+	let xhr = new XMLHttpRequest()
+	xhr.ontimeout = function (e) { reject(e) }
+	xhr.onerror = function (e) { reject(e) }
+	xhr.onreadystatechange = function () {
+	if (xhr.status = 200)
+		resolve(xhr.response)
+}
+	xhr.open(request.method, URL, request.sync);
+	xhr.timeout = request.timeout;
+	xhr.responseType = request.responseType;
+	//补充其他请求信息
+	//...
+	xhr.send();
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;实现业务代码&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;XFetch(makeRequest(&#39;https://time.geekbang.org&#39;),
+function resolve(data) {
+	console.log(data)
+}, function reject(e) {
+	console.log(e)
+})
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;新的问题回调地狱&#34;&gt;新的问题：回调地狱&lt;/h2&gt;
+&lt;p&gt;嵌套了太多的回调函数就很容易使得⾃⼰陷⼊了&lt;strong&gt;回调地狱&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第⼀是&lt;strong&gt;嵌套调⽤&lt;/strong&gt;，下⾯的任务依赖上个任务的请求结果，并在上个任务的回调函数内部执⾏新的业务逻 辑，这样当嵌套层次多了之后，代码的可读性就变得⾮常差了。&lt;/li&gt;
+&lt;li&gt;第⼆是&lt;strong&gt;任务的不确定性&lt;/strong&gt;，执⾏每个任务都有两种可能的结果（成功或者失败），所以体现在代码中就需要 对每个任务的执⾏结果做两次判断，这种对每个任务都要进⾏⼀次额外的错误处理的⽅式，明显增加了代 码的混乱程度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promise消灭嵌套调用和多次错误处理&#34;&gt;Promise：消灭嵌套调⽤和多次错误处理&lt;/h2&gt;
+&lt;p&gt;使⽤Promise来重构XFetch的代码&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function XFetch(request) {
+	function executor(resolve, reject) {
+		let xhr = new XMLHttpRequest()
+		xhr.open(&#39;GET&#39;, request.url, true)
+		xhr.ontimeout = function (e) { reject(e) }
+		xhr.onerror = function (e) { reject(e) }
+		xhr.onreadystatechange = function () {
+			if (this.readyState === 4) {
+				if (this.status === 200) {	
+					resolve(this.responseText, this)
+			} else {
+				let error = {	
+					code: this.status,
+					response: this.response
+				}
+				reject(error, this)
+			}
+		}
+	}
+	xhr.send()
+}
+
+return new Promise(executor)
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再利⽤XFetch来构造请求流程&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var x1 = XFetch(makeRequest(&#39;https://time.geekbang.org/?category&#39;))
+
+var x2 = x1.then(value =&amp;gt; {
+	console.log(value)
+	return XFetch(makeRequest(&#39;https://www.geekbang.org/column&#39;))
+})
+
+var x3 = x2.then(value =&amp;gt; {
+	console.log(value)
+return XFetch(makeRequest(&#39;https://time.geekbang.org&#39;))
+})
+
+x3.catch(error =&amp;gt; {
+	console.log(error)
+})
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;⾸先引⼊了Promise，在调⽤XFetch时，会返回⼀个Promise对象&lt;/li&gt;
+&lt;li&gt;构建Promise对象时，需要传⼊⼀个&lt;strong&gt;executor&lt;/strong&gt;函数，XFetch的主要业务流程都在executor函数中执⾏。&lt;/li&gt;
+&lt;li&gt;如果运⾏在excutor函数中的业务执⾏成功了，会调⽤resolve函数；如果执⾏失败了，则调⽤reject函 数。&lt;/li&gt;
+&lt;li&gt;在excutor函数中调⽤resolve函数时，会触发promise.then设置的回调函数；⽽调⽤reject函数时，会触 发promise.catch设置的回调函数&lt;/li&gt;
+&lt;li&gt;无论哪一个步骤抛错，都可以由p3的.catch来捕捉错误，是因为Promise对象的错误具有“冒泡”性质，会⼀直向后 传递，直到被onReject函数处理或catch语句捕获为⽌。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;p&gt;Promise主要通过下⾯两步解决嵌套回调问题的&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;⾸先，Promise实现了回调函数的延时绑定&lt;/strong&gt;。回调函数的延时绑定在代码上体现就是先创建Promise对象 x1，通过Promise的构造函数executor来执⾏业务逻辑；创建好Promise对象x1之后，再使⽤x1.then来设置 回调函数。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//创建Promise对象x1，并在executor函数中执⾏业务逻辑
+function executor(resolve, reject){
+resolve(100)
+}
+
+let x1 = new Promise(executor)
+//x1延迟绑定回调函数onResolve
+function onResolve(value){
+console.log(value)
+}
+
+x1.then(onResolve)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;p&gt;其次，需要将回调函数onResolve的返回值穿透到最外层。因为我们会根据onResolve函数的传⼊值来决定 创建什么类型的Promise任务，创建好的Promise对象需要返回到最外层，这样就可以摆脱嵌套循环。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629358262605.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promise与微任务&#34;&gt;Promise与微任务&lt;/h2&gt;
+&lt;p&gt;由于Promise采⽤了回调函数延迟绑定技术，所以在执⾏resolve函数的时候，回 调函数还没有绑定，那么只能推迟回调函数的执⾏。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function Bromise(executor) {
+	var onResolve_ = null
+	var onReject_ = null
+	//模拟实现resolve和then，暂不⽀持rejcet
+	this.then = function (onResolve, onReject) {
+	onResolve_ = onResolve
+};
+	function resolve(value) {
+		setTimeout(()=&amp;gt;{
+			onResolve_(value)
+	 	},0)
+}
+	executor(resolve, null);
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上⾯采⽤了定时器来推迟onResolve的执⾏，不过使⽤定时器的效率并不是太⾼，，所以 Promise⼜把这个定时器改造成了微任务了，这样既可以让onResolve_延时被调⽤，⼜提升了代码的执⾏ 效率。这就是Promise中使⽤微任务的原由了。&lt;/p&gt;
+">使⽤Promise，告别回调函数</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/async-han-shu/"" data-c="
