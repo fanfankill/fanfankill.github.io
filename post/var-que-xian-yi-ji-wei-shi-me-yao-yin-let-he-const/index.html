@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>var缺陷以及为什么要引⼊let和const？ | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1629529834937">
+<link rel="shortcut icon" href="/favicon.ico?v=1629700811596">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -152,6 +152,19 @@
               
             </li>
           
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/tag/68KZf8W4c/" target="_self">
+                  <i class="fa fa-globe"></i> 浏览器
+                </a>
+              
+            </li>
+          
           
             
               <li class="nav-item ">
@@ -231,19 +244,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">66</span>
+        <span class="site-item-stat-count">68</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">8</span>
+        <span class="site-item-stat-count">9</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">8</span>
+        <span class="site-item-stat-count">9</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -1150,6 +1163,167 @@ let myname= '极客邦'
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/wei-shi-me-css-dong-hua-javascriptxiao/"" data-c="
+          &lt;p&gt;DOM树⽣成之后，还要经历布局、分层、绘制、合成、显⽰等阶段后才能显⽰出漂亮的⻚⾯。&lt;/p&gt;
+&lt;h2 id=&#34;显示器是怎么显示图像的&#34;&gt;显⽰器是怎么显⽰图像的&lt;/h2&gt;
+&lt;p&gt;每个显⽰器都有固定的刷新频率，通常是60HZ，也就是每秒更新60张图⽚，更新的图⽚都来⾃于显卡中⼀ 个叫&lt;strong&gt;前缓冲区&lt;/strong&gt;的地⽅，显⽰器所做的任务很简单，就是每秒固定读取60次前缓冲区中的图像，并将读取的图 像显⽰到显⽰器上。&lt;/p&gt;
+&lt;h2 id=&#34;显卡&#34;&gt;显卡&lt;/h2&gt;
+&lt;p&gt;显卡的职责就是合成新的图像，并将图像保存到后缓冲区中，⼀旦显卡把合成的图像写到后缓冲区，系统就 会让后缓冲区和前缓冲区互换，这样就能保证显⽰器能读取到最新显卡合成的图像&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;如何生成一帧图像&#34;&gt;如何⽣成⼀帧图像&lt;/h2&gt;
+&lt;p&gt;有&lt;strong&gt;重排&lt;/strong&gt;、&lt;strong&gt;重绘&lt;/strong&gt;和&lt;strong&gt;合成&lt;/strong&gt;三种⽅式。&lt;/p&gt;
+&lt;p&gt;通常渲染路径越⻓，⽣成图像花费的时间就越多。⽐如重排，它需要重新 根据CSSOM和DOM来计算布局树，这样⽣成⼀幅图⽚时，会让整个渲染流⽔线的每个阶段都执⾏⼀遍，如 果布局复杂的话，就很难保证渲染的效率了。⽽重绘因为没有了重新布局的阶段，操作效率稍微⾼点，但是 依然需要重新计算绘制信息，并触发绘制操作之后的⼀系列操作。&lt;/p&gt;
+&lt;p&gt;相较于重排和重绘，&lt;strong&gt;合成&lt;/strong&gt;操作的路径就显得⾮常短了，并不需要触发布局和绘制两个阶段，如果采⽤了 GPU，那么合成的效率会⾮常⾼。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;分层和合成&#34;&gt;分层和合成&lt;/h2&gt;
+&lt;p&gt;通常⻚⾯的组成是⾮常复杂的，有的⻚⾯⾥要实现⼀些复杂的动画效果，⽐如点击菜单时弹出菜单的动画特 效，滚动⿏标滚轮时⻚⾯滚动的动画效果，当然还有⼀些炫酷的3D动画特效。&lt;strong&gt;如果没有采⽤分层机制，从 布局树直接⽣成⽬标图⽚的话&lt;/strong&gt;，那么每次⻚⾯有很⼩的变化时，都会触发重排或者重绘机制，这种“牵⼀发 ⽽动全⾝”的绘制策略会严重影响⻚⾯的渲染效率。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;为了提升每帧的渲染效率，Chrome引⼊了分层和合成的机制&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;可以把⼀张⽹⻚想象成是由&lt;strong&gt;很多个图⽚叠加在⼀起的，每个图⽚就对应⼀个图层&lt;/strong&gt;，Chrome合成器最终将 这些图层合成了⽤于显⽰⻚⾯的图⽚。&lt;/p&gt;
+&lt;p&gt;将素材分解为多个图层的操作就称为&lt;strong&gt;分层&lt;/strong&gt;，最后将这些图层合并到⼀起的操作就称为&lt;strong&gt;合成&lt;/strong&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;分层体现在⽣成布局树之后&lt;/strong&gt;，渲染引擎会根据布局树的特点将其转换为层树 （Layer Tree），层树是渲染流⽔线后续流程的基础结构。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;层树&lt;/strong&gt;的每一个子节点对应的都是一个图层，接着的绘制阶段就在这些子节点上进行&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;绘制阶段&lt;/strong&gt;其实就是生成一个&lt;strong&gt;绘制指令列表&lt;/strong&gt;，真正的渲染阶段在光栅化阶段&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;光栅化阶段&lt;/strong&gt;是真正的将图层进行合成并且会将页面分块，我们所看到的视图（viewport）是优先进行的，并且chorme采用首次合成图块的时候采用低分辨率的图片，可以大幅度加快渲染速度。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;合成操作是在合成线程上完成的，这也就意味着在执⾏合成操作时，是不会影响到主线 程执⾏的&lt;/strong&gt;。这就是为什么经常主线程卡住了，但是CSS动画依然能执⾏的原因&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;如何利用分层技术优化代码&#34;&gt;如何利⽤分层技术优化代码&lt;/h2&gt;
+&lt;p&gt;对某个元素做⼏何形状变换、透明度变换或者⼀些缩放操作，如果使 ⽤JavaScript来写这些效果，会牵涉到整个渲染流⽔线，所以JavaScript的绘制效率会⾮常低下。&lt;/p&gt;
+&lt;p&gt;这时可以使⽤ &lt;code&gt;will-change&lt;/code&gt;来告诉渲染引擎你会对该元素做⼀些特效变换，CSS代码如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;.box {
+will-change: transform, opacity;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这段代码就是提前告诉渲染引擎box元素将要做⼏何变换和透明度变换操作，这时候渲染引擎会将该元素单 独实现⼀帧，等这些变换发⽣时，渲染引擎会通过合成线程直接去处理变换，这些变换并没有涉及到主线程，这样就⼤⼤提升了渲染的效率。&lt;strong&gt;这也是CSS动画⽐JavaScript动画⾼效的原因&lt;/strong&gt;。&lt;/p&gt;
+">为什么CSS动画⽐JavaScript⾼效？</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/dom-shu-javascript-shi-ru-he-ying-xiang-dom-shu-gou-jian-de/"" data-c="
+          &lt;h2 id=&#34;什么是dom&#34;&gt;什么是DOM&lt;/h2&gt;
+&lt;p&gt;从⽹络传给渲染引擎的HTML⽂件字节流是⽆法直接被渲染引擎理解的，所以要将其转化为渲染引擎能够理 解的内部结构，这个结构就是DOM。&lt;/p&gt;
+&lt;p&gt;DOM有三个 层⾯的作⽤。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;从⻚⾯的视⻆来看，DOM是⽣成⻚⾯的基础数据结构。&lt;/li&gt;
+&lt;li&gt;从JavaScript脚本视⻆来看，DOM提供给JavaScript脚本操作的接⼝，通过这套接⼝，JavaScript可以对 DOM结构进⾏访问，从⽽改变⽂档的结构、样式和内容。&lt;/li&gt;
+&lt;li&gt;从安全视⻆来看，DOM是⼀道安全防护线，⼀些不安全的内容在DOM解析阶段就被拒之⻔外了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;dom树如何生成&#34;&gt;DOM树如何⽣成&lt;/h2&gt;
+&lt;p&gt;在渲染引擎内部，有⼀个叫&lt;strong&gt;HTML解析器&lt;/strong&gt;（HTMLParser）的模块，它的职责就是负责将HTML字节流转换 为DOM结构。&lt;/p&gt;
+&lt;p&gt;HTML解析器并不是等整个⽂档加载完成之后再解析的，⽽是&lt;strong&gt;⽹络进程加载了多少数据，HTML解析器便解析多少数据。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;⽹络进程接收到响应头之后，会根据请求头中的content-type字段来判断⽂件的 类型，⽐如content-type的值是“text/html”，那么浏览器就会判断这是⼀个HTML类型的⽂件，然后为该 请求选择或者创建⼀个渲染进程。&lt;/p&gt;
+&lt;p&gt;渲染进程准备好之后，⽹络进程和渲染进程之间会建⽴⼀个共享数据的管 道，⽹络进程接收到数据后就往这个管道⾥⾯放，⽽渲染进程则从管道的另外⼀端不断地读取数据，并同时 将读取的数据“喂”给HTML解析器。HTML解析器它会动态接收字节流，并将其解析为DOM。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;第⼀个阶段，通过分词器将字节流转换为Token。后续的第⼆个和第三个阶段是同步进⾏的，需要将Token解析为DOM节点，并将DOM节点添加到DOM 树中&lt;/p&gt;
+&lt;br&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;html&amp;gt;
+	&amp;lt;body&amp;gt;
+		&amp;lt;div&amp;gt;1&amp;lt;/div&amp;gt;
+		&amp;lt;div&amp;gt;test&amp;lt;/div&amp;gt;
+	&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+	
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;HTML解析器开始⼯作时，会默认创建了⼀个根为document的空DOM结构，同时 会将⼀个StartTag document的Token压⼊栈底。然后经过分词器解析出来的第⼀个StartTag html Token会 被压⼊到栈中，并创建⼀个html的DOM节点，添加到document上&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1629548369483.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629548334475.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;接下来解析出来的是第⼀个div的⽂本Token，渲染引擎会为该Token创建⼀个⽂本节点，并将该Token添加 到DOM中，它的⽗节点就是当前Token栈顶元素对应的节点&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629548325218.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;再接下来，分词器解析出来第⼀个EndTag div，这时候HTML解析器会去判断当前栈顶的元素是否是 StartTag div，如果是则从栈顶弹出StartTag div&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1629548320231.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;p&gt;最终解析&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629548314381.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;javascript是如何影响dom生成的&#34;&gt;JavaScript是如何影响DOM⽣成的&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;html&amp;gt;
+	&amp;lt;body&amp;gt;
+        &amp;lt;div&amp;gt;1&amp;lt;/div&amp;gt;
+        
+        &amp;lt;script&amp;gt;
+        let div1 = document.getElementsByTagName(&#39;div&#39;)[0]
+        div1.innerText = &#39;time.geekbang&#39;
+        &amp;lt;/script&amp;gt;
+        
+        &amp;lt;div&amp;gt;test&amp;lt;/div&amp;gt;
+	&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;解析到&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt;标签时，渲染引擎判断这是⼀段脚本，此时 HTML解析器就会暂停DOM的解析，因为接下来的JavaScript可能要修改当前已经⽣成的DOM结构。&lt;/p&gt;
+&lt;p&gt;解析到&lt;code&gt;&amp;lt;script&amp;gt;&lt;/code&gt;时候的DOM树&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629548306424.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;这时候HTML解析器暂停⼯作，JavaScript引擎介⼊，并执⾏script标签中的这段脚本，因为这段JavaScript 脚本修改了DOM中第⼀个div中的内容，所以执⾏这段脚本之后，div节点内容已经修改为time.geekbang 了。&lt;strong&gt;脚本执⾏完成之后，HTML解析器恢复解析过程&lt;/strong&gt;，继续解析后续的内容，直⾄⽣成最终的DOM。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;如果是通过引入js文件的方式的话&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//foo.js
+let div1 = document.getElementsByTagName(&#39;div&#39;)[0]
+div1.innerText = &#39;time.geekbang&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;html&amp;gt;
+&amp;lt;body&amp;gt;
+    &amp;lt;div&amp;gt;1&amp;lt;/div&amp;gt;
+    &amp;lt;script type=&amp;quot;text/javascript&amp;quot; src=&#39;foo.js&#39;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;div&amp;gt;test&amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;执⾏到JavaScript标签时，暂停整个DOM的解析，先进行文件的下载。&lt;/p&gt;
+&lt;p&gt;这⾥需要重点关注下载环境，因为 JavaScript⽂件的下载过程会&lt;strong&gt;阻塞DOM解析&lt;/strong&gt;，⽽通常下载⼜是⾮常耗时的，会受到⽹络环境、JavaScript ⽂件⼤⼩等因素的影响。&lt;/p&gt;
+&lt;p&gt;道引⼊JavaScript线程会阻塞DOM，不过也有⼀些相关的策略来规避，⽐如压缩JavaScript⽂件的体积、⽤CDN来加速JavaScript⽂件的加载。&lt;/p&gt;
+&lt;p&gt;如果JavaScript⽂件中&lt;strong&gt;没有操作 DOM相关代码&lt;/strong&gt;，就可以将该JavaScript脚本设置为&lt;strong&gt;异步加载&lt;/strong&gt;，通过async 或defer来标记代码&lt;/p&gt;
+&lt;script async type=&#34;text/javascript&#34; src=&#39;foo.js&#39;&gt;&lt;/script&gt;
+&lt;script defer type=&#34;text/javascript&#34; src=&#39;foo.js&#39;&gt;&lt;/script&gt;
+&lt;br&gt;
+&lt;p&gt;async和defer虽然都是异步的，不过还有⼀些差异，使⽤async标志的脚本⽂件⼀旦加载完成，会⽴即执 ⾏；⽽使⽤了defer标记的脚本⽂件，需要等到DOMContentLoaded事件之后执⾏。&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;css如何影响首次加载时的白屏时间&#34;&gt;CSS如何影响⾸次加载时的⽩屏时间？&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;//theme.css
+div{
+    color : coral;
+    background-color:black
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;link href=&amp;quot;theme.css&amp;quot; rel=&amp;quot;stylesheet&amp;quot;&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+    &amp;lt;div&amp;gt;geekbang com&amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;渲染流⽔线⽰意图：&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629609509170.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;和HTML⼀样，渲染引擎也是⽆法直接理解CSS⽂件内容的，所以需要将其解析成渲染引擎能够理解的结 构，这个结构就是&lt;strong&gt;CSSOM&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;CSSOM也具有两个作⽤&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第⼀个是提供给JavaScript操作样式表 的能⼒&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第⼆个是为布局树的合成提供基础的样式信息&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;构建信息&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629609503869.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;影响面展示的因素以及优化策略&#34;&gt;影响⻚⾯展⽰的因素以及优化策略&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;渲染流⽔线影响到了⾸次⻚⾯展⽰的速 度，⽽⾸次⻚⾯展⽰的速度⼜直接影响到了⽤⼾体验&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;从发起URL请求开始，到⾸次显⽰⻚⾯的内容，在视觉上经历的三个阶段&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第⼀个阶段，等请求发出去之后，到提交数据阶段，⻚⾯展⽰出来的还是之前⻚⾯的内容。&lt;/li&gt;
+&lt;li&gt;第⼆个阶段，提交数据之后渲染进程会创建⼀个空⽩⻚⾯，我们通常把这段时间称为解析⽩屏，并等待 CSS⽂件和JavaScript⽂件的加载完成，⽣成CSSOM和DOM，然后合成布局树，最后还要经过⼀系列的 步骤准备⾸次渲染。&lt;/li&gt;
+&lt;li&gt;第三个阶段，等⾸次渲染完成之后，就开始进⼊完整⻚⾯的⽣成阶段了，然后⻚⾯会⼀点点被绘制出来。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;影响&lt;strong&gt;白屏时间&lt;/strong&gt;主要是&lt;strong&gt;下载CSS⽂件、下载JavaScript⽂件和执⾏JavaScript&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;想缩短⽩屏时⻓，可以有以下策略：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过内联JavaScript、内联CSS来移除这两种类型的⽂件下载，这样获取到HTML⽂件之后就可以直接开 始渲染流程了。&lt;/li&gt;
+&lt;li&gt;可以尽量减少⽂件⼤⼩，⽐如通过webpack等⼯具移除⼀些不 必要的注释，并压缩JavaScript⽂件。&lt;/li&gt;
+&lt;li&gt;可以将⼀些不需要在解析HTML阶段使⽤的JavaScript标记上sync或者defer。&lt;/li&gt;
+&lt;li&gt;对于⼤的CSS⽂件，可以通过媒体查询属性，将其拆分为多个不同⽤途的CSS⽂件，这样只有在特定的场 景下才会加载特定的CSS⽂件。&lt;/li&gt;
+&lt;/ul&gt;
+">DOM树：JavaScript、CSS是如何影响DOM树构建的？</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/class-de-ji-ben-yu-fa/"" data-c="

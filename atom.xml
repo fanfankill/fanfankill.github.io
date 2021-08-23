@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-08-21T07:31:22.667Z</updated>
+    <updated>2021-08-23T06:40:52.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[为什么CSS动画⽐JavaScript⾼效？]]></title>
+        <id>https://fanfankill.github.io/post/wei-shi-me-css-dong-hua-javascriptxiao/</id>
+        <link href="https://fanfankill.github.io/post/wei-shi-me-css-dong-hua-javascriptxiao/">
+        </link>
+        <updated>2021-08-23T06:38:26.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[DOM树：JavaScript、CSS是如何影响DOM树构建的？]]></title>
+        <id>https://fanfankill.github.io/post/dom-shu-javascript-shi-ru-he-ying-xiang-dom-shu-gou-jian-de/</id>
+        <link href="https://fanfankill.github.io/post/dom-shu-javascript-shi-ru-he-ying-xiang-dom-shu-gou-jian-de/">
+        </link>
+        <updated>2021-08-21T12:18:14.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Class 的基本语法]]></title>
         <id>https://fanfankill.github.io/post/class-de-ji-ben-yu-fa/</id>
@@ -65,19 +79,5 @@
         <link href="https://fanfankill.github.io/post/bian-yi-qi-he-jie-shi-qi-v8-shi-ru-he-zhi-duan-javascript-dai-ma-de/">
         </link>
         <updated>2021-08-15T06:49:36.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ Generator 函数的语法]]></title>
-        <id>https://fanfankill.github.io/post/generator-han-shu-de-yu-fa/</id>
-        <link href="https://fanfankill.github.io/post/generator-han-shu-de-yu-fa/">
-        </link>
-        <updated>2021-08-15T06:20:57.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ 垃圾回收：垃圾数据是如何⾃动回收的？]]></title>
-        <id>https://fanfankill.github.io/post/la-ji-hui-shou-la-ji-shu-ju-shi-ru-he-dong-hui-shou-de/</id>
-        <link href="https://fanfankill.github.io/post/la-ji-hui-shou-la-ji-shu-ju-shi-ru-he-dong-hui-shou-de/">
-        </link>
-        <updated>2021-08-14T04:51:16.000Z</updated>
     </entry>
 </feed>
