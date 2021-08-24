@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>深入作用域链 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1629700811596">
+<link rel="shortcut icon" href="/favicon.ico?v=1629786699323">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -244,7 +244,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">68</span>
+        <span class="site-item-stat-count">69</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1195,6 +1195,98 @@ bar.printName()
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/xing-neng-ru-he-xi-tong-di-you-hua/"" data-c="
+          &lt;p&gt;&lt;strong&gt;谈论的⻚⾯优化，其实就是要让⻚⾯更快地显⽰和响应。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通常⼀个⻚⾯有三个阶段：&lt;strong&gt;加载阶段&lt;/strong&gt;、&lt;strong&gt;交互阶段&lt;/strong&gt;和&lt;strong&gt;关闭阶段&lt;/strong&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;加载阶段，是指从发出请求到渲染出完整⻚⾯的过程，影响到这个阶段的主要因素有⽹络和JavaScript脚 本。&lt;/li&gt;
+&lt;li&gt;交互阶段，主要是从⻚⾯加载完成到⽤⼾交互的整合过程，影响到这个阶段的主要因素是JavaScript脚 本。&lt;/li&gt;
+&lt;li&gt;关闭阶段，主要是⽤⼾发出关闭指令后⻚⾯所做的⼀些清理操作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;加载阶段&#34;&gt;加载阶段&lt;/h2&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629786689712.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;在构建DOM的过程中需要HTML和JavaScript⽂件，在构造渲染树的过程中需要⽤到CSS⽂件。&lt;/p&gt;
+&lt;p&gt;而Javascript和CSS文件请求造成网页阻塞，&lt;strong&gt;我们把这些能阻塞⽹⻚⾸次渲染的资源称为关键资源。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;三个影响⻚⾯ ⾸次渲染的核⼼因素。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第⼀个是关键资源个数&lt;/strong&gt;。关键资源个数越多，⾸次⻚⾯的加载时间就会越⻓。⽐如上图中的关键资源个数就 是3个，1个HTML⽂件、1个JavaScript和1个CSS⽂件。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第⼆个是关键资源⼤⼩&lt;/strong&gt;。通常情况下，所有关键资源的内容越⼩，其整个资源的下载时间也就越短，那么阻 塞渲染的时间也就越短。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;第三个是请求关键资源需要多少个RTT（Round Trip Time）&lt;/strong&gt;，&lt;strong&gt;RTT是往返时延。它是网络中的一个重要的性能指标&lt;/strong&gt;。通常一个HTTP的数据包在14KB左右，所以一个0.1MB大小的页面需要拆分为8个包，也就是需要8个RTT。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;总的优化原则就 是减少关键资源个数，降低关键资源⼤⼩，降低关键资源的RTT次数&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;如何减少关键资源的个数&#34;&gt;如何减少关键资源的个数？&lt;/h3&gt;
+&lt;p&gt;⼀种⽅式是可以将JavaScript和CSS改成内联的形式，这样可以减少关键资源的请求个数。&lt;/p&gt;
+&lt;p&gt;如果JavaScript代 码没有DOM或者CSSOM的操作，则可以改成sync或者defer属性。&lt;/p&gt;
+&lt;p&gt;对于CSS，如果不是在构建⻚⾯之 前加载的，则可以添加媒体取消阻⽌显现的标志。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;如何减少关键资源的大小&#34;&gt;如何减少关键资源的⼤⼩？&lt;/h3&gt;
+&lt;p&gt;可以压缩CSS和JavaScript资源，移除HTML、CSS、JavaScript⽂件中⼀些注 释内容&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;如何减少关键资源rtt的次数&#34;&gt;如何减少关键资源RTT的次数？&lt;/h3&gt;
+&lt;p&gt;可以通过减少关键资源的个数和减少关键资源的⼤⼩搭配来实现。除此之 外，还可以使⽤CDN来减少每次RTT时⻓。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;交互阶段&#34;&gt;交互阶段&lt;/h2&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629786696644.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;如果在计算样式阶段发现有布局信息的修改，那么就会触发&lt;strong&gt;重排&lt;/strong&gt;操作，然后触发后续渲染流⽔线的⼀系列操 作，这个代价是⾮常⼤的。&lt;/p&gt;
+&lt;p&gt;如果在计算样式阶段没有发现有布局信息的修改，只是修改了颜⾊⼀类的信息，那么就不会涉及到布局 相关的调整，所以可以跳过布局阶段，直接进⼊绘制阶段，这个过程叫&lt;strong&gt;重绘&lt;/strong&gt;。不过重绘阶段的代价也是不⼩ 的。&lt;/p&gt;
+&lt;p&gt;通过CSS实现⼀些变形、渐变、动画等特效，这是由CSS触发的，并且是在合成线程上 执⾏的，这个过程称为&lt;strong&gt;合成&lt;/strong&gt;。&lt;strong&gt;通过CSS实现⼀些变形、渐变、动画等特效，这是由CSS触发的，并且是在合成线程上 执⾏的，这个过程称为合成。&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;在交互阶段渲染流⽔线中有哪些因素影响了帧的⽣成速度以及 如何去优化&lt;/p&gt;
+&lt;h3 id=&#34;减少javascript脚本执行时间&#34;&gt;减少JavaScript脚本执⾏时间&lt;/h3&gt;
+&lt;p&gt;有时JavaScript函数的⼀次执⾏时间可能有⼏百毫秒，这就严重霸占了主线程执⾏其他渲染任务的时间。针 对这种情况我们可以采⽤以下两种策略：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;⼀种是将⼀次执⾏的函数分解为多个任务，使得每次的执⾏时间不要过久。&lt;/li&gt;
+&lt;li&gt;另⼀种是采⽤Web Workers。你可以把Web Workers当作主线程之外的⼀个线程，在Web Workers中是可 以执⾏JavaScript脚本的，不过Web Workers中没有DOM、CSSOM环境，这意味着在Web Workers中是⽆法通过JavaScript来访问DOM的，所以我们可以把⼀些和DOM操作⽆关且耗时的任务放到Web Workers中去执⾏。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总之，在交互阶段，对JavaScript脚本总的原则就是不要⼀次霸占太久主线程。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;避免强制同步布局&#34;&gt;避免强制同步布局&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;所谓强制同步布局，是指JavaScript强制将计算样式和布局操作提前到当前的任务中。&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function foo() {
+    let main_div = document.getElementById(&amp;quot;mian_div&amp;quot;)
+    let new_node = document.createElement(&amp;quot;li&amp;quot;)
+    let textnode = document.createTextNode(&amp;quot;time.geekbang&amp;quot;)
+    new_node.appendChild(textnode);
+    document.getElementById(&amp;quot;mian_div&amp;quot;).appendChild(new_node);
+    //由于要获取到offsetHeight，
+    //但是此时的offsetHeight还是⽼的数据，
+    //所以需要⽴即执⾏布局操作
+    console.log(main_div.offsetHeight)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;将新的元素添加到DOM之后，我们⼜调⽤了main_div.offsetHeight来获取新main_div的⾼度信息。 如果要获取到main_div的⾼度，就需要重新布局，所以这⾥在获取到main_div的⾼度之前，JavaScript还 需要强制让渲染引擎默认执⾏⼀次布局操作。我们把这个操作称为强制同步布局。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;避免布局抖动&#34;&gt;避免布局抖动&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;所谓布局抖动，是指在⼀次JavaScript执⾏过程 中，多次执⾏强制布局和抖动操作。&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function foo() {
+    let time_li = document.getElementById(&amp;quot;time_li&amp;quot;)
+    for (let i = 0; i &amp;lt; 100; i++) {
+    let main_div = document.getElementById(&amp;quot;mian_div&amp;quot;)
+    let new_node = document.createElement(&amp;quot;li&amp;quot;)
+    let textnode = document.createTextNode(&amp;quot;time.geekbang&amp;quot;)
+    new_node.appendChild(textnode);
+    new_node.offsetHeight = time_li.offsetHeight;
+    document.getElementById(&amp;quot;mian_div&amp;quot;).appendChild(new_node);
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;for循环语句⾥⾯不断读取属性值，每次读取属性值之前都要进⾏计算样式和布局。&lt;/p&gt;
+&lt;p&gt;在foo函数内部重复执⾏计算样式和布局，这会⼤⼤影响当前函数的执⾏效率&lt;/p&gt;
+&lt;p&gt;这种情况 的避免⽅式和强制同步布局⼀样，都是尽量不要在修改DOM结构时再去查询⼀些相关值。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;合理利用css合成动画&#34;&gt;合理利⽤CSS合成动画&lt;/h3&gt;
+&lt;p&gt;合成动画是直接在合成线程上执⾏的，这和在主线程上执⾏的布局、绘制等操作不同，如果主线程被 JavaScript或者⼀些布局任务占⽤，CSS动画依然能继续执⾏。&lt;/p&gt;
+&lt;p&gt;如果能提前知道对某个元素执⾏动画操作，那就最好将其标记为will-change，这是告诉渲染引擎需 要将该元素单独⽣成⼀个图层。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+&lt;p&gt;在加载阶段，核⼼的优化原则是：优化关键资源的加载速度，减少关键资源的个数，降低关键资源的RTT次数。&lt;/p&gt;
+&lt;p&gt;在交互阶段，核⼼的优化原则是：尽量减少⼀帧的⽣成时间。可以通过减少单次JavaScript的执⾏时间、避 免强制同步布局、避免布局抖动、尽量采⽤CSS的合成动画&lt;/p&gt;
+">⻚⾯性能：如何系统地优化⻚⾯</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/wei-shi-me-css-dong-hua-javascriptxiao/"" data-c="
