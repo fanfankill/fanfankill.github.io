@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS 节流和防抖 判断数组 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1629786699323">
+<link rel="shortcut icon" href="/favicon.ico?v=1629892897674">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -244,7 +244,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">69</span>
+        <span class="site-item-stat-count">70</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1171,6 +1171,229 @@ console.log(arr.toString());//&quot;[object Array]&quot;
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/xu-ni-domxu-ni-dom-he-shi-ji-de-dom-you-he-bu-tong/"" data-c="
+          &lt;h2 id=&#34;dom的缺陷&#34;&gt;DOM的缺陷&lt;/h2&gt;
+&lt;p&gt;对于js对DOM的操作，例如&lt;code&gt;document.body.appendChild(node)&lt;/code&gt;往body节点上添加⼀个元素后会引发⼀系列的连锁反应，&lt;/p&gt;
+&lt;p&gt;⾸先渲染引擎会将node节点添加到body节点之上，然后触发样式计算、布局、绘制、栅格化、合成等任务，我们把这⼀过程称为&lt;strong&gt;重排&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;除了重排之外，还有可能引起重绘或者合成操作，形象地理解就是**“牵⼀发⽽动全⾝”**。&lt;/p&gt;
+&lt;p&gt;对于DOM的不当操作还有可能引发&lt;strong&gt;强制同步&lt;/strong&gt;布局和&lt;strong&gt;布局抖动&lt;/strong&gt;的问题&lt;/p&gt;
+&lt;p&gt;这些操作都会⼤⼤降低渲染效率。因此，对于DOM的操作我们时刻都需要⾮常⼩⼼谨慎。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;什么是虚拟dom&#34;&gt;什么是虚拟DOM&lt;/h2&gt;
+&lt;p&gt;虚拟DOM解决了哪些事情&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将⻚⾯改变的内容应⽤到虚拟DOM上，⽽不是直接应⽤到DOM上&lt;/li&gt;
+&lt;li&gt;变化被应⽤到虚拟DOM上时，虚拟DOM并不急着去渲染⻚⾯，⽽仅仅是调整虚拟DOM的内部状态，这样 操作虚拟DOM的代价就变得⾮常轻了。&lt;/li&gt;
+&lt;li&gt;在虚拟DOM收集到⾜够的改变时，再把这些变化⼀次性应⽤到真实的DOM上。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629874748933.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;p&gt;DOM结构&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;ul id=&amp;quot;list&amp;quot;&amp;gt;
+    &amp;lt;li class=&amp;quot;item&amp;quot;&amp;gt;哈哈&amp;lt;/li&amp;gt;
+    &amp;lt;li class=&amp;quot;item&amp;quot;&amp;gt;呵呵&amp;lt;/li&amp;gt;
+    &amp;lt;li class=&amp;quot;item&amp;quot;&amp;gt;嘿嘿&amp;lt;/li&amp;gt;
+&amp;lt;/ul&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;虚拟DOM&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let oldVDOM = { // 旧虚拟DOM
+        tagName: &#39;ul&#39;, // 标签名
+        props: { // 标签属性
+            id: &#39;list&#39;
+        },
+        children: [ // 标签子节点
+            {
+                tagName: &#39;li&#39;, props: { class: &#39;item&#39; }, children: [&#39;哈哈&#39;]
+            },
+            {
+                tagName: &#39;li&#39;, props: { class: &#39;item&#39; }, children: [&#39;呵呵&#39;]
+            },
+            {
+                tagName: &#39;li&#39;, props: { class: &#39;item&#39; }, children: [&#39;嘿嘿&#39;]
+            },
+        ]
+    }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;虚拟DOM到底怎么运⾏的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;创建阶段&lt;/strong&gt;。⾸先依据JSX和基础数据创建出来虚拟DOM，它反映了真实的DOM树的结构。然后由虚拟 DOM树创建出真实DOM树，真实的DOM树⽣成完后，再触发渲染流⽔线往屏幕输出⻚⾯。（这个阶段并没有体现虚拟DOM的优化）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;更新阶段&lt;/strong&gt;。如果数据发⽣了改变，那么就需要根据新的数据创建⼀个新的虚拟DOM树；然后使用diff算法⽐较两 个树，找出变化的地⽅，并把变化的地⽅⼀次性更新到真实的DOM树上；最后渲染引擎更新渲染流⽔ 线，并⽣成新的⻚⾯。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;什么是diff算法&#34;&gt;什么是Diff算法&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Diff算法是一种对比算法&lt;/strong&gt;。对比两者是&lt;code&gt;旧虚拟DOM和新虚拟DOM&lt;/code&gt;，对比出是哪个&lt;code&gt;虚拟节点&lt;/code&gt;更改了，找出这个&lt;code&gt;虚拟节点&lt;/code&gt;，并只更新这个虚拟节点所对应的&lt;code&gt;真实节点&lt;/code&gt;，而不用更新其他数据没发生改变的节点，实现&lt;code&gt;精准&lt;/code&gt;地更新真实DOM，进而&lt;code&gt;提高效率&lt;/code&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;diff同层对比&#34;&gt;Diff同层对比&lt;/h3&gt;
+&lt;p&gt;新旧虚拟DOM对比的时候，Diff算法比较只会在同层级进行, 不会跨层级比较。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629874739217.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;diff对比流程&#34;&gt;Diff对比流程&lt;/h3&gt;
+&lt;p&gt;当数据改变时，会触发&lt;code&gt;setter&lt;/code&gt;，并且通过&lt;code&gt;Dep.notify&lt;/code&gt;去通知所有&lt;code&gt;订阅者Watcher&lt;/code&gt;，订阅者们就会调用&lt;code&gt;patch方法&lt;/code&gt;，给真实DOM打补丁，更新相应的视图。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;patch方法&#34;&gt;patch方法&lt;/h3&gt;
+&lt;p&gt;这个方法作用就是，对比当前同层的虚拟节点是否为同一种类型的标签&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;是：继续执行&lt;code&gt;patchVnode方法&lt;/code&gt;进行深层比对&lt;/li&gt;
+&lt;li&gt;否：没必要比对了，直接整个节点替换成&lt;code&gt;新虚拟节点&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;patch&lt;/code&gt;的核心原理代码&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-jsx&#34;&gt;function patch(oldVnode, newVnode) {
+  // 比较是否为一个类型的节点
+  if (sameVnode(oldVnode, newVnode)) {
+    // 是：继续进行深层比较
+    patchVnode(oldVnode, newVnode)
+  } else {
+    // 否
+    const oldEl = oldVnode.el // 旧虚拟节点的真实DOM节点
+    const parentEle = api.parentNode(oldEl) // 获取父节点
+    createEle(newVnode) // 创建新虚拟节点对应的真实DOM节点
+    if (parentEle !== null) {
+      api.insertBefore(parentEle, vnode.el, api.nextSibling(oEl)) // 将新元素添加进父元素
+      api.removeChild(parentEle, oldVnode.el)  // 移除以前的旧元素节点
+      // 设置null，释放内存
+      oldVnode = null
+    }
+  }
+
+  return newVnode
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;samevnode方法&#34;&gt;sameVnode方法&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;sameVnode&lt;/code&gt;方法判断是否为同一类型节点&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-jsx&#34;&gt;function sameVnode(oldVnode, newVnode) {
+  return (
+    oldVnode.key === newVnode.key &amp;amp;&amp;amp; // key值是否一样
+    oldVnode.tagName === newVnode.tagName &amp;amp;&amp;amp; // 标签名是否一样
+    oldVnode.isComment === newVnode.isComment &amp;amp;&amp;amp; // 是否都为注释节点
+    isDef(oldVnode.data) === isDef(newVnode.data) &amp;amp;&amp;amp; // 是否都定义了data
+    sameInputType(oldVnode, newVnode) // 当标签为input时，type必须是否相同
+  )
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;patchvnode方法&#34;&gt;patchVnode方法&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;找到对应的&lt;code&gt;真实DOM&lt;/code&gt;，称为&lt;code&gt;el&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;判断&lt;code&gt;newVnode&lt;/code&gt;和&lt;code&gt;oldVnode&lt;/code&gt;是否指向同一个对象，如果是，那么直接&lt;code&gt;return&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;如果他们都有文本节点并且不相等，那么将&lt;code&gt;el&lt;/code&gt;的文本节点设置为&lt;code&gt;newVnode&lt;/code&gt;的文本节点。&lt;/li&gt;
+&lt;li&gt;如果&lt;code&gt;oldVnode&lt;/code&gt;有子节点而&lt;code&gt;newVnode&lt;/code&gt;没有，则删除&lt;code&gt;el&lt;/code&gt;的子节点&lt;/li&gt;
+&lt;li&gt;如果&lt;code&gt;oldVnode&lt;/code&gt;没有子节点而&lt;code&gt;newVnode&lt;/code&gt;有，则将&lt;code&gt;newVnode&lt;/code&gt;的子节点真实化之后添加到&lt;code&gt;el&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;如果两者都有子节点，则执行&lt;code&gt;updateChildren&lt;/code&gt;函数比较子节点，这一步很重要&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function patchVnode(oldVnode, newVnode) {
+  const el = newVnode.el = oldVnode.el // 获取真实DOM对象
+  // 获取新旧虚拟节点的子节点数组
+  const oldCh = oldVnode.children, newCh = newVnode.children
+  // 如果新旧虚拟节点是同一个对象，则终止
+  if (oldVnode === newVnode) return
+  // 如果新旧虚拟节点是文本节点，且文本不一样
+  if (oldVnode.text !== null &amp;amp;&amp;amp; newVnode.text !== null &amp;amp;&amp;amp; oldVnode.text !== newVnode.text) {
+    // 则直接将真实DOM中文本更新为新虚拟节点的文本
+    api.setTextContent(el, newVnode.text)
+  } else {
+    // 否则
+
+    if (oldCh &amp;amp;&amp;amp; newCh &amp;amp;&amp;amp; oldCh !== newCh) {
+      // 新旧虚拟节点都有子节点，且子节点不一样
+
+      // 对比子节点，并更新
+      updateChildren(el, oldCh, newCh)
+    } else if (newCh) {
+      // 新虚拟节点有子节点，旧虚拟节点没有
+
+      // 创建新虚拟节点的子节点，并更新到真实DOM上去
+      createEle(newVnode)
+    } else if (oldCh) {
+      // 旧虚拟节点有子节点，新虚拟节点没有
+
+      //直接删除真实DOM里对应的子节点
+      api.removeChild(el)
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;updatechildren方法&#34;&gt;updateChildren方法&lt;/h3&gt;
+&lt;p&gt;用于新旧虚拟节点的&lt;strong&gt;子节点&lt;/strong&gt;对比，用&lt;strong&gt;首尾指针法&lt;/strong&gt;来实现&lt;/p&gt;
+&lt;p&gt;例如&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;ul&amp;gt;
+    &amp;lt;li&amp;gt;a&amp;lt;/li&amp;gt;
+    &amp;lt;li&amp;gt;b&amp;lt;/li&amp;gt;
+    &amp;lt;li&amp;gt;c&amp;lt;/li&amp;gt;
+&amp;lt;/ul&amp;gt;
+
+修改数据后
+
+&amp;lt;ul&amp;gt;
+    &amp;lt;li&amp;gt;b&amp;lt;/li&amp;gt;
+    &amp;lt;li&amp;gt;c&amp;lt;/li&amp;gt;
+    &amp;lt;li&amp;gt;e&amp;lt;/li&amp;gt;
+    &amp;lt;li&amp;gt;a&amp;lt;/li&amp;gt;
+&amp;lt;/ul
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;新旧两个子节点集合以及其首尾指针为：&lt;br&gt;
+&lt;img src=&#34;https://fanfankill.github.io/post-images/1629874725928.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;p&gt;然后会进行互相进行比较，总共有五种比较情况：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1、&lt;code&gt;oldS 和 newS&lt;/code&gt; 使用&lt;code&gt;sameVnode方法&lt;/code&gt;进行比较，&lt;code&gt;sameVnode(oldS, newS)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;2、&lt;code&gt;oldS 和 newE&lt;/code&gt; 使用&lt;code&gt;sameVnode方法&lt;/code&gt;进行比较，&lt;code&gt;sameVnode(oldS, newE)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;3、&lt;code&gt;oldE 和 newS&lt;/code&gt; 使用&lt;code&gt;sameVnode方法&lt;/code&gt;进行比较，&lt;code&gt;sameVnode(oldE, newS)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;4、&lt;code&gt;oldE 和 newE&lt;/code&gt; 使用&lt;code&gt;sameVnode方法&lt;/code&gt;进行比较，&lt;code&gt;sameVnode(oldE, newE)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;5、如果以上逻辑都匹配不到，再把所有旧子节点的 &lt;code&gt;key&lt;/code&gt; 做一个映射到旧节点下标的 &lt;code&gt;key -&amp;gt; index&lt;/code&gt; 表，然后用新 &lt;code&gt;vnode&lt;/code&gt; 的 &lt;code&gt;key&lt;/code&gt; 去找出在旧节点中可以复用的位置。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629874718161.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;第一步&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;oldS = a, oldE = c
+newS = b, newE = a
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;比较结果：&lt;code&gt;oldS 和 newE&lt;/code&gt; 相等，需要把&lt;code&gt;节点a&lt;/code&gt;移动到&lt;code&gt;newE&lt;/code&gt;所对应的位置，也就是末尾，同时&lt;code&gt;oldS++&lt;/code&gt;，&lt;code&gt;newE--&lt;/code&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629874711888.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;第二步&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;oldS = b, oldE = c
+newS = b, newE = e
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;比较结果：&lt;code&gt;oldS 和 newS&lt;/code&gt;相等，需要把&lt;code&gt;节点b&lt;/code&gt;移动到&lt;code&gt;newS&lt;/code&gt;所对应的位置，同时&lt;code&gt;oldS++&lt;/code&gt;,&lt;code&gt;newS++&lt;/code&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629874706873.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;第三步&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-swift&#34;&gt;oldS = c, oldE = c
+newS = c, newE = e
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;比较结果：&lt;code&gt;oldS、oldE 和 newS&lt;/code&gt;相等，需要把&lt;code&gt;节点c&lt;/code&gt;移动到&lt;code&gt;newS&lt;/code&gt;所对应的位置，同时&lt;code&gt;oldS++&lt;/code&gt;,&lt;code&gt;oldE--&lt;/code&gt;,&lt;code&gt;newS++&lt;/code&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;6&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629874701093.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;第四步&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;oldS &amp;gt; oldE&lt;/code&gt;，则&lt;code&gt;oldCh&lt;/code&gt;先遍历完成了，而&lt;code&gt;newCh&lt;/code&gt;还没遍历完，说明&lt;code&gt;newCh比oldCh多&lt;/code&gt;，所以需要将多出来的节点，插入到真实DOM上对应的位置上&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;7&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1629874695514.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;p&gt;如果是&lt;code&gt;newCh&lt;/code&gt;先遍历完，那么&lt;code&gt;oldCh&lt;/code&gt;中多出的节点将会被删除&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;平常v-for循环渲染的时候，为什么&lt;strong&gt;不建议用index&lt;/strong&gt;作为循环项的key呢？&lt;/p&gt;
+&lt;p&gt;如下例子&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;ul&amp;gt;                      &amp;lt;ul&amp;gt;
+    &amp;lt;li key=&amp;quot;0&amp;quot;&amp;gt;a&amp;lt;/li&amp;gt;        &amp;lt;li key=&amp;quot;0&amp;quot;&amp;gt;林三心&amp;lt;/li&amp;gt;
+    &amp;lt;li key=&amp;quot;1&amp;quot;&amp;gt;b&amp;lt;/li&amp;gt;        &amp;lt;li key=&amp;quot;1&amp;quot;&amp;gt;a&amp;lt;/li&amp;gt;
+    &amp;lt;li key=&amp;quot;2&amp;quot;&amp;gt;c&amp;lt;/li&amp;gt;        &amp;lt;li key=&amp;quot;2&amp;quot;&amp;gt;b&amp;lt;/li&amp;gt;
+                              &amp;lt;li key=&amp;quot;3&amp;quot;&amp;gt;c&amp;lt;/li&amp;gt;
+&amp;lt;/ul&amp;gt;                     &amp;lt;/ul&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这样用index做key会导致li标签全要更新一遍&lt;/p&gt;
+&lt;p&gt;在进行子节点的 &lt;code&gt;diff算法&lt;/code&gt; 过程中，会进行 旧首节点和新首节点的&lt;code&gt;sameNode&lt;/code&gt;对比，这一步命中了逻辑，因为现在&lt;code&gt;新旧两次首部节点&lt;/code&gt; 的 &lt;code&gt;key&lt;/code&gt; 都是 &lt;code&gt;0&lt;/code&gt;了，同理，key为1和2的也是命中了逻辑，导致&lt;code&gt;相同key的节点&lt;/code&gt;会去进行&lt;code&gt;patchVnode&lt;/code&gt;更新文本，而原本就有的&lt;code&gt;c节点&lt;/code&gt;，却因为之前没有key为4的节点，而被当做了新节点&lt;/p&gt;
+&lt;p&gt;所以就建议用独一无二的值来作为&lt;code&gt;key&lt;/code&gt;值&lt;/p&gt;
+">虚拟DOM：虚拟DOM和实际的DOM有何不同？</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/xing-neng-ru-he-xi-tong-di-you-hua/"" data-c="

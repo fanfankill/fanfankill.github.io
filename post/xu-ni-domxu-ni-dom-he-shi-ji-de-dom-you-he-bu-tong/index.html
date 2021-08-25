@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>var缺陷以及为什么要引⼊let和const？ | fanfan</title>
+<title>虚拟DOM：虚拟DOM和实际的DOM有何不同？ | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1629892897674">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="var缺陷以及为什么要引⼊let和const？" />
-  <meta name="keywords" content="Javascript" />
+  <meta name="description" content="虚拟DOM：虚拟DOM和实际的DOM有何不同？" />
+  <meta name="keywords" content="vue,Javascript" />
 </head>
 
 <body>
@@ -297,10 +297,16 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E4%BD%9C%E7%94%A8%E5%9F%9Fscope">作⽤域（scope）</a></li>
-<li><a href="#%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98">变量提升带来的问题</a>
+<li><a href="#dom%E7%9A%84%E7%BC%BA%E9%99%B7">DOM的缺陷</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%99%9A%E6%8B%9Fdom">什么是虚拟DOM</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AFdiff%E7%AE%97%E6%B3%95">什么是Diff算法</a>
 <ul>
-<li><a href="#javascript%E6%98%AF%E5%A6%82%E4%BD%95%E6%94%AF%E6%8C%81%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F%E7%9A%84">JavaScript是如何⽀持块级作⽤域的</a></li>
+<li><a href="#diff%E5%90%8C%E5%B1%82%E5%AF%B9%E6%AF%94">Diff同层对比</a></li>
+<li><a href="#diff%E5%AF%B9%E6%AF%94%E6%B5%81%E7%A8%8B">Diff对比流程</a></li>
+<li><a href="#patch%E6%96%B9%E6%B3%95">patch方法</a></li>
+<li><a href="#samevnode%E6%96%B9%E6%B3%95">sameVnode方法</a></li>
+<li><a href="#patchvnode%E6%96%B9%E6%B3%95">patchVnode方法</a></li>
+<li><a href="#updatechildren%E6%96%B9%E6%B3%95">updateChildren方法</a></li>
 </ul>
 </li>
 </ul>
@@ -570,8 +576,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/var-que-xian-yi-ji-wei-shi-me-yao-yin-let-he-const/">
-      var缺陷以及为什么要引⼊let和const？
+    <a class="post-title-link" href="https://fanfankill.github.io/post/xu-ni-domxu-ni-dom-he-shi-ji-de-dom-you-he-bu-tong/">
+      虚拟DOM：虚拟DOM和实际的DOM有何不同？
     </a>
   </h1>
   <div class="post-meta">
@@ -579,13 +585,19 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-08-07 21:10:24">2021-08-07</span>
+      <span class="publish-time" data-t="2021-08-25 14:57:40">2021-08-25</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
       <i class="fa fa-folder-o"></i>
       <span class="pc-show language" data-lan="category-in">分类于</span>
+      
+      
+      <a href="https://fanfankill.github.io/tag/YjLqWgkox/">
+        <span>vue</span>
+      </a>、
+      
       
       
       <a href="https://fanfankill.github.io/tag/hjqM1TBv9/">
@@ -598,74 +610,235 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>3<span class="language" data-lan="minute">分钟</span></span>
+      <span>9<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>680<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>2128<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h2 id="作用域scope">作⽤域（scope）</h2>
-<p>作⽤域是指在程序中定义变量的区域，该位置决定了变量的⽣命周期。</p>
-<p>作⽤域就是变量与函数 的可访问范围，即作⽤域控制着变量和函数的可⻅性和⽣命周期。</p>
-<p>ES6之前，ES的作⽤域只有两种：<strong>全局作⽤域和函数作⽤域</strong>，是不⽀持块级作⽤域的</p>
-<ul>
-<li><strong>全局作⽤域</strong>中的对象在代码中的任何地⽅都能访问，其⽣命周期伴随着⻚⾯的⽣命周期。</li>
-<li><strong>函数作⽤域</strong>就是在函数内部定义的变量或者函数，并且定义的变量或者函数只能在函数内部被访问。函数 执⾏结束之后，函数内部定义的变量会被销毁。</li>
-</ul>
-<hr>
-<h2 id="变量提升带来的问题">变量提升带来的问题</h2>
-<pre><code class="language-js">function foo(){
-for (var i = 0; i &lt; 7; i++) {
-}
-console.log(i);
-}
-foo()
-
-</code></pre>
-<p>因为<code>for</code>循环对于var声明的变量是全局的，所以会一直存在，最后打印出7</p>
-<p>而<code>let</code>和<code>const</code>可以避免这样的问题</p>
+              <h2 id="dom的缺陷">DOM的缺陷</h2>
+<p>对于js对DOM的操作，例如<code>document.body.appendChild(node)</code>往body节点上添加⼀个元素后会引发⼀系列的连锁反应，</p>
+<p>⾸先渲染引擎会将node节点添加到body节点之上，然后触发样式计算、布局、绘制、栅格化、合成等任务，我们把这⼀过程称为<strong>重排</strong>。</p>
+<p>除了重排之外，还有可能引起重绘或者合成操作，形象地理解就是**“牵⼀发⽽动全⾝”**。</p>
+<p>对于DOM的不当操作还有可能引发<strong>强制同步</strong>布局和<strong>布局抖动</strong>的问题</p>
+<p>这些操作都会⼤⼤降低渲染效率。因此，对于DOM的操作我们时刻都需要⾮常⼩⼼谨慎。</p>
 <br>
-<h3 id="javascript是如何支持块级作用域的">JavaScript是如何⽀持块级作⽤域的</h3>
-<pre><code class="language-js">function foo(){
-var a = 1
-let b = 2
-{
-let b = 3
-var c = 4
-let d = 5
-console.log(a)
-console.log(b)
-}
-console.log(b)
-console.log(c)
-console.log(d)
-}
-foo()
+<h2 id="什么是虚拟dom">什么是虚拟DOM</h2>
+<p>虚拟DOM解决了哪些事情</p>
+<ul>
+<li>将⻚⾯改变的内容应⽤到虚拟DOM上，⽽不是直接应⽤到DOM上</li>
+<li>变化被应⽤到虚拟DOM上时，虚拟DOM并不急着去渲染⻚⾯，⽽仅仅是调整虚拟DOM的内部状态，这样 操作虚拟DOM的代价就变得⾮常轻了。</li>
+<li>在虚拟DOM收集到⾜够的改变时，再把这些变化⼀次性应⽤到真实的DOM上。</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1629874748933.png" alt="" loading="lazy"></figure>
+<br>
+<p>DOM结构</p>
+<pre><code class="language-html">&lt;ul id=&quot;list&quot;&gt;
+    &lt;li class=&quot;item&quot;&gt;哈哈&lt;/li&gt;
+    &lt;li class=&quot;item&quot;&gt;呵呵&lt;/li&gt;
+    &lt;li class=&quot;item&quot;&gt;嘿嘿&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>虚拟DOM</p>
+<pre><code class="language-js">let oldVDOM = { // 旧虚拟DOM
+        tagName: 'ul', // 标签名
+        props: { // 标签属性
+            id: 'list'
+        },
+        children: [ // 标签子节点
+            {
+                tagName: 'li', props: { class: 'item' }, children: ['哈哈']
+            },
+            {
+                tagName: 'li', props: { class: 'item' }, children: ['呵呵']
+            },
+            {
+                tagName: 'li', props: { class: 'item' }, children: ['嘿嘿']
+            },
+        ]
+    }
+</code></pre>
+<p>虚拟DOM到底怎么运⾏的</p>
+<ul>
+<li><strong>创建阶段</strong>。⾸先依据JSX和基础数据创建出来虚拟DOM，它反映了真实的DOM树的结构。然后由虚拟 DOM树创建出真实DOM树，真实的DOM树⽣成完后，再触发渲染流⽔线往屏幕输出⻚⾯。（这个阶段并没有体现虚拟DOM的优化）</li>
+<li><strong>更新阶段</strong>。如果数据发⽣了改变，那么就需要根据新的数据创建⼀个新的虚拟DOM树；然后使用diff算法⽐较两 个树，找出变化的地⽅，并把变化的地⽅⼀次性更新到真实的DOM树上；最后渲染引擎更新渲染流⽔ 线，并⽣成新的⻚⾯。</li>
+</ul>
+<br>
+<h2 id="什么是diff算法">什么是Diff算法</h2>
+<p><strong>Diff算法是一种对比算法</strong>。对比两者是<code>旧虚拟DOM和新虚拟DOM</code>，对比出是哪个<code>虚拟节点</code>更改了，找出这个<code>虚拟节点</code>，并只更新这个虚拟节点所对应的<code>真实节点</code>，而不用更新其他数据没发生改变的节点，实现<code>精准</code>地更新真实DOM，进而<code>提高效率</code>。</p>
+<br>
+<h3 id="diff同层对比">Diff同层对比</h3>
+<p>新旧虚拟DOM对比的时候，Diff算法比较只会在同层级进行, 不会跨层级比较。</p>
+<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1629874739217.png" alt="" loading="lazy"></figure>
+<br>
+<h3 id="diff对比流程">Diff对比流程</h3>
+<p>当数据改变时，会触发<code>setter</code>，并且通过<code>Dep.notify</code>去通知所有<code>订阅者Watcher</code>，订阅者们就会调用<code>patch方法</code>，给真实DOM打补丁，更新相应的视图。</p>
+<br>
+<h3 id="patch方法">patch方法</h3>
+<p>这个方法作用就是，对比当前同层的虚拟节点是否为同一种类型的标签</p>
+<ul>
+<li>是：继续执行<code>patchVnode方法</code>进行深层比对</li>
+<li>否：没必要比对了，直接整个节点替换成<code>新虚拟节点</code></li>
+</ul>
+<p><code>patch</code>的核心原理代码</p>
+<pre><code class="language-jsx">function patch(oldVnode, newVnode) {
+  // 比较是否为一个类型的节点
+  if (sameVnode(oldVnode, newVnode)) {
+    // 是：继续进行深层比较
+    patchVnode(oldVnode, newVnode)
+  } else {
+    // 否
+    const oldEl = oldVnode.el // 旧虚拟节点的真实DOM节点
+    const parentEle = api.parentNode(oldEl) // 获取父节点
+    createEle(newVnode) // 创建新虚拟节点对应的真实DOM节点
+    if (parentEle !== null) {
+      api.insertBefore(parentEle, vnode.el, api.nextSibling(oEl)) // 将新元素添加进父元素
+      api.removeChild(parentEle, oldVnode.el)  // 移除以前的旧元素节点
+      // 设置null，释放内存
+      oldVnode = null
+    }
+  }
 
-</code></pre>
-<p>let关键字是如何影响执⾏上下⽂的呢？</p>
-<p>第⼀步是编译并创建执⾏上下⽂</p>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1628341839271.png" alt="" loading="lazy"></figure>
-<p>当进⼊函数的作⽤域块时，作⽤域块中通过let声明的变量，会被存放在词法环境的⼀个 单独的区域中，这个区域中的变量并不影响作⽤域块外⾯的变量，⽐如在作⽤域外⾯声明了变量b，在该作 ⽤域块内部也声明了变量b，当执⾏到作⽤域内部时，它们都是独⽴的存在。</p>
-<p>在词法环境内部，维护了⼀个⼩型栈结构，栈底是函数最外层的变量，进⼊⼀个作⽤域块后，就会把 该作⽤域块内部的变量压到栈顶；</p>
-<p>当作⽤域执⾏完成之后，该作⽤域的信息就会从栈顶弹出，这就是词法环 境的结构。</p>
-<p>当执⾏到作⽤域块中的console.log(a)这⾏代码时，就需要在<strong>词法环境</strong>和<strong>变量环境</strong>中查找变 量a的值了</p>
-<p>沿着词法环境的栈顶向下查询，如果在<strong>词法环境</strong>中的某个块中查找到了，就 直接返回给JavaScript引擎，如果没有查找到，那么继续在<strong>变量环境</strong>中查找。</p>
-<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1628341844493.png" alt="" loading="lazy"></figure>
-<p>思考题</p>
-<pre><code class="language-js">let myname= '极客时间'
-{
-console.log(myname)
-let myname= '极客邦'
+  return newVnode
 }
 </code></pre>
-<p>当不在块级作用域声明变量的时候，代码会正常执行</p>
-<p>当在块级作用域里面声明的时候，会因为let声明的变量在编译阶段会被加⼊执⾏上下⽂的词法环境，⽽且不会被提升到作⽤域的顶部而报错</p>
+<br>
+<h3 id="samevnode方法">sameVnode方法</h3>
+<p><code>sameVnode</code>方法判断是否为同一类型节点</p>
+<pre><code class="language-jsx">function sameVnode(oldVnode, newVnode) {
+  return (
+    oldVnode.key === newVnode.key &amp;&amp; // key值是否一样
+    oldVnode.tagName === newVnode.tagName &amp;&amp; // 标签名是否一样
+    oldVnode.isComment === newVnode.isComment &amp;&amp; // 是否都为注释节点
+    isDef(oldVnode.data) === isDef(newVnode.data) &amp;&amp; // 是否都定义了data
+    sameInputType(oldVnode, newVnode) // 当标签为input时，type必须是否相同
+  )
+}
+</code></pre>
+<br>
+<h3 id="patchvnode方法">patchVnode方法</h3>
+<ul>
+<li>找到对应的<code>真实DOM</code>，称为<code>el</code></li>
+<li>判断<code>newVnode</code>和<code>oldVnode</code>是否指向同一个对象，如果是，那么直接<code>return</code></li>
+<li>如果他们都有文本节点并且不相等，那么将<code>el</code>的文本节点设置为<code>newVnode</code>的文本节点。</li>
+<li>如果<code>oldVnode</code>有子节点而<code>newVnode</code>没有，则删除<code>el</code>的子节点</li>
+<li>如果<code>oldVnode</code>没有子节点而<code>newVnode</code>有，则将<code>newVnode</code>的子节点真实化之后添加到<code>el</code></li>
+<li>如果两者都有子节点，则执行<code>updateChildren</code>函数比较子节点，这一步很重要</li>
+</ul>
+<pre><code class="language-js">function patchVnode(oldVnode, newVnode) {
+  const el = newVnode.el = oldVnode.el // 获取真实DOM对象
+  // 获取新旧虚拟节点的子节点数组
+  const oldCh = oldVnode.children, newCh = newVnode.children
+  // 如果新旧虚拟节点是同一个对象，则终止
+  if (oldVnode === newVnode) return
+  // 如果新旧虚拟节点是文本节点，且文本不一样
+  if (oldVnode.text !== null &amp;&amp; newVnode.text !== null &amp;&amp; oldVnode.text !== newVnode.text) {
+    // 则直接将真实DOM中文本更新为新虚拟节点的文本
+    api.setTextContent(el, newVnode.text)
+  } else {
+    // 否则
+
+    if (oldCh &amp;&amp; newCh &amp;&amp; oldCh !== newCh) {
+      // 新旧虚拟节点都有子节点，且子节点不一样
+
+      // 对比子节点，并更新
+      updateChildren(el, oldCh, newCh)
+    } else if (newCh) {
+      // 新虚拟节点有子节点，旧虚拟节点没有
+
+      // 创建新虚拟节点的子节点，并更新到真实DOM上去
+      createEle(newVnode)
+    } else if (oldCh) {
+      // 旧虚拟节点有子节点，新虚拟节点没有
+
+      //直接删除真实DOM里对应的子节点
+      api.removeChild(el)
+    }
+  }
+}
+</code></pre>
+<br>
+<h3 id="updatechildren方法">updateChildren方法</h3>
+<p>用于新旧虚拟节点的<strong>子节点</strong>对比，用<strong>首尾指针法</strong>来实现</p>
+<p>例如</p>
+<pre><code class="language-xml">&lt;ul&gt;
+    &lt;li&gt;a&lt;/li&gt;
+    &lt;li&gt;b&lt;/li&gt;
+    &lt;li&gt;c&lt;/li&gt;
+&lt;/ul&gt;
+
+修改数据后
+
+&lt;ul&gt;
+    &lt;li&gt;b&lt;/li&gt;
+    &lt;li&gt;c&lt;/li&gt;
+    &lt;li&gt;e&lt;/li&gt;
+    &lt;li&gt;a&lt;/li&gt;
+&lt;/ul
+</code></pre>
+<p>新旧两个子节点集合以及其首尾指针为：<br>
+<img src="https://fanfankill.github.io/post-images/1629874725928.png" alt="" loading="lazy"></p>
+<p>然后会进行互相进行比较，总共有五种比较情况：</p>
+<ul>
+<li>1、<code>oldS 和 newS</code> 使用<code>sameVnode方法</code>进行比较，<code>sameVnode(oldS, newS)</code></li>
+<li>2、<code>oldS 和 newE</code> 使用<code>sameVnode方法</code>进行比较，<code>sameVnode(oldS, newE)</code></li>
+<li>3、<code>oldE 和 newS</code> 使用<code>sameVnode方法</code>进行比较，<code>sameVnode(oldE, newS)</code></li>
+<li>4、<code>oldE 和 newE</code> 使用<code>sameVnode方法</code>进行比较，<code>sameVnode(oldE, newE)</code></li>
+<li>5、如果以上逻辑都匹配不到，再把所有旧子节点的 <code>key</code> 做一个映射到旧节点下标的 <code>key -&gt; index</code> 表，然后用新 <code>vnode</code> 的 <code>key</code> 去找出在旧节点中可以复用的位置。</li>
+</ul>
+<figure data-type="image" tabindex="3"><img src="https://fanfankill.github.io/post-images/1629874718161.png" alt="" loading="lazy"></figure>
+<ul>
+<li>第一步</li>
+</ul>
+<pre><code class="language-swift">oldS = a, oldE = c
+newS = b, newE = a
+</code></pre>
+<p>比较结果：<code>oldS 和 newE</code> 相等，需要把<code>节点a</code>移动到<code>newE</code>所对应的位置，也就是末尾，同时<code>oldS++</code>，<code>newE--</code></p>
+<figure data-type="image" tabindex="4"><img src="https://fanfankill.github.io/post-images/1629874711888.png" alt="" loading="lazy"></figure>
+<br>
+<ul>
+<li>第二步</li>
+</ul>
+<pre><code class="language-swift">oldS = b, oldE = c
+newS = b, newE = e
+</code></pre>
+<p>比较结果：<code>oldS 和 newS</code>相等，需要把<code>节点b</code>移动到<code>newS</code>所对应的位置，同时<code>oldS++</code>,<code>newS++</code></p>
+<figure data-type="image" tabindex="5"><img src="https://fanfankill.github.io/post-images/1629874706873.png" alt="" loading="lazy"></figure>
+<br>
+<ul>
+<li>第三步</li>
+</ul>
+<pre><code class="language-swift">oldS = c, oldE = c
+newS = c, newE = e
+</code></pre>
+<p>比较结果：<code>oldS、oldE 和 newS</code>相等，需要把<code>节点c</code>移动到<code>newS</code>所对应的位置，同时<code>oldS++</code>,<code>oldE--</code>,<code>newS++</code></p>
+<figure data-type="image" tabindex="6"><img src="https://fanfankill.github.io/post-images/1629874701093.png" alt="" loading="lazy"></figure>
+<br>
+<ul>
+<li>第四步</li>
+</ul>
+<p><code>oldS &gt; oldE</code>，则<code>oldCh</code>先遍历完成了，而<code>newCh</code>还没遍历完，说明<code>newCh比oldCh多</code>，所以需要将多出来的节点，插入到真实DOM上对应的位置上</p>
+<figure data-type="image" tabindex="7"><img src="https://fanfankill.github.io/post-images/1629874695514.png" alt="" loading="lazy"></figure>
+<br>
+<p>如果是<code>newCh</code>先遍历完，那么<code>oldCh</code>中多出的节点将会被删除</p>
+<br>
+<p>平常v-for循环渲染的时候，为什么<strong>不建议用index</strong>作为循环项的key呢？</p>
+<p>如下例子</p>
+<pre><code class="language-xml">&lt;ul&gt;                      &lt;ul&gt;
+    &lt;li key=&quot;0&quot;&gt;a&lt;/li&gt;        &lt;li key=&quot;0&quot;&gt;林三心&lt;/li&gt;
+    &lt;li key=&quot;1&quot;&gt;b&lt;/li&gt;        &lt;li key=&quot;1&quot;&gt;a&lt;/li&gt;
+    &lt;li key=&quot;2&quot;&gt;c&lt;/li&gt;        &lt;li key=&quot;2&quot;&gt;b&lt;/li&gt;
+                              &lt;li key=&quot;3&quot;&gt;c&lt;/li&gt;
+&lt;/ul&gt;                     &lt;/ul&gt;
+</code></pre>
+<p>这样用index做key会导致li标签全要更新一遍</p>
+<p>在进行子节点的 <code>diff算法</code> 过程中，会进行 旧首节点和新首节点的<code>sameNode</code>对比，这一步命中了逻辑，因为现在<code>新旧两次首部节点</code> 的 <code>key</code> 都是 <code>0</code>了，同理，key为1和2的也是命中了逻辑，导致<code>相同key的节点</code>会去进行<code>patchVnode</code>更新文本，而原本就有的<code>c节点</code>，却因为之前没有key为4的节点，而被当做了新节点</p>
+<p>所以就建议用独一无二的值来作为<code>key</code>值</p>
 
             </div>
             
@@ -678,7 +851,7 @@ let myname= '极客邦'
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/var-que-xian-yi-ji-wei-shi-me-yao-yin-let-he-const/" title="var缺陷以及为什么要引⼊let和const？">https://fanfankill.github.io/post/var-que-xian-yi-ji-wei-shi-me-yao-yin-let-he-const/</a>
+      <a href="https://fanfankill.github.io/post/xu-ni-domxu-ni-dom-he-shi-ji-de-dom-you-he-bu-tong/" title="虚拟DOM：虚拟DOM和实际的DOM有何不同？">https://fanfankill.github.io/post/xu-ni-domxu-ni-dom-he-shi-ji-de-dom-you-he-bu-tong/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -687,21 +860,19 @@ let myname= '极客邦'
   </ul>
   <div class="tags">
     
+      <a href="https://fanfankill.github.io/tag/YjLqWgkox/"># vue</a>
+    
       <a href="https://fanfankill.github.io/tag/hjqM1TBv9/"># Javascript</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="深入作用域链" href="https://fanfankill.github.io/post/shen-ru-zuo-yong-yu-lian/">深入作用域链</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="深入作用域链" href="https://fanfankill.github.io/post/shen-ru-zuo-yong-yu-lian/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="DOM 节点层次" href="https://fanfankill.github.io/post/dom-new/">DOM 节点层次</a>
-        <a class="nav-mobile-next" title="DOM 节点层次" href="https://fanfankill.github.io/post/dom-new/">下一篇</a>
+        <a class="nav-pc-next" title="⻚⾯性能：如何系统地优化⻚⾯" href="https://fanfankill.github.io/post/xing-neng-ru-he-xi-tong-di-you-hua/">⻚⾯性能：如何系统地优化⻚⾯</a>
+        <a class="nav-mobile-next" title="⻚⾯性能：如何系统地优化⻚⾯" href="https://fanfankill.github.io/post/xing-neng-ru-he-xi-tong-di-you-hua/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
