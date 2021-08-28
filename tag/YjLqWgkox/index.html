@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1629892897674">
+<link rel="shortcut icon" href="/favicon.ico?v=1630129705752">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -226,7 +226,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">70</span>
+        <span class="site-item-stat-count">71</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -297,6 +297,12 @@
           <small class="language" data-lan="tag">标签</small>
         </h2>
       </div>
+      
+      
+      
+      
+      
+      
       
       
       
@@ -964,6 +970,90 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/http1http-xing-neng-you-hua/"" data-c="
+          &lt;p&gt;HTTP是浏览器中&lt;strong&gt;最重要&lt;/strong&gt;且&lt;strong&gt;使⽤最多&lt;/strong&gt;的协议，是浏览器和服 务器之间的通信语⾔，也是互联⽹的基⽯。&lt;/p&gt;
+&lt;h2 id=&#34;超文本传输协议http09&#34;&gt;超⽂本传输协议HTTP/0.9&lt;/h2&gt;
+&lt;p&gt;HTTP/0.9是于1991年提出的，主要⽤于学术交流，需求很简单⸺ ⽤来在⽹络之间传递HTML超⽂本的内容，所以被称为超⽂本传输协议。它的实现也很简单，采 ⽤了基于请求响应的模式，从客⼾端发出请求，服务器返回数据。&lt;/p&gt;
+&lt;p&gt;HTTP/0.9的⼀个完整的请求流程&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;因为HTTP都是基于TCP协议的，所以客⼾端先要根据IP地址、端⼝和服务器建⽴TCP连接，⽽建⽴连接 的过程就是TCP协议三次握⼿的过程。&lt;/li&gt;
+&lt;li&gt;建⽴好连接之后，会发送⼀个GET请求⾏的信息，如GET /index.html⽤来获取index.html。&lt;/li&gt;
+&lt;li&gt;服务器接收请求信息之后，读取对应的HTML⽂件，并将数据以ASCII字符流返回给客⼾端。&lt;/li&gt;
+&lt;li&gt;HTML⽂档传输完成后，断开连接。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1630129704198.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+总的来说，当时的需求很简单，就是⽤来传输体积很⼩的HTML⽂件，而没有其他的操作，所以HTTP/0.9的实现有以下三个特点。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;只有⼀个请求⾏，并没有&lt;strong&gt;HTTP请求头和请求体&lt;/strong&gt;，因为只需要⼀个请求⾏就可以完整表达客⼾端 的需求了。&lt;/li&gt;
+&lt;li&gt;服务器也没有返回头信息，这是因为服务器端并不需要告诉客⼾端太多信息，只需要返回数据就 可以了。&lt;/li&gt;
+&lt;li&gt;返回的⽂件内容是以ASCII字符流来传输的，因为都是HTML格式的⽂件，所以使⽤ASCII字节码 来传输是最合适的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;被浏览器推动的http10&#34;&gt;被浏览器推动的HTTP/1.0&lt;/h2&gt;
+&lt;p&gt;⾸先在浏览器中展⽰的不单是HTML⽂件了，还包括了JavaScript、CSS、图⽚、⾳频、视频等不同类型的 ⽂件。&lt;strong&gt;因此⽀持多种类型的⽂件下载是HTTP/1.0的⼀个核⼼诉求&lt;/strong&gt;，⽽且⽂件格式不仅仅局限于ASCII编码， 还有很多其他类型编码的⽂件。&lt;/p&gt;
+&lt;h3 id=&#34;实现多种类型文件的下载&#34;&gt;实现多种类型⽂件的下载&lt;/h3&gt;
+&lt;p&gt;HTTP/1.0引⼊了请求头和响应头，它们都是以为Key-Value形式保存的，在HTTP发送请求时，会带上请求 头信息，服务器返回数据时，会先返回响应头信息。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1630129699218.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;要⽀持多种类型的⽂件，就需要解决以下⼏个问题。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;⾸先，浏览器需要知道服务器返回的数据是什么类型的，然后浏览器才能根据不同的数据类型做针对性的 处理。&lt;/li&gt;
+&lt;li&gt;为了减轻传输性 能，服务器会对数据进⾏压缩后再传输，所以浏览器需要知道服务器压缩的⽅法。&lt;/li&gt;
+&lt;li&gt;服务器需要对不同的地区提供不同的 语⾔版本，这就需要浏览器告诉服务器它想要什么语⾔版本的⻚⾯。&lt;/li&gt;
+&lt;li&gt;为了能够准确地读取⽂ 件，浏览器需要知道⽂件的编码类型。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;基于以上问题，&lt;strong&gt;HTTP/1.0的⽅案是通过请求头和响应头来进⾏协商&lt;/strong&gt;，在发起请求时候会通过HTTP请求头告 诉服务器它期待服务器返回什么类型的⽂件、采取什么形式的压缩、提供什么语⾔的⽂件以及⽂件的具体编 码。最终发送出来的&lt;strong&gt;请求头&lt;/strong&gt;内容如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-http&#34;&gt;accept: text/html
+accept-encoding: gzip, deflate, br
+accept-Charset: ISO-8859-1,utf-8
+accept-language: zh-CN,zh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;第一行表示服务器返回的是html类型的文件；&lt;/p&gt;
+&lt;p&gt;第二行表示期望服务器可以采取gzip及其他两种中的一种进行压缩；&lt;/p&gt;
+&lt;p&gt;第三行表示期望返回的文件编码是UTF-8或者另外一种；&lt;/p&gt;
+&lt;p&gt;第四行是期望页面的优先语言是中文。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;服务器接收到浏览器发送过来的请求头信息之后，会根据请求头的信息来准备响应数据。&lt;/p&gt;
+&lt;p&gt;不过有时候会有⼀ 些意外情况发⽣，⽐如浏览器请求的压缩类型是gzip，但是服务器不⽀持gzip，只⽀持br压缩，那么它会通 过响应头中的content-encoding字段告诉浏览器最终的压缩类型，也就是说最终浏览器需要根据&lt;strong&gt;响应头&lt;/strong&gt;的 信息来处理数据。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-http&#34;&gt;content-encoding: br
+content-type: text/html; charset=UTF-8
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;HTTP/1.0除了对多⽂件提供良好的⽀持外，还依据当时实际的需求引⼊了很多其他的特性，这些特性都是 通过请求头和响应头来实现的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;有的请求服务器可能⽆法处理，或者处理出错，这时候就需要告诉浏览器服务器最终处理该请求的情况， 这就引⼊了&lt;strong&gt;状态码&lt;/strong&gt;。状态码是通过响应⾏的⽅式来通知浏览器的。&lt;/li&gt;
+&lt;li&gt;为了减轻服务器的压⼒，在HTTP/1.0中提供了&lt;strong&gt;Cache机制&lt;/strong&gt;，⽤来缓存已经下载过的数据。&lt;/li&gt;
+&lt;li&gt;服务器需要统计客⼾端的基础信息，⽐如Windows和macOS的⽤⼾数量分别是多少，所以HTTP/1.0的请 求头中还加⼊了&lt;strong&gt;⽤⼾代理&lt;/strong&gt;的字段。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;缝缝补补的http11&#34;&gt;缝缝补补的HTTP/1.1&lt;/h2&gt;
+&lt;h3 id=&#34;改进持久连接&#34;&gt;改进持久连接&lt;/h3&gt;
+&lt;p&gt;HTTP/1.0每进⾏⼀次HTTP通信，都需要经历建⽴TCP连接、传输HTTP数据和断开TCP连接三个阶段&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1630129691388.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;如 果在下载每个⽂件的时候，都需要经历建⽴TCP连接、传输数据和断开连接这样的步骤，⽆疑会增加⼤量⽆ 谓的开销。&lt;/p&gt;
+&lt;p&gt;为了解决这个问题，&lt;strong&gt;HTTP/1.1中增加了持久连接的⽅法，它的特点是在⼀个TCP连接上可以传输多个HTTP 请求，只要浏览器或者服务器没有明确断开连接，那么该TCP连接会⼀直保持。&lt;/strong&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1630129684542.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;HTTP的持久连接可以&lt;strong&gt;有效减少TCP建⽴连接和断开连接的次数，这样的好处是减少了服 务器额外的负担，并提升整体HTTP的请求时⻓&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;如果不想要采⽤持久连接，可以在HTTP请求头中加上&lt;strong&gt;Connection: close&lt;/strong&gt;。⽬前浏览器中对于同⼀个域名，默 认允许同时建⽴6个TCP持久连接。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;不成熟的http管线化&#34;&gt;不成熟的HTTP管线化&lt;/h3&gt;
+&lt;p&gt;持久连接虽然能减少TCP的建⽴和断开次数，但是它&lt;strong&gt;需要等待前⾯的请求返回之后，才能进⾏下⼀次请求&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;如果TCP通道中的某个请求因为某些原因没有及时返回，那么就会阻塞后⾯的所有请求，这就是著名的&lt;strong&gt;队头阻塞&lt;/strong&gt;的问题&lt;/p&gt;
+&lt;p&gt;HTTP/1.1中的管线化是指将多个HTTP请求整批 提交给服务器的技术，虽然可以整批发送请求，不过服务器依然需要根据请求顺序来回复浏览器的请求。但是由于各种原因，它们最终都放弃了管线化技术。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;提供虚拟主机的支持&#34;&gt;提供虚拟主机的⽀持&lt;/h3&gt;
+&lt;p&gt;在HTTP/1.0中，每个域名绑定了⼀个唯⼀的IP地址，因此⼀个服务器只能⽀持⼀个域名。&lt;/p&gt;
+&lt;p&gt;但是随着虚拟主 机技术的发展，需要实现在⼀台物理主机上绑定多个虚拟主机，每个虚拟主机都有⾃⼰的单独的域名，这些 单独的域名都共⽤同⼀个IP地址。&lt;/p&gt;
+&lt;p&gt;因此，HTTP/1.1的请求头中增加了&lt;strong&gt;Host&lt;/strong&gt;字段，⽤来表⽰当前的域名地址，这样服务器就可以根据不同的Host值做不同的处理。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;对动态生成的内容提供了完美支持&#34;&gt;对动态⽣成的内容提供了完美⽀持&lt;/h3&gt;
+&lt;p&gt;在设计HTTP/1.0时，需要在响应头中设置完整的数据⼤⼩，如Content-Length: 901，这样浏览器就可 以根据设置的数据⼤⼩来接收数据。&lt;/p&gt;
+&lt;p&gt;不过随着服务器端的技术发展，很多⻚⾯的内容都是动态⽣成的，因此 在传输数据之前并不知道最终的数据⼤⼩，这就导致了浏览器不知道何时会接收完所有的⽂件数据。&lt;/p&gt;
+&lt;p&gt;HTTP/1.1通过引⼊&lt;strong&gt;Chunk transfer&lt;/strong&gt;机制来解决这个问题，服务器会将数据分割成若⼲个任意⼤⼩的数据 块，&lt;strong&gt;每个数据块发送时会附上上个数据块的⻓度，最后使⽤⼀个零⻓度的块作为发送数据完成的标志&lt;/strong&gt;。这样 就提供了对动态内容的⽀持。&lt;/p&gt;
+&lt;br&gt;
+">HTTP1：HTTP性能优化</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/xu-ni-domxu-ni-dom-he-shi-ji-de-dom-you-he-bu-tong/"" data-c="

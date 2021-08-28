@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-08-25T12:42:01.247Z</updated>
+    <updated>2021-08-28T05:48:33.532Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[HTTP1：HTTP性能优化]]></title>
+        <id>https://fanfankill.github.io/post/http1http-xing-neng-you-hua/</id>
+        <link href="https://fanfankill.github.io/post/http1http-xing-neng-you-hua/">
+        </link>
+        <updated>2021-08-28T05:47:34.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[虚拟DOM：虚拟DOM和实际的DOM有何不同？]]></title>
         <id>https://fanfankill.github.io/post/xu-ni-domxu-ni-dom-he-shi-ji-de-dom-you-he-bu-tong/</id>
@@ -72,12 +79,5 @@
         <link href="https://fanfankill.github.io/post/settimeout-shi-ru-he-shi-xian-de/">
         </link>
         <updated>2021-08-17T04:52:47.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Vue开发ui组件日志2]]></title>
-        <id>https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi-2/</id>
-        <link href="https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi-2/">
-        </link>
-        <updated>2021-08-16T06:11:20.000Z</updated>
     </entry>
 </feed>

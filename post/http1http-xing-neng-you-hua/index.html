@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>JS设计模式 | fanfan</title>
+<title>HTTP1：HTTP性能优化 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1630129705752">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="JS设计模式" />
-  <meta name="keywords" content="Javascript" />
+  <meta name="description" content="HTTP1：HTTP性能优化" />
+  <meta name="keywords" content="浏览器,网络" />
 </head>
 
 <body>
@@ -295,12 +295,22 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#js%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F">JS的设计模式</a>
+<li>
 <ul>
-<li><a href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F">单例模式</a></li>
-<li><a href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F">策略模式</a></li>
-<li><a href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F">代理模式</a></li>
-<li><a href="#%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F">发布-订阅模式</a></li>
+<li><a href="#%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AEhttp09">超⽂本传输协议HTTP/0.9</a></li>
+<li><a href="#%E8%A2%AB%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8E%A8%E5%8A%A8%E7%9A%84http10">被浏览器推动的HTTP/1.0</a>
+<ul>
+<li><a href="#%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%A7%8D%E7%B1%BB%E5%9E%8B%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%8B%E8%BD%BD">实现多种类型⽂件的下载</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BC%9D%E7%BC%9D%E8%A1%A5%E8%A1%A5%E7%9A%84http11">缝缝补补的HTTP/1.1</a>
+<ul>
+<li><a href="#%E6%94%B9%E8%BF%9B%E6%8C%81%E4%B9%85%E8%BF%9E%E6%8E%A5">改进持久连接</a></li>
+<li><a href="#%E4%B8%8D%E6%88%90%E7%86%9F%E7%9A%84http%E7%AE%A1%E7%BA%BF%E5%8C%96">不成熟的HTTP管线化</a></li>
+<li><a href="#%E6%8F%90%E4%BE%9B%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%9A%84%E6%94%AF%E6%8C%81">提供虚拟主机的⽀持</a></li>
+<li><a href="#%E5%AF%B9%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90%E7%9A%84%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E4%BA%86%E5%AE%8C%E7%BE%8E%E6%94%AF%E6%8C%81">对动态⽣成的内容提供了完美⽀持</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -568,8 +578,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/js-she-ji-mo-shi/">
-      JS设计模式
+    <a class="post-title-link" href="https://fanfankill.github.io/post/http1http-xing-neng-you-hua/">
+      HTTP1：HTTP性能优化
     </a>
   </h1>
   <div class="post-meta">
@@ -577,7 +587,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-07-15 00:16:20">2021-07-15</span>
+      <span class="publish-time" data-t="2021-08-28 13:47:34">2021-08-28</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -586,8 +596,14 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/">
-        <span>Javascript</span>
+      <a href="https://fanfankill.github.io/tag/68KZf8W4c/">
+        <span>浏览器</span>
+      </a>、
+      
+      
+      
+      <a href="https://fanfankill.github.io/tag/KATkWfQKE/">
+        <span>网络</span>
       </a>
       
       
@@ -596,82 +612,96 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>3<span class="language" data-lan="minute">分钟</span></span>
+      <span>8<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>571<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>2041<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h1 id="js的设计模式">JS的设计模式</h1>
-<p><strong>什么是设计模式</strong></p>
-<p>假设有一个空房间，我们要日复一日地往里 面放一些东西。最简单的办法当然是把这些东西 直接扔进去，但是时间久了，就会发现很难从这 个房子里找到自己想要的东西，要调整某几样东 西的位置也不容易。所以在房间里做一些柜子也 许是个更好的选择，虽然柜子会增加我们的成 本，但它可以在维护阶段为我们带来好处。使用 这些柜子存放东西的规则，或许就是一种模式</p>
-<h2 id="单例模式">单例模式</h2>
-<p>确保只有一个实例，并提供全局访问，类似闭包创建后都去访问一个。</p>
-<h2 id="策略模式">策略模式</h2>
-<p>定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换。表单验证用的多</p>
-<h2 id="代理模式">代理模式</h2>
-<p>为一个对象提供一个代用品或占位符，以便控制对它的访问，用于对数据进行处理后返回</p>
-<h2 id="发布-订阅模式">发布-订阅模式</h2>
-<p>也称作观察者模式（观察者模式子模式），定义了对象间的一种一对多的依赖关系，当一个对象的状态发 生改变时，所有依赖于它的对象都将得到通知 。不直接建立关系，依靠一个中间商来建立</p>
-<pre><code class="language-js">   // 观察者
-var observer = {
-    // 订阅集合
-    subscribes: [],
-
-    // 订阅 存放对应key
-    subscribe: function(key, fn) {
-        //不存在的情况下才默认为一个空数组
-        if (!this.subscribes[key]) {
-            this.subscribes[key] = [];
-        }
-      
-        
-        // 订阅者的处理  是函数就推进去
-        typeof fn === 'function' &amp;&amp; this.subscribes[key].push(fn);
-    },
-
-    // 发布 
-    publish: function() {
-        
-        var type =[].shift.call(arguments) // arguments[0]  去掉第一项 就是 key项 剩余项都是value项
-        
-
-            //调用对应key存的函数
-            fns = this.subscribes[type];
-           
-        
-        // 不存在的订阅类型，以及订阅时未传入处理回调的
-        if (!fns || !fns.length) {
-            return;
-        }
-        
-        // 挨个处理调用 就是订阅同一个key很多次 然后一个个调用
-        for (var i = 0; i &lt; fns.length; ++i) {
-            fns[i].apply(this, arguments);
-        }
-    },
-     
-};
-
-
-//实例
-
-
-observer.subscribe('examinationA', function(score) {
-    console.log(score);
-});
-
-observer.subscribe('examinationA', function(score) {
-    console.log(score);
-});
-
-observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印了出来
+              <p>HTTP是浏览器中<strong>最重要</strong>且<strong>使⽤最多</strong>的协议，是浏览器和服 务器之间的通信语⾔，也是互联⽹的基⽯。</p>
+<h2 id="超文本传输协议http09">超⽂本传输协议HTTP/0.9</h2>
+<p>HTTP/0.9是于1991年提出的，主要⽤于学术交流，需求很简单⸺ ⽤来在⽹络之间传递HTML超⽂本的内容，所以被称为超⽂本传输协议。它的实现也很简单，采 ⽤了基于请求响应的模式，从客⼾端发出请求，服务器返回数据。</p>
+<p>HTTP/0.9的⼀个完整的请求流程</p>
+<ul>
+<li>因为HTTP都是基于TCP协议的，所以客⼾端先要根据IP地址、端⼝和服务器建⽴TCP连接，⽽建⽴连接 的过程就是TCP协议三次握⼿的过程。</li>
+<li>建⽴好连接之后，会发送⼀个GET请求⾏的信息，如GET /index.html⽤来获取index.html。</li>
+<li>服务器接收请求信息之后，读取对应的HTML⽂件，并将数据以ASCII字符流返回给客⼾端。</li>
+<li>HTML⽂档传输完成后，断开连接。</li>
+</ul>
+<p><img src="https://fanfankill.github.io/post-images/1630129704198.png" alt="" loading="lazy"><br>
+总的来说，当时的需求很简单，就是⽤来传输体积很⼩的HTML⽂件，而没有其他的操作，所以HTTP/0.9的实现有以下三个特点。</p>
+<ul>
+<li>只有⼀个请求⾏，并没有<strong>HTTP请求头和请求体</strong>，因为只需要⼀个请求⾏就可以完整表达客⼾端 的需求了。</li>
+<li>服务器也没有返回头信息，这是因为服务器端并不需要告诉客⼾端太多信息，只需要返回数据就 可以了。</li>
+<li>返回的⽂件内容是以ASCII字符流来传输的，因为都是HTML格式的⽂件，所以使⽤ASCII字节码 来传输是最合适的</li>
+</ul>
+<br>
+<h2 id="被浏览器推动的http10">被浏览器推动的HTTP/1.0</h2>
+<p>⾸先在浏览器中展⽰的不单是HTML⽂件了，还包括了JavaScript、CSS、图⽚、⾳频、视频等不同类型的 ⽂件。<strong>因此⽀持多种类型的⽂件下载是HTTP/1.0的⼀个核⼼诉求</strong>，⽽且⽂件格式不仅仅局限于ASCII编码， 还有很多其他类型编码的⽂件。</p>
+<h3 id="实现多种类型文件的下载">实现多种类型⽂件的下载</h3>
+<p>HTTP/1.0引⼊了请求头和响应头，它们都是以为Key-Value形式保存的，在HTTP发送请求时，会带上请求 头信息，服务器返回数据时，会先返回响应头信息。</p>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1630129699218.png" alt="" loading="lazy"></figure>
+<p>要⽀持多种类型的⽂件，就需要解决以下⼏个问题。</p>
+<ul>
+<li>⾸先，浏览器需要知道服务器返回的数据是什么类型的，然后浏览器才能根据不同的数据类型做针对性的 处理。</li>
+<li>为了减轻传输性 能，服务器会对数据进⾏压缩后再传输，所以浏览器需要知道服务器压缩的⽅法。</li>
+<li>服务器需要对不同的地区提供不同的 语⾔版本，这就需要浏览器告诉服务器它想要什么语⾔版本的⻚⾯。</li>
+<li>为了能够准确地读取⽂ 件，浏览器需要知道⽂件的编码类型。</li>
+</ul>
+<p>基于以上问题，<strong>HTTP/1.0的⽅案是通过请求头和响应头来进⾏协商</strong>，在发起请求时候会通过HTTP请求头告 诉服务器它期待服务器返回什么类型的⽂件、采取什么形式的压缩、提供什么语⾔的⽂件以及⽂件的具体编 码。最终发送出来的<strong>请求头</strong>内容如下：</p>
+<pre><code class="language-http">accept: text/html
+accept-encoding: gzip, deflate, br
+accept-Charset: ISO-8859-1,utf-8
+accept-language: zh-CN,zh
 </code></pre>
+<p>第一行表示服务器返回的是html类型的文件；</p>
+<p>第二行表示期望服务器可以采取gzip及其他两种中的一种进行压缩；</p>
+<p>第三行表示期望返回的文件编码是UTF-8或者另外一种；</p>
+<p>第四行是期望页面的优先语言是中文。</p>
+<br>
+<p>服务器接收到浏览器发送过来的请求头信息之后，会根据请求头的信息来准备响应数据。</p>
+<p>不过有时候会有⼀ 些意外情况发⽣，⽐如浏览器请求的压缩类型是gzip，但是服务器不⽀持gzip，只⽀持br压缩，那么它会通 过响应头中的content-encoding字段告诉浏览器最终的压缩类型，也就是说最终浏览器需要根据<strong>响应头</strong>的 信息来处理数据。</p>
+<pre><code class="language-http">content-encoding: br
+content-type: text/html; charset=UTF-8
+</code></pre>
+<br>
+<p>HTTP/1.0除了对多⽂件提供良好的⽀持外，还依据当时实际的需求引⼊了很多其他的特性，这些特性都是 通过请求头和响应头来实现的。</p>
+<ul>
+<li>有的请求服务器可能⽆法处理，或者处理出错，这时候就需要告诉浏览器服务器最终处理该请求的情况， 这就引⼊了<strong>状态码</strong>。状态码是通过响应⾏的⽅式来通知浏览器的。</li>
+<li>为了减轻服务器的压⼒，在HTTP/1.0中提供了<strong>Cache机制</strong>，⽤来缓存已经下载过的数据。</li>
+<li>服务器需要统计客⼾端的基础信息，⽐如Windows和macOS的⽤⼾数量分别是多少，所以HTTP/1.0的请 求头中还加⼊了<strong>⽤⼾代理</strong>的字段。</li>
+</ul>
+<br>
+<h2 id="缝缝补补的http11">缝缝补补的HTTP/1.1</h2>
+<h3 id="改进持久连接">改进持久连接</h3>
+<p>HTTP/1.0每进⾏⼀次HTTP通信，都需要经历建⽴TCP连接、传输HTTP数据和断开TCP连接三个阶段</p>
+<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1630129691388.png" alt="" loading="lazy"></figure>
+<p>如 果在下载每个⽂件的时候，都需要经历建⽴TCP连接、传输数据和断开连接这样的步骤，⽆疑会增加⼤量⽆ 谓的开销。</p>
+<p>为了解决这个问题，<strong>HTTP/1.1中增加了持久连接的⽅法，它的特点是在⼀个TCP连接上可以传输多个HTTP 请求，只要浏览器或者服务器没有明确断开连接，那么该TCP连接会⼀直保持。</strong></p>
+<figure data-type="image" tabindex="3"><img src="https://fanfankill.github.io/post-images/1630129684542.png" alt="" loading="lazy"></figure>
+<p>HTTP的持久连接可以<strong>有效减少TCP建⽴连接和断开连接的次数，这样的好处是减少了服 务器额外的负担，并提升整体HTTP的请求时⻓</strong>。</p>
+<p>如果不想要采⽤持久连接，可以在HTTP请求头中加上<strong>Connection: close</strong>。⽬前浏览器中对于同⼀个域名，默 认允许同时建⽴6个TCP持久连接。</p>
+<br>
+<h3 id="不成熟的http管线化">不成熟的HTTP管线化</h3>
+<p>持久连接虽然能减少TCP的建⽴和断开次数，但是它<strong>需要等待前⾯的请求返回之后，才能进⾏下⼀次请求</strong>。</p>
+<p>如果TCP通道中的某个请求因为某些原因没有及时返回，那么就会阻塞后⾯的所有请求，这就是著名的<strong>队头阻塞</strong>的问题</p>
+<p>HTTP/1.1中的管线化是指将多个HTTP请求整批 提交给服务器的技术，虽然可以整批发送请求，不过服务器依然需要根据请求顺序来回复浏览器的请求。但是由于各种原因，它们最终都放弃了管线化技术。</p>
+<br>
+<h3 id="提供虚拟主机的支持">提供虚拟主机的⽀持</h3>
+<p>在HTTP/1.0中，每个域名绑定了⼀个唯⼀的IP地址，因此⼀个服务器只能⽀持⼀个域名。</p>
+<p>但是随着虚拟主 机技术的发展，需要实现在⼀台物理主机上绑定多个虚拟主机，每个虚拟主机都有⾃⼰的单独的域名，这些 单独的域名都共⽤同⼀个IP地址。</p>
+<p>因此，HTTP/1.1的请求头中增加了<strong>Host</strong>字段，⽤来表⽰当前的域名地址，这样服务器就可以根据不同的Host值做不同的处理。</p>
+<br>
+<h3 id="对动态生成的内容提供了完美支持">对动态⽣成的内容提供了完美⽀持</h3>
+<p>在设计HTTP/1.0时，需要在响应头中设置完整的数据⼤⼩，如Content-Length: 901，这样浏览器就可 以根据设置的数据⼤⼩来接收数据。</p>
+<p>不过随着服务器端的技术发展，很多⻚⾯的内容都是动态⽣成的，因此 在传输数据之前并不知道最终的数据⼤⼩，这就导致了浏览器不知道何时会接收完所有的⽂件数据。</p>
+<p>HTTP/1.1通过引⼊<strong>Chunk transfer</strong>机制来解决这个问题，服务器会将数据分割成若⼲个任意⼤⼩的数据 块，<strong>每个数据块发送时会附上上个数据块的⻓度，最后使⽤⼀个零⻓度的块作为发送数据完成的标志</strong>。这样 就提供了对动态内容的⽀持。</p>
+<br>
 
             </div>
             
@@ -684,7 +714,7 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/js-she-ji-mo-shi/" title="JS设计模式">https://fanfankill.github.io/post/js-she-ji-mo-shi/</a>
+      <a href="https://fanfankill.github.io/post/http1http-xing-neng-you-hua/" title="HTTP1：HTTP性能优化">https://fanfankill.github.io/post/http1http-xing-neng-you-hua/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -693,21 +723,19 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
   </ul>
   <div class="tags">
     
-      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/"># Javascript</a>
+      <a href="https://fanfankill.github.io/tag/68KZf8W4c/"># 浏览器</a>
+    
+      <a href="https://fanfankill.github.io/tag/KATkWfQKE/"># 网络</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="手写Promise" href="https://fanfankill.github.io/post/shou-xie-promise/">手写Promise</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="手写Promise" href="https://fanfankill.github.io/post/shou-xie-promise/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="vue-router" href="https://fanfankill.github.io/post/vue-router/">vue-router</a>
-        <a class="nav-mobile-next" title="vue-router" href="https://fanfankill.github.io/post/vue-router/">下一篇</a>
+        <a class="nav-pc-next" title="虚拟DOM：虚拟DOM和实际的DOM有何不同？" href="https://fanfankill.github.io/post/xu-ni-domxu-ni-dom-he-shi-ji-de-dom-you-he-bu-tong/">虚拟DOM：虚拟DOM和实际的DOM有何不同？</a>
+        <a class="nav-mobile-next" title="虚拟DOM：虚拟DOM和实际的DOM有何不同？" href="https://fanfankill.github.io/post/xu-ni-domxu-ni-dom-he-shi-ji-de-dom-you-he-bu-tong/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
