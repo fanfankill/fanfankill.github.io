@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title> Vue文档 插件 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1630129705752">
+<link rel="shortcut icon" href="/favicon.ico?v=1630336006692">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -244,7 +244,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">71</span>
+        <span class="site-item-stat-count">73</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1160,6 +1160,180 @@ Vue.component('kid',{
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/callapplybind-shou-xie-shi-xian/"" data-c="
+          &lt;h2 id=&#34;call的实现&#34;&gt;call的实现&lt;/h2&gt;
+&lt;p&gt;call的第一个参数是指向值，如果为null或者undefined则是，this指向window&lt;/p&gt;
+&lt;p&gt;第二个参数是以一个一个传入&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;Function.prototype.fancall=function(context,...arg){
+    //如果是null和undefined的时候就指向全局
+    if(context==null||context==undefined)
+    context=window
+
+    let tem=Symbol()  //做一个唯一值 防止于原上下文对象属性冲突
+    context[tem]=this //函数隐试绑定到context上 
+    let res = context[tem](...arg) //传参执行  就是function() 执行
+    delete context[tem]  //删除临时属性
+    return res
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;apply实现&#34;&gt;apply实现&lt;/h2&gt;
+&lt;p&gt;唯一不同就是传参方式不同&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;Function.prototype.fanapply=function(context){
+    //如果是null和undefined的时候就指向全局
+    if(context==null||context==undefined)
+    context=window
+
+    let arr=arguments[1] //获取数组参数 就是第二个
+    console.log(arr);
+    let tem=Symbol()  //做一个唯一值 防止于原上下文对象属性冲突
+    context[tem]=this //函数隐试绑定到context上 
+    let res
+
+    if(arr){
+         res = context[tem](arr) //传参执行  就是function() 执行
+    }
+    else{
+         res = context[tem]() //传参执行  就是function() 执行
+    }
+    
+    delete context[tem]  //删除临时属性
+    return res
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;bind实现&#34;&gt;bind实现&lt;/h2&gt;
+&lt;p&gt;虽然bind和其余两个一样都是改变this的指向，但bind是返回一个新的函数，而不是直接执行&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;箭头函数的 &lt;code&gt;this&lt;/code&gt; 永远指向它所在的作用域&lt;/li&gt;
+&lt;li&gt;函数作为构造函数用 &lt;code&gt;new&lt;/code&gt; 关键字调用时，不应该改变其 &lt;code&gt;this&lt;/code&gt; 指向，因为 &lt;code&gt;new绑定&lt;/code&gt; 的优先级高于 &lt;code&gt;显示绑定&lt;/code&gt; 和 &lt;code&gt;硬绑定&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;Function.prototype.fanbind=function(context){
+    if(typeof this!==&#39;function&#39;)
+    throw new TypeError(`Error`)
+
+    let _this =this
+    let arr=Array.prototype.slice.call(arguments,1) //获取参数
+
+    var profunction=function(){}//用于继承原型链
+
+    var F=function (){
+
+        if(this instanceof F){
+            //如果是被当做构造函数调用，第一个参数作废 当为构造函数的时候this指向实例
+            return _this.apply(this,arr.concat([...arguments]))
+        }
+            //否则就是原先的调用对象
+            return _this.apply(context,arr.concat([...arguments]))
+    }
+
+    profunction.prototype=this.prototype //继承原本函数的原型
+    F.prototype=new profunction()
+
+    return F
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;实例&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var value = 2;
+
+var foo = {
+    value: 1
+};
+
+function bar(name, age) {
+    this.habit = &#39;shopping&#39;;
+    console.log(this.value);
+    console.log(name);
+    console.log(age);
+}
+
+bar.prototype.friend = &#39;kevin&#39;;
+
+var bindFoo = bar.fanbind(foo, &#39;daisy&#39;);
+
+var obj = new bindFoo(&#39;18&#39;);
+// undefined
+// daisy
+// 18
+console.log(obj.habit);
+console.log(obj.friend);
+// shopping
+// kevin
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;&#34;&gt;&lt;/h2&gt;
+">call、apply、bind手写实现</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/http2ru-he-ti-sheng-luo-su-du/"" data-c="
+          &lt;p&gt;虽然HTTP/1.1已经做了⼤量的优化，但是依然存在很多性能瓶 颈，依然不能满⾜我们⽇益变化的新需求，所以就有了今天要聊的HTTP/2。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;HTTP/1.1为⽹络效率做了⼤量的优化，最核⼼的有如下三种⽅式：&lt;/p&gt;
+&lt;p&gt;1.增加了持久连接&lt;/p&gt;
+&lt;p&gt;2.浏览器为每个域名最多同时维护6个TCP持久连接；&lt;/p&gt;
+&lt;p&gt;3.使⽤CDN的实现域名分⽚机制。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;http11的主要问题&#34;&gt;HTTP/1.1的主要问题&lt;/h2&gt;
+&lt;p&gt;HTTP/1.1&lt;strong&gt;对带宽的利⽤率却并不理想&lt;/strong&gt;，这也是HTTP/1.1的⼀个核⼼问题。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;带宽是指每秒最⼤能发送或者接收的字节数&lt;/strong&gt;。我们把每秒能发送的最⼤字节数称为&lt;strong&gt;上⾏带宽&lt;/strong&gt;，每秒能够接收的最⼤字节数称为&lt;strong&gt;下⾏带宽&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;⽐如我们常说的100M带宽，实际的下载速度能达到12.5M/S，⽽采⽤HTTP/1.1时，也许在加载⻚⾯资源时最⼤只能使⽤到2.5M/S，很难将12.5M全部⽤满。&lt;/p&gt;
+&lt;p&gt;之所以会出现这个问题，主要是由以下三个原因导致的。&lt;/p&gt;
+&lt;h3 id=&#34;第一个原因tcp的慢启动&#34;&gt;第⼀个原因，TCP的慢启动。&lt;/h3&gt;
+&lt;p&gt;⼀旦⼀个TCP连接建⽴之后，就进⼊了发送数据状态，刚开始TCP协议会采⽤⼀个⾮常慢的速度去发送数 据，然后慢慢加快发送数据的速度，直到发送数据的速度达到⼀个理想状态，我们把这个过程称为慢启动。&lt;/p&gt;
+&lt;p&gt;慢启动是TCP为了减少⽹络拥塞的⼀种策略，我们是没有办法改变的。&lt;/p&gt;
+&lt;p&gt;⽽之所以说慢启动会带来性能问题，是因为⻚⾯中常⽤的⼀些关键资源⽂件本来就不⼤，如HTML⽂件、 CSS⽂件和JavaScript⽂件，通常这些⽂件在TCP连接建⽴好之后就要发起请求的，但这个过程是慢启动， 所以耗费的时间⽐正常的时间要多很多，这样就推迟了宝贵的⾸次渲染⻚⾯的时⻓了。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;第二个原因同时开启了多条tcp连接那么这些连接会竞争固定的带宽&#34;&gt;第⼆个原因，同时开启了多条TCP连接，那么这些连接会竞争固定的带宽。&lt;/h3&gt;
+&lt;p&gt;系统同时建⽴了多条TCP连接，当带宽充⾜时，每条连接发送或者接收速度会慢慢向上增 加；⽽⼀旦带宽不⾜时，这些TCP连接⼜会减慢发送或者接收的速度。&lt;/p&gt;
+&lt;p&gt;这样就会出现⼀个问题，因为有的TCP连接下载的是⼀些关键资源，如CSS⽂件、JavaScript⽂件等，⽽有 的TCP连接下载的是图⽚、视频等普通的资源⽂件，但是&lt;strong&gt;多条TCP连接之间⼜不能协商让哪些关键资源优先 下载，这样就有可能影响那些关键资源的下载速度了&lt;/strong&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;第三个原因http11队头阻塞的问题&#34;&gt;第三个原因，HTTP/1.1队头阻塞的问题。&lt;/h3&gt;
+&lt;p&gt;在HTTP/1.1中使⽤持久连接时，虽然能公⽤⼀个TCP管道，但是&lt;strong&gt;在⼀个管道中同 ⼀时刻只能处理⼀个请求&lt;/strong&gt;，在当前的请求没有结束之前，其他的请求只能处于阻塞状态。&lt;/p&gt;
+&lt;p&gt;但队头阻塞使得这些数据不能并⾏请求，所以队头阻塞是很不利于浏览器优化的。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;http2的多路复用&#34;&gt;HTTP/2的多路复⽤&lt;/h2&gt;
+&lt;p&gt;慢启动和TCP连接之间相互竞争带宽是由于TCP本⾝的机 制导致的，⽽队头阻塞是由于HTTP/1.1的机制导致的。&lt;/p&gt;
+&lt;p&gt;虽然TCP有问题，但是我们依然没有换掉TCP的能⼒，所以我们就要想办法去规避TCP的慢启动和TCP连接 之间的竞争问题。&lt;/p&gt;
+&lt;p&gt;基于此，HTTP/2的思路就是&lt;strong&gt;⼀个域名只使⽤⼀个TCP⻓连接来传输数据&lt;/strong&gt;，这样整个⻚⾯资源的下载过程&lt;strong&gt;只需要⼀次慢启动&lt;/strong&gt;，同时也&lt;strong&gt;避免了多个TCP连接竞争带宽所带来的问题&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;另外，就是队头阻塞的问题，等待请求完成后才能去请求下⼀个资源，这种⽅式⽆疑是最慢的，所以 HTTP/2需要实现资源的&lt;strong&gt;并⾏请求&lt;/strong&gt;，也就是任何时候都可以将请求发送给服务器，⽽并不需要等待其他请求 的完成，然后服务器也可以随时返回处理好的请求资源给浏览器。&lt;/p&gt;
+&lt;p&gt;HTTP/2的解决⽅案可以总结为：&lt;strong&gt;⼀个域名只使⽤⼀个TCP⻓连接和消除队头阻塞问题&lt;/strong&gt;。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1630305504443.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;该图就是HTTP/2最核⼼、最重要且最具颠覆性的&lt;strong&gt;多路复⽤机制&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;从图中会发现每个请求都有⼀个对应的 ID，如stream1表⽰index.html的请求，stream2表⽰foo.css的请求。这样在浏览器端，就可以随时将请求 发送给服务器了。&lt;/p&gt;
+&lt;p&gt;HTTP/2使⽤了多路复⽤技术，可以将请求分成⼀帧⼀帧的数据去传输，这样带来了⼀个额外的好处，就是 当收到⼀个优先级⾼的请求时，⽐如接收到JavaScript或者CSS关键资源的请求，服务器可以暂停之前的请 求来优先处理关键资源的请求。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;多路复用的实现&#34;&gt;多路复⽤的实现&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1630305499377.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+HTTP/2添加了⼀个&lt;strong&gt;⼆进制分帧层&lt;/strong&gt;，结合图来分析下HTTP/2的请求和接收过程。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;⾸先，浏览器准备好请求数据，包括了请求⾏、请求头等信息，如果是POST⽅法，那么还要有请求体&lt;/li&gt;
+&lt;li&gt;这些数据经过⼆进制分帧层处理之后，会被转换为⼀个个带有请求ID编号的帧，通过协议栈将这些帧发送 给服务器。&lt;/li&gt;
+&lt;li&gt;服务器接收到所有帧之后，会将所有相同ID的帧合并为⼀条完整的请求信息。&lt;/li&gt;
+&lt;li&gt;然后服务器处理该条请求，并将处理的响应⾏、响应头和响应体分别发送⾄⼆进制分帧层。&lt;/li&gt;
+&lt;li&gt;同样，⼆进制分帧层会将这些响应数据转换为⼀个个带有请求ID编号的帧，经过协议栈发送给浏览器。&lt;/li&gt;
+&lt;li&gt;浏览器接收到响应帧之后，会根据ID编号将帧的数据提交给对应的请求。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;http2其他特性&#34;&gt;HTTP/2其他特性&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;多路复⽤&lt;/strong&gt;是HTTP/2的最核⼼功能，&lt;strong&gt;它能实现资源的并⾏传输&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;基于⼆进制分帧层，HTTP/2还附带实现了很多其他功能。&lt;/p&gt;
+&lt;h3 id=&#34;可以设置请求的优先级&#34;&gt;可以设置请求的优先级&lt;/h3&gt;
+&lt;p&gt;浏览器中有些数据是⾮常重要的，但是在发送请求时，重要的请求可能会晚于那些不怎么重要的请 求，如果服务器按照请求的顺序来回复数据，那么这个重要的数据就有可能推迟很久才能送达浏览器，这对 于⽤⼾体验来说是⾮常不友好的&lt;/p&gt;
+&lt;p&gt;为了解决这个问题，HTTP/2提供了请求优先级，可以在发送请求时，标上该请求的优先级，这样服务器接 收到请求之后，会优先处理优先级⾼的请求。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;服务器推送&#34;&gt;服务器推送&lt;/h3&gt;
+&lt;p&gt;除了设置请求的优先级外，HTTP/2还可以直接将数据提前推送到浏览器。&lt;/p&gt;
+&lt;p&gt;可以想象这样⼀个场景，当⽤ ⼾请求⼀个HTML⻚⾯之后，服务器知道该HTML⻚⾯会引⽤⼏个重要的JavaScript⽂件和CSS⽂件，那么在接收到HTML请求之后，附带将要使⽤的CSS⽂件和JavaScript⽂件⼀并发送给浏览器，这样当浏览器解析完HTML⽂件之后，就能直接拿到需要的CSS⽂件和JavaScript⽂件，这对⾸次打开⻚⾯的速度起到了⾄关重要的作⽤。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;头部压缩&#34;&gt;头部压缩&lt;/h3&gt;
+&lt;p&gt;⽆论是HTTP/1.1还是HTTP/2，它们都有请求头和响应头，这是浏览器和服务器的通信语⾔。&lt;/p&gt;
+&lt;p&gt;HTTP/2对请求头和响应头进⾏了压缩，提升了传输效率。&lt;/p&gt;
+">HTTP2：如何提升⽹络速度？</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/http1http-xing-neng-you-hua/"" data-c="

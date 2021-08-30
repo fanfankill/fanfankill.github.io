@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-08-28T05:48:33.532Z</updated>
+    <updated>2021-08-30T15:06:52.010Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[call、apply、bind手写实现]]></title>
+        <id>https://fanfankill.github.io/post/callapplybind-shou-xie-shi-xian/</id>
+        <link href="https://fanfankill.github.io/post/callapplybind-shou-xie-shi-xian/">
+        </link>
+        <updated>2021-08-30T15:06:26.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[HTTP2：如何提升⽹络速度？]]></title>
+        <id>https://fanfankill.github.io/post/http2ru-he-ti-sheng-luo-su-du/</id>
+        <link href="https://fanfankill.github.io/post/http2ru-he-ti-sheng-luo-su-du/">
+        </link>
+        <updated>2021-08-30T06:37:48.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[HTTP1：HTTP性能优化]]></title>
         <id>https://fanfankill.github.io/post/http1http-xing-neng-you-hua/</id>
@@ -65,19 +79,5 @@
         <link href="https://fanfankill.github.io/post/async-han-shu/">
         </link>
         <updated>2021-08-17T13:16:57.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[XMLHttpRequest是怎么实现的？]]></title>
-        <id>https://fanfankill.github.io/post/xmlhttprequest-shi-zen-me-shi-xian-de/</id>
-        <link href="https://fanfankill.github.io/post/xmlhttprequest-shi-zen-me-shi-xian-de/">
-        </link>
-        <updated>2021-08-17T08:08:19.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ setTimeout是如何实现的？]]></title>
-        <id>https://fanfankill.github.io/post/settimeout-shi-ru-he-shi-xian-de/</id>
-        <link href="https://fanfankill.github.io/post/settimeout-shi-ru-he-shi-xian-de/">
-        </link>
-        <updated>2021-08-17T04:52:47.000Z</updated>
     </entry>
 </feed>

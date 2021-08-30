@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>图解HTTP 第一章 | fanfan</title>
+<title>HTTP2：如何提升⽹络速度？ | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1630336006692">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="图解HTTP 第一章" />
-  <meta name="keywords" content="网络" />
+  <meta name="description" content="HTTP2：如何提升⽹络速度？" />
+  <meta name="keywords" content="浏览器,网络" />
 </head>
 
 <body>
@@ -297,23 +297,22 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#http%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE">HTTP（超文本传输协议）</a></li>
-<li><a href="#tcpip-%E5%88%86%E5%B1%82">TCP/IP 分层</a></li>
-<li><a href="#tcpip%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E6%B5%81">TCP/IP通信传输流</a></li>
+<li><a href="#http11%E7%9A%84%E4%B8%BB%E8%A6%81%E9%97%AE%E9%A2%98">HTTP/1.1的主要问题</a>
+<ul>
+<li><a href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8E%9F%E5%9B%A0tcp%E7%9A%84%E6%85%A2%E5%90%AF%E5%8A%A8">第⼀个原因，TCP的慢启动。</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%8E%9F%E5%9B%A0%E5%90%8C%E6%97%B6%E5%BC%80%E5%90%AF%E4%BA%86%E5%A4%9A%E6%9D%A1tcp%E8%BF%9E%E6%8E%A5%E9%82%A3%E4%B9%88%E8%BF%99%E4%BA%9B%E8%BF%9E%E6%8E%A5%E4%BC%9A%E7%AB%9E%E4%BA%89%E5%9B%BA%E5%AE%9A%E7%9A%84%E5%B8%A6%E5%AE%BD">第⼆个原因，同时开启了多条TCP连接，那么这些连接会竞争固定的带宽。</a></li>
+<li><a href="#%E7%AC%AC%E4%B8%89%E4%B8%AA%E5%8E%9F%E5%9B%A0http11%E9%98%9F%E5%A4%B4%E9%98%BB%E5%A1%9E%E7%9A%84%E9%97%AE%E9%A2%98">第三个原因，HTTP/1.1队头阻塞的问题。</a></li>
 </ul>
 </li>
-<li><a href="#%E4%B8%8Ehttp%E5%85%B3%E7%B3%BB%E7%B4%A7%E5%AF%86%E7%9A%84%E5%8D%8F%E8%AE%AE"><strong>与HTTP关系紧密的协议</strong></a><br>
-*
+<li><a href="#http2%E7%9A%84%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8">HTTP/2的多路复⽤</a></li>
+<li><a href="#%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E5%AE%9E%E7%8E%B0">多路复⽤的实现</a></li>
+<li><a href="#http2%E5%85%B6%E4%BB%96%E7%89%B9%E6%80%A7">HTTP/2其他特性</a>
 <ul>
-<li><a href="#%E8%B4%9F%E8%B4%A3%E4%BC%A0%E8%BE%93%E7%9A%84ip%E5%8D%8F%E8%AE%AE"><strong>负责传输的IP协议</strong></a></li>
-<li><a href="#arp%E5%8D%8F%E8%AE%AE"><strong>ARP协议</strong></a></li>
-<li><a href="#tcp%E5%8D%8F%E8%AE%AE"><strong>TCP协议</strong></a>
-<ul>
-<li><a href="#%E7%A1%AE%E4%BF%9D%E6%95%B0%E6%8D%AE%E8%83%BD%E8%BE%BE%E5%88%B0%E7%9B%AE%E6%A0%87"><strong>确保数据能达到目标</strong></a></li>
+<li><a href="#%E5%8F%AF%E4%BB%A5%E8%AE%BE%E7%BD%AE%E8%AF%B7%E6%B1%82%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7">可以设置请求的优先级</a></li>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A8%E9%80%81">服务器推送</a></li>
+<li><a href="#%E5%A4%B4%E9%83%A8%E5%8E%8B%E7%BC%A9">头部压缩</a></li>
 </ul>
 </li>
-<li><a href="#%E8%B4%9F%E8%B4%A3%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E7%9A%84dns%E6%9C%8D%E5%8A%A1"><strong>负责域名解析的DNS服务</strong></a></li>
-<li><a href="#%E5%90%84%E7%A7%8D%E5%8D%8F%E8%AE%AE%E4%B8%8Ehttp%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%85%B3%E7%B3%BB">各种协议与HTTP协议的关系</a></li>
 </ul>
 </li>
 </ul>
@@ -581,8 +580,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/tu-jie-http/">
-      图解HTTP 第一章
+    <a class="post-title-link" href="https://fanfankill.github.io/post/http2ru-he-ti-sheng-luo-su-du/">
+      HTTP2：如何提升⽹络速度？
     </a>
   </h1>
   <div class="post-meta">
@@ -590,13 +589,19 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-04-22 11:03:20">2021-04-22</span>
+      <span class="publish-time" data-t="2021-08-30 14:37:48">2021-08-30</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
       <i class="fa fa-folder-o"></i>
       <span class="pc-show language" data-lan="category-in">分类于</span>
+      
+      
+      <a href="https://fanfankill.github.io/tag/68KZf8W4c/">
+        <span>浏览器</span>
+      </a>、
+      
       
       
       <a href="https://fanfankill.github.io/tag/KATkWfQKE/">
@@ -609,100 +614,79 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>3<span class="language" data-lan="minute">分钟</span></span>
+      <span>7<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>758<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1881<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h2 id="http超文本传输协议">HTTP（超文本传输协议）</h2>
+              <p>虽然HTTP/1.1已经做了⼤量的优化，但是依然存在很多性能瓶 颈，依然不能满⾜我们⽇益变化的新需求，所以就有了今天要聊的HTTP/2。</p>
 <br>
-<h2 id="tcpip-分层">TCP/IP 分层</h2>
-<ol>
-<li>
-<p><strong>应用层</strong></p>
-<pre><code>  	     1. 决定向用户提供应用服务时通信的活动 (HTTP，FTP，DNS)  
-</code></pre>
-</li>
-<li>
-<p><strong>传输层</strong></p>
-<pre><code>  	     1. 提供处于网络连接中两台计算机之间的数据传输
-</code></pre>
-</li>
-<li>
-<p><strong>网络层</strong></p>
-<pre><code>  	     1. 处理网络上流动的数据包，为数据传输选择一条路线
-</code></pre>
-</li>
-<li>
-<p><strong>数据链路层</strong></p>
-<pre><code>  	     1. 一些肉眼可见的硬件设施 网卡 光纤 等
-</code></pre>
+<p>HTTP/1.1为⽹络效率做了⼤量的优化，最核⼼的有如下三种⽅式：</p>
+<p>1.增加了持久连接</p>
+<p>2.浏览器为每个域名最多同时维护6个TCP持久连接；</p>
+<p>3.使⽤CDN的实现域名分⽚机制。</p>
 <br>
-</li>
-</ol>
-<h2 id="tcpip通信传输流">TCP/IP通信传输流</h2>
-<table>
-<thead>
-<tr>
-<th>客户端</th>
-<th style="text-align:center">过程</th>
-<th style="text-align:right">服务器</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>应用层</td>
-<td style="text-align:center">HTTP数据</td>
-<td style="text-align:right">应用层</td>
-</tr>
-<tr>
-<td>传输层</td>
-<td style="text-align:center">加/消去 TCP首部</td>
-<td style="text-align:right">传输层</td>
-</tr>
-<tr>
-<td>网络层</td>
-<td style="text-align:center">加/消去 IP首部</td>
-<td style="text-align:right">网络层</td>
-</tr>
-<tr>
-<td>链路层</td>
-<td style="text-align:center">加/消去 以太网首部</td>
-<td style="text-align:right">链路层</td>
-</tr>
-</tbody>
-</table>
-<h1 id="与http关系紧密的协议"><strong>与HTTP关系紧密的协议</strong></h1>
+<h2 id="http11的主要问题">HTTP/1.1的主要问题</h2>
+<p>HTTP/1.1<strong>对带宽的利⽤率却并不理想</strong>，这也是HTTP/1.1的⼀个核⼼问题。</p>
+<p><strong>带宽是指每秒最⼤能发送或者接收的字节数</strong>。我们把每秒能发送的最⼤字节数称为<strong>上⾏带宽</strong>，每秒能够接收的最⼤字节数称为<strong>下⾏带宽</strong>。</p>
+<p>⽐如我们常说的100M带宽，实际的下载速度能达到12.5M/S，⽽采⽤HTTP/1.1时，也许在加载⻚⾯资源时最⼤只能使⽤到2.5M/S，很难将12.5M全部⽤满。</p>
+<p>之所以会出现这个问题，主要是由以下三个原因导致的。</p>
+<h3 id="第一个原因tcp的慢启动">第⼀个原因，TCP的慢启动。</h3>
+<p>⼀旦⼀个TCP连接建⽴之后，就进⼊了发送数据状态，刚开始TCP协议会采⽤⼀个⾮常慢的速度去发送数 据，然后慢慢加快发送数据的速度，直到发送数据的速度达到⼀个理想状态，我们把这个过程称为慢启动。</p>
+<p>慢启动是TCP为了减少⽹络拥塞的⼀种策略，我们是没有办法改变的。</p>
+<p>⽽之所以说慢启动会带来性能问题，是因为⻚⾯中常⽤的⼀些关键资源⽂件本来就不⼤，如HTML⽂件、 CSS⽂件和JavaScript⽂件，通常这些⽂件在TCP连接建⽴好之后就要发起请求的，但这个过程是慢启动， 所以耗费的时间⽐正常的时间要多很多，这样就推迟了宝贵的⾸次渲染⻚⾯的时⻓了。</p>
 <br>
-<h3 id="负责传输的ip协议"><strong>负责传输的IP协议</strong></h3>
-<p>IP(网际协议)处于网络层，IP协议的作用是把各种数据包传送给对方，而确保传送到对方那里，要满足各种条件。其中两个重要的条件就是<strong>IP地址</strong>和<strong>MAC地址</strong></p>
-<p><strong>IP地址</strong>指明了节点被分配到的地址，<strong>Mac地址</strong>是指网卡所属的固定地址，IP地址可以和MAC地址进行匹配。IP地址可以变换，MAC地址基本不会更改</p>
+<h3 id="第二个原因同时开启了多条tcp连接那么这些连接会竞争固定的带宽">第⼆个原因，同时开启了多条TCP连接，那么这些连接会竞争固定的带宽。</h3>
+<p>系统同时建⽴了多条TCP连接，当带宽充⾜时，每条连接发送或者接收速度会慢慢向上增 加；⽽⼀旦带宽不⾜时，这些TCP连接⼜会减慢发送或者接收的速度。</p>
+<p>这样就会出现⼀个问题，因为有的TCP连接下载的是⼀些关键资源，如CSS⽂件、JavaScript⽂件等，⽽有 的TCP连接下载的是图⽚、视频等普通的资源⽂件，但是<strong>多条TCP连接之间⼜不能协商让哪些关键资源优先 下载，这样就有可能影响那些关键资源的下载速度了</strong>。</p>
 <br>
-<h3 id="arp协议"><strong>ARP协议</strong></h3>
-<p>IP间的通信依赖MAC地址。在网络上，通信的双方在同一局域网（LAN）内的情况还是很少的，通常需要多台计算机和网络设备中转。而在进行中转时，<strong>会利用下一站中转设备的MAC地址来搜索下一个中转目标</strong>。ARP是一种用以解析地址的协议，根据通信方的IP地址就可以反查出对应的MAC地址<br>
-<br></p>
-<h3 id="tcp协议"><strong>TCP协议</strong></h3>
-<p>TCP协议位于传输层，提供可靠的字节流服务。</p>
-<p><strong>字节流服务</strong>指为了方便传输将大块数据分割成以报文段为单位的数据包进行管理</p>
-<p><strong>可靠的服务</strong>指TCP协议能够确认数据最终是否送到对方</p>
+<h3 id="第三个原因http11队头阻塞的问题">第三个原因，HTTP/1.1队头阻塞的问题。</h3>
+<p>在HTTP/1.1中使⽤持久连接时，虽然能公⽤⼀个TCP管道，但是<strong>在⼀个管道中同 ⼀时刻只能处理⼀个请求</strong>，在当前的请求没有结束之前，其他的请求只能处于阻塞状态。</p>
+<p>但队头阻塞使得这些数据不能并⾏请求，所以队头阻塞是很不利于浏览器优化的。</p>
 <br>
-<h4 id="确保数据能达到目标"><strong>确保数据能达到目标</strong></h4>
-<p>TCP协议采用<strong>三次握手</strong>策略。用TCP协议把数据包送出去后，TCP一定会向对方确认是否成功送达。握手过程中使用了TCP的标志——SYN和——ACK。</p>
-<p>发送端首先发送一个带SYN标志的数据包给对方。接收端收到后，回传一个带有SYN/ACK标志的数据包以示传达确认信息。最后发送端再回传一个带ACK标志的数据包，代表“握手”结束</p>
-<p>若在握手的过程中某个阶段莫名中断，TCP协议会再次以相同的顺序发送相同的数据包<br>
-<br></p>
-<h2 id="负责域名解析的dns服务"><strong>负责域名解析的DNS服务</strong></h2>
-<p>DNS服务位于应用层的协议。它提供域名到IP地址之间的解析服务</p>
-<p>DNS协议提供通过<strong>域名</strong>(例如 www.baidu.com)查找<strong>IP</strong>(14.215.177.39)，或逆向从IP反查域名的服务(cmd的nslookup 指令)</p>
+<h2 id="http2的多路复用">HTTP/2的多路复⽤</h2>
+<p>慢启动和TCP连接之间相互竞争带宽是由于TCP本⾝的机 制导致的，⽽队头阻塞是由于HTTP/1.1的机制导致的。</p>
+<p>虽然TCP有问题，但是我们依然没有换掉TCP的能⼒，所以我们就要想办法去规避TCP的慢启动和TCP连接 之间的竞争问题。</p>
+<p>基于此，HTTP/2的思路就是<strong>⼀个域名只使⽤⼀个TCP⻓连接来传输数据</strong>，这样整个⻚⾯资源的下载过程<strong>只需要⼀次慢启动</strong>，同时也<strong>避免了多个TCP连接竞争带宽所带来的问题</strong>。</p>
+<p>另外，就是队头阻塞的问题，等待请求完成后才能去请求下⼀个资源，这种⽅式⽆疑是最慢的，所以 HTTP/2需要实现资源的<strong>并⾏请求</strong>，也就是任何时候都可以将请求发送给服务器，⽽并不需要等待其他请求 的完成，然后服务器也可以随时返回处理好的请求资源给浏览器。</p>
+<p>HTTP/2的解决⽅案可以总结为：<strong>⼀个域名只使⽤⼀个TCP⻓连接和消除队头阻塞问题</strong>。</p>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1630305504443.png" alt="" loading="lazy"></figure>
+<p>该图就是HTTP/2最核⼼、最重要且最具颠覆性的<strong>多路复⽤机制</strong>。</p>
+<p>从图中会发现每个请求都有⼀个对应的 ID，如stream1表⽰index.html的请求，stream2表⽰foo.css的请求。这样在浏览器端，就可以随时将请求 发送给服务器了。</p>
+<p>HTTP/2使⽤了多路复⽤技术，可以将请求分成⼀帧⼀帧的数据去传输，这样带来了⼀个额外的好处，就是 当收到⼀个优先级⾼的请求时，⽐如接收到JavaScript或者CSS关键资源的请求，服务器可以暂停之前的请 求来优先处理关键资源的请求。</p>
 <br>
-<h2 id="各种协议与http协议的关系">各种协议与HTTP协议的关系</h2>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1619064689862.png" alt="" loading="lazy"></figure>
+<h2 id="多路复用的实现">多路复⽤的实现</h2>
+<p><img src="https://fanfankill.github.io/post-images/1630305499377.png" alt="" loading="lazy"><br>
+HTTP/2添加了⼀个<strong>⼆进制分帧层</strong>，结合图来分析下HTTP/2的请求和接收过程。</p>
+<ul>
+<li>⾸先，浏览器准备好请求数据，包括了请求⾏、请求头等信息，如果是POST⽅法，那么还要有请求体</li>
+<li>这些数据经过⼆进制分帧层处理之后，会被转换为⼀个个带有请求ID编号的帧，通过协议栈将这些帧发送 给服务器。</li>
+<li>服务器接收到所有帧之后，会将所有相同ID的帧合并为⼀条完整的请求信息。</li>
+<li>然后服务器处理该条请求，并将处理的响应⾏、响应头和响应体分别发送⾄⼆进制分帧层。</li>
+<li>同样，⼆进制分帧层会将这些响应数据转换为⼀个个带有请求ID编号的帧，经过协议栈发送给浏览器。</li>
+<li>浏览器接收到响应帧之后，会根据ID编号将帧的数据提交给对应的请求。</li>
+</ul>
+<br>
+<h2 id="http2其他特性">HTTP/2其他特性</h2>
+<p><strong>多路复⽤</strong>是HTTP/2的最核⼼功能，<strong>它能实现资源的并⾏传输</strong>。</p>
+<p>基于⼆进制分帧层，HTTP/2还附带实现了很多其他功能。</p>
+<h3 id="可以设置请求的优先级">可以设置请求的优先级</h3>
+<p>浏览器中有些数据是⾮常重要的，但是在发送请求时，重要的请求可能会晚于那些不怎么重要的请 求，如果服务器按照请求的顺序来回复数据，那么这个重要的数据就有可能推迟很久才能送达浏览器，这对 于⽤⼾体验来说是⾮常不友好的</p>
+<p>为了解决这个问题，HTTP/2提供了请求优先级，可以在发送请求时，标上该请求的优先级，这样服务器接 收到请求之后，会优先处理优先级⾼的请求。</p>
+<br>
+<h3 id="服务器推送">服务器推送</h3>
+<p>除了设置请求的优先级外，HTTP/2还可以直接将数据提前推送到浏览器。</p>
+<p>可以想象这样⼀个场景，当⽤ ⼾请求⼀个HTML⻚⾯之后，服务器知道该HTML⻚⾯会引⽤⼏个重要的JavaScript⽂件和CSS⽂件，那么在接收到HTML请求之后，附带将要使⽤的CSS⽂件和JavaScript⽂件⼀并发送给浏览器，这样当浏览器解析完HTML⽂件之后，就能直接拿到需要的CSS⽂件和JavaScript⽂件，这对⾸次打开⻚⾯的速度起到了⾄关重要的作⽤。</p>
+<br>
+<h3 id="头部压缩">头部压缩</h3>
+<p>⽆论是HTTP/1.1还是HTTP/2，它们都有请求头和响应头，这是浏览器和服务器的通信语⾔。</p>
+<p>HTTP/2对请求头和响应头进⾏了压缩，提升了传输效率。</p>
 
             </div>
             
@@ -715,7 +699,7 @@
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/tu-jie-http/" title="图解HTTP 第一章">https://fanfankill.github.io/post/tu-jie-http/</a>
+      <a href="https://fanfankill.github.io/post/http2ru-he-ti-sheng-luo-su-du/" title="HTTP2：如何提升⽹络速度？">https://fanfankill.github.io/post/http2ru-he-ti-sheng-luo-su-du/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -724,6 +708,8 @@
   </ul>
   <div class="tags">
     
+      <a href="https://fanfankill.github.io/tag/68KZf8W4c/"># 浏览器</a>
+    
       <a href="https://fanfankill.github.io/tag/KATkWfQKE/"># 网络</a>
     
   </div>
@@ -731,14 +717,14 @@
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="图解HTTP 第二章" href="https://fanfankill.github.io/post/tu-jie-http-di-er-zhang/">图解HTTP 第二章</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="图解HTTP 第二章" href="https://fanfankill.github.io/post/tu-jie-http-di-er-zhang/">上一篇</a>
+        <a class="nav-pc-next" title="call、apply、bind手写实现" href="https://fanfankill.github.io/post/callapplybind-shou-xie-shi-xian/">call、apply、bind手写实现</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="call、apply、bind手写实现" href="https://fanfankill.github.io/post/callapplybind-shou-xie-shi-xian/">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="正则表达式" href="https://fanfankill.github.io/post/zheng-ze-biao-da-shi/">正则表达式</a>
-        <a class="nav-mobile-next" title="正则表达式" href="https://fanfankill.github.io/post/zheng-ze-biao-da-shi/">下一篇</a>
+        <a class="nav-pc-next" title="HTTP1：HTTP性能优化" href="https://fanfankill.github.io/post/http1http-xing-neng-you-hua/">HTTP1：HTTP性能优化</a>
+        <a class="nav-mobile-next" title="HTTP1：HTTP性能优化" href="https://fanfankill.github.io/post/http1http-xing-neng-you-hua/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
