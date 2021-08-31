@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1630336006692">
+<link rel="shortcut icon" href="/favicon.ico?v=1630392818296">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -244,7 +244,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">73</span>
+        <span class="site-item-stat-count">75</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1171,6 +1171,252 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
     <div class="result" id="result">
       
       <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/http3shuai-diao-tcptls-de-bao-fu-gou-jian-xiao-luo/"" data-c="
+          &lt;p&gt;HTTP/2的⼀个核⼼特性是使⽤了多路复⽤技术，因此它可以通过⼀个TCP连接来发送多个URL请求。多路复 ⽤技术能充分利⽤带宽，最⼤限度规避了TCP的慢启动所带来的问题，同时还实现了头部压缩、服务器推送 等功能，使得⻚⾯资源的传输速度得到了⼤幅提升。&lt;/p&gt;
+&lt;p&gt;HTTP/3的出现也是为了解决HTTP/2的缺陷&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;tcp的队头阻塞&#34;&gt;TCP的队头阻塞&lt;/h2&gt;
+&lt;p&gt;HTTP/2依然是基于TCP协议的，⽽ TCP最初就是为了单连接⽽设计的。&lt;/p&gt;
+&lt;p&gt;分析下HTTP/1.1协议栈中TCP是如何传输数据的。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1630392741691.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;从⼀端发送给另外⼀端的数据会被拆分为⼀个个按照顺序排列的数据包，这些数据包通 过⽹络传输到了接收端，接收端再按照顺序将这些数据包组合成原始数据，这样就完成了数据传输。&lt;/p&gt;
+&lt;p&gt;如果在数据传输的过程中，有⼀个数据因为⽹络故障或者其他原因⽽丢包了，那么整个TCP的连接就 会处于暂停状态，需要等待丢失的数据包被重新传输过来。&lt;/p&gt;
+&lt;p&gt;可以把TCP连接看成是⼀个按照顺序传输数据 的管道，管道中的任意⼀个数据丢失了，那之后的数据都需要等待该数据的重新传输。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1630392756419.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;我们就把&lt;strong&gt;在TCP传输过程中，由于单个数据包的丢失⽽造成的阻塞称为TCP上的队头阻塞&lt;/strong&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;HTTP/2的传输多路请求&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1630392616855.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;在HTTP/2中，多个请求是跑在⼀个TCP管道中的，如果其中任意⼀路数据流中出现了 丢包的情况，那么就会阻塞该TCP连接中的所有请求。&lt;/p&gt;
+&lt;p&gt;这不同于HTTP/1.1，使⽤HTTP/1.1时，浏览器为每 个域名开启了6个TCP连接，如果其中的1个TCP连接发⽣了队头阻塞，那么其他的5个连接依然可以继续传 输数据。&lt;/p&gt;
+&lt;p&gt;所以随着丢包率的增加，HTTP/2的传输效率也会越来越差。甚至当丢包率超过一定值时，HTTP/1.1的传输效率反⽽⽐HTTP/2表现得更好。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;tcp建立连接的延时&#34;&gt;TCP建⽴连接的延时&lt;/h2&gt;
+&lt;p&gt;TCP的握⼿过程也是影响传输效率的⼀个重要因素。&lt;/p&gt;
+&lt;p&gt;⽹络延迟⼜称为RTT（Round Trip Time）。我们把从浏览器发送⼀个数据包到服务器，再从服务 器返回数据包到浏览器的整个往返时间称为RTT。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RTT是反映⽹络性能的⼀个重要指标&lt;/strong&gt;&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1630392611495.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;那建⽴TCP连接时，需要花费多少个RTT呢？&lt;/p&gt;
+&lt;p&gt;HTTP/1和HTTP/2都是使⽤TCP协议来传输的，⽽如果使⽤HTTPS的话，还需要使⽤TLS协议进⾏ 安全传输，⽽使⽤TLS也需要⼀个握⼿过程，这样就需要有两个握⼿延迟过程。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在建⽴TCP连接的时候，需要和服务器进⾏三次握⼿来确认连接成功，也就是说需要在消耗完1.5个RTT 之后才能进⾏数据传输。&lt;/li&gt;
+&lt;li&gt;进⾏TLS连接，TLS有两个版本⸺TLS1.2和TLS1.3，每个版本建⽴连接所花的时间不同，⼤致是需要1〜 2个RTT&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在传输数据之前，我们需要花掉3〜4个RTT。如果浏览器和服务器的物理距离较近，那么1个RTT的 时间可能在10毫秒以内，也就是说总共要消耗掉30〜40毫秒。这个时间也许⽤⼾还可以接受，但如果服务 器相隔较远，那么1个RTT就可能需要100毫秒以上了，这种情况下整个握⼿过程需要300〜400毫秒，这时 ⽤⼾就能明显地感受到“慢”了。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;tcp协议僵化&#34;&gt;TCP协议僵化&lt;/h2&gt;
+&lt;p&gt;现在知道了TCP协议存在&lt;strong&gt;队头阻塞&lt;/strong&gt;和&lt;strong&gt;建⽴连接延迟&lt;/strong&gt;等缺点，那我们是不是可以通过改进TCP协议来解决 这些问题呢？&lt;/p&gt;
+&lt;p&gt;答案是：⾮常困难。之所以这样，主要有两个原因。&lt;/p&gt;
+&lt;p&gt;第⼀个是&lt;strong&gt;中间设备的僵化&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;互联⽹是由多个⽹络互联的⽹状结构，为了能够保障互联⽹的正常⼯作，我们需要在互联⽹的各处搭建各种设 备，这些设备就被称为中间设备。&lt;/p&gt;
+&lt;p&gt;这些中间设备有很多种类型，并且每种设备都有⾃⼰的⽬的，这些设备包括了路由器、防⽕墙、NAT、交换 机等。它们通常依赖⼀些很少升级的软件，这些软件使⽤了⼤量的TCP特性，这些功能被设置之后就很少更 新了。&lt;/p&gt;
+&lt;p&gt;所以，如果我们在客⼾端升级了TCP协议，但是当新协议的数据包经过这些中间设备时，它们可能不理解包 的内容，于是这些数据就会被丢弃掉。这就是中间设备僵化，它是阻碍TCP更新的⼀⼤障碍。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;操作系统也是导致TCP协议僵化的另外⼀个原因&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;因为TCP协议都是通过操作系统内 核来实现的，应⽤程序只能使⽤不能修改。通常操作系统的更新都滞后于软件的更新，因此要想⾃由地更新 内核中的TCP协议也是⾮常困难的。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;quic协议&#34;&gt;QUIC协议&lt;/h2&gt;
+&lt;p&gt;HTTP/2存在⼀些⽐较严重的与TCP协议相关的缺陷，但由于TCP协议僵化，我们⼏乎不可能通过修改TCP协 议⾃⾝来解决这些问题，那么解决问题的思路是绕过TCP协议，发明⼀个TCP和UDP之外的新的传输协议。&lt;/p&gt;
+&lt;p&gt;但是这也⾯临着和修改TCP⼀样的挑战，因为中间设备的僵化，这些设备只认TCP和UDP，如果采⽤了新的 协议，新协议在这些设备同样不被很好地⽀持。&lt;/p&gt;
+&lt;p&gt;因此，HTTP/3选择了⼀个折衷的⽅法⸺UDP协议，基于UDP实现了类似于 TCP的多路数据流、传输可靠性等功能，我们把这套功能称为&lt;strong&gt;QUIC协议&lt;/strong&gt;。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1630392604532.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;p&gt;通过上图我们可以看出，HTTP/3中的QUIC协议集合了以下⼏点功能。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;实现了类似TCP的流量控制、传输可靠性的功能&lt;/strong&gt;。虽然UDP不提供可靠性的传输，但QUIC在UDP的基础 之上增加了⼀层来保证数据可靠性传输。它提供了数据包重传、拥塞控制以及其他⼀些TCP中存在的特 性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;集成了TLS加密功能&lt;/strong&gt;。 ⽬前QUIC使⽤的是TLS1.3，相较于早期版本TLS1.3有更多的优点，其中最重要的 ⼀点是减少了握⼿所花费的RTT个数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;实现了HTTP/2中的多路复⽤功能&lt;/strong&gt;。和TCP不同，QUIC实现了在同⼀物理连接上可以有多个独⽴的逻辑数 据流（如下图）。实现了数据流的单独传输，就解决了TCP中队头阻塞的问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;6&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1630392599144.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;实现了快速握⼿功能&lt;/strong&gt;。由于QUIC是基于UDP的，所以QUIC可以实现使⽤0-RTT或者1-RTT来建⽴连接， 这意味着QUIC可以⽤最快的速度来发送和接收数据，这样可以⼤⼤提升⾸次打开⻚⾯的速度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;http3的挑战&#34;&gt;HTTP/3的挑战&lt;/h2&gt;
+&lt;p&gt;挑战主要来⾃于以下三个⽅⾯&lt;/p&gt;
+&lt;p&gt;第⼀，从⽬前的情况来看，服务器和浏览器端都没有对HTTP/3提供⽐较完整的⽀持。&lt;/p&gt;
+&lt;p&gt;第⼆，部署HTTP/3也存在着⾮常⼤的问题。因为系统内核对UDP的优化远远没有达到TCP的优化程度，这 也是阻碍QUIC的⼀个重要原因。&lt;/p&gt;
+&lt;p&gt;第三，中间设备僵化的问题。这些设备对UDP的优化程度远远低于TCP，据统计使⽤QUIC协议时，⼤约有 3%〜7%的丢包率。&lt;/p&gt;
+">HTTP3：甩掉TCP、TLS的包袱，构建⾼效⽹络</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js-zhong-shi-xian-ji-cheng/"" data-c="
+          &lt;h2 id=&#34;原型链继承&#34;&gt;原型链继承&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;SubType.prototype = new SuperType();&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;注意点&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//使用字面量添加新方法，会导致上一行代码无效
+SubType.prototype = { 
+ getSubValue : function (){ 
+     return this.subproperty; 
+ }, 
+ someOtherMethod : function (){ 
+     return false; 
+ } 
+}; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;单纯使用原型链继承会存在引用数据共用的问题。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;借用构造函数继承&#34;&gt;借用构造函数继承&lt;/h2&gt;
+&lt;p&gt;基础&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-jss&#34;&gt;function SubType(){ 
+ //继承了 SuperType 
+ SuperType.call(this); 
+} 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;可以实现传参&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function SubType(name,age){ 
+ //继承了 SuperType，同时还传递了参数
+ SuperType.call(this, age); 
+ //实例属性
+ this.age = age; 
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;存在的问题是&lt;strong&gt;方法都在构造函数里面定义，而无法继承到SubType里面的方法&lt;/strong&gt;，淡化了函数复用概念&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;组合继承&#34;&gt;组合继承&lt;/h2&gt;
+&lt;p&gt;组合原型链和借用构造继承&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function SubType(name, age){ 
+ //继承属性
+ SuperType.call(this, name); 
+ 
+ this.age = age; 
+} 
+
+//继承方法
+SubType.prototype = new SuperType(); 
+//弥补因重写原型而失去的默认的 constructor 属性
+SubType.prototype.constructor = SubType; 
+//实现在原型链增加共用函数 达到函数复用
+SubType.prototype.sayAge = function(){ 
+ alert(this.age); 
+}; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这属于很常用的继承模式&lt;/p&gt;
+&lt;h2 id=&#34;原型式继承&#34;&gt;原型式继承&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function myobject(o){ 
+ function F(){} 
+ F.prototype = o; 
+ return new F(); 
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;或者使用ES6中的&lt;code&gt;Object.create()&lt;/code&gt;可以实现一样的效果&lt;/p&gt;
+&lt;p&gt;实际上就是创建了一个临时性的构造函数，然后将传入的对象作为这个构造函数的 原型，最后返回了这个临时类型的一个新实例。&lt;/p&gt;
+&lt;p&gt;当然这样实现的都是浅拷贝，副本对于原函数的引用类型一样是共享的。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;寄生继承&#34;&gt;寄生继承&lt;/h2&gt;
+&lt;p&gt;寄生式（parasitic）继承是与原型式继承紧密相关的一种思路&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function createAnother(original){ 
+     var clone = object(original); //通过调用函数创建一个新对象
+    
+     clone.sayHi = function(){ //以某种方式来增强这个对象
+     alert(&amp;quot;hi&amp;quot;); 
+     }; 
+     return clone; //返回这个对象
+} 
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;其实就是多个给构造函数加东西的过程，也没有实现函数的复用。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;寄生组合继承&#34;&gt;寄生组合继承&lt;/h2&gt;
+&lt;p&gt;对于组合继承不够优秀的补充，组合继承调用了两次超类型构造函数，存在属性覆盖的情况。&lt;/p&gt;
+&lt;p&gt;基本思路是：不必为了指定子类型的原型而调用超类型的构造函数，我们所需要的无非就是超类型 原型的一个副本而已。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function inheritPrototype(subType, superType){ 
+     var prototype = object(superType.prototype); //创建对象
+     prototype.constructor = subType; //增强对象
+     subType.prototype = prototype; //指定对象
+} 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;高效率体现在它只调用了一次 SuperType 构造函数，并且因此避免了在 SubType.  prototype 上面创建不必要的、多余的属性。&lt;/p&gt;
+&lt;p&gt;实例&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//寄生组合继承
+
+//超构造函数
+function person(name=&#39;我是默认姓名&#39;){
+    this.name=name
+    this.color=[&#39;1&#39;,&#39;2&#39;,&#39;3&#39;]
+}
+person.prototype.getcolor=function(){
+
+    return this.color
+}
+
+//构造函数
+function people (age,name){
+    //继承属性 
+    person.call(this,name)
+
+    this.age=age
+}
+
+//实现部分
+people.prototype=Object.create(person.prototype)
+//弥补因重写原型而失去的默认的 constructor 属性
+person.prototype.constructor=person
+
+person.prototype.addcolor=function(arr){
+    
+    this.color.push(...arr)
+}
+
+//实例
+var fan1=new people(&#39;19&#39;,&#39;fanfan&#39;)
+
+var fan2=new people(&#39;20&#39;,&#39;xixi&#39;)
+
+fan1.addcolor([&#39;add1&#39;,&#39;add2&#39;])
+
+console.log(fan1.getcolor());  //&amp;quot;1&amp;quot;, &amp;quot;2&amp;quot;, &amp;quot;3&amp;quot;, &amp;quot;add1&amp;quot;, &amp;quot;add2&amp;quot;
+console.log(fan2.getcolor());  //&amp;quot;1&amp;quot;, &amp;quot;2&amp;quot;, &amp;quot;3&amp;quot;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;es6的继承&#34;&gt;ES6的继承&lt;/h2&gt;
+&lt;p&gt;class注意点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;class相当于es5中的构造函数&lt;/li&gt;
+&lt;li&gt;class定义方法时候，不能加function，方法也是定义在class的原型链上。&lt;/li&gt;
+&lt;li&gt;class定义的方法都是不可枚举的。&lt;/li&gt;
+&lt;li&gt;class只能定义方法，不用定义对象，变量&lt;/li&gt;
+&lt;li&gt;class默认严格模式，全局this指向undefined&lt;/li&gt;
+&lt;li&gt;es5中的constructor为隐式属性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;class person{
+    constructor(name=&#39;fanfan&#39;,age){
+        this.name=name
+        this.age=age
+        this.color=[1.2,3]
+       
+    }
+
+    getmyname(){
+        //调用this依旧指向子类
+        console.log(this.name);
+        return this.color
+    }
+
+}
+
+//继承
+class people extends person{
+    constructor(name=&#39;xixi&#39;,age){
+      super(name,age)
+      this.name=name
+    }
+
+    getname(){
+        return super.getmyname()
+    }
+}
+
+var fan1=new people(&#39;??&#39;,&#39;200&#39;)
+
+console.log(fan1.getname()); //??  [1.2, 3]
+&lt;/code&gt;&lt;/pre&gt;
+">JS中实现继承</a>
+      </div>
+      
+      <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/callapplybind-shou-xie-shi-xian/"" data-c="
           &lt;h2 id=&#34;call的实现&#34;&gt;call的实现&lt;/h2&gt;
 &lt;p&gt;call的第一个参数是指向值，如果为null或者undefined则是，this指向window&lt;/p&gt;
@@ -1273,7 +1519,6 @@ console.log(obj.friend);
 // kevin
 &lt;/code&gt;&lt;/pre&gt;
 &lt;br&gt;
-&lt;h2 id=&#34;&#34;&gt;&lt;/h2&gt;
 ">call、apply、bind手写实现</a>
       </div>
       
