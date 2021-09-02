@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-08-31T06:53:42.929Z</updated>
+    <updated>2021-09-02T15:04:15.820Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[JS实现new、instanceof方法]]></title>
+        <id>https://fanfankill.github.io/post/js-shi-xian-newinstanceof-fang-fa/</id>
+        <link href="https://fanfankill.github.io/post/js-shi-xian-newinstanceof-fang-fa/">
+        </link>
+        <updated>2021-09-02T15:03:49.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[HTTP3：甩掉TCP、TLS的包袱，构建⾼效⽹络]]></title>
         <id>https://fanfankill.github.io/post/http3shuai-diao-tcptls-de-bao-fu-gou-jian-xiao-luo/</id>
@@ -72,12 +79,5 @@
         <link href="https://fanfankill.github.io/post/dom-shu-javascript-shi-ru-he-ying-xiang-dom-shu-gou-jian-de/">
         </link>
         <updated>2021-08-21T12:18:14.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Class 的基本语法]]></title>
-        <id>https://fanfankill.github.io/post/class-de-ji-ben-yu-fa/</id>
-        <link href="https://fanfankill.github.io/post/class-de-ji-ben-yu-fa/">
-        </link>
-        <updated>2021-08-21T07:10:18.000Z</updated>
     </entry>
 </feed>

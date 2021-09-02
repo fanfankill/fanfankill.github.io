@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1630392818296">
+<link rel="shortcut icon" href="/favicon.ico?v=1630595051231">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -244,7 +244,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">75</span>
+        <span class="site-item-stat-count">76</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1169,6 +1169,113 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js-shi-xian-newinstanceof-fang-fa/"" data-c="
+          &lt;h2 id=&#34;new&#34;&gt;&lt;code&gt;new&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;new&lt;/code&gt;的操作发生了什么呢？&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;new&lt;/code&gt;不过就是让我们从构造函数那里继承它的属性和他的原型属性&lt;/p&gt;
+&lt;p&gt;所以实现起来就分几步就好了&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建一个空对象，将它的引用赋给 this，继承函数的原型&lt;/li&gt;
+&lt;li&gt;通过 this 将属性和方法添加至这个对象&lt;/li&gt;
+&lt;li&gt;最后返回 this 指向的新对象，也就是实例（如果没有手动返回其他的对象）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function mynew(parent,...args){
+    if(typeof parent !==&#39;function&#39;)
+    throw &#39;it is not function&#39;
+
+    //创建一个parent的空对象 同时把实例和构造函数相连接
+    let child =Object.create(parent.prototype)
+    
+    //修改this指向 完成传参
+    let newofn=parent.apply(child,args)
+
+    console.log(newofn);
+
+    //是否返回了函数或者对象 返回了则直接return返回的函数 如果没有返回则手动返回这个构造函数 
+    return( typeof newofn===&#39;function&#39;||typeof newofn===&#39;object&#39;)?newofn:child
+}   
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;测试代码&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//不返回值的情况
+function testfn(name=&#39;xixi&#39;){
+    this.name=name
+    this.age=20
+}
+
+//创建实例
+let a=mynew(testfn,&#39;myfan&#39;)
+
+console.log(a); //指向testfn 是testfn的实例
+
+console.log(a.name);  //myfan
+console.log(a.age);  //20
+
+
+//需要满足
+console.log(a instanceof testfn);  //true
+console.log(a.constructor==testfn); //true
+console.log(a.__proto__ ==testfn.prototype); //true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;实例2&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//返回值的情况
+function testfn(name=&#39;xixi&#39;){
+    
+   return {
+       name,
+       age:200
+   }
+
+}
+
+console.log(a);  //{age: 200 name: &amp;quot;myfan&amp;quot;}
+console.log(a.name);  //&amp;quot;myfan&amp;quot;
+console.log(a.age);   //200
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;instanceof&#34;&gt;&lt;code&gt;instanceof&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;__proto__&lt;/code&gt;指向构造函数的原型&lt;/p&gt;
+&lt;p&gt;思路就是递归，一直到&lt;code&gt;__proto__&lt;/code&gt;为空为结束条件，向上查找是否和构造函数能对上&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function myinstanceof(a,b){
+    
+    let left=a.__proto__
+    let right=b.prototype
+
+    //找到最后都不是返回false
+    if(left==null) return false
+    //是它的构造函数就返回true
+    if(left==right) return true
+
+    //递归查找
+    return myinstanceof(left,b)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;实例&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//实例1
+a=new Object()
+console.log(myinstanceof(a,Object));  //true
+
+//实例2
+function fan(){
+
+}
+
+function xi(){
+
+}
+
+fan.prototype= new xi()
+
+let b=new fan()
+
+console.log(myinstanceof(b,fan)); //true
+console.log(myinstanceof(b,xi)); //true
+console.log(b instanceof xi );  //true
+
+&lt;/code&gt;&lt;/pre&gt;
+">JS实现new、instanceof方法</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/http3shuai-diao-tcptls-de-bao-fu-gou-jian-xiao-luo/"" data-c="

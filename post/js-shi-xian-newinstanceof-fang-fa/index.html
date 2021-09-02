@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>图解HTTP第五章 | fanfan</title>
+<title>JS实现new、instanceof方法 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1630595051231">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="图解HTTP第五章" />
-  <meta name="keywords" content="网络" />
+  <meta name="description" content="JS实现new、instanceof方法" />
+  <meta name="keywords" content="Javascript" />
 </head>
 
 <body>
@@ -295,27 +295,10 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#%E4%B8%8Ehttp%E5%8D%8F%E5%8A%A9%E7%9A%84web%E6%9C%8D%E5%8A%A1%E5%99%A8">与HTTP协助的Web服务器</a>
+<li>
 <ul>
-<li><a href="#%E7%94%A8%E5%8D%95%E5%8F%B0%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E5%AE%9E%E7%8E%B0%E5%A4%9A%E4%B8%AA%E5%9F%9F%E5%90%8D">用单台虚拟主机实现多个域名</a></li>
-<li><a href="#%E9%80%9A%E4%BF%A1%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8F%91%E7%A8%8B%E5%BA%8F%E4%BB%A3%E7%90%86-%E7%BD%91%E5%85%B3-%E9%9A%A7%E9%81%93">通信数据转发程序：代理、网关、隧道</a>
-<ul>
-<li><a href="#%E4%BB%A3%E7%90%86"><strong>代理</strong></a>
-<ul>
-<li><a href="#%E7%BC%93%E5%AD%98%E4%BB%A3%E7%90%86">缓存代理</a></li>
-<li><a href="#%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86">透明代理</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#%E7%BD%91%E5%85%B3">网关</a></li>
-<li><a href="#%E9%9A%A7%E9%81%93">隧道</a></li>
-<li><a href="#%E4%BF%9D%E5%AD%98%E8%B5%84%E6%BA%90%E7%9A%84%E7%BC%93%E5%AD%98">保存资源的缓存</a>
-<ul>
-<li><a href="#%E7%BC%93%E5%AD%98%E6%9C%89%E6%95%88%E6%9C%9F">缓存有效期</a></li>
-<li><a href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E7%BC%93%E5%AD%98">客户端的缓存</a></li>
-</ul>
-</li>
+<li><a href="#new"><code>new</code></a></li>
+<li><a href="#instanceof"><code>instanceof</code></a></li>
 </ul>
 </li>
 </ul>
@@ -583,8 +566,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/">
-      图解HTTP第五章
+    <a class="post-title-link" href="https://fanfankill.github.io/post/js-shi-xian-newinstanceof-fang-fa/">
+      JS实现new、instanceof方法
     </a>
   </h1>
   <div class="post-meta">
@@ -592,7 +575,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-04-27 08:11:29">2021-04-27</span>
+      <span class="publish-time" data-t="2021-09-02 23:03:49">2021-09-02</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -601,8 +584,8 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://fanfankill.github.io/tag/KATkWfQKE/">
-        <span>网络</span>
+      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/">
+        <span>Javascript</span>
       </a>
       
       
@@ -616,57 +599,114 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>730<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>479<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h1 id="与http协助的web服务器">与HTTP协助的Web服务器</h1>
-<h2 id="用单台虚拟主机实现多个域名">用单台虚拟主机实现多个域名</h2>
-<p>允许一台HTTP服务器搭建多个Web站点。</p>
-<p>即使物理层面只有一台服务器，但只要使用虚拟主机的功能，则可以假想已具有多台服务器</p>
-<p>在互联网上，域名通过 DNS 服务映射到 IP 地址（域名解析）之后访问目标网站，所以，当请求发送到服务器时，已经是IP地址形式访问了</p>
-<h2 id="通信数据转发程序代理-网关-隧道">通信数据转发程序：代理、网关、隧道</h2>
+              <h2 id="new"><code>new</code></h2>
+<p><code>new</code>的操作发生了什么呢？</p>
+<p><code>new</code>不过就是让我们从构造函数那里继承它的属性和他的原型属性</p>
+<p>所以实现起来就分几步就好了</p>
 <ul>
-<li>
-<p>代理</p>
-<p>扮演中间人，接收由客户端发送的请求并转发给服务器，同是，也接收服务器返回的响应并转发给客户端</p>
-</li>
-<li>
-<p>网关</p>
-<p>网关是转发其他服务器通信数据的服务器，接收从客户端发送来的请求时，它就像自己拥有资源的服务器</p>
-</li>
-<li>
-<p>隧道</p>
-<p>隧道是在相隔甚远的客户端和服务器两者之间进行中转，并保持双方通信连接的应用程序</p>
-</li>
+<li>创建一个空对象，将它的引用赋给 this，继承函数的原型</li>
+<li>通过 this 将属性和方法添加至这个对象</li>
+<li>最后返回 this 指向的新对象，也就是实例（如果没有手动返回其他的对象）</li>
 </ul>
-<h3 id="代理"><strong>代理</strong></h3>
-<p>利用代理服务器的理由：利用缓存技术减少网络带宽的流量，组织内部针对特定网站的访问控制，以获取访问日志为主要目的</p>
-<p>代理按两种基准分类：一种是是否使用缓存，另一种是是否会修改报文</p>
-<h4 id="缓存代理">缓存代理</h4>
-<p>代理转发响应时，缓存代理会预先将资源的副本（缓存）保存在代理服务器上</p>
-<p>当代理再次接收对相同资源的请求时，就可以不从源服务器那里获取资源，而是将之前缓存的资源作为响应返回</p>
-<h4 id="透明代理">透明代理</h4>
-<p>转发请求或响应时，不对报文做任何加工的代理类型被称为<strong>透明代理</strong>，反之，称为非透明代理</p>
-<hr>
-<h2 id="网关">网关</h2>
-<p>可以利用网关将HTTP请求转化为其他协议通信</p>
-<p>利用网关能提高通信的安全性，因为可以在客户端与网关之间的通信线路上加密以确保连接的安全。<br>
-<img src="https://fanfankill.github.io/post-images/1619484447634.png" alt="" loading="lazy"></p>
-<h2 id="隧道">隧道</h2>
-<p>隧道可以按要求建立起一条与其他服务器的通信线路，可以使用SSL等加密手段进行通信。隧道的目的就是保住客户端与服务器能安全进行通信<br>
-<img src="https://fanfankill.github.io/post-images/1619484421757.png" alt="" loading="lazy"></p>
-<p>隧道本身不会去解析HTTP请求。请求保持原样中转给服务器。隧道会在双方通信断开连接的时候结束</p>
-<hr>
-<h2 id="保存资源的缓存">保存资源的缓存</h2>
-<p>代理服务器会在服务器返回的响应时，保存一份资源副本<br>
-<img src="https://fanfankill.github.io/post-images/1619484470802.png" alt="" loading="lazy"></p>
-<h3 id="缓存有效期">缓存有效期</h3>
-<p>存在资源更新等影响，需要去向源服务器确认</p>
-<h3 id="客户端的缓存">客户端的缓存</h3>
-<p>缓存也可以存在于客户端浏览器中，这种叫做<strong>临时网络文件</strong></p>
+<pre><code class="language-js">function mynew(parent,...args){
+    if(typeof parent !=='function')
+    throw 'it is not function'
+
+    //创建一个parent的空对象 同时把实例和构造函数相连接
+    let child =Object.create(parent.prototype)
+    
+    //修改this指向 完成传参
+    let newofn=parent.apply(child,args)
+
+    console.log(newofn);
+
+    //是否返回了函数或者对象 返回了则直接return返回的函数 如果没有返回则手动返回这个构造函数 
+    return( typeof newofn==='function'||typeof newofn==='object')?newofn:child
+}   
+</code></pre>
+<p>测试代码</p>
+<pre><code class="language-js">//不返回值的情况
+function testfn(name='xixi'){
+    this.name=name
+    this.age=20
+}
+
+//创建实例
+let a=mynew(testfn,'myfan')
+
+console.log(a); //指向testfn 是testfn的实例
+
+console.log(a.name);  //myfan
+console.log(a.age);  //20
+
+
+//需要满足
+console.log(a instanceof testfn);  //true
+console.log(a.constructor==testfn); //true
+console.log(a.__proto__ ==testfn.prototype); //true
+</code></pre>
+<p>实例2</p>
+<pre><code class="language-js">//返回值的情况
+function testfn(name='xixi'){
+    
+   return {
+       name,
+       age:200
+   }
+
+}
+
+console.log(a);  //{age: 200 name: &quot;myfan&quot;}
+console.log(a.name);  //&quot;myfan&quot;
+console.log(a.age);   //200
+</code></pre>
+<br>
+<h2 id="instanceof"><code>instanceof</code></h2>
+<p><code>__proto__</code>指向构造函数的原型</p>
+<p>思路就是递归，一直到<code>__proto__</code>为空为结束条件，向上查找是否和构造函数能对上</p>
+<pre><code class="language-js">function myinstanceof(a,b){
+    
+    let left=a.__proto__
+    let right=b.prototype
+
+    //找到最后都不是返回false
+    if(left==null) return false
+    //是它的构造函数就返回true
+    if(left==right) return true
+
+    //递归查找
+    return myinstanceof(left,b)
+}
+</code></pre>
+<p>实例</p>
+<pre><code class="language-js">//实例1
+a=new Object()
+console.log(myinstanceof(a,Object));  //true
+
+//实例2
+function fan(){
+
+}
+
+function xi(){
+
+}
+
+fan.prototype= new xi()
+
+let b=new fan()
+
+console.log(myinstanceof(b,fan)); //true
+console.log(myinstanceof(b,xi)); //true
+console.log(b instanceof xi );  //true
+
+</code></pre>
 
             </div>
             
@@ -679,7 +719,7 @@
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/" title="图解HTTP第五章">https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/</a>
+      <a href="https://fanfankill.github.io/post/js-shi-xian-newinstanceof-fang-fa/" title="JS实现new、instanceof方法">https://fanfankill.github.io/post/js-shi-xian-newinstanceof-fang-fa/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -688,21 +728,17 @@
   </ul>
   <div class="tags">
     
-      <a href="https://fanfankill.github.io/tag/KATkWfQKE/"># 网络</a>
+      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/"># Javascript</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="JS事件" href="https://fanfankill.github.io/post/js-shi-jian/">JS事件</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="JS事件" href="https://fanfankill.github.io/post/js-shi-jian/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="图解HTTP第四章" href="https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/">图解HTTP第四章</a>
-        <a class="nav-mobile-next" title="图解HTTP第四章" href="https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/">下一篇</a>
+        <a class="nav-pc-next" title="HTTP3：甩掉TCP、TLS的包袱，构建⾼效⽹络" href="https://fanfankill.github.io/post/http3shuai-diao-tcptls-de-bao-fu-gou-jian-xiao-luo/">HTTP3：甩掉TCP、TLS的包袱，构建⾼效⽹络</a>
+        <a class="nav-mobile-next" title="HTTP3：甩掉TCP、TLS的包袱，构建⾼效⽹络" href="https://fanfankill.github.io/post/http3shuai-diao-tcptls-de-bao-fu-gou-jian-xiao-luo/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
