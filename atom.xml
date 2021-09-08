@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-09-02T15:38:44.427Z</updated>
+    <updated>2021-09-08T06:50:16.752Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,27 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[ 跨站脚本攻击（XSS）：为什么Cookie中有HttpOnly属性？]]></title>
+        <id>https://fanfankill.github.io/post/kua-zhan-jiao-ben-gong-ji-xsswei-shi-me-cookie-zhong-you-httponly-shu-xing/</id>
+        <link href="https://fanfankill.github.io/post/kua-zhan-jiao-ben-gong-ji-xsswei-shi-me-cookie-zhong-you-httponly-shu-xing/">
+        </link>
+        <updated>2021-09-08T06:49:23.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[同源策略：为什么XMLHttpRequest不能跨域请求资源？]]></title>
+        <id>https://fanfankill.github.io/post/tong-yuan-ce-lue-wei-shi-me-xmlhttprequest-bu-neng-kua-yu-qing-qiu-zi-yuan/</id>
+        <link href="https://fanfankill.github.io/post/tong-yuan-ce-lue-wei-shi-me-xmlhttprequest-bu-neng-kua-yu-qing-qiu-zi-yuan/">
+        </link>
+        <updated>2021-09-06T00:45:52.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JS实现`Object.create`、`Object.assign`]]></title>
+        <id>https://fanfankill.github.io/post/js-shi-xian-objectcreateobjectassign/</id>
+        <link href="https://fanfankill.github.io/post/js-shi-xian-objectcreateobjectassign/">
+        </link>
+        <updated>2021-09-06T00:19:20.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[JS实现new、instanceof方法]]></title>
         <id>https://fanfankill.github.io/post/js-shi-xian-newinstanceof-fang-fa/</id>
@@ -58,26 +79,5 @@
         <link href="https://fanfankill.github.io/post/xu-ni-domxu-ni-dom-he-shi-ji-de-dom-you-he-bu-tong/">
         </link>
         <updated>2021-08-25T06:57:40.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[⻚⾯性能：如何系统地优化⻚⾯]]></title>
-        <id>https://fanfankill.github.io/post/xing-neng-ru-he-xi-tong-di-you-hua/</id>
-        <link href="https://fanfankill.github.io/post/xing-neng-ru-he-xi-tong-di-you-hua/">
-        </link>
-        <updated>2021-08-24T06:31:08.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[为什么CSS动画⽐JavaScript⾼效？]]></title>
-        <id>https://fanfankill.github.io/post/wei-shi-me-css-dong-hua-javascriptxiao/</id>
-        <link href="https://fanfankill.github.io/post/wei-shi-me-css-dong-hua-javascriptxiao/">
-        </link>
-        <updated>2021-08-23T06:38:26.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[DOM树：JavaScript、CSS是如何影响DOM树构建的？]]></title>
-        <id>https://fanfankill.github.io/post/dom-shu-javascript-shi-ru-he-ying-xiang-dom-shu-gou-jian-de/</id>
-        <link href="https://fanfankill.github.io/post/dom-shu-javascript-shi-ru-he-ying-xiang-dom-shu-gou-jian-de/">
-        </link>
-        <updated>2021-08-21T12:18:14.000Z</updated>
     </entry>
 </feed>
