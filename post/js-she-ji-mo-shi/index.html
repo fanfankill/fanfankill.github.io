@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631083945582">
+<link rel="shortcut icon" href="/favicon.ico?v=1631107629140">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -244,7 +244,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">79</span>
+        <span class="site-item-stat-count">80</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1169,6 +1169,55 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js-shi-xian-flathan-shu-ke-li-hua/"" data-c="
+          &lt;h2 id=&#34;flat&#34;&gt;flat&lt;/h2&gt;
+&lt;p&gt;flat函数是用于数组扁平化，传入参数为扁平化层数。&lt;/p&gt;
+&lt;p&gt;该方法返回一个新数组，对原数据没有影响&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;flat()&lt;/code&gt;默认只会“拉平”一层&lt;/p&gt;
+&lt;p&gt;如果原数组有空位，&lt;code&gt;flat()&lt;/code&gt;方法会跳过空位。&lt;/p&gt;
+&lt;p&gt;使用&lt;code&gt;reduce&lt;/code&gt;来实现&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;arr.reduce(callback,[initialValue])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;callback&lt;/code&gt;J可以接收四个参数。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;initialValue&lt;/code&gt;为赋予初始值。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function myflat(arr){
+
+    return arr.reduce((prev,cur)=&amp;gt;{
+      return prev.concat(Array.isArray(cur)?myflat(cur):cur)
+   },[])
+}
+
+console.log(myflat([1,[2,[3]]])); //[1,2,3]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;柯里化&#34;&gt;柯里化&lt;/h2&gt;
+&lt;p&gt;实现多个参数时候递归传参&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//函数柯里化
+function sumFn(a,b,c){return a+ b + c};
+let sum = curry(sumFn);
+console.log(sum(2)(3)(5));//10
+console.log(sum(2,3)(5));//10
+
+
+function curry(fn,...arg){
+    let fnlen=fn.length
+    let args=arg.length
+
+    if(fnlen&amp;gt;args){
+        //当还有参数时候 进行递归传参
+        return function(...arg2){
+            return curry(fn,...arg,...arg2)
+        }
+    }else{
+        //当全部传完的时候执行该函数
+       return fn(...arg)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+">JS实现flat、函数柯里化</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/kua-zhan-jiao-ben-gong-ji-xsswei-shi-me-cookie-zhong-you-httponly-shu-xing/"" data-c="

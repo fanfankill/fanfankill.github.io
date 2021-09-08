@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>JS实现new、instanceof方法 | fanfan</title>
+<title>JS实现flat、函数柯里化 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1631107629140">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,7 +41,7 @@
 
 
 
-  <meta name="description" content="JS实现new、instanceof方法" />
+  <meta name="description" content="JS实现flat、函数柯里化" />
   <meta name="keywords" content="Javascript" />
 </head>
 
@@ -297,8 +297,8 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#new"><code>new</code></a></li>
-<li><a href="#instanceof"><code>instanceof</code></a></li>
+<li><a href="#flat">flat</a></li>
+<li><a href="#%E6%9F%AF%E9%87%8C%E5%8C%96">柯里化</a></li>
 </ul>
 </li>
 </ul>
@@ -566,8 +566,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/js-shi-xian-newinstanceof-fang-fa/">
-      JS实现new、instanceof方法
+    <a class="post-title-link" href="https://fanfankill.github.io/post/js-shi-xian-flathan-shu-ke-li-hua/">
+      JS实现flat、函数柯里化
     </a>
   </h1>
   <div class="post-meta">
@@ -575,7 +575,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-09-02 23:03:49">2021-09-02</span>
+      <span class="publish-time" data-t="2021-09-08 21:26:43">2021-09-08</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -594,118 +594,60 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>3<span class="language" data-lan="minute">分钟</span></span>
+      <span>2<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>479<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>219<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h2 id="new"><code>new</code></h2>
-<p><code>new</code>的操作发生了什么呢？</p>
-<p><code>new</code>不过就是让我们从构造函数那里继承它的属性和他的原型属性</p>
-<p>所以实现起来就分几步就好了</p>
-<ul>
-<li>创建一个空对象，将它的引用赋给 this，继承函数的原型</li>
-<li>通过 this 将属性和方法添加至这个对象</li>
-<li>最后返回 this 指向的新对象，也就是实例（如果没有手动返回其他的对象）</li>
-</ul>
-<pre><code class="language-js">function mynew(parent,...args){
-    if(typeof parent !=='function')
-    throw 'it is not function'
-
-    //创建一个parent的空对象 同时把实例和构造函数相连接
-    let child =Object.create(parent.prototype)
-    
-    //修改this指向 完成传参
-    let newofn=parent.apply(child,args)
-
-    console.log(newofn);
-
-    //是否返回了函数或者对象 返回了则直接return返回的函数 如果没有返回则手动返回这个构造函数 
-    return( typeof newofn==='function'||typeof newofn==='object')?newofn:child
-}   
+              <h2 id="flat">flat</h2>
+<p>flat函数是用于数组扁平化，传入参数为扁平化层数。</p>
+<p>该方法返回一个新数组，对原数据没有影响</p>
+<p><code>flat()</code>默认只会“拉平”一层</p>
+<p>如果原数组有空位，<code>flat()</code>方法会跳过空位。</p>
+<p>使用<code>reduce</code>来实现</p>
+<pre><code class="language-css">arr.reduce(callback,[initialValue])
 </code></pre>
-<p>测试代码</p>
-<pre><code class="language-js">//不返回值的情况
-function testfn(name='xixi'){
-    this.name=name
-    this.age=20
+<p><code>callback</code>J可以接收四个参数。</p>
+<p><code>initialValue</code>为赋予初始值。</p>
+<pre><code class="language-js">function myflat(arr){
+
+    return arr.reduce((prev,cur)=&gt;{
+      return prev.concat(Array.isArray(cur)?myflat(cur):cur)
+   },[])
 }
 
-//创建实例
-let a=mynew(testfn,'myfan')
-
-console.log(a); //指向testfn 是testfn的实例
-
-console.log(a.name);  //myfan
-console.log(a.age);  //20
-
-
-//需要满足
-console.log(a instanceof testfn);  //true
-console.log(a.constructor==testfn); //true
-console.log(a.__proto__ ==testfn.prototype); //true
-</code></pre>
-<p>实例2</p>
-<pre><code class="language-js">//返回值的情况
-function testfn(name='xixi'){
-    
-   return {
-       name,
-       age:200
-   }
-
-}
-
-console.log(a);  //{age: 200 name: &quot;myfan&quot;}
-console.log(a.name);  //&quot;myfan&quot;
-console.log(a.age);   //200
+console.log(myflat([1,[2,[3]]])); //[1,2,3]
 </code></pre>
 <br>
-<h2 id="instanceof"><code>instanceof</code></h2>
-<p><code>__proto__</code>指向构造函数的原型</p>
-<p>思路就是递归，一直到<code>__proto__</code>为空为结束条件，向上查找是否和构造函数能对上</p>
-<pre><code class="language-js">function myinstanceof(a,b){
-    
-    let left=a.__proto__
-    let right=b.prototype
+<h2 id="柯里化">柯里化</h2>
+<p>实现多个参数时候递归传参</p>
+<pre><code class="language-js">//函数柯里化
+function sumFn(a,b,c){return a+ b + c};
+let sum = curry(sumFn);
+console.log(sum(2)(3)(5));//10
+console.log(sum(2,3)(5));//10
 
-    //找到最后都不是返回false
-    if(left==null) return false
-    //是它的构造函数就返回true
-    if(left==right) return true
 
-    //递归查找
-    return myinstanceof(left,b)
+function curry(fn,...arg){
+    let fnlen=fn.length
+    let args=arg.length
+
+    if(fnlen&gt;args){
+        //当还有参数时候 进行递归传参
+        return function(...arg2){
+            return curry(fn,...arg,...arg2)
+        }
+    }else{
+        //当全部传完的时候执行该函数
+       return fn(...arg)
+    }
 }
-</code></pre>
-<p>实例</p>
-<pre><code class="language-js">//实例1
-a=new Object()
-console.log(myinstanceof(a,Object));  //true
-
-//实例2
-function fan(){
-
-}
-
-function xi(){
-
-}
-
-fan.prototype= new xi()
-
-let b=new fan()
-
-console.log(myinstanceof(b,fan)); //true
-console.log(myinstanceof(b,xi)); //true
-console.log(b instanceof xi );  //true
-
 </code></pre>
 
             </div>
@@ -719,7 +661,7 @@ console.log(b instanceof xi );  //true
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/js-shi-xian-newinstanceof-fang-fa/" title="JS实现new、instanceof方法">https://fanfankill.github.io/post/js-shi-xian-newinstanceof-fang-fa/</a>
+      <a href="https://fanfankill.github.io/post/js-shi-xian-flathan-shu-ke-li-hua/" title="JS实现flat、函数柯里化">https://fanfankill.github.io/post/js-shi-xian-flathan-shu-ke-li-hua/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -734,15 +676,11 @@ console.log(b instanceof xi );  //true
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="JS实现`Object.create`、`Object.assign`" href="https://fanfankill.github.io/post/js-shi-xian-objectcreateobjectassign/">JS实现`Object.create`、`Object.assign`</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="JS实现`Object.create`、`Object.assign`" href="https://fanfankill.github.io/post/js-shi-xian-objectcreateobjectassign/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="HTTP3：甩掉TCP、TLS的包袱，构建⾼效⽹络" href="https://fanfankill.github.io/post/http3shuai-diao-tcptls-de-bao-fu-gou-jian-xiao-luo/">HTTP3：甩掉TCP、TLS的包袱，构建⾼效⽹络</a>
-        <a class="nav-mobile-next" title="HTTP3：甩掉TCP、TLS的包袱，构建⾼效⽹络" href="https://fanfankill.github.io/post/http3shuai-diao-tcptls-de-bao-fu-gou-jian-xiao-luo/">下一篇</a>
+        <a class="nav-pc-next" title=" 跨站脚本攻击（XSS）：为什么Cookie中有HttpOnly属性？" href="https://fanfankill.github.io/post/kua-zhan-jiao-ben-gong-ji-xsswei-shi-me-cookie-zhong-you-httponly-shu-xing/"> 跨站脚本攻击（XSS）：为什么Cookie中有HttpOnly属性？</a>
+        <a class="nav-mobile-next" title=" 跨站脚本攻击（XSS）：为什么Cookie中有HttpOnly属性？" href="https://fanfankill.github.io/post/kua-zhan-jiao-ben-gong-ji-xsswei-shi-me-cookie-zhong-you-httponly-shu-xing/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
