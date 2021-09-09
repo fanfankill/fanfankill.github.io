@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-09-08T13:27:13.213Z</updated>
+    <updated>2021-09-09T11:23:42.675Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -18,7 +18,7 @@
         <updated>2021-09-08T13:26:43.000Z</updated>
     </entry>
     <entry>
-        <title type="html"><![CDATA[ 跨站脚本攻击（XSS）：为什么Cookie中有HttpOnly属性？]]></title>
+        <title type="html"><![CDATA[# 跨站脚本攻击（XSS）和CSRF攻击：为什么Cookie中有HttpOnly属性？]]></title>
         <id>https://fanfankill.github.io/post/kua-zhan-jiao-ben-gong-ji-xsswei-shi-me-cookie-zhong-you-httponly-shu-xing/</id>
         <link href="https://fanfankill.github.io/post/kua-zhan-jiao-ben-gong-ji-xsswei-shi-me-cookie-zhong-you-httponly-shu-xing/">
         </link>

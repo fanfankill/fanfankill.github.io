@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title> Vue文档3 Prop | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631107629140">
+<link rel="shortcut icon" href="/favicon.ico?v=1631186565522">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -1323,7 +1323,7 @@ function curry(fn,...arg){
 &lt;h2 id=&#34;恶意脚本如何注入&#34;&gt;恶意脚本如何注入&lt;/h2&gt;
 &lt;p&gt;常见的主要有&lt;strong&gt;存储型XSS攻击、反射型XSS攻击和基于DOM的XSS攻击&lt;/strong&gt;三种⽅式来注⼊恶意脚本&lt;/p&gt;
 &lt;h3 id=&#34;存储型xss攻击&#34;&gt;存储型XSS攻击&lt;/h3&gt;
-&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1631083788689.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;C:%5CUsers%5C16239%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210908141204562.png&#34; alt=&#34;image-20210908141204562&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;p&gt;主要是能提交内容的部分没有对内容进行过滤，导致JS代码被带进数据库&lt;/p&gt;
 &lt;br&gt;
 &lt;h3 id=&#34;反射型xss攻击&#34;&gt;反射型XSS攻击&lt;/h3&gt;
@@ -1334,7 +1334,7 @@ function curry(fn,...arg){
 &lt;p&gt;基于DOM的XSS攻击是不牵涉到⻚⾯Web服务器的。&lt;/p&gt;
 &lt;p&gt;⿊客通过各种⼿段将恶意脚本注⼊⽤⼾的⻚ ⾯中，⽐如通过⽹络劫持在⻚⾯传输过程中修改HTML⻚⾯的内容，这种劫持类型很多，有通过WiFi路由器 劫持的，有通过本地恶意软件来劫持的，它们的共同点是在Web资源传输过程或者在⽤⼾使⽤⻚⾯的过程中 修改Web⻚⾯的数据。&lt;/p&gt;
 &lt;br&gt;
-&lt;h2 id=&#34;如何组织xss攻击&#34;&gt;如何组织XSS攻击&lt;/h2&gt;
+&lt;h2 id=&#34;如何阻止xss攻击&#34;&gt;如何阻止XSS攻击&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;存储型XSS攻击&lt;/strong&gt;和&lt;strong&gt;反射型XSS&lt;/strong&gt;攻击都是需要经过Web服务器来处理的，因此可以认为&lt;strong&gt;这两种类型的漏洞是服务端的安全漏洞&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;⽽基于DOM的XSS攻击全部都是在浏览器端完成的，因此&lt;strong&gt;基于DOM的XSS攻击&lt;/strong&gt;是 属于前端的安全漏洞。&lt;/p&gt;
 &lt;br&gt;
@@ -1354,7 +1354,63 @@ function curry(fn,...arg){
 &lt;p&gt;由于很多XSS攻击都是来盗⽤cookie的，因此还可以通过使⽤HttpOnly属性来保护我们Cookie的安全。&lt;/p&gt;
 &lt;p&gt;通常服务器可以将某些cookie设置为HttpOnly标志&lt;/p&gt;
 &lt;p&gt;被设置为HttpOnly的cookie只能使用在HTTP请求中，无法被JS读取。&lt;/p&gt;
-"> 跨站脚本攻击（XSS）：为什么Cookie中有HttpOnly属性？</a>
+&lt;br&gt;
+&lt;h2 id=&#34;什么是csrf攻击&#34;&gt;什么是CSRF攻击&lt;/h2&gt;
+&lt;p&gt;CSRF英⽂全称是Cross-site request forgery，所以⼜称为“跨站请求伪造”&lt;/p&gt;
+&lt;p&gt;CSRF攻击就是⿊客利⽤了⽤ ⼾的登录状态，并通过第三⽅的站点来做⼀些坏事。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;和XSS不同的是，CSRF攻击不需要将恶意代码注⼊⽤⼾的⻚ ⾯，仅仅是利⽤服务器的漏洞和⽤⼾的登录状态来实施攻击。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;类似链接点击这种&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;div&amp;gt;
+    &amp;lt;img width=150 src=http://images.xuejuzi.cn/1612/1_161230185104_1.jpg&amp;gt; &amp;lt;/img&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div&amp;gt;
+    &amp;lt;a href=&amp;quot;http://139.196.87.221/getallcarjoin?isdone=0&amp;quot; taget=&amp;quot;_blank&amp;quot;&amp;gt;
+    点击下载美⼥照⽚
+    &amp;lt;/a&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;如何阻止csrf攻击&#34;&gt;如何阻止CSRF攻击&lt;/h2&gt;
+&lt;p&gt;发起CSRF攻击的三个必要条件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;目标站点有CSRF的漏洞&lt;/li&gt;
+&lt;li&gt;⽤⼾要登录过⽬标站点，并且在浏览器上保持有该站点的登录状态；&lt;/li&gt;
+&lt;li&gt;需要⽤⼾打开⼀个第三⽅站点，可以是⿊客的站点，也可以是⼀些论坛。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对于CSRF攻击主要的防护⼿段是提升服务器的安全性&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;充分利用好cookie-的-samesite-属性&#34;&gt;充分利⽤好Cookie 的 SameSite 属性&lt;/h3&gt;
+&lt;p&gt;⿊客会利⽤⽤⼾的登录状态来发起CSRF攻击，⽽Cookie正是浏览器和 服务器之间维护登录状态的⼀个关键数据，因此要阻⽌CSRF攻击，⾸先就要考虑在Cookie上来做⽂章。&lt;/p&gt;
+&lt;p&gt;通常CSRF攻击都是从第三⽅站点发起的，要防⽌CSRF攻击，我们最好能实现从第三⽅站点发送请求时禁⽌ Cookie的发送，因此在浏览器通过不同来源发送HTTP请求时，有如下区别：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果是从第三⽅站点发起的请求，那么需要浏览器禁⽌发送某些关键Cookie数据到服务器；&lt;/li&gt;
+&lt;li&gt;如果是同⼀个站点发起的请求，那么就需要保证Cookie数据正常发送。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Cookie 中的SameSite属性可以有效地降低 CSRF攻击的⻛险&lt;/p&gt;
+&lt;p&gt;在HTTP响应头中，通过set-cookie字段设置Cookie时，可以带上SameSite选项&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-http&#34;&gt;set-cookie: 1P_JAR=2019-10-20-06; expires=Tue, 19-Nov-2019 06:36:21 GMT; path=/; domain=.google.com; SameSite=none
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;SameSite选项通常有Strict、Lax和None三个值。&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果SameSite的值是Strict，那么浏览器会完全禁⽌第三⽅ Cookie。&lt;/li&gt;
+&lt;li&gt;Lax相对宽松⼀点。从第三⽅站点的链接打开和从第三⽅站点提交Get⽅式的表单这 两种⽅式都会携带Cookie。但如果在第三⽅站点中使⽤Post⽅法，或者通过img、iframe等标签加载的 URL，这些场景都不会携带Cookie。&lt;/li&gt;
+&lt;li&gt;⽽如果使⽤None的话，在任何情况下都会发送Cookie数据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;验证请求的来源站点&#34;&gt;验证请求的来源站点&lt;/h3&gt;
+&lt;p&gt;另外⼀种防⽌CSRF攻击的策略，那就是在服务器端验证请求来源的站点。&lt;/p&gt;
+&lt;p&gt;由于CSRF攻击 ⼤多来⾃于第三⽅站点，因此服务器可以禁⽌来⾃第三⽅站点的请求。&lt;/p&gt;
+&lt;p&gt;HTTP请求头中的 Referer和Origin 属性&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Referer是HTTP请求头中的⼀个字段，记录了该HTTP请求的来源地址。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;虽然可以通过Referer告诉服务器HTTP请求的来源，但是有⼀些场景是不适合将来源URL暴露给服务器的&lt;/p&gt;
+&lt;p&gt;在⼀些重要的 场合，⽐如通过XMLHttpRequest、Fecth发起跨站请求或者通过Post⽅法发送请求时，都会带上Origin属 性&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1631186560463.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;Origin属性只包含了域名信息，并没有包含具体的URL路径，这是Origin和Referer的⼀个 主要区别。&lt;/p&gt;
+&lt;p&gt;因此，服务器的策略是优先判断Origin，如果请求头中没有包含Origin属性，再根据实际情况判断是否使⽤ Referer值。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;csrf-token&#34;&gt;CSRF Token&lt;/h3&gt;
+&lt;p&gt;第⼀步，在浏览器向服务器发起请求时，服务器⽣成⼀个CSRF Token。CSRF Token其实就是服务器⽣成的 字符串，然后将该字符串植⼊到返回的⻚⾯中&lt;/p&gt;
+&lt;p&gt;对于浏览器发出的请求都会携带token，第三方页面无法获取token就没办法完成请求&lt;/p&gt;
+"># 跨站脚本攻击（XSS）和CSRF攻击：为什么Cookie中有HttpOnly属性？</a>
       </div>
       
       <div class="item">
