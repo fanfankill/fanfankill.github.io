@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-09-09T11:23:42.675Z</updated>
+    <updated>2021-09-15T12:52:08.210Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -11,6 +11,20 @@
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
     <entry>
+        <title type="html"><![CDATA[HTTPS：让数据传输更安全]]></title>
+        <id>https://fanfankill.github.io/post/httpsrang-shu-ju-chuan-shu-geng-an-quan/</id>
+        <link href="https://fanfankill.github.io/post/httpsrang-shu-ju-chuan-shu-geng-an-quan/">
+        </link>
+        <updated>2021-09-13T13:48:25.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[VUE 2.x  全局API]]></title>
+        <id>https://fanfankill.github.io/post/vue-2x-quan-ju-api/</id>
+        <link href="https://fanfankill.github.io/post/vue-2x-quan-ju-api/">
+        </link>
+        <updated>2021-09-10T12:55:44.000Z</updated>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[JS实现flat、函数柯里化]]></title>
         <id>https://fanfankill.github.io/post/js-shi-xian-flathan-shu-ke-li-hua/</id>
         <link href="https://fanfankill.github.io/post/js-shi-xian-flathan-shu-ke-li-hua/">
@@ -18,7 +32,7 @@
         <updated>2021-09-08T13:26:43.000Z</updated>
     </entry>
     <entry>
-        <title type="html"><![CDATA[# 跨站脚本攻击（XSS）和CSRF攻击：为什么Cookie中有HttpOnly属性？]]></title>
+        <title type="html"><![CDATA[跨站脚本攻击（XSS）和CSRF攻击：为什么Cookie中有HttpOnly属性？]]></title>
         <id>https://fanfankill.github.io/post/kua-zhan-jiao-ben-gong-ji-xsswei-shi-me-cookie-zhong-you-httponly-shu-xing/</id>
         <link href="https://fanfankill.github.io/post/kua-zhan-jiao-ben-gong-ji-xsswei-shi-me-cookie-zhong-you-httponly-shu-xing/">
         </link>
@@ -32,7 +46,7 @@
         <updated>2021-09-06T00:45:52.000Z</updated>
     </entry>
     <entry>
-        <title type="html"><![CDATA[JS实现`Object.create`、`Object.assign`]]></title>
+        <title type="html"><![CDATA[JS实现Object.create、Object.assign]]></title>
         <id>https://fanfankill.github.io/post/js-shi-xian-objectcreateobjectassign/</id>
         <link href="https://fanfankill.github.io/post/js-shi-xian-objectcreateobjectassign/">
         </link>
@@ -65,19 +79,5 @@
         <link href="https://fanfankill.github.io/post/callapplybind-shou-xie-shi-xian/">
         </link>
         <updated>2021-08-30T15:06:26.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[HTTP2：如何提升⽹络速度？]]></title>
-        <id>https://fanfankill.github.io/post/http2ru-he-ti-sheng-luo-su-du/</id>
-        <link href="https://fanfankill.github.io/post/http2ru-he-ti-sheng-luo-su-du/">
-        </link>
-        <updated>2021-08-30T06:37:48.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[HTTP1：HTTP性能优化]]></title>
-        <id>https://fanfankill.github.io/post/http1http-xing-neng-you-hua/</id>
-        <link href="https://fanfankill.github.io/post/http1http-xing-neng-you-hua/">
-        </link>
-        <updated>2021-08-28T05:47:34.000Z</updated>
     </entry>
 </feed>
