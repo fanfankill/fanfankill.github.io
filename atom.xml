@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2021-09-15T12:52:08.210Z</updated>
+    <updated>2021-09-16T11:12:26.418Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[自我总结：当地址栏输入一个URL会发生什么？]]></title>
+        <id>https://fanfankill.github.io/post/zi-wo-zong-jie-dang-di-zhi-lan-shu-ru-yi-ge-url-hui-fa-sheng-shi-me/</id>
+        <link href="https://fanfankill.github.io/post/zi-wo-zong-jie-dang-di-zhi-lan-shu-ru-yi-ge-url-hui-fa-sheng-shi-me/">
+        </link>
+        <updated>2021-09-16T11:10:57.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[HTTPS：让数据传输更安全]]></title>
         <id>https://fanfankill.github.io/post/httpsrang-shu-ju-chuan-shu-geng-an-quan/</id>
@@ -72,12 +79,5 @@
         <link href="https://fanfankill.github.io/post/js-zhong-shi-xian-ji-cheng/">
         </link>
         <updated>2021-08-31T05:27:05.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[call、apply、bind手写实现]]></title>
-        <id>https://fanfankill.github.io/post/callapplybind-shou-xie-shi-xian/</id>
-        <link href="https://fanfankill.github.io/post/callapplybind-shou-xie-shi-xian/">
-        </link>
-        <updated>2021-08-30T15:06:26.000Z</updated>
     </entry>
 </feed>

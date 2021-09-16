@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>CSS3动画属性 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631709766032">
+<link rel="shortcut icon" href="/favicon.ico?v=1631790740625">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -244,7 +244,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">82</span>
+        <span class="site-item-stat-count">83</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1179,6 +1179,146 @@ animation:mymove 5s infinite;
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/zi-wo-zong-jie-dang-di-zhi-lan-shu-ru-yi-ge-url-hui-fa-sheng-shi-me/"" data-c="
+          &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1631790712077.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;配合这张图来捋清楚&lt;/p&gt;
+&lt;h2 id=&#34;键入url的过程&#34;&gt;键入URL的过程&lt;/h2&gt;
+&lt;p&gt;最开始输入ULR后浏览器会判断我们输入的是 &lt;strong&gt;搜索内容&lt;/strong&gt;还是 &lt;strong&gt;请求的URL&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果是内容的话就会根据我们内容去形成新的URL去搜索&lt;/p&gt;
+&lt;p&gt;如果是符合URL规则的话就会进行下一步（浏览器会自动补齐这个网站的协议）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;浏览器加载一个地址之后，页面不会马上跳转，但标签页的图标变成了加载的标志，因为需要等待提交文档的阶段，页面内容才会被替换。&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;url请求的过程&#34;&gt;URL请求的过程&lt;/h2&gt;
+&lt;p&gt;下一步进入页面请求资源的过程。&lt;/p&gt;
+&lt;p&gt;我们知道浏览器是被分为 &lt;strong&gt;浏览器内核&lt;/strong&gt;（浏览器进程、网络进程、GPU）和 &lt;strong&gt;渲染内核&lt;/strong&gt;（渲染进程）。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;分模块的目的也是为了稳定性和安全性。&lt;/p&gt;
+&lt;p&gt;单核浏览器的时候一个文件很容易造成整个进程的崩溃&lt;/p&gt;
+&lt;p&gt;对于网络请求、下载也都是浏览器内核进行下载资源后和渲染进程进行通信转发的。&lt;/p&gt;
+&lt;p&gt;然后渲染进程会对这些资源进⾏解析、绘制等操作，最终⽣成⼀ 幅图⽚。但是渲染进程并不负责将图⽚显⽰到界⾯上，⽽是将最终⽣成的图⽚提交给浏览器内核模块，由浏 览器内核模块负责显⽰这张图⽚。&lt;/p&gt;
+&lt;p&gt;目的也是 &lt;strong&gt;防止渲染进程直接对操作系统进行访问&lt;/strong&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这时，浏览器进程会通过进程间通信把URL请求发送给网络进程，网络进程收到URL后，才会发起真正的URL请求流程。&lt;/p&gt;
+&lt;p&gt;当真正发起请求的的时候，网络进程会先查找本地是否缓存了该资源。&lt;/p&gt;
+&lt;p&gt;如果存在就返回给浏览器进程。&lt;/p&gt;
+&lt;p&gt;如果没有进入网络请求流程。&lt;/p&gt;
+&lt;p&gt;在请求前的第一步是进行&lt;a href=&#34;https://jingyan.baidu.com/article/86fae346e9d33e3c49121acb.html&#34;&gt;DNS解析&lt;/a&gt;（点击查看详细流程），DNS有缓存则直接返回域名的服务器IP地址。如果是HTTPS协议 （&lt;a href=&#34;https://fanfankill.github.io/post/httpsrang-shu-ju-chuan-shu-geng-an-quan/&#34;&gt;什么是HTTPS&lt;/a&gt;），则还需要建立TLS连接&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;tcp连接&#34;&gt;TCP连接&lt;/h2&gt;
+&lt;p&gt;TCP位于传输层，从上往下 HTTP-&amp;gt;TCP-&amp;gt;IP，每一层都会封装自己的头部信息。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TCP和UDP的区别&lt;/p&gt;
+&lt;p&gt;TCP保证了传输的可靠性（重传机制 ），并且TCP引入了数据包排序机制，用来保证把乱序的数据包合成一个完整的文件。&lt;/p&gt;
+&lt;p&gt;虽然UDP不保证可靠性，但它的传输速度却很快。&lt;/p&gt;
+&lt;p&gt;TCP的拥塞控制：慢启动、拥塞窗口控制、快重传机制。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;第一次：客户端会先给服务器发送SYN=1标志码，代表要建立连接&lt;/p&gt;
+&lt;p&gt;第二次：服务器收到消息后会返回 ACK=1/SYN=1 代表可以建立连接&lt;/p&gt;
+&lt;p&gt;第三次：客户端发送ACK=1给服务器来完成TCP连接的建立。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;​	TCP握手为什么是三次？&lt;/p&gt;
+&lt;p&gt;为了保证数据传输的可靠性，三次握手的过程即是告知双发序列号起始值，并且确定对方收到了序列号起始值的步骤&lt;/p&gt;
+&lt;p&gt;如果只有两次，那么只有一方序列号能够得到确认&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;关于不同HTTP版本的介绍&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://fanfankill.github.io/post/http1http-xing-neng-you-hua/&#34;&gt;HTTP1.0 /1.1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://fanfankill.github.io/post/http2ru-he-ti-sheng-luo-su-du/&#34;&gt;HTTP 2&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://fanfankill.github.io/post/http3shuai-diao-tcptls-de-bao-fu-gou-jian-xiao-luo/&#34;&gt;HTTP 3&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;我们用的HTTP/1.1，谷歌最多可以建立6个TCP的连接，多余的TCP也需要排队等候。默认是持久连接。&lt;/p&gt;
+&lt;p&gt;完成TCP连接建立后，浏览器端会构建请求⾏、请求头等信息，并 把和该域名相关的Cookie等数据附加到请求头中，然后向服务器发送构建的请求信息。&lt;/p&gt;
+&lt;p&gt;服务器接收到请求信息后，会根据请求信息⽣成响应数据（包括响应⾏、响应头和响应体等信息），并发给 ⽹络进程。等⽹络进程接收了响应⾏和响应头之后，就开始解析响应头的内容了。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;​	网络进程对返回的响应头的解析：&lt;/p&gt;
+&lt;p&gt;如果状态码是301（永久重定向）或者302（临时重定向），那么说明浏览器需要重定向到其他的URL。这时候网络进程会从响应头的location字段读取重定向地址，然后再次发起请求（又得重头开始）&lt;/p&gt;
+&lt;p&gt;如果是304 代表无需再次传输请求的内容，可以直接用缓存的内容&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;br&gt;
+&lt;p&gt;而对于响应数据的处理会根据&lt;code&gt;Content-Type&lt;/code&gt;类型判断是按什么类型进行处理（是HTML页面 还是下载请求等）。&lt;/p&gt;
+&lt;p&gt;如果是下载流程，那么在这里就结束了。&lt;/p&gt;
+&lt;p&gt;如果是HTML页面，那么还会继续进行。&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;准备渲染进程&#34;&gt;准备渲染进程&lt;/h2&gt;
+&lt;p&gt;页面的渲染在浏览器的渲染进程里面&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;跳转页面的时候原来页面没有马上消失的原因：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;“提交⽂档”的消息是由浏览器进程发出的，渲染进程接收到“提交⽂档”的消息后，会和⽹络进程建⽴ 传输数据的“管道”。&lt;/li&gt;
+&lt;li&gt;等⽂档数据传输完成之后，渲染进程会返回“确认提交”的消息给浏览器进程。&lt;/li&gt;
+&lt;li&gt;浏览器进程在收到“&lt;strong&gt;确认提交&lt;/strong&gt;”的消息后，会更新浏览器界⾯状态，包括了安全状态、地址栏的URL、前 进后退的历史状态，并更新Web⻚⾯。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在上面那一段内容处理时间是页面没有变化的原因&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;当文档提交后进行页面渲染&lt;/p&gt;
+&lt;p&gt;渲染流水线的大概步骤有：&lt;strong&gt;构建DOM树、样式计算、布局阶段、分 层、绘制、分块、光栅化和合成&lt;/strong&gt;。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;构建dom树&#34;&gt;构建DOM树&lt;/h3&gt;
+&lt;p&gt;对于浏览器来说，HTML结构无法被直接理解，浏览器需要将其转化为&lt;strong&gt;DOM树&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;那DOM树是怎么形成的呢？&lt;/p&gt;
+&lt;p&gt;在渲染进程中，有个叫做 &lt;strong&gt;HTML解析器&lt;/strong&gt;，它负责将HTML字节流转化为DOM结构。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;HTML文档是一边加载一边被解析的&lt;/strong&gt;，网络进程数据后就会给渲染进程，渲染进程会一边接收一边交给&lt;strong&gt;HTML解析器&lt;/strong&gt;解析。&lt;/p&gt;
+&lt;h4 id=&#34;通过分词器将字节流转化为token&#34;&gt;通过分词器将字节流转化为Token&lt;/h4&gt;
+&lt;p&gt;所谓的Token，指语法上不可能再分的最小的字符或者字符串&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1631790700378.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;HTML解析器维护了⼀个Token栈结构，通过不断的压栈和出栈，将Token解析为DOM节点并将DOM节点添加到DOM树。&lt;a href=&#34;https://fanfankill.github.io/post/dom-shu-javascript-shi-ru-he-ying-xiang-dom-shu-gou-jian-de/&#34;&gt;DOM树构建的详细过程&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;样式计算&#34;&gt;样式计算&lt;/h2&gt;
+&lt;h4 id=&#34;将css转化为浏览器可理解的形式&#34;&gt;将CSS转化为浏览器可理解的形式&lt;/h4&gt;
+&lt;p&gt;当DOM树完成构建后就开始CSS文件的处理&lt;/p&gt;
+&lt;p&gt;CSS样式来源一般有：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;link的外部引用&lt;/li&gt;
+&lt;li&gt;文件内部样式内嵌&lt;/li&gt;
+&lt;li&gt;元素样式内嵌&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;和HTML文件一样，浏览器也无法直接纯CSS文本操作，所以浏览器也会把 &lt;strong&gt;CSS纯文本转化为styleSheets&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;转化样式表中的属性值使其标准化&#34;&gt;转化样式表中的属性值，使其标准化&lt;/h4&gt;
+&lt;p&gt;类似颜色属性&lt;code&gt;red&lt;/code&gt;会被转化为rgb标准值，&lt;code&gt;rem、em&lt;/code&gt;单位也会被转化为&lt;code&gt;px&lt;/code&gt;标准单位&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;计算每个dom节点的具体样式&#34;&gt;计算每个DOM节点的具体样式&lt;/h4&gt;
+&lt;p&gt;对于每个节点样式的具体计算会涉及到 &lt;strong&gt;继承和层叠&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;继承是来自父节点的继承属性，而层叠是对于不同的来源相同属性的选择。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;布局&#34;&gt;布局&lt;/h3&gt;
+&lt;p&gt;现在的DOM树和DOM样式计算已经完成，但还需要计算出DOM在页面中的几何位置。&lt;/p&gt;
+&lt;h4 id=&#34;创建布局树&#34;&gt;创建布局树&lt;/h4&gt;
+&lt;p&gt;DOM树还含有很多不可⻅的元素，⽐如head标签，还有使⽤了display:none属性 的元素。所以在显⽰之前，我们还要额外地构建⼀棵&lt;strong&gt;只包含可⻅元素布局树&lt;/strong&gt;。&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1631790690657.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;布局计算&#34;&gt;布局计算&lt;/h4&gt;
+&lt;p&gt;计算出每个节点的几何位置，也保存在布局树中。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;分层&#34;&gt;分层&lt;/h3&gt;
+&lt;p&gt;页面是由图层叠加在一起形成的。&lt;/p&gt;
+&lt;p&gt;为了方便实现类似于3D转化、z-index等一些效果，&lt;strong&gt;渲染进程需要为特定的节点生成专用的图层。并生成一颗图层树。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;那如何渲染进程会为其创建图层呢？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;拥有层叠上下文属性的元素会被提升为单独一层。&lt;/li&gt;
+&lt;li&gt;需要剪裁（clip）的地⽅也会被创建为图层。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;https://fanfankill.github.io/post/htmlcss-he-javascriptshi-ru-he-bian-cheng-de/#%E5%88%86%E5%B1%82&#34;&gt;详细介绍&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;图层绘制&#34;&gt;图层绘制&lt;/h3&gt;
+&lt;p&gt;对于每个图层的样式绘制&lt;/p&gt;
+&lt;p&gt;会把⼀个图层的绘制拆分成很多⼩的绘制指令，然后再把这些指令按照 顺序组成⼀个&lt;strong&gt;待绘制列表&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;栅格化操作&#34;&gt;栅格化操作&lt;/h3&gt;
+&lt;p&gt;对于图层绘制只是把绘制指令存放在了待绘制列表中，真正的绘制操作是有渲染引擎中的&lt;strong&gt;合成线程&lt;/strong&gt;完成的。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://fanfankill.github.io/post/wei-shi-me-css-dong-hua-javascriptxiao/&#34;&gt;CSS动画为什么比Javascript高效&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;通常页面会很大，可能需要下滑很久，合成线程会将页面分成图块。&lt;/p&gt;
+&lt;p&gt;我们可见页面的部分叫做 &lt;strong&gt;视口（viewport）&lt;/strong&gt;，合成线程会优先生成。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;合成和显示&#34;&gt;合成和显示&lt;/h3&gt;
+&lt;p&gt;一旦所有的图块都被光栅化，合成线程就会⽣成⼀个绘制图块的命令⸺“DrawQuad”，然后将该命令提交 给浏览器进程。&lt;/p&gt;
+&lt;p&gt;浏览器进程将其⻚⾯内容绘制到内存中，最后再将内存显⽰在屏幕上。&lt;/p&gt;
+&lt;p&gt;最后一个完整的页面就出来了。&lt;/p&gt;
+">自我总结：当地址栏输入一个URL会发生什么？</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/httpsrang-shu-ju-chuan-shu-geng-an-quan/"" data-c="

@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>编译器和解释器：V8是如何执⾏⼀段JavaScript代码的？ | fanfan</title>
+<title>自我总结：当地址栏输入一个URL会发生什么？ | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1631790740625">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="编译器和解释器：V8是如何执⾏⼀段JavaScript代码的？" />
-  <meta name="keywords" content="浏览器,Javascript" />
+  <meta name="description" content="自我总结：当地址栏输入一个URL会发生什么？" />
+  <meta name="keywords" content="浏览器" />
 </head>
 
 <body>
@@ -297,12 +297,34 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E7%BC%96%E8%AF%91%E5%99%A8%E5%92%8C%E8%A7%A3%E9%87%8A%E5%99%A8">编译器和解释器</a></li>
-<li><a href="#v8%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E4%B8%80%E6%AE%B5javascript%E4%BB%A3%E7%A0%81%E7%9A%84">V8是如何执⾏⼀段JavaScript代码的</a>
+<li><a href="#%E9%94%AE%E5%85%A5url%E7%9A%84%E8%BF%87%E7%A8%8B">键入URL的过程</a></li>
+<li><a href="#url%E8%AF%B7%E6%B1%82%E7%9A%84%E8%BF%87%E7%A8%8B">URL请求的过程</a></li>
+<li><a href="#tcp%E8%BF%9E%E6%8E%A5">TCP连接</a></li>
+<li><a href="#%E5%87%86%E5%A4%87%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B">准备渲染进程</a>
 <ul>
-<li><a href="#%E7%94%9F%E6%88%90%E6%8A%BD%E8%B1%A1%E8%AF%AD%E6%B3%95%E6%A0%91ast%E5%92%8C%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87">⽣成抽象语法树（AST）和执⾏上下⽂</a></li>
-<li><a href="#%E7%94%9F%E6%88%90%E5%AD%97%E8%8A%82%E7%A0%81">⽣成字节码</a></li>
-<li><a href="#%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81">执⾏代码</a></li>
+<li><a href="#%E6%9E%84%E5%BB%BAdom%E6%A0%91">构建DOM树</a>
+<ul>
+<li><a href="#%E9%80%9A%E8%BF%87%E5%88%86%E8%AF%8D%E5%99%A8%E5%B0%86%E5%AD%97%E8%8A%82%E6%B5%81%E8%BD%AC%E5%8C%96%E4%B8%BAtoken">通过分词器将字节流转化为Token</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E6%A0%B7%E5%BC%8F%E8%AE%A1%E7%AE%97">样式计算</a><br>
+*
+<ul>
+<li><a href="#%E5%B0%86css%E8%BD%AC%E5%8C%96%E4%B8%BA%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8F%AF%E7%90%86%E8%A7%A3%E7%9A%84%E5%BD%A2%E5%BC%8F">将CSS转化为浏览器可理解的形式</a></li>
+<li><a href="#%E8%BD%AC%E5%8C%96%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%B1%9E%E6%80%A7%E5%80%BC%E4%BD%BF%E5%85%B6%E6%A0%87%E5%87%86%E5%8C%96">转化样式表中的属性值，使其标准化</a></li>
+<li><a href="#%E8%AE%A1%E7%AE%97%E6%AF%8F%E4%B8%AAdom%E8%8A%82%E7%82%B9%E7%9A%84%E5%85%B7%E4%BD%93%E6%A0%B7%E5%BC%8F">计算每个DOM节点的具体样式</a></li>
+<li><a href="#%E5%B8%83%E5%B1%80">布局</a>
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%B8%83%E5%B1%80%E6%A0%91">创建布局树</a></li>
+<li><a href="#%E5%B8%83%E5%B1%80%E8%AE%A1%E7%AE%97">布局计算</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%86%E5%B1%82">分层</a></li>
+<li><a href="#%E5%9B%BE%E5%B1%82%E7%BB%98%E5%88%B6">图层绘制</a></li>
+<li><a href="#%E6%A0%85%E6%A0%BC%E5%8C%96%E6%93%8D%E4%BD%9C">栅格化操作</a></li>
+<li><a href="#%E5%90%88%E6%88%90%E5%92%8C%E6%98%BE%E7%A4%BA">合成和显示</a></li>
 </ul>
 </li>
 </ul>
@@ -572,8 +594,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/bian-yi-qi-he-jie-shi-qi-v8-shi-ru-he-zhi-duan-javascript-dai-ma-de/">
-      编译器和解释器：V8是如何执⾏⼀段JavaScript代码的？
+    <a class="post-title-link" href="https://fanfankill.github.io/post/zi-wo-zong-jie-dang-di-zhi-lan-shu-ru-yi-ge-url-hui-fa-sheng-shi-me/">
+      自我总结：当地址栏输入一个URL会发生什么？
     </a>
   </h1>
   <div class="post-meta">
@@ -581,7 +603,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-08-15 14:49:36">2021-08-15</span>
+      <span class="publish-time" data-t="2021-09-16 19:10:57">2021-09-16</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -592,12 +614,6 @@
       
       <a href="https://fanfankill.github.io/tag/68KZf8W4c/">
         <span>浏览器</span>
-      </a>、
-      
-      
-      
-      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/">
-        <span>Javascript</span>
       </a>
       
       
@@ -606,58 +622,152 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>3<span class="language" data-lan="minute">分钟</span></span>
+      <span>8<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>619<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>2302<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h2 id="编译器和解释器">编译器和解释器</h2>
-<p>机器不能直接理解我们所写的代码，所以在执⾏程序之前，需要将我们 所写的代码“翻译”成机器能读懂的机器语⾔。按语⾔的执⾏流程，可以把语⾔划分为编译型语⾔和解释型 语⾔。</p>
-<p>编译型语⾔在程序执⾏之前，需要经过编译器的编译过程，并且编译之后会直接保留机器能读懂的⼆进制⽂件（c、c++）</p>
-<p>解释型语⾔编写的程序，在每次运⾏时都需要通过解释器对程序进⾏动态解释和执⾏（js,py）</p>
-<p>编译器和解释器是如何“翻译”代码流程</p>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1629010215188.png" alt="" loading="lazy"></figure>
+              <figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1631790712077.png" alt="" loading="lazy"></figure>
+<p>配合这张图来捋清楚</p>
+<h2 id="键入url的过程">键入URL的过程</h2>
+<p>最开始输入ULR后浏览器会判断我们输入的是 <strong>搜索内容</strong>还是 <strong>请求的URL</strong></p>
+<p>如果是内容的话就会根据我们内容去形成新的URL去搜索</p>
+<p>如果是符合URL规则的话就会进行下一步（浏览器会自动补齐这个网站的协议）</p>
+<p><strong>浏览器加载一个地址之后，页面不会马上跳转，但标签页的图标变成了加载的标志，因为需要等待提交文档的阶段，页面内容才会被替换。</strong></p>
 <br>
-<h2 id="v8是如何执行一段javascript代码的">V8是如何执⾏⼀段JavaScript代码的</h2>
-<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1629010210576.png" alt="" loading="lazy"></figure>
-<p>V8在执⾏过程中既有解释器Ignition，⼜有编译器TurboFan</p>
+<h2 id="url请求的过程">URL请求的过程</h2>
+<p>下一步进入页面请求资源的过程。</p>
+<p>我们知道浏览器是被分为 <strong>浏览器内核</strong>（浏览器进程、网络进程、GPU）和 <strong>渲染内核</strong>（渲染进程）。</p>
+<blockquote>
+<p>分模块的目的也是为了稳定性和安全性。</p>
+<p>单核浏览器的时候一个文件很容易造成整个进程的崩溃</p>
+<p>对于网络请求、下载也都是浏览器内核进行下载资源后和渲染进程进行通信转发的。</p>
+<p>然后渲染进程会对这些资源进⾏解析、绘制等操作，最终⽣成⼀ 幅图⽚。但是渲染进程并不负责将图⽚显⽰到界⾯上，⽽是将最终⽣成的图⽚提交给浏览器内核模块，由浏 览器内核模块负责显⽰这张图⽚。</p>
+<p>目的也是 <strong>防止渲染进程直接对操作系统进行访问</strong>。</p>
+</blockquote>
+<p>这时，浏览器进程会通过进程间通信把URL请求发送给网络进程，网络进程收到URL后，才会发起真正的URL请求流程。</p>
+<p>当真正发起请求的的时候，网络进程会先查找本地是否缓存了该资源。</p>
+<p>如果存在就返回给浏览器进程。</p>
+<p>如果没有进入网络请求流程。</p>
+<p>在请求前的第一步是进行<a href="https://jingyan.baidu.com/article/86fae346e9d33e3c49121acb.html">DNS解析</a>（点击查看详细流程），DNS有缓存则直接返回域名的服务器IP地址。如果是HTTPS协议 （<a href="https://fanfankill.github.io/post/httpsrang-shu-ju-chuan-shu-geng-an-quan/">什么是HTTPS</a>），则还需要建立TLS连接</p>
 <br>
-<h3 id="生成抽象语法树ast和执行上下文">⽣成抽象语法树（AST）和执⾏上下⽂</h3>
-<p>将源代码转换为抽象语法树，并⽣成<strong>执⾏上下⽂</strong></p>
-<p><strong>什么是AST？</strong></p>
-<pre><code class="language-js">var myName = &quot;极客时间&quot;
-function foo(){
-return 23;
-}
-myName = &quot;geektime&quot;
-foo()
-
-</code></pre>
-<p>⽣成的AST结构如下</p>
-<figure data-type="image" tabindex="3"><img src="https://fanfankill.github.io/post-images/1629010203992.png" alt="" loading="lazy"></figure>
-<p>AST是⾮常重要的⼀种数据结构，在很多项⽬中有着⼴泛的应⽤。其中最著名的⼀个项⽬是Babel。Babel是 ⼀个被⼴泛使⽤的代码转码器，可以将ES6代码转为ES5代码</p>
+<h2 id="tcp连接">TCP连接</h2>
+<p>TCP位于传输层，从上往下 HTTP-&gt;TCP-&gt;IP，每一层都会封装自己的头部信息。</p>
+<blockquote>
+<p>TCP和UDP的区别</p>
+<p>TCP保证了传输的可靠性（重传机制 ），并且TCP引入了数据包排序机制，用来保证把乱序的数据包合成一个完整的文件。</p>
+<p>虽然UDP不保证可靠性，但它的传输速度却很快。</p>
+<p>TCP的拥塞控制：慢启动、拥塞窗口控制、快重传机制。</p>
+</blockquote>
+<p>第一次：客户端会先给服务器发送SYN=1标志码，代表要建立连接</p>
+<p>第二次：服务器收到消息后会返回 ACK=1/SYN=1 代表可以建立连接</p>
+<p>第三次：客户端发送ACK=1给服务器来完成TCP连接的建立。</p>
+<blockquote>
+<p>​	TCP握手为什么是三次？</p>
+<p>为了保证数据传输的可靠性，三次握手的过程即是告知双发序列号起始值，并且确定对方收到了序列号起始值的步骤</p>
+<p>如果只有两次，那么只有一方序列号能够得到确认</p>
+</blockquote>
+<p>关于不同HTTP版本的介绍</p>
+<p><a href="https://fanfankill.github.io/post/http1http-xing-neng-you-hua/">HTTP1.0 /1.1</a></p>
+<p><a href="https://fanfankill.github.io/post/http2ru-he-ti-sheng-luo-su-du/">HTTP 2</a></p>
+<p><a href="https://fanfankill.github.io/post/http3shuai-diao-tcptls-de-bao-fu-gou-jian-xiao-luo/">HTTP 3</a></p>
 <br>
-<p>⽣成AST需 要经过两个阶段。</p>
-<p><strong>第⼀阶段是分词（tokenize），⼜称为词法分析</strong></p>
-<p><img src="https://fanfankill.github.io/post-images/1629010198758.png" alt="" loading="lazy"><br>
-<br></p>
-<p>第⼆阶段是解析（parse），⼜称为<strong>语法分析</strong></p>
-<p>将上⼀步⽣成的数据，根据语法规则转为 AST。如果源码符合语法规则，这⼀步就会顺利完成。但如果源码存在语法错误，这⼀步就会终⽌，并抛出 ⼀个“语法错误”。</p>
+<p>我们用的HTTP/1.1，谷歌最多可以建立6个TCP的连接，多余的TCP也需要排队等候。默认是持久连接。</p>
+<p>完成TCP连接建立后，浏览器端会构建请求⾏、请求头等信息，并 把和该域名相关的Cookie等数据附加到请求头中，然后向服务器发送构建的请求信息。</p>
+<p>服务器接收到请求信息后，会根据请求信息⽣成响应数据（包括响应⾏、响应头和响应体等信息），并发给 ⽹络进程。等⽹络进程接收了响应⾏和响应头之后，就开始解析响应头的内容了。</p>
+<blockquote>
+<p>​	网络进程对返回的响应头的解析：</p>
+<p>如果状态码是301（永久重定向）或者302（临时重定向），那么说明浏览器需要重定向到其他的URL。这时候网络进程会从响应头的location字段读取重定向地址，然后再次发起请求（又得重头开始）</p>
+<p>如果是304 代表无需再次传输请求的内容，可以直接用缓存的内容</p>
+</blockquote>
 <br>
-<h3 id="生成字节码">⽣成字节码</h3>
-<p>有了AST和执⾏上下⽂后，那接下来的第⼆步，解释器Ignition就登场了，它会根据AST⽣成字节码，并解释 执⾏字节码。</p>
-<p><strong>字节码是介于AST和机器码之间的⼀种代码。但是与特定类型的机器码⽆关，字节码需要通过解释器将其 转换为机器码后才能执⾏。</strong></p>
-<figure data-type="image" tabindex="4"><img src="https://fanfankill.github.io/post-images/1629010190956.png" alt="" loading="lazy"></figure>
+<p>而对于响应数据的处理会根据<code>Content-Type</code>类型判断是按什么类型进行处理（是HTML页面 还是下载请求等）。</p>
+<p>如果是下载流程，那么在这里就结束了。</p>
+<p>如果是HTML页面，那么还会继续进行。</p>
 <br>
-<h3 id="执行代码">执⾏代码</h3>
-<p>⽣成字节码之后，接下来就要进⼊执⾏阶段了</p>
-<p>在执⾏字节码的过程中，如果发 现有热点代码（HotSpot），⽐如⼀段代码被重复执⾏多次，这种就称为<strong>热点代码</strong>，那么后台的编译器 TurboFan就会把该段热点的字节码编译为⾼效的机器码，然后当再次执⾏这段被优化的代码时，只需要执 ⾏编译后的机器码就可以了，这样就⼤⼤提升了代码的执⾏效率。</p>
+<h2 id="准备渲染进程">准备渲染进程</h2>
+<p>页面的渲染在浏览器的渲染进程里面</p>
+<blockquote>
+<p>跳转页面的时候原来页面没有马上消失的原因：</p>
+<ul>
+<li>“提交⽂档”的消息是由浏览器进程发出的，渲染进程接收到“提交⽂档”的消息后，会和⽹络进程建⽴ 传输数据的“管道”。</li>
+<li>等⽂档数据传输完成之后，渲染进程会返回“确认提交”的消息给浏览器进程。</li>
+<li>浏览器进程在收到“<strong>确认提交</strong>”的消息后，会更新浏览器界⾯状态，包括了安全状态、地址栏的URL、前 进后退的历史状态，并更新Web⻚⾯。</li>
+</ul>
+<p>在上面那一段内容处理时间是页面没有变化的原因</p>
+</blockquote>
+<p>当文档提交后进行页面渲染</p>
+<p>渲染流水线的大概步骤有：<strong>构建DOM树、样式计算、布局阶段、分 层、绘制、分块、光栅化和合成</strong>。</p>
+<br>
+<h3 id="构建dom树">构建DOM树</h3>
+<p>对于浏览器来说，HTML结构无法被直接理解，浏览器需要将其转化为<strong>DOM树</strong></p>
+<p>那DOM树是怎么形成的呢？</p>
+<p>在渲染进程中，有个叫做 <strong>HTML解析器</strong>，它负责将HTML字节流转化为DOM结构。</p>
+<p><strong>HTML文档是一边加载一边被解析的</strong>，网络进程数据后就会给渲染进程，渲染进程会一边接收一边交给<strong>HTML解析器</strong>解析。</p>
+<h4 id="通过分词器将字节流转化为token">通过分词器将字节流转化为Token</h4>
+<p>所谓的Token，指语法上不可能再分的最小的字符或者字符串</p>
+<figure data-type="image" tabindex="2"><img src="https://fanfankill.github.io/post-images/1631790700378.png" alt="" loading="lazy"></figure>
+<p>HTML解析器维护了⼀个Token栈结构，通过不断的压栈和出栈，将Token解析为DOM节点并将DOM节点添加到DOM树。<a href="https://fanfankill.github.io/post/dom-shu-javascript-shi-ru-he-ying-xiang-dom-shu-gou-jian-de/">DOM树构建的详细过程</a></p>
+<br>
+<h2 id="样式计算">样式计算</h2>
+<h4 id="将css转化为浏览器可理解的形式">将CSS转化为浏览器可理解的形式</h4>
+<p>当DOM树完成构建后就开始CSS文件的处理</p>
+<p>CSS样式来源一般有：</p>
+<ul>
+<li>link的外部引用</li>
+<li>文件内部样式内嵌</li>
+<li>元素样式内嵌</li>
+</ul>
+<p>和HTML文件一样，浏览器也无法直接纯CSS文本操作，所以浏览器也会把 <strong>CSS纯文本转化为styleSheets</strong></p>
+<br>
+<h4 id="转化样式表中的属性值使其标准化">转化样式表中的属性值，使其标准化</h4>
+<p>类似颜色属性<code>red</code>会被转化为rgb标准值，<code>rem、em</code>单位也会被转化为<code>px</code>标准单位</p>
+<br>
+<h4 id="计算每个dom节点的具体样式">计算每个DOM节点的具体样式</h4>
+<p>对于每个节点样式的具体计算会涉及到 <strong>继承和层叠</strong></p>
+<p>继承是来自父节点的继承属性，而层叠是对于不同的来源相同属性的选择。</p>
+<br>
+<h3 id="布局">布局</h3>
+<p>现在的DOM树和DOM样式计算已经完成，但还需要计算出DOM在页面中的几何位置。</p>
+<h4 id="创建布局树">创建布局树</h4>
+<p>DOM树还含有很多不可⻅的元素，⽐如head标签，还有使⽤了display:none属性 的元素。所以在显⽰之前，我们还要额外地构建⼀棵<strong>只包含可⻅元素布局树</strong>。</p>
+<figure data-type="image" tabindex="3"><img src="https://fanfankill.github.io/post-images/1631790690657.png" alt="" loading="lazy"></figure>
+<br>
+<h4 id="布局计算">布局计算</h4>
+<p>计算出每个节点的几何位置，也保存在布局树中。</p>
+<br>
+<h3 id="分层">分层</h3>
+<p>页面是由图层叠加在一起形成的。</p>
+<p>为了方便实现类似于3D转化、z-index等一些效果，<strong>渲染进程需要为特定的节点生成专用的图层。并生成一颗图层树。</strong></p>
+<p>那如何渲染进程会为其创建图层呢？</p>
+<ul>
+<li>拥有层叠上下文属性的元素会被提升为单独一层。</li>
+<li>需要剪裁（clip）的地⽅也会被创建为图层。</li>
+</ul>
+<p><a href="https://fanfankill.github.io/post/htmlcss-he-javascriptshi-ru-he-bian-cheng-de/#%E5%88%86%E5%B1%82">详细介绍</a></p>
+<br>
+<h3 id="图层绘制">图层绘制</h3>
+<p>对于每个图层的样式绘制</p>
+<p>会把⼀个图层的绘制拆分成很多⼩的绘制指令，然后再把这些指令按照 顺序组成⼀个<strong>待绘制列表</strong></p>
+<br>
+<h3 id="栅格化操作">栅格化操作</h3>
+<p>对于图层绘制只是把绘制指令存放在了待绘制列表中，真正的绘制操作是有渲染引擎中的<strong>合成线程</strong>完成的。</p>
+<blockquote>
+<p><a href="https://fanfankill.github.io/post/wei-shi-me-css-dong-hua-javascriptxiao/">CSS动画为什么比Javascript高效</a></p>
+</blockquote>
+<p>通常页面会很大，可能需要下滑很久，合成线程会将页面分成图块。</p>
+<p>我们可见页面的部分叫做 <strong>视口（viewport）</strong>，合成线程会优先生成。</p>
+<br>
+<h3 id="合成和显示">合成和显示</h3>
+<p>一旦所有的图块都被光栅化，合成线程就会⽣成⼀个绘制图块的命令⸺“DrawQuad”，然后将该命令提交 给浏览器进程。</p>
+<p>浏览器进程将其⻚⾯内容绘制到内存中，最后再将内存显⽰在屏幕上。</p>
+<p>最后一个完整的页面就出来了。</p>
 
             </div>
             
@@ -670,7 +780,7 @@ foo()
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/bian-yi-qi-he-jie-shi-qi-v8-shi-ru-he-zhi-duan-javascript-dai-ma-de/" title="编译器和解释器：V8是如何执⾏⼀段JavaScript代码的？">https://fanfankill.github.io/post/bian-yi-qi-he-jie-shi-qi-v8-shi-ru-he-zhi-duan-javascript-dai-ma-de/</a>
+      <a href="https://fanfankill.github.io/post/zi-wo-zong-jie-dang-di-zhi-lan-shu-ru-yi-ge-url-hui-fa-sheng-shi-me/" title="自我总结：当地址栏输入一个URL会发生什么？">https://fanfankill.github.io/post/zi-wo-zong-jie-dang-di-zhi-lan-shu-ru-yi-ge-url-hui-fa-sheng-shi-me/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -681,21 +791,15 @@ foo()
     
       <a href="https://fanfankill.github.io/tag/68KZf8W4c/"># 浏览器</a>
     
-      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/"># Javascript</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="消息队列和事件循环：⻚⾯是怎么“活”起来的？" href="https://fanfankill.github.io/post/xiao-xi-dui-lie-he-shi-jian-xun-huan-shi-zen-me-huo-qi-lai-de/">消息队列和事件循环：⻚⾯是怎么“活”起来的？</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="消息队列和事件循环：⻚⾯是怎么“活”起来的？" href="https://fanfankill.github.io/post/xiao-xi-dui-lie-he-shi-jian-xun-huan-shi-zen-me-huo-qi-lai-de/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title=" Generator 函数的语法" href="https://fanfankill.github.io/post/generator-han-shu-de-yu-fa/"> Generator 函数的语法</a>
-        <a class="nav-mobile-next" title=" Generator 函数的语法" href="https://fanfankill.github.io/post/generator-han-shu-de-yu-fa/">下一篇</a>
+        <a class="nav-pc-next" title="HTTPS：让数据传输更安全" href="https://fanfankill.github.io/post/httpsrang-shu-ju-chuan-shu-geng-an-quan/">HTTPS：让数据传输更安全</a>
+        <a class="nav-mobile-next" title="HTTPS：让数据传输更安全" href="https://fanfankill.github.io/post/httpsrang-shu-ju-chuan-shu-geng-an-quan/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
