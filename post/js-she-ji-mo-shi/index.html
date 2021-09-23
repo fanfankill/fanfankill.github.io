@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1632395317169">
+<link rel="shortcut icon" href="/favicon.ico?v=1632395354739">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -244,7 +244,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">84</span>
+        <span class="site-item-stat-count">85</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1169,6 +1169,133 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/promise-fang-fa-shou-xie-da-fa/"" data-c="
+          &lt;h2 id=&#34;promiseresolve&#34;&gt;Promise.resolve()&lt;/h2&gt;
+&lt;p&gt;将现有对象转为 Promise 对象&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;Promise.resolve(&#39;foo&#39;)
+// 等价于
+new Promise(resolve =&amp;gt; resolve(&#39;foo&#39;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  Promise.resolve = function (res) {
+          return new Promise((res) =&amp;gt; {
+              resolve(res)
+          })
+      }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promiseprototypecatch&#34;&gt;Promise.prototype.catch&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  Promise.prototype.catch = function (fn) {
+          return this.then(null, fn)
+      }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promiseprototypefinally&#34;&gt;Promise.prototype.finally&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;finally()&lt;/code&gt;方法用于指定不管 Promise 对象最后状态如何，都会执行的操作。&lt;/p&gt;
+&lt;p&gt;且不能传递参数，所以无法获取这个实例的状态。但还要返回这个状态结果。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt; Promise.prototype.finally=function(onFinished){
+ 		return this.then((result)=&amp;gt;{
+            onFinished()
+            return result
+        }).catch((e)=&amp;gt;{
+ 			onFinished()
+            return e
+        })
+ }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promiseall&#34;&gt;Promise.all()&lt;/h2&gt;
+&lt;p&gt;返回Promise实例，接收参数为一个数组，当有不是Promise的实例的时候，会调用Promise.resolve方法转化。&lt;/p&gt;
+&lt;p&gt;返回第一个被reject的实例给回调函数&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;Promise.all = function (promises) {
+        let results  = []
+        let promiseCount = 0;
+        let promisesLength = promises.length;
+        return new Promise((resolve, reject) =&amp;gt; {
+            for (let val of promises) {
+                Promise.resolve(val).then(function (res) {
+
+                    results[promiseCount] = res;
+                    promiseCount++;
+                    // 当所有函数都正确执行了，resolve输出所有返回结果。
+                    if (promiseCount === promisesLength) {
+                        return resolve(results);
+                    }
+
+                }, function (err) {
+                    return reject(err);
+                });
+            }
+        })
+    }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promiseany&#34;&gt;Promise.any&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  //Promise.any 和all相反 所有都rejected时候返回 AggregateError: All promises were rejected
+    Promise.any=function(promises){
+        let errorcount=0
+        let promiselength=promises.length
+
+        return new Promise((resolve,reject)=&amp;gt;{
+            for(let val of promises){
+                Promise.resolve(val).then(function(res){
+                        return resolve(res)
+                },function(e){
+                    errorcount++
+                    //所有都reject的话 返回这个错误
+                    if(errorcount===promiselength)
+                    {  
+                        return reject(new AggregateError(&#39;All promises were rejected&#39;))
+                    }
+                   
+                })
+            }
+        })
+    }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promiserace&#34;&gt;Promise.race&lt;/h2&gt;
+&lt;p&gt;传入一个数组。竞争关系，返回第一个完成的实例。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;    //promise.race
+    Promise.race=function(promises){
+
+        return new Promise ((resolv,reject)=&amp;gt;{
+            for(let val of promises){
+                return Promise.resolve(val).then(function(res){
+                        return resolv(res)
+                },function(e){
+                        return reject(e)
+                })
+            }
+        })
+    }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;promiseallsettled&#34;&gt;Promise.allSettled&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;Promise.allSettled=function(promises){
+        let allresult=[]
+        let count=0
+        let promiselength=promises.length
+
+        return new Promise((resolve,reject)=&amp;gt;{
+                for(let val of promises){
+                    Promise.resolve(val).then(function(res){
+                        allresult[count]={state:&#39;fulfilled&#39;, value:res};
+                        count++
+                    },function(e){
+                        allresult[count]={state:&#39;rejected&#39;, value:e};
+                        count++
+                    }).finally(()=&amp;gt;{
+                        if(promiselength==count)
+                        resolve(allresult);
+                    })
+                }
+        })
+    }
+&lt;/code&gt;&lt;/pre&gt;
+"> Promise方法手写大法</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-mian-shi-ti/"" data-c="
