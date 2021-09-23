@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631790740625">
+<link rel="shortcut icon" href="/favicon.ico?v=1632395317169">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -244,7 +244,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">83</span>
+        <span class="site-item-stat-count">84</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1171,6 +1171,82 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
     <div class="result" id="result">
       
       <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-mian-shi-ti/"" data-c="
+          &lt;h2 id=&#34;面试题&#34;&gt;面试题&lt;/h2&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vue是完全的mvvm模型吗&#34;&gt;&lt;strong&gt;Vue是完全的MVVM模型吗？&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;严格的MVVVM要求View不能和Model直接通信，而Vue提供了$refs这个属性，让Model可以直接操作View，违反了这一规定，所以是Vue没有完全遵循MVVM。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vue的单项数据流&#34;&gt;&lt;strong&gt;Vue的单项数据流&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;所有的 prop 都使得其父子 prop 之间形成了一个单向下行绑定：父&lt;strong&gt;级 prop 的更新会向下流动到子组件中，但是反过来则不行&lt;/strong&gt;。这样会防止从子组件意外改变父级组件的状态，从而导致你的应用的数据流向难以理解。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vue的父子组件生命周期钩子函数执行顺序&#34;&gt;&lt;strong&gt;Vue的父子组件生命周期钩子函数执行顺序&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;加载渲染过程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;父beforeCreate -&amp;gt; 父created -&amp;gt; 父beforeMount -&amp;gt; 子beforeCreate -&amp;gt; 子created -&amp;gt; 子beforeMount -&amp;gt; 子mounted -&amp;gt; 父mounted&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;子组件更新过程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;父beforeUpdate -&amp;gt; 子beforeUpdate -&amp;gt; 子updated -&amp;gt; 父updated&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;父组件更新过程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;父beforeUpdate -&amp;gt; 父updated&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;销毁过程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;父beforeDestroy -&amp;gt; 子beforeDestroy -&amp;gt; 子destroyed -&amp;gt; 父destroyed&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;mvc和mvvm区别&#34;&gt;&lt;strong&gt;MVC和MVVM区别&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;mvc&#34;&gt;MVC&lt;/h4&gt;
+&lt;p&gt;MVC是model view controller&lt;/p&gt;
+&lt;img src=&#34;https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy90dFZXdXJMb0dWaWFkeUV6WllDRWlhbXIxSWhKaWNlMUpGUXlCaEQ1Q2RQSHA0RllnRXVVVGVaRDk0RzdKYUNHS3BYNGhpYTdibm1rcU9Fbk5FcEppYUhCaWJSUS82NDA?x-oss-process=image/format,png#pic_center&#34;&gt;
+&lt;p&gt;&lt;strong&gt;MVC的思想&lt;/strong&gt;：Controller负责将Model的数据用View显示出来，换句话说就是在Controller里面把Model的数据赋值给View。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;MVC的特点&lt;/strong&gt;：实现关注点分离，即应用程序中的数据模型与业务和展示逻辑解耦。就是将模型和视图之间实现代码分离，松散耦合，使之成为一个更容易开发、维护和测试的客户端应用程序。&lt;/p&gt;
+&lt;p&gt;一般用于中大型项目开发。&lt;/p&gt;
+&lt;h4 id=&#34;mvvm&#34;&gt;MVVM&lt;/h4&gt;
+&lt;p&gt;MVVM是Model-View-ViewModel的简写，即模型-视图-视图模型。&lt;/p&gt;
+&lt;img src=&#34;https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy90dFZXdXJMb0dWaWFkeUV6WllDRWlhbXIxSWhKaWNlMUpGUW9CN2M3QjlDZ0NQSDIzYVV4QjBnNzI5WkNVMERWbnBJZEh3Mzl0aWJWNlJJdWpwdEFET1VIaWJnLzY0MA?x-oss-process=image/format,png#pic_center&#34;&gt;
+&lt;p&gt;它有两个方向：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一是将模型转化成视图，即将后端传递的数据转化成所看到的页面。实现的方式是：数据绑定。&lt;/li&gt;
+&lt;li&gt;二是将视图转化成模型，即将所看到的页面转化成后端的数据。实现的方式是：DOM 事件监听。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这两个方向都实现的，就是数据的双向绑定。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;diff算法&#34;&gt;&lt;strong&gt;diff算法&lt;/strong&gt;&lt;/h3&gt;
+&lt;img src=&#34;https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9e3c68d1b0884d9ca0f8ffc5ee64a28e~tplv-k3u1fbpfcp-watermark.image&#34;&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;双向绑定&#34;&gt;&lt;strong&gt;双向绑定&lt;/strong&gt;&lt;/h3&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;什么是双向绑定&#34;&gt;什么是双向绑定&lt;/h4&gt;
+&lt;p&gt;单项绑定就是通过Model去改变view。&lt;/p&gt;
+&lt;p&gt;当实现用户更新view，model的数据也自动被更新就实现了双向绑定。&lt;/p&gt;
+&lt;p&gt;例如当用户填写表单时候改变了view，Model的数据也被自动更新了，这就实现了双向绑定。&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;双向绑定原理&#34;&gt;双向绑定原理&lt;/h4&gt;
+&lt;img src=&#34;https://img.bosszhipin.com/beijin/cms/6c155f92bf101d7f3474c8db1dc5a5f2ceb4162adcce9c8ed358cb008b64ac2a92d08620afbe4bc5b07a8d61e4550181.png?x-oss-process=image/quality,q_60&#34;&gt;
+&lt;p&gt;vue采用的是 &lt;strong&gt;数据劫持&lt;/strong&gt;结合 &lt;strong&gt;发布-订阅模式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过ES5的 &lt;code&gt;Object.defineProperty()&lt;/code&gt;的&lt;code&gt;get&lt;/code&gt;和&lt;code&gt;set&lt;/code&gt;来进行数据的劫持。&lt;/p&gt;
+&lt;p&gt;1.实现一个监听器Observer，用来劫持并监听所有属性，如果有变动的，就通知订阅者。&lt;/p&gt;
+&lt;p&gt;2.实现一个订阅者Watcher，可以收到属性的变化通知并执行相应的函数，从而更新视图。&lt;/p&gt;
+&lt;p&gt;3.实现一个解析器Compile，可以扫描和解析每个节点的相关指令，并根据初始化模板数据以及初始化相应的订阅器。&lt;/p&gt;
+&lt;p&gt;需要自己动手实现代码&lt;/p&gt;
+">vue面试题</a>
+      </div>
+      
+      <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/zi-wo-zong-jie-dang-di-zhi-lan-shu-ru-yi-ge-url-hui-fa-sheng-shi-me/"" data-c="
           &lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://fanfankill.github.io/post-images/1631790712077.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
 &lt;p&gt;配合这张图来捋清楚&lt;/p&gt;
@@ -1527,14 +1603,7 @@ new Profile().$mount(&#39;#mount-point&#39;)
 &lt;li&gt;
 &lt;p&gt;实例：&lt;/p&gt;
 &lt;p&gt;全局&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// 注册一个全局自定义指令 `v-focus`
-Vue.directive(&#39;focus&#39;, {
-  // 当被绑定的元素插入到 DOM 中时…… 
-  inserted: function (el) {
-    // 聚焦元素
-    el.focus()
-  }
-})
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// 注册一个全局自定义指令 `v-focus`Vue.directive(&#39;focus&#39;, {  // 当被绑定的元素插入到 DOM 中时……   inserted: function (el) {    // 聚焦元素    el.focus()  }})
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;局部&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;directives: {
@@ -1560,7 +1629,12 @@ Vue.directive(&#39;focus&#39;, {
 &lt;p&gt;用法&lt;/p&gt;
 &lt;p&gt;可被用于一些常见的文本格式化。&lt;/p&gt;
 &lt;p&gt;过滤器可以用在两个地方：&lt;strong&gt;双花括号插值和 &lt;code&gt;v-bind&lt;/code&gt; 表达式&lt;/strong&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;!-- 在双花括号中 多个过滤器可以串联--&amp;gt;&amp;lt;!--message为value里面的值 capitalize对其处理--&amp;gt;{{ message | capitalize }}  &amp;lt;!-- 在 `v-bind` 中 --&amp;gt;&amp;lt;div v-bind:id=&amp;quot;rawId | formatId&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;!-- 在双花括号中 多个过滤器可以串联--&amp;gt;
+&amp;lt;!--message为value里面的值 capitalize对其处理--&amp;gt;
+{{ message | capitalize }}  
+
+&amp;lt;!-- 在 `v-bind` 中 --&amp;gt;
+&amp;lt;div v-bind:id=&amp;quot;rawId | formatId&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;注册或获取全局过滤器&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// 注册Vue.filter(&#39;my-filter&#39;, function (value) {  // 返回处理后的值})// getter，返回已注册的过滤器var myFilter = Vue.filter(&#39;my-filter&#39;)
@@ -1581,43 +1655,10 @@ Vue.directive(&#39;focus&#39;, {
 &lt;li&gt;
 &lt;p&gt;用法&lt;/p&gt;
 &lt;p&gt;注册或获取全局组件。注册还会自动使用给定的&lt;code&gt;id&lt;/code&gt;设置组件的名称&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// 注册组件，传入一个扩展过的构造器
-Vue.component(&#39;my-component&#39;, Vue.extend({ /* ... */ }))
-
-// 注册组件，传入一个选项对象 (自动调用 Vue.extend)
-Vue.component(&#39;my-component&#39;, { /* ... */ })
-
-// 获取注册的组件 (始终返回构造器)
-var MyComponent = Vue.component(&#39;my-component&#39;)
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// 注册组件，传入一个扩展过的构造器Vue.component(&#39;my-component&#39;, Vue.extend({ /* ... */ }))// 注册组件，传入一个选项对象 (自动调用 Vue.extend)Vue.component(&#39;my-component&#39;, { /* ... */ })// 获取注册的组件 (始终返回构造器)var MyComponent = Vue.component(&#39;my-component&#39;)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;循环遍历全局注册组件&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// 组件列表
-const allcomponents=[
-    fanbtn,
-    faninput,
-    fandiglog,
-    fanalert,
-    fanbadge,
-    fanlink,
-    fanimgge,
-]
-
-
-const install=function(Vue){
-     // 遍历并注册所有组件
-     allcomponents.map(component =&amp;gt;{
-        Vue.component(component.name, component);
-     })
-
-}
-
-export default {
-    install
-}
-
-
-//main.js文件内
-Vue.use(fanui) //自动调用install方法
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// 组件列表const allcomponents=[    fanbtn,    faninput,    fandiglog,    fanalert,    fanbadge,    fanlink,    fanimgge,]const install=function(Vue){     // 遍历并注册所有组件     allcomponents.map(component =&amp;gt;{        Vue.component(component.name, component);     })}export default {    install}//main.js文件内Vue.use(fanui) //自动调用install方法
 &lt;/code&gt;&lt;/pre&gt;
 &lt;br&gt;
 &lt;/li&gt;
@@ -1732,6 +1773,7 @@ export default {
 &lt;br&gt;
 &lt;br&gt;
 &lt;h2 id=&#34;数据&#34;&gt;数据&lt;/h2&gt;
+&lt;br&gt;
 &lt;h3 id=&#34;data&#34;&gt;&lt;strong&gt;data&lt;/strong&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1748,29 +1790,13 @@ export default {
 &lt;p&gt;可以通过&lt;code&gt;Vue.set(object,propertyName,value)&lt;/code&gt;来添加响应式数据&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;对象的property的添加和删除&lt;/strong&gt;是无法检测的&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;数组的直接利用索引改变数组项和修改数组长度&lt;/strong&gt;Vue都是不能检测到的&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var vm = new Vue({
-  data: {
-    items: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]
-  }
-})
-vm.items[1] = &#39;x&#39; // 不是响应性的
-vm.items.length = 2 // 不是响应性的
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var vm = new Vue({  data: {    items: [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]  }})vm.items[1] = &#39;x&#39; // 不是响应性的vm.items.length = 2 // 不是响应性的
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;对于数组可以直接用数组的方法去修改，Vue对数组的方法进行了重写，&lt;/p&gt;
 &lt;h4 id=&#34;dom操作&#34;&gt;DOM操作&lt;/h4&gt;
 &lt;p&gt;Vue在更新Dom是异步的。对于数据更改后的DOM操作可以放在&lt;code&gt;nextTick里面进行&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;&amp;lt;div id=&amp;quot;example&amp;quot;&amp;gt;{{message}}&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var vm = new Vue({
-  el: &#39;#example&#39;,
-  data: {
-    message: &#39;123&#39;
-  }
-})
-vm.message = &#39;new message&#39; // 更改数据
-vm.$el.textContent === &#39;new message&#39; // false
-Vue.nextTick(function () {
-  vm.$el.textContent === &#39;new message&#39; // true
-})
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var vm = new Vue({  el: &#39;#example&#39;,  data: {    message: &#39;123&#39;  }})vm.message = &#39;new message&#39; // 更改数据vm.$el.textContent === &#39;new message&#39; // falseVue.nextTick(function () {  vm.$el.textContent === &#39;new message&#39; // true})
 &lt;/code&gt;&lt;/pre&gt;
 &lt;br&gt;
 &lt;h4 id=&#34;data为什么是函数形式&#34;&gt;Data为什么是函数形式&lt;/h4&gt;
@@ -1812,16 +1838,7 @@ Vue.nextTick(function () {
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;示例：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var Comp = Vue.extend({
-  props: [&#39;msg&#39;],
-  template: &#39;&amp;lt;div&amp;gt;{{ msg }}&amp;lt;/div&amp;gt;&#39;
-})
-
-var vm = new Comp({
-  propsData: {
-    msg: &#39;hello&#39;
-  }
-})
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var Comp = Vue.extend({  props: [&#39;msg&#39;],  template: &#39;&amp;lt;div&amp;gt;{{ msg }}&amp;lt;/div&amp;gt;&#39;})var vm = new Comp({  propsData: {    msg: &#39;hello&#39;  }})
 &lt;/code&gt;&lt;/pre&gt;
 &lt;br&gt;
 &lt;/li&gt;
@@ -1834,9 +1851,7 @@ var vm = new Comp({
 &lt;li&gt;
 &lt;p&gt;详细：&lt;/p&gt;
 &lt;p&gt;注意如果为一个计算属性使用了箭头函数，则 &lt;code&gt;this&lt;/code&gt; 不会指向这个组件的实例，不过仍然可以将其实例作为函数的第一个参数来访问。&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;computed: {
-  aDouble: vm =&amp;gt; vm.a * 2
-}
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;computed: {  aDouble: vm =&amp;gt; vm.a * 2}
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;计算属性的结果会被缓存，除非依赖的响应式 property 变化才会重新计算。&lt;/p&gt;
 &lt;p&gt;如果某个依赖 (比如非响应式 property) 在该实例范畴之外，则计算属性是&lt;strong&gt;不会&lt;/strong&gt;被更新的。&lt;/p&gt;
@@ -1875,18 +1890,22 @@ var vm = new Comp({
     a: function (val, oldVal) {
       console.log(&#39;new: %s, old: %s&#39;, val, oldVal)
     },
+      
     // 方法名
     b: &#39;someMethod&#39;,
+      
     // 该回调会在任何被侦听的对象的 property 改变时被调用，不论其被嵌套多深
     c: {
       handler: function (val, oldVal) { /* ... */ },
       deep: true
     },
+      
     // 该回调将会在侦听开始之后被立即调用
     d: {
       handler: &#39;someMethod&#39;,
       immediate: true
     },
+      
     // 你可以传入回调数组，它们会被逐一调用
     e: [
       &#39;handle1&#39;,
@@ -1896,6 +1915,7 @@ var vm = new Comp({
         /* ... */
       }
     ],
+      
     // watch vm.e.f&#39;s value: {g: 5}
     &#39;e.f&#39;: function (val, oldVal) { /* ... */ }
   }
@@ -1926,16 +1946,7 @@ vm.a = 2 // =&amp;gt; new: 2, old: 1
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;示例：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var vm = new Vue({
-  data: { a: 1 },
-  methods: {
-    plus: function () {
-      this.a++
-    }
-  }
-})
-vm.plus()
-vm.a // 2
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var vm = new Vue({  data: { a: 1 },  methods: {    plus: function () {      this.a++    }  }})vm.plus()vm.a // 2
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -1943,35 +1954,12 @@ vm.a // 2
 &lt;h3 id=&#34;三者区别&#34;&gt;&lt;strong&gt;三者区别&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;methods和computed&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;理论上&lt;code&gt;computed&lt;/code&gt;能实现的&lt;code&gt;methods&lt;/code&gt;也能实现&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var app = new Vue({
-  el: &#39;#app&#39;,
-  data: {
-    a:&#39;fan&#39;,
-  },
-  computed:{
-    getmya:function(){
-      return this.a +&amp;quot;fan&amp;quot;
-    }
-  },
-  methods: {
-    getmya2(){
-      return this.a+&amp;quot;fan&amp;quot;
-    }
-  },
-
-})
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var app = new Vue({  el: &#39;#app&#39;,  data: {    a:&#39;fan&#39;,  },  computed:{    getmya:function(){      return this.a +&amp;quot;fan&amp;quot;    }  },  methods: {    getmya2(){      return this.a+&amp;quot;fan&amp;quot;    }  },})
 &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt; &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt;
-       {{ getmya }}  &amp;lt;!--fanfan--&amp;gt;
-       {{getmya2()}} &amp;lt;!--fanfan--&amp;gt;
- &amp;lt;/div&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt; &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt;       {{ getmya }}  &amp;lt;!--fanfan--&amp;gt;       {{getmya2()}} &amp;lt;!--fanfan--&amp;gt; &amp;lt;/div&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;但重点在于&lt;code&gt;computed&lt;/code&gt;有缓存，如果结果不变化就返回缓存结果&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;computed: {
-  now: function () {
-    return Date.now()
-  }
-}
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;computed: {  now: function () {    return Date.now()  }}
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;同样，上面的计算属性也不会更新，因为&lt;code&gt;Date.now()&lt;/code&gt;不是响应式依赖&lt;/p&gt;
 &lt;br&gt;
@@ -1981,6 +1969,7 @@ vm.a // 2
 &lt;br&gt;
 &lt;br&gt;
 &lt;h2 id=&#34;dom&#34;&gt;DOM&lt;/h2&gt;
+&lt;br&gt;
 &lt;h3 id=&#34;el&#34;&gt;&lt;strong&gt;el&lt;/strong&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -2043,6 +2032,7 @@ render(h) {
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;选项生命周期钩子&#34;&gt;选项/生命周期钩子&lt;/h2&gt;
+&lt;br&gt;
 &lt;p&gt;生命周期图&lt;/p&gt;
 &lt;img src=&#34;https://cn.vuejs.org/images/lifecycle.png&#34;&gt;
 &lt;h3 id=&#34;beforecreate&#34;&gt;&lt;strong&gt;beforeCreate&lt;/strong&gt;&lt;/h3&gt;
@@ -2078,11 +2068,7 @@ render(h) {
 &lt;p&gt;实例被挂载后调用，这时 &lt;code&gt;el&lt;/code&gt; 被新创建的 &lt;code&gt;vm.$el&lt;/code&gt; 替换了。&lt;/p&gt;
 &lt;p&gt;模板中的HTML渲染到HTML页面中&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;mounted&lt;/code&gt; &lt;strong&gt;不会&lt;/strong&gt;保证所有的子组件也都被挂载完成。如果你希望等到整个视图都渲染完毕再执行某些操作，可以在 &lt;code&gt;mounted&lt;/code&gt; 内部使用 &lt;code&gt;vm.$nextTick&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;mounted: function () {
-  this.$nextTick(function () {
-    // 仅在整个视图都被渲染之后才会运行的代码
-  })
-}
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;mounted: function () {  this.$nextTick(function () {    // 仅在整个视图都被渲染之后才会运行的代码  })}
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -2139,6 +2125,7 @@ render(h) {
 &lt;/ul&gt;
 &lt;br&gt;
 &lt;h2 id=&#34;选项组合&#34;&gt;选项/组合&lt;/h2&gt;
+&lt;br&gt;
 &lt;h3 id=&#34;parent&#34;&gt;&lt;strong&gt;parent&lt;/strong&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -2158,7 +2145,15 @@ render(h) {
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt;：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var mixin = {  created: function () { console.log(1) }}var vm = new Vue({  created: function () { console.log(2) },  mixins: [mixin]})// =&amp;gt; 1// =&amp;gt; 2
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var mixin = {
+  created: function () { console.log(1) }
+}
+var vm = new Vue({
+  created: function () { console.log(2) },
+  mixins: [mixin]
+})
+// =&amp;gt; 1
+// =&amp;gt; 2
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -2212,6 +2207,7 @@ render(h) {
 &lt;/ul&gt;
 &lt;br&gt;
 &lt;h2 id=&#34;选项其他&#34;&gt;选项/其他&lt;/h2&gt;
+&lt;br&gt;
 &lt;h3 id=&#34;name&#34;&gt;&lt;strong&gt;name&lt;/strong&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -2256,6 +2252,7 @@ render(h) {
 &lt;/ul&gt;
 &lt;br&gt;
 &lt;h2 id=&#34;实例-property&#34;&gt;实例 property&lt;/h2&gt;
+&lt;br&gt;
 &lt;h3 id=&#34;vmdata&#34;&gt;&lt;strong&gt;vm.$data&lt;/strong&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -2344,6 +2341,524 @@ render(h) {
 存储的父实例传入的方法&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;实例方法数据&#34;&gt;实例方法/数据&lt;/h2&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vmwatch&#34;&gt;&lt;strong&gt;vm.$watch&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;观察 Vue 实例上的一个表达式或者一个函数计算结果的变化。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  watch:{
+      function(){
+         //当fan或者xi发生变化时候会触发
+        return this.fan+this.xi
+      },
+      //或者回调函数形式一个个触发
+       fan:[
+             //methods的函数名 
+            &#39;show&#39;,
+            &#39;logsome&#39;,
+             function(){
+                    ...
+              }
+     ]
+        
+    },
+        
+        
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;vm.$watch&lt;/code&gt; 返回一个取消观察函数，用来停止触发回调：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var unwatch = vm.$watch(&#39;a&#39;, cb)// 之后取消观察unwatch()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vmset&#34;&gt;&lt;strong&gt;vm.$set&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;用于向响应式对象添加属性&lt;/p&gt;
+&lt;p&gt;如果是&lt;code&gt;this.myobj.fan=&#39;ismyname&#39;&lt;/code&gt;，虽然数据能被加载上去，但没有响应式getter/setter，但再次去改变这个值的时候&lt;code&gt;this.myobj.fan=&#39;change&#39;&lt;/code&gt;，数据发送了变化，但页面视图将不会变化&lt;/p&gt;
+&lt;p&gt;当使用&lt;code&gt;this.$set(this.myobj,&#39;fan&#39;,&#39;ismyname&#39;)&lt;/code&gt;，新增的属性也变成了响应式的，页面也能够响应视图的变化&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vmdelete&#34;&gt;&lt;strong&gt;vm.$delete&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;用于删除对象的property。&lt;strong&gt;能够确保删除会触发更新视图&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;this.$delete(myobj,&#39;fan&#39;)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;实例方法事件&#34;&gt;实例方法/事件&lt;/h2&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vmon&#34;&gt;&lt;strong&gt;vm.$on&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;监听当前实例上的自定义事件。事件可以由 &lt;code&gt;vm.$emit&lt;/code&gt; 触发。回调函数会接收所有传入事件触发函数的额外参数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;vm.$on(&#39;test&#39;, function (msg) {  console.log(msg)})vm.$emit(&#39;test&#39;, &#39;hi&#39;)// =&amp;gt; &amp;quot;hi&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;一般和props一起作用于父子传参&lt;/p&gt;
+&lt;p&gt;parent&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-vue&#34;&gt;&amp;lt;child :title=&amp;quot;title&amp;quot;  @childback=&amp;quot;toremove&amp;quot;&amp;gt;&amp;lt;/child&amp;gt;methods:{	toremove(value){		...	}}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;child&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;template&amp;gt;	...&amp;lt;/template&amp;gt;somechange:function(){	this.$emit(&#39;childback&#39;,myvalue)}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vmonce&#34;&gt;&lt;strong&gt;vm.$once&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;监听一个自定义事件，但是只触发一次。一旦触发之后，监听器就会被移除。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vmoff&#34;&gt;&lt;strong&gt;vm.$off&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;移除自定义事件监听器。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果没有提供参数，则移除所有的事件监听器；&lt;/li&gt;
+&lt;li&gt;如果只提供了事件，则移除该事件所有的监听器；&lt;/li&gt;
+&lt;li&gt;如果同时提供了事件与回调，则只移除这个回调的监听器。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vmemit&#34;&gt;&lt;strong&gt;vm.$emit&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;触发当前实例上的事件。附加参数都会传给监听器回调。&lt;/p&gt;
+&lt;p&gt;配合&lt;code&gt;v-on&lt;/code&gt;使用&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;实例方法生命周期&#34;&gt;实例方法/生命周期&lt;/h2&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vmmount&#34;&gt;&lt;strong&gt;vm.$mount&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;返回值：&lt;code&gt;vm&lt;/code&gt; 实例本身&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;如果 Vue 实例在实例化时没有收到 el 选项，则它处于“未挂载”状态，没有关联的 DOM 元素。可以使用 &lt;code&gt;vm.$mount()&lt;/code&gt; 手动地挂载一个未挂载的实例。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;vm.$forceUpdate()var MyComponent = Vue.extend({  template: &#39;&amp;lt;div&amp;gt;Hello!&amp;lt;/div&amp;gt;&#39;})// 创建并挂载到 #app (会替换 #app)new MyComponent().$mount(&#39;#app&#39;)// 同上new MyComponent({ el: &#39;#app&#39; })// 或者，在文档之外渲染并且随后挂载var component = new MyComponent().$mount()document.getElementById(&#39;app&#39;).appendChild(component.$el)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vmforceupdate&#34;&gt;&lt;strong&gt;vm.$forceUpdate()&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;p&gt;迫使Vue实例重新渲染，&lt;strong&gt;触发updated生命周期&lt;/strong&gt;。&lt;strong&gt;它仅仅影响实例本身和插入插槽内容的子组件，而不是所有子组件。&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vmnexttick&#34;&gt;&lt;strong&gt;vm.$nextTick()&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;将回调延迟到下次DOM更新循环后，用于数据修改后，对DOM操作时候使用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vmdestory&#34;&gt;&lt;strong&gt;vm.$destory()&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;完全销毁一个实例。清理它与其他实例的连接，解绑它的全部指令以及事件监听器。**触发&lt;code&gt;beforeDestory&lt;/code&gt;和&lt;code&gt;destoryed&lt;/code&gt;**的钩子。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;指令&#34;&gt;指令&lt;/h2&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;v-text&#34;&gt;&lt;strong&gt;v-text&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;详细：&lt;/p&gt;
+&lt;p&gt;更新元素的&lt;code&gt;tetxContent&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;span v-text=&amp;quot;msg&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+&amp;lt;!-- 和下面的一样 --&amp;gt;
+&amp;lt;span&amp;gt;{{msg}}&amp;lt;/span&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;v-html&#34;&gt;&lt;strong&gt;v-html&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;详细：&lt;/p&gt;
+&lt;p&gt;更新元素的&lt;code&gt;innnerHTML&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div v-html=&amp;quot;myhtml&amp;quot;&amp;gt; &amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;v-show&#34;&gt;&lt;strong&gt;v-show&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;详细：&lt;/p&gt;
+&lt;p&gt;切换元素的&lt;code&gt;display&lt;/code&gt;，当条件变化时该指令触发过渡效果。&lt;/p&gt;
+&lt;p&gt;更适合用于组件频繁切换显示与隐藏。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;v-if&#34;&gt;&lt;strong&gt;v-if&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;在切换时元素及它的数据绑定 / 组件被销毁并重建。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当和 &lt;code&gt;v-if&lt;/code&gt; 一起使用时，&lt;code&gt;v-for&lt;/code&gt; 的优先级比 &lt;code&gt;v-if&lt;/code&gt; 更高。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;v-else&#34;&gt;&lt;strong&gt;v-else&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;配合&lt;code&gt;v-if&lt;/code&gt;或者&lt;code&gt;v-else-if&lt;/code&gt;使用&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;v-for&#34;&gt;&lt;strong&gt;v-for&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;用于多次渲染元素或模块化。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div v-for=&amp;quot;(item, index) in items&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div v-for=&amp;quot;(val, key) in object&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div v-for=&amp;quot;(val, name, index) in object&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;v-on&#34;&gt;&lt;strong&gt;v-on&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;缩写：&lt;code&gt;@&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;修饰符：
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.stop&lt;/code&gt; - 调用 &lt;code&gt;event.stopPropagation()&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.prevent&lt;/code&gt; - 调用 &lt;code&gt;event.preventDefault()&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.capture&lt;/code&gt; - 添加事件侦听器时使用 capture 模式。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.self&lt;/code&gt; - 只当事件是从侦听器绑定的元素本身触发时才触发回调。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.{keyCode | keyAlias}&lt;/code&gt; - 只当事件是从特定键触发时才触发回调。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.native&lt;/code&gt; - 监听组件根元素的原生事件。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.once&lt;/code&gt; - 只触发一次回调。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.left&lt;/code&gt; - (2.2.0) 只当点击鼠标左键时触发。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.right&lt;/code&gt; - (2.2.0) 只当点击鼠标右键时触发。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.middle&lt;/code&gt; - (2.2.0) 只当点击鼠标中键时触发。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.passive&lt;/code&gt; - (2.3.0) 以 &lt;code&gt;{ passive: true }&lt;/code&gt; 模式添加侦听器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;v-bind&#34;&gt;&lt;strong&gt;v-bind&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;缩写：&lt;code&gt;:&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;修饰符：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.prop&lt;/code&gt; - 作为一个 DOM property 绑定而不是作为 attribute 绑定。(&lt;a href=&#34;https://stackoverflow.com/questions/6003819/properties-and-attributes-in-html#answer-6004028&#34;&gt;差别在哪里？&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.camel&lt;/code&gt; - (2.1.0+) 将 kebab-case attribute 名转换为 camelCase。(从 2.1.0 开始支持)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.sync&lt;/code&gt; (2.3.0+) 语法糖，会扩展成一个更新父组件绑定值的 &lt;code&gt;v-on&lt;/code&gt; 侦听器。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 绑定一个 attribute --&amp;gt;&amp;lt;img v-bind:src=&amp;quot;imageSrc&amp;quot;&amp;gt;&amp;lt;!-- 动态 attribute 名 (2.6.0+) --&amp;gt;&amp;lt;button v-bind:[key]=&amp;quot;value&amp;quot;&amp;gt;&amp;lt;/button&amp;gt;&amp;lt;!-- 缩写 --&amp;gt;&amp;lt;img :src=&amp;quot;imageSrc&amp;quot;&amp;gt;&amp;lt;!-- 动态 attribute 名缩写 (2.6.0+) --&amp;gt;&amp;lt;button :[key]=&amp;quot;value&amp;quot;&amp;gt;&amp;lt;/button&amp;gt;&amp;lt;!-- 内联字符串拼接 --&amp;gt;&amp;lt;img :src=&amp;quot;&#39;/path/to/images/&#39; + fileName&amp;quot;&amp;gt;&amp;lt;!-- class 绑定 --&amp;gt;&amp;lt;div :class=&amp;quot;{ red: isRed }&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div :class=&amp;quot;[classA, classB]&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div :class=&amp;quot;[classA, { classB: isB, classC: isC }]&amp;quot;&amp;gt;&amp;lt;!-- style 绑定 --&amp;gt;&amp;lt;div :style=&amp;quot;{ fontSize: size + &#39;px&#39; }&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;div :style=&amp;quot;[styleObjectA, styleObjectB]&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;!-- 绑定一个全是 attribute 的对象 --&amp;gt;&amp;lt;div v-bind=&amp;quot;{ id: someProp, &#39;other-attr&#39;: otherProp }&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;!-- 通过 prop 修饰符绑定 DOM attribute --&amp;gt;&amp;lt;div v-bind:text-content.prop=&amp;quot;text&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;!-- prop 绑定。“prop”必须在 my-component 中声明。--&amp;gt;&amp;lt;my-component :prop=&amp;quot;someThing&amp;quot;&amp;gt;&amp;lt;/my-component&amp;gt;&amp;lt;!-- 通过 $props 将父组件的 props 一起传给子组件 --&amp;gt;&amp;lt;child-component v-bind=&amp;quot;$props&amp;quot;&amp;gt;&amp;lt;/child-component&amp;gt;&amp;lt;!-- XLink --&amp;gt;&amp;lt;svg&amp;gt;&amp;lt;a :xlink:special=&amp;quot;foo&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/svg&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;v-model&#34;&gt;&lt;strong&gt;v-model&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;限制：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;input&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;select&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;textarea&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;componets&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;修饰符：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;.lazy&lt;/code&gt;：不会实时跟随变化（&lt;code&gt;input事件&lt;/code&gt;），等失焦后变化（&lt;code&gt;change&lt;/code&gt;事件）&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;.number&lt;/code&gt;：输入字符串转化为有效数字。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;.trim&lt;/code&gt;：输入首位空格过滤。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;v-slot&#34;&gt;&lt;strong&gt;v-slot&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;缩写：&lt;code&gt;#&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;提供具名插槽或者需要接收prop的默认插槽。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;!-- 具名插槽 --&amp;gt;&amp;lt;base-layout&amp;gt;  &amp;lt;template v-slot:header&amp;gt;    Header content  &amp;lt;/template&amp;gt;  Default slot content  &amp;lt;template v-slot:footer&amp;gt;    Footer content  &amp;lt;/template&amp;gt;&amp;lt;/base-layout&amp;gt;&amp;lt;!-- 接收 prop 的具名插槽 --&amp;gt;&amp;lt;infinite-scroll&amp;gt;  &amp;lt;template v-slot:item=&amp;quot;slotProps&amp;quot;&amp;gt;    &amp;lt;div class=&amp;quot;item&amp;quot;&amp;gt;      {{ slotProps.item.text }}    &amp;lt;/div&amp;gt;  &amp;lt;/template&amp;gt;&amp;lt;/infinite-scroll&amp;gt;&amp;lt;!-- 接收 prop 的默认插槽，使用了解构 --&amp;gt;&amp;lt;mouse-position v-slot=&amp;quot;{ x, y }&amp;quot;&amp;gt;  Mouse position: {{ x }}, {{ y }}&amp;lt;/mouse-position&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;v-pre&#34;&gt;&lt;strong&gt;v-pre&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;跳过这个节点和子节点的编译过程，可以用来显示原始的Mustache标签，跳过大量没有指令的节点会加快编译。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;span v-pre&amp;gt;{{ this will not be compiled }}&amp;lt;/span&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;v-cloak&#34;&gt;&lt;strong&gt;v-cloak&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;这个指令保持在元素上直到关联实例结束编译。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当网络较慢，网页还在加载 Vue.js ，而导致 Vue 来不及渲染，这时页面就会显示出 Vue 源代码。我们可以使用 v-cloak 指令来解决这一问题&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;[v-cloak] {
+  display: none;
+}
+&amp;lt;div v-cloak&amp;gt;
+  {{ message }}
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;直到编译完成才会显示&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;v-once&#34;&gt;&lt;strong&gt;v-once&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;详细：&lt;/p&gt;
+&lt;p&gt;只渲染元素和组件 &lt;strong&gt;一次&lt;/strong&gt;，随后的渲染，元素和子节点会被当做静态元素并跳过渲染。用于优化性能。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;特殊attribute&#34;&gt;特殊attribute&lt;/h2&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;key&#34;&gt;&lt;strong&gt;key&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;用于vue的虚拟DOM算法中，对于新旧树的差异，使用&lt;code&gt;key&lt;/code&gt;会尽量替代和交换位置，而不是直接修改。&lt;/p&gt;
+&lt;p&gt;如下场景时它可能会很有用：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;完整地触发组件的生命周期钩子&lt;/li&gt;
+&lt;li&gt;触发过渡&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;transition&amp;gt;
+  &amp;lt;span :key=&amp;quot;text&amp;quot;&amp;gt;{{ text }}&amp;lt;/span&amp;gt;
+&amp;lt;/transition&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;当 &lt;code&gt;text&lt;/code&gt; 发生改变时，&lt;code&gt;&amp;lt;span&amp;gt;&lt;/code&gt; 总是会被替换而不是被修改，因此会触发过渡。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;ref&#34;&gt;&lt;strong&gt;ref&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ref&lt;/code&gt;被用来给元素或者子组件注册引用信息。被注册的对象可以在父组件的&lt;code&gt;$refs&lt;/code&gt;对象上使用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- `vm.$refs.p` will be the DOM node --&amp;gt;
+&amp;lt;p ref=&amp;quot;p&amp;quot;&amp;gt;hello&amp;lt;/p&amp;gt;
+
+&amp;lt;!-- `vm.$refs.child` will be the child component instance --&amp;gt;
+&amp;lt;child-component ref=&amp;quot;child&amp;quot;&amp;gt;&amp;lt;/child-component&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;关于 ref 注册时间的重要说明：因为 ref 本身是作为渲染结果被创建的，在初始渲染的时候你不能访问它们 - 它们还不存在！&lt;code&gt;$refs&lt;/code&gt; 也不是响应式的，因此你不应该试图用它在模板中做数据绑定&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;is&#34;&gt;&lt;strong&gt;is&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;用于动态组件且基于DOM内模板的限制来工作。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;    &amp;lt;!-- 当 `currentView` 改变时，组件也跟着改变 --&amp;gt;    &amp;lt;component v-bind:is=&amp;quot;currentView&amp;quot;&amp;gt;&amp;lt;/component&amp;gt;    &amp;lt;!-- 这样做是有必要的，因为 `&amp;lt;my-row&amp;gt;` 放在一个 --&amp;gt;    &amp;lt;!-- `&amp;lt;table&amp;gt;` 内可能无效且被放置到外面 --&amp;gt;    &amp;lt;table&amp;gt;      &amp;lt;tr is=&amp;quot;my-row&amp;quot;&amp;gt;&amp;lt;/tr&amp;gt;	&amp;lt;/table&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;内置的组件&#34;&gt;内置的组件&lt;/h2&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;component&#34;&gt;&lt;strong&gt;component&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;渲染一个“元组件”为动态组件。依 &lt;code&gt;is&lt;/code&gt; 的值，来决定哪个组件被渲染。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 动态组件由 vm 实例的 `componentId` property 控制 --&amp;gt;&amp;lt;component :is=&amp;quot;componentId&amp;quot;&amp;gt;&amp;lt;/component&amp;gt;&amp;lt;!-- 也能够渲染注册过的组件或 prop 传入的组件 --&amp;gt;&amp;lt;component :is=&amp;quot;$options.components.child&amp;quot;&amp;gt;&amp;lt;/component&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;keep-alive&#34;&gt;&lt;strong&gt;keep-alive&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;props:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;include&lt;/code&gt;  -字符或者正则表达式。只有匹配的组件会被缓存。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;exclude&lt;/code&gt;  -字符串或正则表达式。匹配的组件将&lt;strong&gt;不会被缓存&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;max&lt;/code&gt; -数字。最多可以缓存多少组件实例。一旦这个数字达到了，在新实例被创建之前，已缓存组件中最久没有被访问的实例会被销毁掉。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt; 	// 1. 将缓存 name 为 test 的组件  	&amp;lt;keep-alive include=&#39;test&#39;&amp;gt;      &amp;lt;router-view/&amp;gt;    &amp;lt;/keep-alive&amp;gt;	// 2. 将不缓存 name 为 test 的组件	&amp;lt;keep-alive exclude=&#39;test&#39;&amp;gt;  	  &amp;lt;router-view/&amp;gt;	&amp;lt;/keep-alive&amp;gt;	// 3. 使用正则表达式，需使用 v-bind	&amp;lt;keep-alive :include=&#39;/a|b/&#39;&amp;gt;  	  &amp;lt;router-view/&amp;gt;	&amp;lt;/keep-alive&amp;gt;	
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;keep-alive&amp;gt;&lt;/code&gt;包裹的动态组件时，会缓存不活动的组件实例，而不是销毁它们。&lt;/p&gt;
+&lt;p&gt;当组件在&lt;code&gt;kepp-alive&lt;/code&gt;里面切换时，会触发&lt;code&gt;activated&lt;/code&gt;和&lt;code&gt;deactivated&lt;/code&gt;生命周期函数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;transition&#34;&gt;&lt;strong&gt;transition&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;props:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;name&lt;/code&gt;：用于自动生成CSS过度类名。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;appear&lt;/code&gt;：是否在过度时使用渲染。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;css&lt;/code&gt;：是否使用CSS过度类。&lt;/p&gt;
+&lt;img src=&#34;https://www.runoob.com/wp-content/uploads/2018/06/transition.png&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;enter-class&lt;/code&gt; - string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;leave-class&lt;/code&gt; - string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;appear-class&lt;/code&gt; - string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;enter-to-class&lt;/code&gt; - string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;leave-to-class&lt;/code&gt; - string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;appear-to-class&lt;/code&gt; - string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;enter-active-class&lt;/code&gt; - string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;leave-active-class&lt;/code&gt; - string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;appear-active-class&lt;/code&gt; - string&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;type&lt;/code&gt;：指定过度事件类型，侦听过渡何时结束。有效值为 &lt;code&gt;&amp;quot;transition&amp;quot;&lt;/code&gt; 和 &lt;code&gt;&amp;quot;animation&amp;quot;&lt;/code&gt;。默认 Vue.js 将自动检测出持续时间长的为过渡事件类型。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mode&lt;/code&gt;：控制离开/进入过度的时间序列。有效的模式有&lt;code&gt;out-in&lt;/code&gt;和&lt;code&gt;in-out&lt;/code&gt;；默认同时进行。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;duration&lt;/code&gt;：{ &lt;code&gt;enter&lt;/code&gt;: number, &lt;code&gt;leave&lt;/code&gt;: number } 指定过渡的持续时间。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;事件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;before-enter&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;before-leave&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;before-appear&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;enter&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;leave&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;appear&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;after-enter&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;after-leave&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;after-appear&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;enter-cancelled&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;leave-cancelled&lt;/code&gt; (&lt;code&gt;v-show&lt;/code&gt; only)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;appear-cancelled&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;transition&amp;gt;&lt;/code&gt; 元素作为&lt;strong&gt;单个&lt;/strong&gt;元素/组件的过渡效果&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;transition&amp;gt;&lt;/code&gt; 只会把过渡效果应用到其包裹的内容上，而不会额外渲染 DOM 元素，也不会出现在可被检查的组件层级中。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 简单元素 --&amp;gt;
+&amp;lt;transition&amp;gt;
+  &amp;lt;div v-if=&amp;quot;ok&amp;quot;&amp;gt;toggled content&amp;lt;/div&amp;gt;
+&amp;lt;/transition&amp;gt;
+
+&amp;lt;!-- 动态组件 --&amp;gt;
+&amp;lt;transition name=&amp;quot;fade&amp;quot; mode=&amp;quot;out-in&amp;quot; appear&amp;gt;
+  &amp;lt;component :is=&amp;quot;view&amp;quot;&amp;gt;&amp;lt;/component&amp;gt;
+&amp;lt;/transition&amp;gt;
+
+&amp;lt;!-- 事件钩子 --&amp;gt;
+&amp;lt;div id=&amp;quot;transition-demo&amp;quot;&amp;gt;
+  &amp;lt;transition @after-enter=&amp;quot;transitionComplete&amp;quot;&amp;gt;
+    &amp;lt;div v-show=&amp;quot;ok&amp;quot;&amp;gt;toggled content&amp;lt;/div&amp;gt;
+  &amp;lt;/transition&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;new Vue({  ...  methods: {    transitionComplete: function (el) {      // 传入 &#39;el&#39; 这个 DOM 元素作为参数。    }  }  ...}).$mount(&#39;#transition-demo&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;transiton-group&#34;&gt;&lt;strong&gt;transiton-group&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;props&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;tag&lt;/code&gt; - string，默认为 &lt;code&gt;span&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;move-class&lt;/code&gt; - 覆盖移动过渡期间应用的 CSS 类。&lt;/li&gt;
+&lt;li&gt;除了 &lt;code&gt;mode&lt;/code&gt;，其他 attribute 和 &lt;code&gt;&amp;lt;transition&amp;gt;&lt;/code&gt; 相同。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;事件&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;事件和 &lt;code&gt;&amp;lt;transition&amp;gt;&lt;/code&gt; 相同。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;用法&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;transition-group&amp;gt;&lt;/code&gt; 元素作为多个元素/组件的过渡效果。&lt;code&gt;&amp;lt;transition-group&amp;gt;&lt;/code&gt; 渲染一个真实的 DOM 元素。默认渲染 &lt;code&gt;&amp;lt;span&amp;gt;&lt;/code&gt;，可以通过 &lt;code&gt;tag&lt;/code&gt; attribute 配置哪个元素应该被渲染。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;transition-group tag=&amp;quot;ul&amp;quot; name=&amp;quot;slide&amp;quot;&amp;gt;
+  &amp;lt;li v-for=&amp;quot;item in items&amp;quot; :key=&amp;quot;item.id&amp;quot;&amp;gt;
+    {{ item.text }}
+  &amp;lt;/li&amp;gt;
+&amp;lt;/transition-group&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;br&gt;
 ">VUE 2.x  全局API</a>
       </div>
       

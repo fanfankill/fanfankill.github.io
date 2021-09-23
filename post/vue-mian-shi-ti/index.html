@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>CSS度量单位 rem、em、vw、vh | fanfan</title>
+<title>vue面试题 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1632395317169">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="CSS度量单位 rem、em、vw、vh" />
-  <meta name="keywords" content="css" />
+  <meta name="description" content="vue面试题" />
+  <meta name="keywords" content="题目,vue" />
 </head>
 
 <body>
@@ -297,10 +297,26 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#em"><strong>em</strong></a></li>
-<li><a href="#rem"><strong>rem</strong></a></li>
-<li><a href="#vw-%E5%92%8C-vh"><strong>vw 和 vh</strong></a></li>
-<li><a href="#vmin-%E5%92%8C-vmax"><strong>vmin 和 vmax</strong></a></li>
+<li><a href="#%E9%9D%A2%E8%AF%95%E9%A2%98">面试题</a>
+<ul>
+<li><a href="#vue%E6%98%AF%E5%AE%8C%E5%85%A8%E7%9A%84mvvm%E6%A8%A1%E5%9E%8B%E5%90%97"><strong>Vue是完全的MVVM模型吗？</strong></a></li>
+<li><a href="#vue%E7%9A%84%E5%8D%95%E9%A1%B9%E6%95%B0%E6%8D%AE%E6%B5%81"><strong>Vue的单项数据流</strong></a></li>
+<li><a href="#vue%E7%9A%84%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><strong>Vue的父子组件生命周期钩子函数执行顺序</strong></a></li>
+<li><a href="#mvc%E5%92%8Cmvvm%E5%8C%BA%E5%88%AB"><strong>MVC和MVVM区别</strong></a>
+<ul>
+<li><a href="#mvc">MVC</a></li>
+<li><a href="#mvvm">MVVM</a></li>
+</ul>
+</li>
+<li><a href="#diff%E7%AE%97%E6%B3%95"><strong>diff算法</strong></a></li>
+<li><a href="#%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A"><strong>双向绑定</strong></a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A">什么是双向绑定</a></li>
+<li><a href="#%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86">双向绑定原理</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -568,8 +584,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/css-du-liang-dan-wei-rememvwvh/">
-      CSS度量单位 rem、em、vw、vh
+    <a class="post-title-link" href="https://fanfankill.github.io/post/vue-mian-shi-ti/">
+      vue面试题
     </a>
   </h1>
   <div class="post-meta">
@@ -577,7 +593,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-07-10 21:42:52">2021-07-10</span>
+      <span class="publish-time" data-t="2021-09-23 19:08:16">2021-09-23</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -586,8 +602,14 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://fanfankill.github.io/tag/SPTV9Qrgr/">
-        <span>css</span>
+      <a href="https://fanfankill.github.io/tag/RyHRU5tQB/">
+        <span>题目</span>
+      </a>、
+      
+      
+      
+      <a href="https://fanfankill.github.io/tag/YjLqWgkox/">
+        <span>vue</span>
       </a>
       
       
@@ -596,76 +618,88 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>2<span class="language" data-lan="minute">分钟</span></span>
+      <span>3<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>425<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>737<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1625924625206.png" alt="" loading="lazy"></figure>
-<h2 id="em"><strong>em</strong></h2>
-<p>继承父元素大小关系，2em 则为父元素大小的两倍  受自己上级节点影响</p>
-<pre><code class="language-html">&lt;div class=&quot;div&quot; style=&quot;font-size:20px;&quot;&gt;div 标签中的文字大小为 20px
-&lt;p class=&quot;p&quot; style=&quot;font-size:2em&quot;&gt;P 标签中的文字大小为 2em
-&lt;/p&gt;
-&lt;/div&gt;
-</code></pre>
-<p>效果如下<br>
-<br></p>
-<style>
-.div{font-size:20px;}
-.p{font-size:2em;}
-.span{font-size:0.5em;}
-</style>
-<div class="div" style="font-size:20px;">div 标签中的文字大小为 20px
-<p class="p" style="font-size:2em">P 标签中的文字大小为 2em
-    <span class="span" style="font-size:.5em">span标签中的文字大小为0.5em</span>
-</p>
-</div>
+              <h2 id="面试题">面试题</h2>
 <br>
-<h2 id="rem"><strong>rem</strong></h2>
-<p>就是相对于根节点来进行缩放，如果有嵌套的关<br>
-系，嵌套关系的元素的字体大小始终按照根节点的字体大小进行缩放</p>
-<pre><code class="language-html">&lt;style&gt;
-html{font-size:16px;}
-.div{font-size:30px;background-color:pink;padding:50px;}
-.p{font-size:1rem;}
-.span{font-size:0.5rem;}
-&lt;/style&gt;
-
-&lt;div class=&quot;div&quot;&gt;div 标签中的文字大小为 30px
-&lt;p class=&quot;p&quot;&gt;P 标签中的文字大小为 1rem
-&lt;span class=&quot;span&quot;&gt;span 标 签 中 的 文 字 大 小 为
-0.5rem&lt;/span&gt;
-&lt;/p&gt;
-&lt;/div&gt;
-</code></pre>
-<div class="div" style="font-size:30px">div 标签中的文字大小为 30px
-<p class="p" style="font-size:1rem;">P 标签中的文字大小为 1rem
-<span class="span" style="font-size:.5rem">span 标 签 中 的 文 字 大 小 为
-0.5rem</span>
-</p>
-</div>
-<p><strong>这个rem继承的是html的font-size  默认为16px 这才是根节点</strong></p>
+<h3 id="vue是完全的mvvm模型吗"><strong>Vue是完全的MVVM模型吗？</strong></h3>
+<p>严格的MVVVM要求View不能和Model直接通信，而Vue提供了$refs这个属性，让Model可以直接操作View，违反了这一规定，所以是Vue没有完全遵循MVVM。</p>
 <br>
+<h3 id="vue的单项数据流"><strong>Vue的单项数据流</strong></h3>
+<p>所有的 prop 都使得其父子 prop 之间形成了一个单向下行绑定：父<strong>级 prop 的更新会向下流动到子组件中，但是反过来则不行</strong>。这样会防止从子组件意外改变父级组件的状态，从而导致你的应用的数据流向难以理解。</p>
 <br>
-<h2 id="vw-和-vh"><strong>vw 和 vh</strong></h2>
-<p>视窗的宽度和高度，相当于屏幕宽度和高度的 1%</p>
-<p>处理宽度的时候%单位更合适，处理高度的话 vh 单位更好<br>
-<br></p>
-<h2 id="vmin-和-vmax"><strong>vmin 和 vmax</strong></h2>
-<p>关于视口高度和宽度两者的最小值或者最大值。</p>
-<p>如果你要让这个元素始终铺满整个视口的可见区域：</p>
-<pre><code class="language-css">.box { 
-height: 100vmax; 
-width: 100vmax;
-}
-</code></pre>
+<h3 id="vue的父子组件生命周期钩子函数执行顺序"><strong>Vue的父子组件生命周期钩子函数执行顺序</strong></h3>
+<ul>
+<li>
+<p>加载渲染过程</p>
+</li>
+<li>
+<p>父beforeCreate -&gt; 父created -&gt; 父beforeMount -&gt; 子beforeCreate -&gt; 子created -&gt; 子beforeMount -&gt; 子mounted -&gt; 父mounted</p>
+</li>
+<li>
+<p>子组件更新过程</p>
+</li>
+<li>
+<p>父beforeUpdate -&gt; 子beforeUpdate -&gt; 子updated -&gt; 父updated</p>
+</li>
+<li>
+<p>父组件更新过程</p>
+</li>
+<li>
+<p>父beforeUpdate -&gt; 父updated</p>
+</li>
+<li>
+<p>销毁过程</p>
+</li>
+<li>
+<p>父beforeDestroy -&gt; 子beforeDestroy -&gt; 子destroyed -&gt; 父destroyed</p>
+</li>
+</ul>
+<br>
+<h3 id="mvc和mvvm区别"><strong>MVC和MVVM区别</strong></h3>
+<h4 id="mvc">MVC</h4>
+<p>MVC是model view controller</p>
+<img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy90dFZXdXJMb0dWaWFkeUV6WllDRWlhbXIxSWhKaWNlMUpGUXlCaEQ1Q2RQSHA0RllnRXVVVGVaRDk0RzdKYUNHS3BYNGhpYTdibm1rcU9Fbk5FcEppYUhCaWJSUS82NDA?x-oss-process=image/format,png#pic_center">
+<p><strong>MVC的思想</strong>：Controller负责将Model的数据用View显示出来，换句话说就是在Controller里面把Model的数据赋值给View。</p>
+<p><strong>MVC的特点</strong>：实现关注点分离，即应用程序中的数据模型与业务和展示逻辑解耦。就是将模型和视图之间实现代码分离，松散耦合，使之成为一个更容易开发、维护和测试的客户端应用程序。</p>
+<p>一般用于中大型项目开发。</p>
+<h4 id="mvvm">MVVM</h4>
+<p>MVVM是Model-View-ViewModel的简写，即模型-视图-视图模型。</p>
+<img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy90dFZXdXJMb0dWaWFkeUV6WllDRWlhbXIxSWhKaWNlMUpGUW9CN2M3QjlDZ0NQSDIzYVV4QjBnNzI5WkNVMERWbnBJZEh3Mzl0aWJWNlJJdWpwdEFET1VIaWJnLzY0MA?x-oss-process=image/format,png#pic_center">
+<p>它有两个方向：</p>
+<ul>
+<li>一是将模型转化成视图，即将后端传递的数据转化成所看到的页面。实现的方式是：数据绑定。</li>
+<li>二是将视图转化成模型，即将所看到的页面转化成后端的数据。实现的方式是：DOM 事件监听。</li>
+</ul>
+<p>这两个方向都实现的，就是数据的双向绑定。</p>
+<br>
+<h3 id="diff算法"><strong>diff算法</strong></h3>
+<img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9e3c68d1b0884d9ca0f8ffc5ee64a28e~tplv-k3u1fbpfcp-watermark.image">
+<br>
+<h3 id="双向绑定"><strong>双向绑定</strong></h3>
+<br>
+<h4 id="什么是双向绑定">什么是双向绑定</h4>
+<p>单项绑定就是通过Model去改变view。</p>
+<p>当实现用户更新view，model的数据也自动被更新就实现了双向绑定。</p>
+<p>例如当用户填写表单时候改变了view，Model的数据也被自动更新了，这就实现了双向绑定。</p>
+<br>
+<h4 id="双向绑定原理">双向绑定原理</h4>
+<img src="https://img.bosszhipin.com/beijin/cms/6c155f92bf101d7f3474c8db1dc5a5f2ceb4162adcce9c8ed358cb008b64ac2a92d08620afbe4bc5b07a8d61e4550181.png?x-oss-process=image/quality,q_60">
+<p>vue采用的是 <strong>数据劫持</strong>结合 <strong>发布-订阅模式</strong></p>
+<p>通过ES5的 <code>Object.defineProperty()</code>的<code>get</code>和<code>set</code>来进行数据的劫持。</p>
+<p>1.实现一个监听器Observer，用来劫持并监听所有属性，如果有变动的，就通知订阅者。</p>
+<p>2.实现一个订阅者Watcher，可以收到属性的变化通知并执行相应的函数，从而更新视图。</p>
+<p>3.实现一个解析器Compile，可以扫描和解析每个节点的相关指令，并根据初始化模板数据以及初始化相应的订阅器。</p>
+<p>需要自己动手实现代码</p>
 
             </div>
             
@@ -678,7 +712,7 @@ width: 100vmax;
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/css-du-liang-dan-wei-rememvwvh/" title="CSS度量单位 rem、em、vw、vh">https://fanfankill.github.io/post/css-du-liang-dan-wei-rememvwvh/</a>
+      <a href="https://fanfankill.github.io/post/vue-mian-shi-ti/" title="vue面试题">https://fanfankill.github.io/post/vue-mian-shi-ti/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -687,21 +721,19 @@ width: 100vmax;
   </ul>
   <div class="tags">
     
-      <a href="https://fanfankill.github.io/tag/SPTV9Qrgr/"># css</a>
+      <a href="https://fanfankill.github.io/tag/RyHRU5tQB/"># 题目</a>
+    
+      <a href="https://fanfankill.github.io/tag/YjLqWgkox/"># vue</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title=" 媒体查询" href="https://fanfankill.github.io/post/mei-ti-cha-xun/"> 媒体查询</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title=" 媒体查询" href="https://fanfankill.github.io/post/mei-ti-cha-xun/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="图片懒加载" href="https://fanfankill.github.io/post/tu-pian-lan-jia-zai/">图片懒加载</a>
-        <a class="nav-mobile-next" title="图片懒加载" href="https://fanfankill.github.io/post/tu-pian-lan-jia-zai/">下一篇</a>
+        <a class="nav-pc-next" title="自我总结：当地址栏输入一个URL会发生什么？" href="https://fanfankill.github.io/post/zi-wo-zong-jie-dang-di-zhi-lan-shu-ru-yi-ge-url-hui-fa-sheng-shi-me/">自我总结：当地址栏输入一个URL会发生什么？</a>
+        <a class="nav-mobile-next" title="自我总结：当地址栏输入一个URL会发生什么？" href="https://fanfankill.github.io/post/zi-wo-zong-jie-dang-di-zhi-lan-shu-ru-yi-ge-url-hui-fa-sheng-shi-me/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
