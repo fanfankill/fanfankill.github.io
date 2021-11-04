@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1632395354739">
+<link rel="shortcut icon" href="/favicon.ico?v=1636031693780">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -244,7 +244,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">85</span>
+        <span class="site-item-stat-count">86</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1169,6 +1169,200 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-xiang-ying-shi-guo-cheng/"" data-c="
+          &lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt;
+    &amp;lt;meta http-equiv=&amp;quot;X-UA-Compatible&amp;quot; content=&amp;quot;IE=edge&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1.0&amp;quot;&amp;gt;
+    &amp;lt;title&amp;gt;Document&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+    &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt;
+        &amp;lt;input v-model=&amp;quot;fanfan&amp;quot;&amp;gt;{{fanfan}} 
+        
+    &amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&amp;lt;script&amp;gt;
+    function mycompile(el,vm) {
+        //传入节点
+        let node=el
+        //进行子节点处理
+        this.frag=this.nodefragment(node,vm)
+
+        return this.frag
+
+    }
+
+
+    mycompile.prototype.nodefragment=function(node,vm){
+        let flag=document.createDocumentFragment()
+        let child
+
+        while (child=node.firstChild) {
+             
+
+                //对每个子节点的input和{{}}进行识别
+                this.compileElement(child,vm)
+                //对于嵌套的进行递归
+                if(child.firstChild){
+               
+                   flag.append(this.nodefragment(child,vm)) 
+                }
+
+                flag.append(child)
+        }
+
+        return flag
+    }
+
+    mycompile.prototype.compileElement=function(node,vm){
+
+        var reg = /\{\{(.*)\}\}/;
+
+      
+        if(node.nodeType == 1) {
+                    var attr = node.attributes;
+                    // 解析属性
+                    for(var i = 0; i &amp;lt; attr.length; i++ ) {
+                        if(attr[i].nodeName == &#39;v-model&#39;) {
+                            var name = attr[i].nodeValue; // 获取v-model绑定的属性名
+                            
+                            node.addEventListener(&#39;input&#39;, function(e) {
+                                // 给相应的data属性赋值，进而触发该属性的set方法
+                                vm[name]=e.target.value
+                                console.log(e.target.value);
+                              
+                            });
+                            // node.value = vm[name]; // 将data的值赋给该node
+                            new Watch(vm, node, name, &#39;value&#39;);
+
+                        }
+                    }
+                }
+
+            if(node.nodeType==3) //文本节点
+            {
+                if(reg.test(node.nodeValue)){
+                    //key值
+                    let name=RegExp.$1
+                    //识别出来后进行data值的替换
+                    node.nodeValue=vm[name]
+                    //要进行双向绑定的联系 让vm里面值改变的时候也通知{{}}改变 通过watch进行收集 dep进行订阅 到时候改变就会dep进行发布
+                    new Watch(vm,node,name,&#39;nodeValue&#39;)
+                }      
+            }
+    }
+   
+    //对于vue对象 需要进行data的响应式绑定和dom树的模板解析
+   function myvue(options){
+        this.data=options.data
+        this.el=options.el
+        observer(this.data,this)
+        let dom= new mycompile(document.getElementById(this.el),this)
+        document.getElementById(this.el).appendChild(dom);
+   }
+
+   function observer(obj,vm){
+        Object.keys(obj).forEach((v)=&amp;gt;{
+            
+            defineReactive(vm,v,obj[v])
+
+        })
+   }
+
+   function defineReactive(obj,key,value){
+        var dep = new Dep();
+
+        //如果是对象的话 还要进行递归响应式 并且将其挂载在对应的对象上
+        if(  Object.prototype.toString.call(value)==&#39;[object Object]&#39;){
+                observer(value,value)
+        }
+
+        Object.defineProperty(obj,key,{
+             get: function() {
+                 console.log(&#39;get&#39;);
+                    //添加订阅者watcher到主题对象Dep
+                    if(Dep.target) {
+                        console.log(&#39;推入&#39;);
+                        console.log(Dep.target);
+                        // JS的浏览器单线程特性，保证这个全局变量在同一时间内，只会有同一个监听器使用
+                        dep.depend(Dep.target);
+                    }
+                    //返回后作为vue实例上的属性
+                   return value; 
+                },
+
+            set:function(newvalue){
+                console.log(&#39;set&#39;);
+               
+                if(newvalue === value) return;
+                    value = newvalue;
+                        // 作为发布者发出通知
+                        dep.notify();
+                }  
+        })
+   }
+
+
+   function Watch(vm,node,name,type){
+
+            Dep.target=this
+            this.vm=vm
+            this.node=node
+            this.name=name
+            this.type=type
+            //触发更新
+            this.update()
+            Dep.target=null
+
+   }
+   Watch.prototype.update=function(){
+    //触发vm的get函数 把这个watch推入观察者 ！！！
+    this.node[this.type]=this.vm[this.name]
+   }
+
+   function Dep(){
+
+    this.subscribes=[]
+
+   }
+   
+    Dep.prototype.depend=function(dep){
+        this.subscribes.push(dep)
+    }
+
+    Dep.prototype.notify=function(dep){
+        this.subscribes.forEach((sub)=&amp;gt;{
+            sub.update()
+        })
+    }
+
+ 
+
+   let vm=new myvue({
+       el:&#39;app&#39;,
+       data:{
+            fanfan:&#39;挂载fan&#39;,
+            xixi:&#39;我&#39;,
+            myobj:{
+                one:&#39;1&#39;,
+                two:&#39;2&#39;
+            },
+       },
+      
+   })
+
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;通过监听DOM里面的input的键入操作，如果有v-model的属性就会改变vm对象中对应的属性值。触发set操作。&lt;/p&gt;
+&lt;p&gt;然后通知Dep去更改视图。&lt;/p&gt;
+"> Vue响应式过程</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/promise-fang-fa-shou-xie-da-fa/"" data-c="
@@ -3192,7 +3386,8 @@ onClick()
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/js-shi-xian-objectcreateobjectassign/"" data-c="
-          &lt;p&gt;可以接受两个参数&lt;/p&gt;
+          &lt;h2 id=&#34;objectcreate&#34;&gt;&lt;code&gt;Object.create()&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;可以接受两个参数&lt;/p&gt;
 &lt;p&gt;第一个参数是作为创建对象的原型，第二个参数是要创建的对象，默认空对象&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-&amp;lt;js&#34;&gt;//简略版
 function myCreate(obj){
@@ -3200,7 +3395,7 @@ function myCreate(obj){
     function C(){};
     // 将函数的原型指向obj
     C.prototype = obj;
-    // 返回这个函数的实力化对象
+    // 返回这个函数的实例化对象
     return new C()
 }
 &lt;/code&gt;&lt;/pre&gt;
@@ -3532,7 +3727,7 @@ function people (age,name){
 //实现部分
 people.prototype=Object.create(person.prototype)
 //弥补因重写原型而失去的默认的 constructor 属性
-person.prototype.constructor=person
+people.prototype.constructor=people
 
 person.prototype.addcolor=function(arr){
     
@@ -9179,7 +9374,7 @@ alert(person.friends); //&amp;quot;Shelby,Court,Van,Rob,Barbie
 &lt;p&gt;包含引用类型值的属性始终都会共享相应的值，没做到期望的效果&lt;/p&gt;
 &lt;br&gt;
 &lt;h3 id=&#34;寄生式继承&#34;&gt;寄生式继承&lt;/h3&gt;
-&lt;p&gt;寄生式继承的思路与寄生构造函数和工厂模式类似，即创建一个仅用于封装继承过程的函数，该 函数在内部以某种方式来&lt;strong&gt;增强对象&lt;/strong&gt;，最后再像真地是它做了所有工作一样返回对象。&lt;/p&gt;
+&lt;p&gt;寄生式继承的思路与寄生构造函数和工厂模式类似，即创建一个仅用于封装继承过程的函数，该函数在内部以某种方式来&lt;strong&gt;增强对象&lt;/strong&gt;，最后再像真地是它做了所有工作一样返回对象。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function createAnother(original){ 
  var clone = object(original); //通过调用函数创建一个新对象
     
@@ -9192,7 +9387,7 @@ alert(person.friends); //&amp;quot;Shelby,Court,Van,Rob,Barbie
 &lt;/code&gt;&lt;/pre&gt;
 &lt;br&gt;
 &lt;h3 id=&#34;寄生组合式继承&#34;&gt;寄生组合式继承&lt;/h3&gt;
-&lt;p&gt;高效率体现在它只调用了一次 SuperType 构造函数&lt;/p&gt;
+&lt;p&gt;高效率体现在它只调用了一次 SuperType 构造函数，防止了原生链和构造函数都有相同的属性。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function object(o){ 
  function F(){} 
  F.prototype = o; 
