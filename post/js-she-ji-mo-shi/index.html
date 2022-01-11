@@ -9,7 +9,7 @@
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
 <title>JS设计模式 | fanfan</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1636031693780">
+<link rel="shortcut icon" href="/favicon.ico?v=1641910445488">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -244,7 +244,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">86</span>
+        <span class="site-item-stat-count">89</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1171,6 +1171,288 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
     <div class="result" id="result">
       
       <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/tag-zu-jian-kai-fa-ji-lu/"" data-c="
+          &lt;h2 id=&#34;组件构成&#34;&gt;组件构成&lt;/h2&gt;
+&lt;h3 id=&#34;tag&#34;&gt;&lt;code&gt;tag&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;饿了吗官方是jsx写法，不会写，用vue提供的render函数写会编译更加快，但写起来没那么好理解。&lt;/p&gt;
+&lt;p&gt;依旧使用&lt;code&gt;templete&lt;/code&gt;模板编写，这样的总体难度偏低&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;tag&lt;/code&gt;提供两个事件&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;@close&lt;/code&gt;和&lt;code&gt;@click&lt;/code&gt;事件&lt;/p&gt;
+&lt;p&gt;在组件中就要进行事件注册和回调&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;this.$emit(&#39;close&#39;,event)&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;代码&#34;&gt;代码&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;template&amp;gt;
+ &amp;lt;transition name=&amp;quot;el-zoom-in-center&amp;quot;&amp;gt;
+    &amp;lt;span
+  class=&#39;el-tag &#39;
+  :class=&amp;quot;[
+      this.type?`el-tag--${type}`:&#39;&#39;,
+      `el-tag--${effect}`
+  ]&amp;quot;&amp;gt;
+      &amp;lt;slot&amp;gt;&amp;lt;/slot&amp;gt;
+      &amp;lt;i 
+      @click=&amp;quot;handleclose&amp;quot;
+      v-show=&amp;quot;closable&amp;quot;
+      class=&#39;el-tag__close el-icon-close&#39;&amp;gt; 
+
+      &amp;lt;/i&amp;gt;
+  &amp;lt;/span&amp;gt;
+ &amp;lt;/transition&amp;gt;
+&amp;lt;/template&amp;gt;
+&amp;lt;script&amp;gt;
+export default {
+  name: &amp;quot;FanTag&amp;quot;,
+  props: {
+    closable: {
+      type: Boolean,
+      default: false,
+    },
+
+    type: String,
+    size: String,
+
+    effect:{
+      type:String,
+      default:&#39;light&#39;
+    }
+  },
+
+  methods:{
+    handleclose(event){
+      console.log(event);
+        event.stopPropagation();
+        this.$emit(&#39;close&#39;, event);
+    }
+  }
+};
+&amp;lt;/script&amp;gt;
+
+&amp;lt;style&amp;gt;
+&amp;lt;/style&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+">Tag组件开发记录</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/breadcrumb-zu-jian-kai-fa-ji-lu/"" data-c="
+          &lt;h2 id=&#34;组件构成&#34;&gt;组件构成&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;breadcrumb&lt;/code&gt;和&lt;code&gt;breadcrumb-item&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;所以需要两个组件文件进行全局注册。&lt;/p&gt;
+&lt;h3 id=&#34;breadcrumb&#34;&gt;&lt;code&gt;breadcrumb&lt;/code&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;fan-breadcrumb separator=&amp;quot;/&amp;quot;&amp;gt;
+	...
+&amp;lt;/fan-breadcrumb&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;props只有一个属性&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;  props:{
+        separator:{
+            type:String,
+            default:&#39;/&#39;
+        }
+    },
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;因为子组件需要这个属性，所以要给子组件传递这个参数。&lt;/p&gt;
+&lt;p&gt;可以采用&lt;code&gt;provide/inject&lt;/code&gt;对子组件进行注册传递参数&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;	//breadcrumb
+    //命名 直接返回这个对象
+    provide(){
+        return{
+            breadcrumbVm:this
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//breadcrumb-item
+ //依赖注入
+    inject:[&#39;breadcrumbVm&#39;],     
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;总代码&#34;&gt;总代码&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;template&amp;gt;
+  &amp;lt;div class=&amp;quot;breadcrumb&amp;quot;&amp;gt;
+    &amp;lt;slot&amp;gt;&amp;lt;/slot&amp;gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/template&amp;gt;
+
+&amp;lt;script&amp;gt;
+export default {
+    name:&#39;FanBreadcrumb&#39;,
+    props:{
+        separator:{
+            type:String,
+            default:&#39;/&#39;
+        }
+    },
+
+    //命名 直接返回这个对象
+    provide(){
+        return{
+            breadcrumbVm:this
+        }
+    }
+
+
+}
+&amp;lt;/script&amp;gt;
+
+&amp;lt;style&amp;gt;
+    /**处理最后一个也有样式的问题*/
+.breadcrumb .breadcrumb-item:last-child .breadcrumb-separator{
+        display: none;
+}
+&amp;lt;/style&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;breadcrumb-item&#34;&gt;&lt;code&gt;breadcrumb-item&lt;/code&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;fan-breadcrumb separator=&amp;quot;/&amp;quot;&amp;gt;
+	&amp;lt;fan-breadcrumb-item :to=&amp;quot;{ path: &#39;/&#39; }&amp;quot;&amp;gt;
+		
+	&amp;lt;/fan-breadcrumb-item&amp;gt;
+&amp;lt;/fan-breadcrumb&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;需要接收&lt;code&gt;to&lt;/code&gt;属性，带有这个属性的组件会有被选中的颜色区别&lt;/p&gt;
+&lt;p&gt;用&lt;code&gt;inject&lt;/code&gt;来接收&lt;code&gt;provide&lt;/code&gt;注入的内容&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;inject:[&#39;breadcrumbVm&#39;]&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;总代码-2&#34;&gt;总代码&lt;/h4&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;template&amp;gt;
+&amp;lt;span class=&amp;quot;breadcrumb-item&amp;quot;&amp;gt;
+     &amp;lt;span :class=&amp;quot;[&#39;baselink&#39;,{&#39;is-link&#39;:to.path}]&amp;quot;
+     @click=&amp;quot;handlepath&amp;quot;&amp;gt;
+         &amp;lt;slot&amp;gt;&amp;lt;/slot&amp;gt;
+    &amp;lt;/span&amp;gt;
+
+&amp;lt;span class=&amp;quot;breadcrumb-separator&amp;quot;&amp;gt;{{separator}}&amp;lt;/span&amp;gt;
+&amp;lt;/span&amp;gt;
+&amp;lt;/template&amp;gt;
+
+&amp;lt;script&amp;gt;
+export default {
+    name:&#39;FanBreadcrumbItem&#39;,
+    props:{
+        to:{
+            type:Object,
+            default:()=&amp;gt;({})
+        }
+    },
+    data() {
+        return {
+            separator:&#39;&#39;
+        }
+    },
+    methods:{
+        handlepath(){
+            const {$router ,to}=this
+            if(!to.path) return
+            console.log(to.path);
+            if($router) $router.push(to.path)
+        }
+    },
+    //依赖注入
+    inject:[&#39;breadcrumbVm&#39;],
+
+    mounted(){
+        console.log(this.breadcrumbVm.separator);
+       this.separator=this.breadcrumbVm.separator
+    },
+
+
+}
+&amp;lt;/script&amp;gt;
+
+&amp;lt;style&amp;gt;
+.breadcrumb-separator{
+      margin: 0 9px;
+    font-weight: 700;
+    color: #c0c4cc;
+}
+
+/**基本样式 */
+.baselink{
+        color: #606266;
+}
+
+.is-link{
+    cursor: pointer;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color .2s cubic-bezier(.645,.045,.355,1);
+    color: #303133;
+}
+.is-link:hover{
+    color: rgb(184, 184, 197);
+}
+  
+&amp;lt;/style&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+"> Breadcrumb组件开发记录</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/shou-xie-shi-xian-reducemap/"" data-c="
+          &lt;p&gt;reduce的参数为&lt;code&gt;((pre,cur,index,array)=&amp;gt;{},base)&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//reduce 方法  
+    //函数 初始值
+    Array.prototype.myreduce=function (fn,base){
+        let myarr=this
+        //数组副本
+        let temparr=this.concat()
+        //如果存在默认值需要把默认值推入数组第一位
+        if(base) temparr.unshift(base)
+
+        //记录下标和两者和 
+        let index 
+        let newvalue
+
+        while(temparr.length&amp;gt;1){
+            index=myarr.length-temparr.length+1
+            newvalue=fn.call(null,temparr[0],temparr[1],index,myarr)
+            //去掉两项，并且把二者的结果插入第一项
+            temparr.splice(0,2,newvalue)
+        }
+
+        return newvalue
+    }
+
+    let  arr=[1,2,3,4]
+
+    arr.myreduce((pre,cur,index,arrry)=&amp;gt;{
+        console.log(pre);
+        return pre+cur+1
+    },20)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;map会对返回对数组进行操作后的结果&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;//map方法 (cur,index,array)=&amp;gt;{}
+    let arr2=[1,2,3,4]
+    Array.prototype.mymap=function(fn){
+
+        let resultarr=[]
+
+        this.forEach((v,i)=&amp;gt;{
+            resultarr.push(fn(v,i,this))
+        })
+
+        return resultarr
+    }
+
+    let res=arr2.mymap((v,i)=&amp;gt;{
+        console.log(i);
+        return v*v
+    })
+    console.log(res);
+&lt;/code&gt;&lt;/pre&gt;
+">手写实现reduce、map</a>
+      </div>
+      
+      <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-xiang-ying-shi-guo-cheng/"" data-c="
           &lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
 &amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;
@@ -1365,6 +1647,472 @@ observer.publish('examinationA', 100); // 100  100  里面两个订阅都打印�
       </div>
       
       <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-mian-shi-ti/"" data-c="
+          &lt;h3 id=&#34;vue是完全的mvvm模型吗&#34;&gt;&lt;strong&gt;Vue是完全的MVVM模型吗？&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;严格的MVVVM要求View不能和Model直接通信，而Vue提供了$refs这个属性，让Model可以直接操作View，违反了这一规定，所以是Vue没有完全遵循MVVM。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vue的单项数据流&#34;&gt;&lt;strong&gt;Vue的单项数据流&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;所有的 prop 都使得其父子 prop 之间形成了一个单向下行绑定：父&lt;strong&gt;级 prop 的更新会向下流动到子组件中，但是反过来则不行&lt;/strong&gt;。这样会防止从子组件意外改变父级组件的状态，从而导致你的应用的数据流向难以理解。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vue的父子组件生命周期钩子函数执行顺序&#34;&gt;&lt;strong&gt;Vue的父子组件生命周期钩子函数执行顺序&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;加载渲染过程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;父beforeCreate -&amp;gt; 父created -&amp;gt; 父beforeMount -&amp;gt; 子beforeCreate -&amp;gt; 子created -&amp;gt; 子beforeMount -&amp;gt; 子mounted -&amp;gt; 父mounted&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;子组件更新过程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;父beforeUpdate -&amp;gt; 子beforeUpdate -&amp;gt; 子updated -&amp;gt; 父updated&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;父组件更新过程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;父beforeUpdate -&amp;gt; 父updated&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;销毁过程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;父beforeDestroy -&amp;gt; 子beforeDestroy -&amp;gt; 子destroyed -&amp;gt; 父destroyed&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;mvc和mvvm区别&#34;&gt;&lt;strong&gt;MVC和MVVM区别&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;mvc&#34;&gt;MVC&lt;/h4&gt;
+&lt;p&gt;MVC是model view controller&lt;/p&gt;
+&lt;img src=&#34;https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy90dFZXdXJMb0dWaWFkeUV6WllDRWlhbXIxSWhKaWNlMUpGUXlCaEQ1Q2RQSHA0RllnRXVVVGVaRDk0RzdKYUNHS3BYNGhpYTdibm1rcU9Fbk5FcEppYUhCaWJSUS82NDA?x-oss-process=image/format,png#pic_center&#34;&gt;
+&lt;p&gt;&lt;strong&gt;MVC的思想&lt;/strong&gt;：Controller负责将Model的数据用View显示出来，换句话说就是在Controller里面把Model的数据赋值给View。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;MVC的特点&lt;/strong&gt;：实现关注点分离，即应用程序中的数据模型与业务和展示逻辑解耦。就是将模型和视图之间实现代码分离，松散耦合，使之成为一个更容易开发、维护和测试的客户端应用程序。&lt;/p&gt;
+&lt;p&gt;一般用于中大型项目开发。&lt;/p&gt;
+&lt;h4 id=&#34;mvvm&#34;&gt;MVVM&lt;/h4&gt;
+&lt;p&gt;MVVM是Model-View-ViewModel的简写，即模型-视图-视图模型。&lt;/p&gt;
+&lt;img src=&#34;https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy90dFZXdXJMb0dWaWFkeUV6WllDRWlhbXIxSWhKaWNlMUpGUW9CN2M3QjlDZ0NQSDIzYVV4QjBnNzI5WkNVMERWbnBJZEh3Mzl0aWJWNlJJdWpwdEFET1VIaWJnLzY0MA?x-oss-process=image/format,png#pic_center&#34;&gt;
+&lt;p&gt;它有两个方向：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一是将模型转化成视图，即将后端传递的数据转化成所看到的页面。实现的方式是：数据绑定。&lt;/li&gt;
+&lt;li&gt;二是将视图转化成模型，即将所看到的页面转化成后端的数据。实现的方式是：DOM 事件监听。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这两个方向都实现的，就是数据的双向绑定。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;diff算法&#34;&gt;&lt;strong&gt;diff算法&lt;/strong&gt;&lt;/h3&gt;
+&lt;img src=&#34;https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9e3c68d1b0884d9ca0f8ffc5ee64a28e~tplv-k3u1fbpfcp-watermark.image&#34;&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;双向绑定&#34;&gt;&lt;strong&gt;双向绑定&lt;/strong&gt;&lt;/h3&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.jianshu.com/p/60d9452f8c52&#34;&gt;详解&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&#34;什么是双向绑定&#34;&gt;什么是双向绑定&lt;/h4&gt;
+&lt;p&gt;单项绑定就是通过Model去改变view。&lt;/p&gt;
+&lt;p&gt;当实现用户更新view，model的数据也自动被更新就实现了双向绑定。&lt;/p&gt;
+&lt;p&gt;例如当用户填写表单时候改变了view，Model的数据也被自动更新了，这就实现了双向绑定。&lt;/p&gt;
+&lt;br&gt;
+&lt;h4 id=&#34;双向绑定原理&#34;&gt;双向绑定原理&lt;/h4&gt;
+&lt;img src=&#34;https://img.bosszhipin.com/beijin/cms/6c155f92bf101d7f3474c8db1dc5a5f2ceb4162adcce9c8ed358cb008b64ac2a92d08620afbe4bc5b07a8d61e4550181.png?x-oss-process=image/quality,q_60&#34;&gt;
+&lt;p&gt;vue采用的是 &lt;strong&gt;数据劫持&lt;/strong&gt;结合 &lt;strong&gt;发布-订阅模式&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过ES5的 &lt;code&gt;Object.defineProperty()&lt;/code&gt;的&lt;code&gt;get&lt;/code&gt;和&lt;code&gt;set&lt;/code&gt;来进行数据的劫持。&lt;/p&gt;
+&lt;p&gt;1.实现一个监听器Observer，用来劫持并监听所有属性，如果有变动的，就通知订阅者。&lt;/p&gt;
+&lt;p&gt;2.实现一个订阅者Watcher，可以收到属性的变化通知并执行相应的函数，从而更新视图。&lt;/p&gt;
+&lt;p&gt;3.实现一个解析器Compile，可以扫描和解析每个节点的相关指令，并根据初始化模板数据以及初始化相应的订阅器。&lt;/p&gt;
+&lt;p&gt;需要自己动手实现代码&lt;/p&gt;
+&lt;p&gt;现在复述下实现过程&lt;/p&gt;
+&lt;p&gt;observe 作为一个收集者，将watch全收集起来，当发生改变的时候，会通过属性的set去notify。watch主要是对这个vue实例模板节点进行订阅后存进observe。存的包括这个节点、节点类型、节点value。每次初始化watch就会将将碰到的这个模板节点进行存放，调用这个属性的Obejct.defineProperty的&lt;code&gt;get&lt;/code&gt;方法，然后进行DeP的存放。每次这个值就行更改就会调用set方法，然后再把所有watch进行执行。&lt;/p&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;vuex&#34;&gt;vuex&lt;/h2&gt;
+&lt;p&gt;vuex是为专门开发的状态管理模式。采用集中式存储管理所有组件的状态。&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;出现原因&#34;&gt;出现原因&lt;/h3&gt;
+&lt;p&gt;vue一般是单项数据流，当我们的应用遇到多个组件共享状态时，单向数据流的简洁性很容易被破坏：&lt;br&gt;
+多个视图依赖于同一状态、来自不同视图的行为需要变更同一状态。&lt;/p&gt;
+&lt;p&gt;作用：多个组件共享数据或者是跨组件传递数据&lt;/p&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;使用&#34;&gt;使用&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// store.js
+1.引入Vuex插件；
+Vue.use(Vuex);
+
+2.将Vuex.Store这个类实例化，并传入一些配置
+const store = new Vuex.Store({
+    state:{
+        count:0
+    },
+    mutations:{
+        increment(state){
+            state.count++;
+        },
+        del(state){
+            state.count--;
+        },
+    },
+    actions:{
+        asyncAdd({commit}){
+            setTimeout(() =&amp;gt; {
+                commit(&amp;quot;increment&amp;quot;);
+            }, 2000);
+        }
+    }
+})
+
+3.将store的实例配置给Vue
+// main.js
+new Vue({
+  store,
+  render: h =&amp;gt; h(App),
+}).$mount(&#39;#app&#39;)
+
+
+4.组件中使用时
+// App.vue
+add(){
+    this.$store.commit(&#39;increment&#39;);
+},
+asyncAdd(){
+    this.$store.dispatch(&#39;asyncAdd&#39;);
+}
+
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;实现&#34;&gt;实现&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;let Vue
+
+class Store{
+    constructor(options){
+       let { state, getters, actions, mutations } = options
+    }
+}
+
+const install=function(_Vue){
+    Vue=_Vue
+    //使用Vue的混入方法
+    Vue.mixin({
+        beforeCreat(){
+            //根实例有store属性
+            if(this.$options &amp;amp;&amp;amp; this.$options.store)
+            {
+                this.$store=this.$options.store
+            }
+            else{
+            	//根实例没有store实例，往父节点找
+                new Vue({store})
+                this.$store=this.$parent &amp;amp;&amp;amp; this.$parent.$store
+            }
+        }
+    })
+}
+
+export default install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在&lt;code&gt;beforeCreate&lt;/code&gt;中，第一次根组件通过&lt;code&gt;store&lt;/code&gt;属性挂载&lt;code&gt;$store&lt;/code&gt;，后面子组件调用&lt;code&gt;beforeCreate&lt;/code&gt;挂载的&lt;code&gt;$store&lt;/code&gt;都会向上找到父级的&lt;code&gt;$store&lt;/code&gt;，这样子通过层层向上寻找，让每个组件都挂上了一个&lt;code&gt;$store&lt;/code&gt;属性，而这个属性的值就是我们的&lt;code&gt;new Store({...})&lt;/code&gt;的实例。如下图&lt;/p&gt;
+&lt;img src=&#34;https://image-static.segmentfault.com/243/426/2434268944-5c77b5165815e_fix732&#34;&gt;
+&lt;h3 id=&#34;设置state响应数据&#34;&gt;设置state响应数据&lt;/h3&gt;
+&lt;p&gt;通过创建vue实例来实现双向绑定&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;class Store{
+    constructor(options){
+        let {state,getters,mutations,actions}=options
+        this.getters = {}
+   		this.mutations = {}
+    	this.actions = {}
+    }
+    // vuex的核心就是借用vue的实例，因为vuex的数据更改回更新视图
+    this._vm=new Vue({
+        data:{
+            state
+        }
+    })
+}
+
+ // 访问state对象时候，就直接返回响应式的数据
+  get state() { // Object.defineProperty get 同理
+    return this._vm.state
+  }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;组件中的通信&#34;&gt;组件中的通信&lt;/h2&gt;
+&lt;h3 id=&#34;vue-bus&#34;&gt;vue bus&lt;/h3&gt;
+&lt;p&gt;通过注册一个Vue对象，其他组件通过这个中间商传递信息&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;import Vue from &#39;vue&#39;
+const bus = new Vue()
+export default bus 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;组件发送消息&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;import bus from &#39;@/utils/bus&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;bus.$emit(&#39;message&#39;, &#39;hello&#39;);&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;组件接收消息&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;import bus from &#39;@/utils/bus&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-tsx&#34;&gt;bus.$on(&#39;message&#39;, (e) =&amp;gt; {
+    console.log(e)
+})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;vuex-2&#34;&gt;Vuex&lt;/h3&gt;
+&lt;p&gt;通过组件共享的store来实现全局共享&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;this.$store.state.xxx&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;props和emit&#34;&gt;&lt;code&gt;props&lt;/code&gt;和&lt;code&gt;emit&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;父&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div&amp;gt;
+	&amp;lt;child :message=&amp;quot;message&amp;quot; @changemessage=&amp;quot;handlechild&amp;quot;&amp;gt;&amp;lt;/child&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;script&amp;gt;
+	expore default{
+    	data(){
+            message:&#39;fanfan&#39;,
+        },
+        
+        methods:{
+            handlechild(){
+                ...
+            }
+        }
+    }
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;p&gt;孩子&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;div&amp;gt;
+    {{message}}
+&amp;lt;/div&amp;gt;
+
+&amp;lt;script&amp;gt;
+	expore default{
+    props:{
+        message:String
+    },
+    	data(){
+            message:&#39;fanfan&#39;,
+        },
+        
+        methods:{
+            somemethods(){
+                this.$emit(&#39;changemessage&#39;,this.messgae)
+            }
+        }
+    }
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;或者使用更加简洁的写法&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;child :message.sync=&amp;quot;message&amp;quot;&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;this.$emit(&#39;update:message&#39;,this.message)&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;attrs和listeners&#34;&gt;&lt;strong&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mo&gt;∗&lt;/mo&gt;&lt;mo&gt;∗&lt;/mo&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;和&lt;/mi&gt;&lt;mo&gt;∗&lt;/mo&gt;&lt;mo&gt;∗&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;attrs**和**&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.61508em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;∗&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.46528em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;∗&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;和&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;∗&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.46528em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;∗&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;listeners&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;经常用于多层嵌套&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;attrs&lt;/code&gt;：包含的是父域中未被&lt;code&gt;props&lt;/code&gt;识别的特性属性。通过&lt;code&gt;v-bind=&amp;quot;$attrs&amp;quot;&lt;/code&gt;传入下一个子组件&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;listeners&lt;/code&gt;： 	包含了父作用域中的 (不含 &lt;code&gt;.native&lt;/code&gt; 修饰器的) &lt;code&gt;v-on&lt;/code&gt; 事件监听器。它可以通过 &lt;code&gt;v-on=&amp;quot;$listeners&amp;quot;&lt;/code&gt; 传入内部组件存储的父实例传入的方法（存放的是父组件中绑定的非原生事件）&lt;/p&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;provide和inject&#34;&gt;provide和inject&lt;/h3&gt;
+&lt;p&gt;向子孙后代注入一个依赖。&lt;/p&gt;
+&lt;p&gt;祖先通过&lt;code&gt;provide&lt;/code&gt;提供变量，然后在子孙组件通过&lt;code&gt;inject&lt;/code&gt;来注入变量。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// 父级组件提供 &#39;foo&#39;
+var Provider = {
+  provide: {
+    foo: &#39;bar&#39;
+  },
+  // ...
+}
+
+// 子组件注入 &#39;foo&#39;
+var Child = {
+  inject: [&#39;foo&#39;],
+  created () {
+    console.log(this.foo) // =&amp;gt; &amp;quot;bar&amp;quot;
+  }
+  // ...
+}
+
+
+//`inject`也可以有默认项
+const Child = {
+  inject: {
+    foo: { default: &#39;foo&#39; }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;但需要注意的是 &lt;strong&gt;provide和inject的绑定并不是响应式的。如果传入的是可监听的对象，那么其对象还是可响应的。&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var privider={
+    provide:{
+        name:&#39;fan&#39;
+    }
+}
+
+var child={
+    inject:[&#39;name&#39;],
+    created(){
+        console.log(this.name)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果这个父组件的name改变了，子组件的name还是不会变的。&lt;/p&gt;
+&lt;p&gt;当然我们可以直接提供祖先实例，这样对子孙组件对祖先的修改也会直接响应。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var provider={
+    provide(){
+        return{
+            myfather:this //注入祖先实例
+        }
+    }
+}
+
+
+var child={
+    inject:{
+        myfather:{
+            default:()=&amp;gt;({})
+        }
+    },
+    
+    
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这样带来的不便就是将多余的方法等不需要的东西也挂载了。&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;当然也可以用&lt;code&gt;Vue.observable&lt;/code&gt;这个API来实现，它是让一个对象可响应，用于组件状态的共享。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var provider={
+    data(){
+        return {
+            myobj:{}
+        }
+    },
+    provide(){
+        this.myobj=Vue.Observable({
+            name:&#39;fan&#39;,
+            age:&#39;20&#39;
+        })
+        
+        return this.myobj
+    }
+}
+
+
+var child={
+    inject:{
+        myobj:{
+            default:()=&amp;gt;({})
+        }
+    },
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h3 id=&#34;parent-children和ref&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi mathvariant=&#34;normal&#34;&gt;、&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;parent、&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.80952em;vertical-align:-0.19444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord cjk_fallback&#34;&gt;、&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;children和$ref&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;My-Comp ref=&amp;quot;myref&amp;quot;&amp;gt;&amp;lt;/My-Comp&amp;gt;
+
+//直接获得子组件的实例
+this.$ref.myref.xxx
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;不建议频繁使用&lt;code&gt;$parent、$children&lt;/code&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;vue-router&#34;&gt;vue-router&lt;/h2&gt;
+&lt;p&gt;更新视图而不更新页面，是路由实现的核心功能&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;HashHistory&lt;/code&gt; 、&lt;code&gt;HTML5History&lt;/code&gt;、&lt;code&gt;AbstratHistory&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;主要是靠以下两种方法实现&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;HashHistory&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;hash 虽然出现在 url 中，但不会被包括在 http 请求中，它是用来指导浏览器动作的，对服务器端完全无用，因此，改变 hash &lt;strong&gt;不会重新加载页面&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;给hash添加监听事件&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;　window.addEventListener(&amp;quot;hashchange&amp;quot;,function(){},false)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;HashHistory.push()&lt;/code&gt;、&lt;code&gt;HashHistory.replace()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;第一个是将新路由推入浏览器访问历史的栈顶&lt;/p&gt;
+&lt;p&gt;第二个只替换当前路由，而不记录&lt;/p&gt;
+&lt;br&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;HashHistory&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;通过&lt;code&gt;back()&lt;/code&gt;,&lt;code&gt;forward()&lt;/code&gt;,&lt;code&gt;go()&lt;/code&gt;等方法，我们可以读取浏览器历史记录栈的信息，进行各种跳转操作。&lt;/p&gt;
+&lt;p&gt;从&lt;code&gt;HTML5&lt;/code&gt;开始，&lt;code&gt;History interface&lt;/code&gt;提供了2个新的方法：&lt;code&gt;pushState()&lt;/code&gt;,&lt;code&gt;replaceState()&lt;/code&gt;使得我们可以对浏览器历史记录栈进行修改：这&lt;code&gt;2&lt;/code&gt;个方法有个共同的特点：当调用他们修改浏览器历史栈后，虽然当前&lt;code&gt;url&lt;/code&gt;改变了，&lt;strong&gt;但浏览器不会立即发送请求该&lt;code&gt;url&lt;/code&gt;，这就为单页应用前端路由，更新视图但不重新请求页面提供了基础&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;在&lt;code&gt;HTML5History&lt;/code&gt;中添加对修改浏览器地址栏&lt;code&gt;URL&lt;/code&gt;的监听**&lt;code&gt;popstate&lt;/code&gt;**是直接在构造函数中执行的：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;&amp;lt;body&amp;gt;
+    &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt;
+    &amp;lt;a href=&amp;quot;#foo&amp;quot;&amp;gt;foo&amp;lt;/a&amp;gt;
+    &amp;lt;a href=&amp;quot;#bar&amp;quot;&amp;gt;bar&amp;lt;/a&amp;gt;
+
+    &amp;lt;/div&amp;gt;
+
+&amp;lt;/body&amp;gt;
+
+
+&amp;lt;script src=&amp;quot;https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+
+const foo={template:`&amp;lt;div&amp;gt; foo&amp;lt;/div&amp;gt;`}
+const bar={template:`&amp;lt;div&amp;gt; bar&amp;lt;/div&amp;gt;`}
+const mydefault={template:`&amp;lt;div&amp;gt;mydefault&amp;lt;/div&amp;gt;`}
+
+const routetable={
+    &#39;foo&#39;:foo,
+    &#39;bar&#39;:bar,
+    &#39;&#39;:mydefault,
+}
+
+const app=new Vue({
+    el:&#39;#app&#39;,
+    data:{
+         url:window.location.hash.slice(1)
+    },
+  
+    render(h) {
+        return h(&#39;div&#39;,[
+            h(routetable[this.url]),
+            h(&#39;a&#39;,{attrs:{href:&#39;#foo&#39;}},&#39;foo&#39;),
+            &#39; | &#39;,
+            h(&#39;a&#39;,{attrs:{href:&#39;#bar&#39;}},&#39;bar&#39;)
+           ])
+    },
+})
+
+window.addEventListener(&#39;hashchange&#39;,()=&amp;gt;{
+    app.url=window.location.hash.slice(1)
+})
+
+
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&#34;https://segmentfault.com/a/1190000014822765&#34;&gt;源码解析&lt;/a&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;父子组件生命周期顺序&#34;&gt;父子组件生命周期顺序&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;-&amp;gt;父beforeCreate -&amp;gt; 父created -&amp;gt; 父beforeMount&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**-&amp;gt;&lt;strong&gt;子beforeCreate -&amp;gt; 子created -&amp;gt; 子beforeMount -&amp;gt; 子mounted&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;-&amp;gt; 父mounted&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;子组件更新过程&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;-&amp;gt;父beforeUpdate&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;-&amp;gt; 子beforeUpdate -&amp;gt; 子updated&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;-&amp;gt; 父updated&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;父组件更新过程&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;父beforeUpdate -&amp;gt; 父updated&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;销毁过程&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;-&amp;gt; 父 beforeDestory&lt;/p&gt;
+&lt;p&gt;-&amp;gt; 子 beforeDestory -&amp;gt; 子 destoryed&lt;/p&gt;
+&lt;p&gt;-&amp;gt; 父 destoryed&lt;/p&gt;
+&lt;/blockquote&gt;
+">vue面试题</a>
+      </div>
+      
+      <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/promise-fang-fa-shou-xie-da-fa/"" data-c="
           &lt;h2 id=&#34;promiseresolve&#34;&gt;Promise.resolve()&lt;/h2&gt;
 &lt;p&gt;将现有对象转为 Promise 对象&lt;/p&gt;
@@ -1489,82 +2237,6 @@ new Promise(resolve =&amp;gt; resolve(&#39;foo&#39;))
     }
 &lt;/code&gt;&lt;/pre&gt;
 "> Promise方法手写大法</a>
-      </div>
-      
-      <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://fanfankill.github.io/post/vue-mian-shi-ti/"" data-c="
-          &lt;h2 id=&#34;面试题&#34;&gt;面试题&lt;/h2&gt;
-&lt;br&gt;
-&lt;h3 id=&#34;vue是完全的mvvm模型吗&#34;&gt;&lt;strong&gt;Vue是完全的MVVM模型吗？&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;严格的MVVVM要求View不能和Model直接通信，而Vue提供了$refs这个属性，让Model可以直接操作View，违反了这一规定，所以是Vue没有完全遵循MVVM。&lt;/p&gt;
-&lt;br&gt;
-&lt;h3 id=&#34;vue的单项数据流&#34;&gt;&lt;strong&gt;Vue的单项数据流&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;所有的 prop 都使得其父子 prop 之间形成了一个单向下行绑定：父&lt;strong&gt;级 prop 的更新会向下流动到子组件中，但是反过来则不行&lt;/strong&gt;。这样会防止从子组件意外改变父级组件的状态，从而导致你的应用的数据流向难以理解。&lt;/p&gt;
-&lt;br&gt;
-&lt;h3 id=&#34;vue的父子组件生命周期钩子函数执行顺序&#34;&gt;&lt;strong&gt;Vue的父子组件生命周期钩子函数执行顺序&lt;/strong&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;加载渲染过程&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;父beforeCreate -&amp;gt; 父created -&amp;gt; 父beforeMount -&amp;gt; 子beforeCreate -&amp;gt; 子created -&amp;gt; 子beforeMount -&amp;gt; 子mounted -&amp;gt; 父mounted&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;子组件更新过程&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;父beforeUpdate -&amp;gt; 子beforeUpdate -&amp;gt; 子updated -&amp;gt; 父updated&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;父组件更新过程&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;父beforeUpdate -&amp;gt; 父updated&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;销毁过程&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;父beforeDestroy -&amp;gt; 子beforeDestroy -&amp;gt; 子destroyed -&amp;gt; 父destroyed&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;br&gt;
-&lt;h3 id=&#34;mvc和mvvm区别&#34;&gt;&lt;strong&gt;MVC和MVVM区别&lt;/strong&gt;&lt;/h3&gt;
-&lt;h4 id=&#34;mvc&#34;&gt;MVC&lt;/h4&gt;
-&lt;p&gt;MVC是model view controller&lt;/p&gt;
-&lt;img src=&#34;https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy90dFZXdXJMb0dWaWFkeUV6WllDRWlhbXIxSWhKaWNlMUpGUXlCaEQ1Q2RQSHA0RllnRXVVVGVaRDk0RzdKYUNHS3BYNGhpYTdibm1rcU9Fbk5FcEppYUhCaWJSUS82NDA?x-oss-process=image/format,png#pic_center&#34;&gt;
-&lt;p&gt;&lt;strong&gt;MVC的思想&lt;/strong&gt;：Controller负责将Model的数据用View显示出来，换句话说就是在Controller里面把Model的数据赋值给View。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;MVC的特点&lt;/strong&gt;：实现关注点分离，即应用程序中的数据模型与业务和展示逻辑解耦。就是将模型和视图之间实现代码分离，松散耦合，使之成为一个更容易开发、维护和测试的客户端应用程序。&lt;/p&gt;
-&lt;p&gt;一般用于中大型项目开发。&lt;/p&gt;
-&lt;h4 id=&#34;mvvm&#34;&gt;MVVM&lt;/h4&gt;
-&lt;p&gt;MVVM是Model-View-ViewModel的简写，即模型-视图-视图模型。&lt;/p&gt;
-&lt;img src=&#34;https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X3BuZy90dFZXdXJMb0dWaWFkeUV6WllDRWlhbXIxSWhKaWNlMUpGUW9CN2M3QjlDZ0NQSDIzYVV4QjBnNzI5WkNVMERWbnBJZEh3Mzl0aWJWNlJJdWpwdEFET1VIaWJnLzY0MA?x-oss-process=image/format,png#pic_center&#34;&gt;
-&lt;p&gt;它有两个方向：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;一是将模型转化成视图，即将后端传递的数据转化成所看到的页面。实现的方式是：数据绑定。&lt;/li&gt;
-&lt;li&gt;二是将视图转化成模型，即将所看到的页面转化成后端的数据。实现的方式是：DOM 事件监听。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;这两个方向都实现的，就是数据的双向绑定。&lt;/p&gt;
-&lt;br&gt;
-&lt;h3 id=&#34;diff算法&#34;&gt;&lt;strong&gt;diff算法&lt;/strong&gt;&lt;/h3&gt;
-&lt;img src=&#34;https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9e3c68d1b0884d9ca0f8ffc5ee64a28e~tplv-k3u1fbpfcp-watermark.image&#34;&gt;
-&lt;br&gt;
-&lt;h3 id=&#34;双向绑定&#34;&gt;&lt;strong&gt;双向绑定&lt;/strong&gt;&lt;/h3&gt;
-&lt;br&gt;
-&lt;h4 id=&#34;什么是双向绑定&#34;&gt;什么是双向绑定&lt;/h4&gt;
-&lt;p&gt;单项绑定就是通过Model去改变view。&lt;/p&gt;
-&lt;p&gt;当实现用户更新view，model的数据也自动被更新就实现了双向绑定。&lt;/p&gt;
-&lt;p&gt;例如当用户填写表单时候改变了view，Model的数据也被自动更新了，这就实现了双向绑定。&lt;/p&gt;
-&lt;br&gt;
-&lt;h4 id=&#34;双向绑定原理&#34;&gt;双向绑定原理&lt;/h4&gt;
-&lt;img src=&#34;https://img.bosszhipin.com/beijin/cms/6c155f92bf101d7f3474c8db1dc5a5f2ceb4162adcce9c8ed358cb008b64ac2a92d08620afbe4bc5b07a8d61e4550181.png?x-oss-process=image/quality,q_60&#34;&gt;
-&lt;p&gt;vue采用的是 &lt;strong&gt;数据劫持&lt;/strong&gt;结合 &lt;strong&gt;发布-订阅模式&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;通过ES5的 &lt;code&gt;Object.defineProperty()&lt;/code&gt;的&lt;code&gt;get&lt;/code&gt;和&lt;code&gt;set&lt;/code&gt;来进行数据的劫持。&lt;/p&gt;
-&lt;p&gt;1.实现一个监听器Observer，用来劫持并监听所有属性，如果有变动的，就通知订阅者。&lt;/p&gt;
-&lt;p&gt;2.实现一个订阅者Watcher，可以收到属性的变化通知并执行相应的函数，从而更新视图。&lt;/p&gt;
-&lt;p&gt;3.实现一个解析器Compile，可以扫描和解析每个节点的相关指令，并根据初始化模板数据以及初始化相应的订阅器。&lt;/p&gt;
-&lt;p&gt;需要自己动手实现代码&lt;/p&gt;
-">vue面试题</a>
       </div>
       
       <div class="item">

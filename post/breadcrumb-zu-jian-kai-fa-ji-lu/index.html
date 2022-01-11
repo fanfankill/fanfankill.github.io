@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>图解HTTP第四章 | fanfan</title>
+<title> Breadcrumb组件开发记录 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1641910445488">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="图解HTTP第四章" />
-  <meta name="keywords" content="网络" />
+  <meta name="description" content=" Breadcrumb组件开发记录" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -295,37 +295,20 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%9A%84http%E7%8A%B6%E6%80%81">返回结果的HTTP状态</a>
+<li>
 <ul>
-<li><a href="#%E7%8A%B6%E6%80%81%E7%A0%81%E5%91%8A%E7%9F%A5%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%BF%94%E5%9B%9E%E7%9A%84%E8%AF%B7%E6%B1%82%E7%BB%93%E6%9E%9C">状态码告知从服务器端返回的请求结果</a></li>
-<li><a href="#2-xx%E6%88%90%E5%8A%9F"><strong>2 XX成功</strong></a>
+<li><a href="#%E7%BB%84%E4%BB%B6%E6%9E%84%E6%88%90">组件构成</a>
 <ul>
-<li><a href="#200-ok">200 OK</a></li>
-<li><a href="#204-no-content">204 NO Content</a></li>
-<li><a href="#206-partial-content">206 Partial Content</a></li>
+<li><a href="#breadcrumb"><code>breadcrumb</code></a>
+<ul>
+<li><a href="#%E6%80%BB%E4%BB%A3%E7%A0%81">总代码</a></li>
 </ul>
 </li>
-<li><a href="#3-xx%E9%87%8D%E5%AE%9A%E5%90%91"><strong>3 XX重定向</strong></a>
+<li><a href="#breadcrumb-item"><code>breadcrumb-item</code></a>
 <ul>
-<li><a href="#301-moved-permanently">301 Moved Permanently</a></li>
-<li><a href="#302-found">302 Found</a></li>
-<li><a href="#303-see-other">303 See Other</a></li>
-<li><a href="#304-not-modified">304 Not Modified</a></li>
-<li><a href="#307-temporary-redirect">307 Temporary Redirect</a></li>
+<li><a href="#%E6%80%BB%E4%BB%A3%E7%A0%81-2">总代码</a></li>
 </ul>
 </li>
-<li><a href="#4-xx%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%94%99%E8%AF%AF"><strong>4 XX客户端错误</strong></a>
-<ul>
-<li><a href="#400-bad-request">400 Bad Request</a></li>
-<li><a href="#401-unauthorized">401 Unauthorized</a></li>
-<li><a href="#403-forbidden">403 Forbidden</a></li>
-<li><a href="#404-not-found">404 Not Found</a></li>
-</ul>
-</li>
-<li><a href="#5-xx%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%94%99%E8%AF%AF"><strong>5 XX服务器错误</strong></a>
-<ul>
-<li><a href="#500-internal-server-error">500 Internal Server Error</a></li>
-<li><a href="#503-service-unavailable">503 Service Unavailable</a></li>
 </ul>
 </li>
 </ul>
@@ -595,8 +578,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/">
-      图解HTTP第四章
+    <a class="post-title-link" href="https://fanfankill.github.io/post/breadcrumb-zu-jian-kai-fa-ji-lu/">
+       Breadcrumb组件开发记录
     </a>
   </h1>
   <div class="post-meta">
@@ -604,22 +587,9 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-04-26 14:02:49">2021-04-26</span>
+      <span class="publish-time" data-t="2022-01-04 23:53:16">2022-01-04</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
-    
-    <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show language" data-lan="category-in">分类于</span>
-      
-      
-      <a href="https://fanfankill.github.io/tag/KATkWfQKE/">
-        <span>网络</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
@@ -628,96 +598,168 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>631<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>427<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h1 id="返回结果的http状态">返回结果的HTTP状态</h1>
-<h2 id="状态码告知从服务器端返回的请求结果">状态码告知从服务器端返回的请求结果</h2>
-<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1619419502006.png" alt="" loading="lazy"></figure>
-<hr>
-<h2 id="2-xx成功"><strong>2 XX成功</strong></h2>
-<p>响应结果表明请求被正常处理</p>
+              <h2 id="组件构成">组件构成</h2>
+<p><code>breadcrumb</code>和<code>breadcrumb-item</code></p>
+<p>所以需要两个组件文件进行全局注册。</p>
+<h3 id="breadcrumb"><code>breadcrumb</code></h3>
 <ul>
 <li>
-<h3 id="200-ok">200 OK</h3>
-<p>正常处理</p>
-</li>
-<li>
-<h3 id="204-no-content">204 NO Content</h3>
-<p>表示请求被成功处理，但在返回的响应报文中不含实体的主体部分。</p>
-<p>应用于只需要客户端往服务器发送信息，而对客户端不需要发送新信息的情况下使用</p>
-</li>
-<li>
-<h3 id="206-partial-content">206 Partial Content</h3>
-<p>表示客户端进行了范围请求，而服务器成功执行这部分的GET请求。响应报文中包含由Content-Range指定范围的实体内容</p>
-<hr>
+<p>用法</p>
+<pre><code class="language-html">&lt;fan-breadcrumb separator=&quot;/&quot;&gt;
+	...
+&lt;/fan-breadcrumb&gt;
+</code></pre>
 </li>
 </ul>
-<h2 id="3-xx重定向"><strong>3 XX重定向</strong></h2>
-<p>表明浏览器需要执行某些特殊的处理以正确处理请求</p>
+<p>props只有一个属性</p>
+<pre><code class="language-js">  props:{
+        separator:{
+            type:String,
+            default:'/'
+        }
+    },
+</code></pre>
+<p>因为子组件需要这个属性，所以要给子组件传递这个参数。</p>
+<p>可以采用<code>provide/inject</code>对子组件进行注册传递参数</p>
+<pre><code class="language-js">	//breadcrumb
+    //命名 直接返回这个对象
+    provide(){
+        return{
+            breadcrumbVm:this
+        }
+    }
+</code></pre>
+<pre><code class="language-js">//breadcrumb-item
+ //依赖注入
+    inject:['breadcrumbVm'],     
+</code></pre>
+<h4 id="总代码">总代码</h4>
+<pre><code class="language-html">&lt;template&gt;
+  &lt;div class=&quot;breadcrumb&quot;&gt;
+    &lt;slot&gt;&lt;/slot&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+    name:'FanBreadcrumb',
+    props:{
+        separator:{
+            type:String,
+            default:'/'
+        }
+    },
+
+    //命名 直接返回这个对象
+    provide(){
+        return{
+            breadcrumbVm:this
+        }
+    }
+
+
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+    /**处理最后一个也有样式的问题*/
+.breadcrumb .breadcrumb-item:last-child .breadcrumb-separator{
+        display: none;
+}
+&lt;/style&gt;
+</code></pre>
+<h3 id="breadcrumb-item"><code>breadcrumb-item</code></h3>
 <ul>
 <li>
-<h3 id="301-moved-permanently">301 Moved Permanently</h3>
-<p>永久性重定向。表示请求的资源已经被分配了新的URI，以后应使用资源现在所指的URI</p>
-<p>例如当指定路径末尾未加&quot;/&quot;时，会产生301状态码</p>
-</li>
-<li>
-<h3 id="302-found">302 Found</h3>
-<p>临时性重定向。表示请求的资源已经被分配了新的URI，希望用户能使用新的URI访问</p>
-</li>
-<li>
-<h3 id="303-see-other">303 See Other</h3>
-<p>表示请求的资源存在着另一个URI，应使用GET方法定向获取请求的资源</p>
-</li>
-<li>
-<h3 id="304-not-modified">304 Not Modified</h3>
-<p>表示客户端发送附带条件的请求时，服务器允许请求访问资源，但未找到满足条件的情况。</p>
-</li>
-<li>
-<h3 id="307-temporary-redirect">307 Temporary Redirect</h3>
-<p>临时冲顶先。与302相似。</p>
+<p>用法：</p>
+<pre><code class="language-html">&lt;fan-breadcrumb separator=&quot;/&quot;&gt;
+	&lt;fan-breadcrumb-item :to=&quot;{ path: '/' }&quot;&gt;
+		
+	&lt;/fan-breadcrumb-item&gt;
+&lt;/fan-breadcrumb&gt;
+</code></pre>
+<p>需要接收<code>to</code>属性，带有这个属性的组件会有被选中的颜色区别</p>
+<p>用<code>inject</code>来接收<code>provide</code>注入的内容</p>
+<p><code>inject:['breadcrumbVm']</code></p>
+<h4 id="总代码-2">总代码</h4>
+<pre><code class="language-html">&lt;template&gt;
+&lt;span class=&quot;breadcrumb-item&quot;&gt;
+     &lt;span :class=&quot;['baselink',{'is-link':to.path}]&quot;
+     @click=&quot;handlepath&quot;&gt;
+         &lt;slot&gt;&lt;/slot&gt;
+    &lt;/span&gt;
+
+&lt;span class=&quot;breadcrumb-separator&quot;&gt;{{separator}}&lt;/span&gt;
+&lt;/span&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+    name:'FanBreadcrumbItem',
+    props:{
+        to:{
+            type:Object,
+            default:()=&gt;({})
+        }
+    },
+    data() {
+        return {
+            separator:''
+        }
+    },
+    methods:{
+        handlepath(){
+            const {$router ,to}=this
+            if(!to.path) return
+            console.log(to.path);
+            if($router) $router.push(to.path)
+        }
+    },
+    //依赖注入
+    inject:['breadcrumbVm'],
+
+    mounted(){
+        console.log(this.breadcrumbVm.separator);
+       this.separator=this.breadcrumbVm.separator
+    },
+
+
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+.breadcrumb-separator{
+      margin: 0 9px;
+    font-weight: 700;
+    color: #c0c4cc;
+}
+
+/**基本样式 */
+.baselink{
+        color: #606266;
+}
+
+.is-link{
+    cursor: pointer;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color .2s cubic-bezier(.645,.045,.355,1);
+    color: #303133;
+}
+.is-link:hover{
+    color: rgb(184, 184, 197);
+}
+  
+&lt;/style&gt;
+</code></pre>
 </li>
 </ul>
-<hr>
-<h2 id="4-xx客户端错误"><strong>4 XX客户端错误</strong></h2>
-<p>表明客户端发生错误的原因所在</p>
-<ul>
-<li>
-<h3 id="400-bad-request">400 Bad Request</h3>
-<p>该状态码表示请求报文中存在语法错误。需修改请求的内容后再次发送请求。</p>
-</li>
-<li>
-<h3 id="401-unauthorized">401 Unauthorized</h3>
-<p>表示发送的请求需要有通过HTTP认证的认证信息</p>
-<p>当浏览器初次接收到401响应，会弹出认证用的对话窗口</p>
-</li>
-<li>
-<h3 id="403-forbidden">403 Forbidden</h3>
-<p>表明请求的资源的访问被服务器拒绝了</p>
-<p>未获得文件系统的访问授权，访问权限出现某些问题等列举的情况都可能发生403的原因</p>
-</li>
-<li>
-<h3 id="404-not-found">404 Not Found</h3>
-<p>表明服务器上无法找到请求的资源。</p>
-<hr>
-</li>
-</ul>
-<h2 id="5-xx服务器错误"><strong>5 XX服务器错误</strong></h2>
-<p>服务器本身的错误</p>
-<ul>
-<li>
-<h3 id="500-internal-server-error">500 Internal Server Error</h3>
-<p>表明服务器在执行请求时发生了错误。也有可能是WEB应用存在的bug或某些临时故障</p>
-</li>
-<li>
-<h3 id="503-service-unavailable">503 Service Unavailable</h3>
-<p>表明服务器暂时处于超负荷或正在进行停机维护，现在无法处理请求。</p>
-</li>
-</ul>
-<p>​</p>
 
             </div>
             
@@ -730,7 +772,7 @@
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/" title="图解HTTP第四章">https://fanfankill.github.io/post/tu-jie-http-di-si-zhang/</a>
+      <a href="https://fanfankill.github.io/post/breadcrumb-zu-jian-kai-fa-ji-lu/" title=" Breadcrumb组件开发记录">https://fanfankill.github.io/post/breadcrumb-zu-jian-kai-fa-ji-lu/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -739,21 +781,19 @@
   </ul>
   <div class="tags">
     
-      <a href="https://fanfankill.github.io/tag/KATkWfQKE/"># 网络</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="图解HTTP第五章" href="https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/">图解HTTP第五章</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="图解HTTP第五章" href="https://fanfankill.github.io/post/tu-jie-http-di-liu-zhang/">上一篇</a>
+        <a class="nav-pc-next" title="Tag组件开发记录" href="https://fanfankill.github.io/post/tag-zu-jian-kai-fa-ji-lu/">Tag组件开发记录</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="Tag组件开发记录" href="https://fanfankill.github.io/post/tag-zu-jian-kai-fa-ji-lu/">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="图解HTTP第三章" href="https://fanfankill.github.io/post/tu-jie-http-di-san-zhang/">图解HTTP第三章</a>
-        <a class="nav-mobile-next" title="图解HTTP第三章" href="https://fanfankill.github.io/post/tu-jie-http-di-san-zhang/">下一篇</a>
+        <a class="nav-pc-next" title="手写实现reduce、map" href="https://fanfankill.github.io/post/shou-xie-shi-xian-reducemap/">手写实现reduce、map</a>
+        <a class="nav-mobile-next" title="手写实现reduce、map" href="https://fanfankill.github.io/post/shou-xie-shi-xian-reducemap/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
