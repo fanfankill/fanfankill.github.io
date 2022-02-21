@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="&lt;strong&gt;前端小白&lt;/strong&gt;">
 <meta name="theme-color" content="#000">
-<title>socket.io实现实时聊天室 | fanfan</title>
+<title>Vue实现notification组件 | fanfan</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1645441448749">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -41,8 +41,8 @@
 
 
 
-  <meta name="description" content="socket.io实现实时聊天室" />
-  <meta name="keywords" content="Javascript" />
+  <meta name="description" content="Vue实现notification组件" />
+  <meta name="keywords" content="vue" />
 </head>
 
 <body>
@@ -297,7 +297,9 @@
     <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E5%89%8D%E7%AB%AF%E9%83%A8%E5%88%86">前端部分</a></li>
+<li><a href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C">实现效果</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0">如何实现</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E7%BB%9F%E4%B8%80%E7%AE%A1%E7%90%86">实例统一管理</a></li>
 </ul>
 </li>
 </ul>
@@ -565,8 +567,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/">
-      socket.io实现实时聊天室
+    <a class="post-title-link" href="https://fanfankill.github.io/post/vue-shi-xian-notification-zu-jian/">
+      Vue实现notification组件
     </a>
   </h1>
   <div class="post-meta">
@@ -574,7 +576,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-06-16 01:55:30">2021-06-16</span>
+      <span class="publish-time" data-t="2022-02-21 19:03:08">2022-02-21</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -583,8 +585,8 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/">
-        <span>Javascript</span>
+      <a href="https://fanfankill.github.io/tag/YjLqWgkox/">
+        <span>vue</span>
       </a>
       
       
@@ -593,310 +595,154 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>7<span class="language" data-lan="minute">分钟</span></span>
+      <span>4<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1115<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>899<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p><strong>Node.js</strong>部分（服务端）</p>
-<pre><code class="language-js">  var express=require('express')
-var app=express()
-var server=require('http').createServer(app)
-var io=require('socket.io')(server)
-
-app.use(express.static(__dirname+'/public'))
-
-//设置允许跨域
-app.all('*', function (req, res, next) {
-      res.header(&quot;Access-Control-Allow-Credentials&quot;, true)
-      res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;)
-      res.header(&quot;Access-Control-Allow-Headers&quot;, &quot;X-Requested-With&quot;)
-      res.header(&quot;Access-Control-Allow-Methods&quot;, &quot;PUT,POST,GET,DELETE,OPTIONS&quot;)
-      res.header(&quot;X-Powered-By&quot;, ' 3.2.1')
-      res.header(&quot;Content-Type&quot;, &quot;application/json;charset=utf-8&quot;)
-      next()
-})
-
-//放用户
-const users=[]
-
-io.on('connection',function(socket){
-    console.log(&quot;新用户加入房间&quot;);
-
-    //监听Login事件
-    socket.on('login',(data)=&gt;{
-            console.log(data);
-        //放数据,顺便增加唯一id
-        users.push({...data,id:socket.id})
-
-        console.log('id是'+socket.id);
-        //所有人广播
-        io.emit('loginback',{...data,id:socket.id})
-    })
-
-    socket.on('client',data2=&gt;{
-        console.log(data2.value);
-        data2.users=users.find(u=&gt;u.id==socket.id)
-        console.log(data2.users);
-        socket.broadcast.emit('sendmes',data2)
-    })
-    
-})
-
-server.listen(3000,()=&gt;{
-    console.log('http://127.0.0.1:3000');
-})
-
-</code></pre>
-<h2 id="前端部分">前端部分</h2>
-<pre><code class="language-js">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-
-&lt;head&gt;
-  &lt;meta charset=&quot;UTF-8&quot;&gt;
-  &lt;title&gt;Socket聊天室&lt;/title&gt;
-  &lt;style type=&quot;text/css&quot;&gt;
-    /**输入框样式*/
-    .text * {
-      margin: 0;
-      padding: 0;
-    }
-
-    #main {
-      text-align: center;
-    }
-
-    #showmes {
-      position: relative;
-      background: url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fcdn.duitang.com%2Fuploads%2Fitem%2F201209%2F08%2F20120908134318_YVAwx.jpeg&amp;refer=http%3A%2F%2Fcdn.duitang.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=jpeg?sec=1626261869&amp;t=964bbb79e059f74901698cdd5f6de691) no-repeat;
-      background-size: 100% 110%;
-      margin: auto;
-      width: 600px;
-      height: 600px;
-      overflow: hidden;
-      overflow-y: scroll;
-    }
-
-    /**别人气泡*/
-    .leftspan2 {
-      float: left;
-      color: grey;
-      font-weight: 1000;
-      position: absolute;
-      top: -18px;
-      font-size: 3px;
-      left: 25px;
-    }
-
-    .leftspan {
-      color: white;
-      background-color: #635f5fec;
-      padding: 5px 8px;
-      font-size: 14px;
-      float: left;
-      position: relative;
-      border-radius: 4px;
-      margin-left: 25px;
-      margin-right: 5px;
-
-    }
-
-    .leftspan::after {
-      content: '';
-      border: 8px solid #ffffff00;
-      border-right: 8px solid #635f5fec;
-      ;
-      position: absolute;
-      top: 6px;
-      left: -16px;
-    }
-
-    /*自己气泡**/
-    .pp {
-      width: 100%;
-      position: relative;
-      min-height: 20px;
-      float: right;
-      margin-bottom: 15px;
-    }
-
-    .rightspan2 {
-      float: right;
-      color: grey;
-      font-weight: 1000;
-      position: absolute;
-      top: -18px;
-      font-size: 3px;
-      right: 15px;
-    }
-
-    .rightspan {
-      float: right;
-      position: relative;
-      color: rgb(2, 2, 2);
-      font-weight: 500;
-      background-color: #88e99d;
-      padding: 5px 8px;
-      font-size: 14px;
-      border-radius: 4px;
-      margin-left: 5px;
-      margin-right: 15px;
-
-    }
-
-    .rightspan::after {
-      content: '';
-      border: 8px solid #ffffff00;
-      border-left: 8px solid #88e99d;
-      ;
-      position: absolute;
-      top: 6px;
-      right: -13px;
-
-    }
-
-    /**输入框*/
-    #text {
-      width: 500px;
-      height: 25px;
-    }
-  &lt;/style&gt;
-&lt;/head&gt;
-
-&lt;body&gt;
-
-  &lt;div id=&quot;joinname&quot;&gt;
-    &lt;span&gt;请输入加入的姓名&lt;/span&gt; &lt;input type=&quot;text&quot; id=&quot;name&quot;&gt;&lt;button onclick=&quot;joinchat()&quot;&gt;提交&lt;/button&gt;
+              <h2 id="实现效果">实现效果</h2>
+<figure data-type="image" tabindex="1"><img src="https://fanfankill.github.io/post-images/1645441441775.png" alt="" loading="lazy"></figure>
+<p>要实现fixed定位的元素也要呈现有次序和有动画的出现和消失</p>
+<br>
+<h2 id="如何实现">如何实现</h2>
+<p>我们都知道上面的元素不过就是一个个实例的加入到页面中和到时间就移除，那么要怎么做到呢？</p>
+<p>首先准备好元素的<code>notification.vue</code>组件文件，样式和动画我直接搬运ElementUI的，position默认右上角。</p>
+<pre><code class="language-vue">&lt;template&gt;
+ &lt;transition name=&quot;el-notification-fade&quot;&gt;
+    &lt;div 
+    :class=&quot;['el-notification',horizontalClass]&quot; 
+    v-show=&quot;visible&quot;
+    :style=&quot;positionstyle&quot;&gt;
+    &lt;div class=&quot;el-notification__group&quot;&gt;
+    &lt;h2 class=&quot;el-notification__title&quot;&gt;&lt;/h2&gt;
+    &lt;div class=&quot;el-notification__content&quot;&gt;&lt;/div&gt;
+    &lt;div :class=&quot;['el-notification__closeBtn',{showClose:'el-icon-close'}]&quot;&gt;&lt;/div&gt;
+      {{title}}
   &lt;/div&gt;
-  &lt;div id=&quot;main&quot; style=&quot;display: none;&quot;&gt;
-    
-    &lt;h1&gt;fanfan的聊天室&lt;/h1&gt;
-    &lt;div id=&quot;showmes&quot;&gt;
-
-    &lt;/div&gt;
-    &lt;div class=&quot;inputtxt&quot;&gt;
-      &lt;input type=&quot;text&quot; id=&quot;text&quot;&gt;&lt;/input&gt;
-      &lt;button id=&quot;btn&quot; onclick=&quot;sendmes()&quot;&gt;发送&lt;/button&gt;
-    &lt;/div&gt;
-
-  &lt;/div&gt;
-
-  &lt;script src=&quot;/socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
-  &lt;script&gt;
-    //全局变量
-    name = ''
-    var socket = io(); //连接聊天室的io服务器 io服务器的根地址
-    //连接进聊天室
-    function firstjoin() {
-
-      socket.on('hello', data =&gt; {
-        console.log('服务端发送的东西为：' + data);
-      })
-    }
-
-    function notnull() {
-      if (document.getElementById('text').value != '') {
-        return 1;
-      }
-      else {
-        return 0;
-      }
-    }
-    //自己发信息
-    function sendmes() {
-      if (notnull()) {
-        var mes = document.getElementById('text').value
-        var p = document.createElement('p');
-        var span = document.createElement('span')
-        var span2 = document.createElement('span')
-        span.innerHTML = mes;
-        span2.innerHTML = name;
-        span2.className = 'rightspan2'
-        span.className = 'rightspan'
-        p.className = 'pp'
-        p.appendChild(span2)
-        p.appendChild(span)
-        document.getElementById('showmes').appendChild(p)
-        socket.emit('client', {'value':document.getElementById('text').value,'name':name})
-        document.getElementById('text').value = ''
-
-        document.getElementById(&quot;showmes&quot;).scrollTop += document.getElementById(&quot;showmes&quot;).offsetHeight;
-      }
-
-    }
-    //收到别人发的信息
-    socket.on('sendmes', data =&gt; {
-      console.log(data);
-      var p = document.createElement('p');
-      var span = document.createElement('span');
-      var span2 = document.createElement('span');
-      span.className = 'leftspan'
-      console.log('姓名是'+data.users.name);
-      span2.innerHTML = data.users.name
-      span2.className = 'leftspan2'
-      span.innerHTML = data.value;
-      p.appendChild(span2)
-      p.appendChild(span)
-      p.className = 'pp'
-
-      document.getElementById('showmes').appendChild(p)
-
-      document.getElementById(&quot;showmes&quot;).scrollTop += document.getElementById(&quot;showmes&quot;).offsetHeight;
-    })
-
-    //加入聊天室提醒
-    function joinchat() {
-      if (document.getElementById('name').value.length &gt;= 1 &amp;&amp; document.getElementById('name').value.length &lt;= 6) {
-        //加入盒子隐藏 聊天盒子显示
-        document.getElementById('main').style.display='block'
-        document.getElementById('joinname').style.display='none'
-        name=document.getElementById('name').value
-        socket.emit('login', { 'name': document.getElementById('name').value })
-      }
-
-    }
-    socket.on('loginback', data =&gt; {
-      var p = document.createElement('p');
-      p.innerHTML = data.name + '加入了房间';
-      p.style.color = 'grey'
-      p.style.fontWeight = '1000'
-      p.style.textAlign = 'center'
-      p.style.fontSize = '6px'
-      document.getElementById('showmes').appendChild(p)
-    })
-    //回车发送消息
-    document.onkeydown = function (e) {
-      console.log('1');
-      var ev = document.all ? window.event : e;
-      if (ev.keyCode == 13) {
-        sendmes();
-      }
-    }
-  &lt;/script&gt;
-&lt;/body&gt;
-
-&lt;/html&gt;
-
+ &lt;/div&gt;
+ &lt;/transition&gt;
+&lt;/template&gt;
 </code></pre>
+<p>当然，我们需要一个中心去管理所有实例，创建<code>main.js</code>，引入我们的创建的组件。</p>
+<pre><code class="language-js">import Vue from 'vue'
+import notification from './main.vue'
+</code></pre>
+<p>Vue提供给我们<code>Vue.extend</code>方法来创建一个子类</p>
+<pre><code class="language-js">const  notificationconstructor=Vue.extend(notification)
+</code></pre>
+<p>用数组来存储我们的实例<code>const instances=[]</code></p>
+<p>因为最后我们是把<code>main.js</code>挂载到Vue的原型链上，作为全局方法调用。</p>
+<pre><code class="language-vue">Vue.prototype.$fannotify=notification
+</code></pre>
+<p>所以我们每次调用这个方法就需要去管理我们的实例</p>
+<p>调用</p>
+<pre><code class="language-js">  this.$fannotify({
+              title:'fanfan',
+              duration:4000
+  })
+</code></pre>
+<pre><code class="language-js">const notify=((options)=&gt;{
+    ...见下
+})
+
+export default notify
+</code></pre>
+<p>对于传入参数进行处理赋值。</p>
+<p>通过new创建实例来传入方法和参数（简洁版）</p>
+<pre><code class="language-js"> let instance=new notificationconstructor({
+        propsData:options,
+        data() {
+            return {
+                timer:null,
+                visible:false
+            }
+        },
+        mounted(){
+           this.hanlestart()
+       
+        },
+
+        beforeDestroy(){
+            this.cleartime()
+        },
+
+        methods:{
+            hanlestart(){
+                this.timer=setTimeout(()=&gt;{
+                    this.handleclose()
+                },duration)
+            },
+            handleclose(){
+                this.visible=false
+                /**要记得先获取高度 再remove */
+                notify.removeInstance(instance)
+                document.body.removeChild(this.$el)
+            },
+
+            cleartime(){
+                clearTimeout(this.timer)
+            }
+        },
+    })
+</code></pre>
+<p>给实例传入各种方法和参数后就需要挂载到body上面了。</p>
+<p>通过<code>Vue.$mount</code>来手动挂载实例。</p>
+<blockquote>
+<p>如果 Vue 实例在实例化时没有收到 el 选项，则它处于“未挂载”状态，没有关联的 DOM 元素。可以使用 <code>vm.$mount()</code> 手动地挂载一个未挂载的实例</p>
+<p>如果没有提供 <code>elementOrSelector</code> 参数，模板将被渲染为文档之外的的元素，并且你必须使用原生 DOM API 把它插入文档中。</p>
+</blockquote>
+<p>所以我们用原生DOM方式插入这个实例</p>
+<pre><code class="language-js">  4instance.id=id++
+  instance = instance.$mount()
+  document.body.appendChild(instance.$el)
+  instance.visible=true
+</code></pre>
+<p>这样这个元素就能正常的插入Body里面且能正常的消失了</p>
+<p>但并没有高度差和消失的一个个消失的动画效果，那么要如何实现统一管理呢？</p>
 <br>
-<br>
-<br>
-每次进入页面先输入自己的姓名才能进入聊天室
-每个客户端对应自己独特的socket id来获取发送消息的名称
-给回车绑定事件，每次回车发送 可以实现多人在线实时聊天，且有自己对应的名称 自己发送的消息和收到的消息进行区分
-<figure data-type="image" tabindex="1"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015910759.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="2"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015915621.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="3"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015921537.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="4"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015925385.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="5"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015929804.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="6"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/image-20210616015931812.png" alt="" loading="lazy"></figure>
-<figure data-type="image" tabindex="7"><img src="file://C:/Users/16239/AppData/Roaming/Typora/typora-user-images/mage-20210616015934765.png" alt="" loading="lazy"></figure>
+<h2 id="实例统一管理">实例统一管理</h2>
+<p>对于每个元素的生成和消失，我们都应该触发对应的方法来改变这个元素的<code>top</code>位置，</p>
+<p>对于每个进来的元素</p>
+<pre><code class="language-js"> //高度差 暂时不考虑自己传个offset进来
+    let verticalOffset =0;
+
+    instances.forEach((item)=&gt;{
+        verticalOffset+=item.$el.offsetHeight+16
+    })
+    verticalOffset += 16;
+    instance.verticalOffset=verticalOffset
+
+    instances.push(instance)
+</code></pre>
+<p>计算好这个新元素应该具有的高度再push进数组中</p>
+<p>而对应每个remove的元素我们调用对应的remove方法</p>
+<pre><code class="language-js">/**每个实例的消失 其余的top都要改变 */
+notify.removeInstance=function(instance){
+    //要从数组移除这个元素 且修改数组所有元素的top值 看起来就像被挤掉一样
+    let len=instances.length
+
+    let index=instances.findIndex(item=&gt;item.id==instance.id)
+    console.log(index);
+
+    /**获取实例的高度 */
+    let instanceHeight=instance.$el.offsetHeight
+    console.log(instanceHeight);
+    instances.splice(index,1)
+
+    if(len&lt;1) return 
+    for (let i = index; i &lt; len - 1; i++) {
+        instances[i].verticalOffset = parseInt(instances[i].verticalOffset) - instanceHeight - 16
+    }
+
+}
+</code></pre>
+<p>这样产生的距离感就让我们看起来很有顺序一样的出现和消失。</p>
 
             </div>
             
@@ -909,7 +755,7 @@ server.listen(3000,()=&gt;{
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/" title="socket.io实现实时聊天室">https://fanfankill.github.io/post/socketio-shi-xian-shi-shi-liao-tian-shi/</a>
+      <a href="https://fanfankill.github.io/post/vue-shi-xian-notification-zu-jian/" title="Vue实现notification组件">https://fanfankill.github.io/post/vue-shi-xian-notification-zu-jian/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -918,21 +764,17 @@ server.listen(3000,()=&gt;{
   </ul>
   <div class="tags">
     
-      <a href="https://fanfankill.github.io/tag/hjqM1TBv9/"># Javascript</a>
+      <a href="https://fanfankill.github.io/tag/YjLqWgkox/"># vue</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title=" 微信小程序开发记录" href="https://fanfankill.github.io/post/xiao-cheng-xu-kai-fa-ji-lu/"> 微信小程序开发记录</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title=" 微信小程序开发记录" href="https://fanfankill.github.io/post/xiao-cheng-xu-kai-fa-ji-lu/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="事件循环" href="https://fanfankill.github.io/post/shi-jian-xun-huan/">事件循环</a>
-        <a class="nav-mobile-next" title="事件循环" href="https://fanfankill.github.io/post/shi-jian-xun-huan/">下一篇</a>
+        <a class="nav-pc-next" title="Tag组件开发记录" href="https://fanfankill.github.io/post/tag-zu-jian-kai-fa-ji-lu/">Tag组件开发记录</a>
+        <a class="nav-mobile-next" title="Tag组件开发记录" href="https://fanfankill.github.io/post/tag-zu-jian-kai-fa-ji-lu/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fanfankill.github.io</id>
     <title>fanfan</title>
-    <updated>2022-01-11T14:16:38.097Z</updated>
+    <updated>2022-02-21T11:04:22.352Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fanfankill.github.io"/>
     <link rel="self" href="https://fanfankill.github.io/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://fanfankill.github.io/images/avatar.png</logo>
     <icon>https://fanfankill.github.io/favicon.ico</icon>
     <rights>All rights reserved 2022, fanfan</rights>
+    <entry>
+        <title type="html"><![CDATA[Vue实现notification组件]]></title>
+        <id>https://fanfankill.github.io/post/vue-shi-xian-notification-zu-jian/</id>
+        <link href="https://fanfankill.github.io/post/vue-shi-xian-notification-zu-jian/">
+        </link>
+        <updated>2022-02-21T11:03:08.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Tag组件开发记录]]></title>
         <id>https://fanfankill.github.io/post/tag-zu-jian-kai-fa-ji-lu/</id>
@@ -72,12 +79,5 @@
         <link href="https://fanfankill.github.io/post/vue-2x-quan-ju-api/">
         </link>
         <updated>2021-09-10T12:55:44.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[JS实现flat、函数柯里化]]></title>
-        <id>https://fanfankill.github.io/post/js-shi-xian-flathan-shu-ke-li-hua/</id>
-        <link href="https://fanfankill.github.io/post/js-shi-xian-flathan-shu-ke-li-hua/">
-        </link>
-        <updated>2021-09-08T13:26:43.000Z</updated>
     </entry>
 </feed>
